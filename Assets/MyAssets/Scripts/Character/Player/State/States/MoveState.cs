@@ -13,6 +13,9 @@ namespace MyAssets
         [SerializeField]
         private float moveSpeed = 4.0f;
 
+        [SerializeField]
+        private float dashMagnification = 1.5f;
+
         public static readonly string StateKey = "Move";
 
         public override string Key => StateKey;
@@ -20,8 +23,8 @@ namespace MyAssets
         {
             List<IPlayerStateTransition<string>> re = new List<IPlayerStateTransition<string>>();
             if (StateChanger.IsContain(IdleState.StateKey)) { re.Add(new IsNotMoveTransition(actor, StateChanger, IdleState.StateKey)); }
-            //if (StateChanger.IsContain(JumpState.StateKey)) { re.Add(new IsJumpPushTransition(actor, StateChanger, JumpState.StateKey)); }
-            //if (StateChanger.IsContain(FallState.StateKey)) { re.Add(new IsNotGroundTransition(actor, StateChanger, FallState.StateKey)); }
+            if (StateChanger.IsContain(JumpState.StateKey)) { re.Add(new IsJumpPushTransition(actor, StateChanger, JumpState.StateKey)); }
+            if (StateChanger.IsContain(FallState.StateKey)) { re.Add(new IsNotGroundTransition(actor, StateChanger, FallState.StateKey)); }
             return re;
         }
 
@@ -37,13 +40,19 @@ namespace MyAssets
         public override void DoUpdate(float time)
         {
             base.DoUpdate(time);
+            animator.Animator.SetFloat("Dash", input.Dash, 0.1f, Time.deltaTime);
             animator.Animator.SetFloat("Speed", velocity.CurrentVelocity.magnitude, 0.1f, Time.deltaTime);
         }
 
         public override void DoFixedUpdate(float time)
         {
             base.DoFixedUpdate(time);
-            movement.Move(moveSpeed);
+            float speed = moveSpeed;
+            if(input.Dash > 0)
+            {
+                speed *= dashMagnification;
+            }
+            movement.Move(speed);
         }
     }
 }

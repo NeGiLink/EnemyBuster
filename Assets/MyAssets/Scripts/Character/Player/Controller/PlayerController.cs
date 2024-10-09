@@ -16,15 +16,18 @@ namespace MyAssets
 
         public IVelocityComponent Velocity => velocity;
 
+
+
         [SerializeField]
         private PlayerRotation rotation;
 
         [SerializeField]
-        private PlayerAnimator animator;
-        public IPlayerAnimator PlayerAnimator => animator;
+        private GroundCheck groundCheck;
+        public IGroundCheck GroundCheck => groundCheck;
 
         [SerializeField]
-        private float maxSpeed;
+        private PlayerAnimator animator;
+        public IPlayerAnimator PlayerAnimator => animator;
 
         [SerializeField]
         private StateMachine<string> stateMachine;
@@ -44,6 +47,11 @@ namespace MyAssets
         [SerializeField]
         private MoveState moveState;
 
+        [SerializeField]
+        private JumpState jumpState;
+
+        [SerializeField]
+        private FallState fallState;
 
         IPlayerState<string>[] states;
 
@@ -57,7 +65,9 @@ namespace MyAssets
             states = new IPlayerState<string>[]
             {
                 idleState,
-                moveState
+                moveState,
+                jumpState,
+                fallState
             };
             stateMachine.DoSetup(states);
             foreach (var state in states)
@@ -67,6 +77,16 @@ namespace MyAssets
             stateMachine.ChangeState(defaultStateKey);
             rotation.DoSetUp(transform,this);
 
+            groundCheck.SetTransform(transform);
+
+            if (input == null)
+            {
+                Debug.LogError("IControllerInputがアタッチされていません");
+            }
+            else
+            {
+                input.Setup();
+            }
             if (animator == null)
             {
                 Debug.LogError("Animatorがアタッチされていません");
@@ -75,12 +95,12 @@ namespace MyAssets
 
         void Start()
         {
-            
         }
 
         void Update()
         {
             input.DoUpdate();
+            groundCheck.CheckGroundStatus();
             rotation.DoUpdate();
             stateMachine.DoUpdate(Time.deltaTime);
         }
