@@ -22,4 +22,70 @@ namespace MyAssets
         }
         public override bool IsTransition() => !input.IsMove;
     }
+    /// <summary>
+    /// ƒWƒƒƒ“ƒv“ü—Í‚É‚æ‚é‘JˆÚ
+    /// </summary>
+    public class IsJumpPushTransition : PlayerStateTransitionBase
+    {
+        private readonly IGroundCheck groundCheck;
+        readonly IJumpInputProvider input;
+        public IsJumpPushTransition(IPlayerSetup actor, IStateChanger<string> stateChanger, string changeKey)
+            : base(stateChanger, changeKey)
+        {
+            groundCheck = actor.GroundCheck;
+            input = actor.gameObject.GetComponent<IJumpInputProvider>();
+        }
+        public override bool IsTransition() => input.Jump > 0 &&groundCheck.Landing;
+    }
+    public class IsNotJumpTransition : PlayerStateTransitionBase
+    {
+        private readonly IGroundCheck groundCheck;
+
+        private readonly IJumpInputProvider input;
+        public IsNotJumpTransition(IPlayerSetup actor, IStateChanger<string> stateChanger, string changeKey)
+            : base(stateChanger, changeKey)
+        {
+            groundCheck = actor.GroundCheck;
+            input = actor.gameObject.GetComponent<IJumpInputProvider>();
+        }
+        public override bool IsTransition() => input.Jump < 1&& groundCheck.Landing;
+    }
+
+    /// <summary>
+    /// ’n–Ê‚Æ‚ÌÚG‚É‚æ‚é‘JˆÚ
+    /// </summary>
+    public class IsGroundTransition : PlayerStateTransitionBase
+    {
+        private readonly IGroundCheck groundCheck;
+        public IsGroundTransition(IPlayerSetup actor, IStateChanger<string> stateChanger, string changeKey)
+            : base(stateChanger, changeKey)
+        {
+            groundCheck = actor.GroundCheck;
+        }
+        public override bool IsTransition() => groundCheck.Landing;
+    }
+    public class IsNotGroundTransition : PlayerStateTransitionBase
+    {
+        private readonly IGroundCheck groundCheck;
+        public IsNotGroundTransition(IPlayerSetup actor, IStateChanger<string> stateChanger, string changeKey)
+            : base(stateChanger, changeKey)
+        {
+            groundCheck = actor.GroundCheck;
+        }
+        public override bool IsTransition() => !groundCheck.Landing;
+    }
+
+    /// <summary>
+    /// ‘¬“x‚É‚æ‚é‘JˆÚ
+    /// </summary>
+    public class IsFallVelocityTransition : PlayerStateTransitionBase
+    {
+        readonly IVelocityComponent velocity;
+        public IsFallVelocityTransition(IPlayerSetup actor, IStateChanger<string> stateChanger, string changeKey)
+            : base(stateChanger, changeKey)
+        {
+            velocity = actor.Velocity;
+        }
+        public override bool IsTransition() => velocity.Rigidbody.velocity.y < 0;
+    }
 }

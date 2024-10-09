@@ -10,6 +10,7 @@ namespace MyAssets
         IMovement           Movement { get; }
         IStateMachine       StateMachine { get; }
         IPlayerAnimator     PlayerAnimator { get; }
+        IGroundCheck        GroundCheck { get; }
     }
 }
 

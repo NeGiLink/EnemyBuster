@@ -8,5 +8,6 @@ namespace MyAssets
         Vector2 Move { get; }
         float Horizontal { get; }
         float Vertical { get; }
+        float Dash {  get; }
     }
 }

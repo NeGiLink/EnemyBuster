@@ -211,7 +211,7 @@ GameObject:
   - component: {fileID: 296953824}
   - component: {fileID: 296953823}
   - component: {fileID: 296953822}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -316,7 +316,7 @@ GameObject:
   - component: {fileID: 670405348}
   - component: {fileID: 670405347}
   - component: {fileID: 670405346}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -614,8 +614,8 @@ MonoBehaviour:
     m_InputAxisName: Mouse Y
     m_InputAxisValue: 0
     m_InvertInput: 1
-    m_MinValue: -20
-    m_MaxValue: 40
+    m_MinValue: -50
+    m_MaxValue: 80
     m_Wrap: 0
     m_Recentering:
       m_enabled: 0
@@ -1157,14 +1157,29 @@ MonoBehaviour:
   rotation:
     thisTransform: {fileID: 0}
     targetRotation: {x: 0, y: 0, z: 0, w: 0}
+  groundCheck:
+    groundCheckRadius: 0.1
+    groundCheckOffsetY: 1
+    groundCheckDistance: 1
+    groundLayers:
+      serializedVersion: 2
+      m_Bits: 8
+    landing: 0
   animator:
     thisAnimator: {fileID: 0}
-  maxSpeed: 4
   defaultStateKey: Idle
   idleState:
     moveSpeed: 4
   moveState:
     moveSpeed: 4
+    dashMagnification: 1.5
+  jumpState:
+    power: 600
+    jumpGravityMultiply: 2
+    moveSpeed: 4
+  fallState:
+    moveSpeed: 2
+    fallGravityMultiply: 2
 --- !u!136 &1322567515
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1227,58 +1242,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e94a94ea3f58f59488cc55b77c3c6849, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _action:
-    m_Name: Action
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: 9ec34fe3-f408-4304-bb21-d61646119e16
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings:
-    - m_Name: 2D Vector
-      m_Id: 3d7340a6-7759-4637-b056-4d96e80ae5e6
-      m_Path: 2DVector
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Action
-      m_Flags: 4
-    - m_Name: up
-      m_Id: c637a4fc-5e6d-4ed8-b26f-bcdb2dc01303
-      m_Path: <Keyboard>/w
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Action
-      m_Flags: 8
-    - m_Name: down
-      m_Id: ebf044e0-1427-4451-af01-44c9ad256b20
-      m_Path: <Keyboard>/s
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Action
-      m_Flags: 8
-    - m_Name: left
-      m_Id: d11263ec-fbc0-49c1-9bc7-3c6e3d2337a9
-      m_Path: <Keyboard>/a
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Action
-      m_Flags: 8
-    - m_Name: right
-      m_Id: dbfc666d-6787-4550-963c-72967569b4a0
-      m_Path: <Keyboard>/d
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Action
-      m_Flags: 8
-    m_Flags: 0
   move: {x: 0, y: 0}
   horizontalName: Horizontal
   verticalName: Vertical
+  dash: 0
+  jump: 0
+  jumpPush: 0
 --- !u!1001 &1526885939
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7580,7 +7549,7 @@ GameObject:
   - component: {fileID: 1875772381}
   - component: {fileID: 1875772380}
   - component: {fileID: 1875772379}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7717,7 +7686,7 @@ GameObject:
   - component: {fileID: 2128276892}
   - component: {fileID: 2128276891}
   - component: {fileID: 2128276890}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

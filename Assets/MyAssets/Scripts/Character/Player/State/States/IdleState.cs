@@ -22,10 +22,8 @@ namespace MyAssets
         {
             List<IPlayerStateTransition<string>> re = new List<IPlayerStateTransition<string>>();
             if (StateChanger.IsContain(MoveState.StateKey)) { re.Add(new IsMoveTransition(actor, StateChanger, MoveState.StateKey)); }
-            /*
             if (StateChanger.IsContain(JumpState.StateKey)) { re.Add(new IsJumpPushTransition(actor, StateChanger, JumpState.StateKey)); }
             if (StateChanger.IsContain(FallState.StateKey)) { re.Add(new IsNotGroundTransition(actor, StateChanger, FallState.StateKey)); }
-             */
             return re;
         }
         public override void DoSetup(IPlayerSetup player)

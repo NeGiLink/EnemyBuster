@@ -8,27 +8,40 @@ namespace MyAssets
         Key,
         Controller
     }
-    public class PlayerInput : MonoBehaviour,IMoveInputProvider, IControllerInput
+    public class PlayerInput : MonoBehaviour,IMoveInputProvider, IJumpInputProvider, IControllerInput
     {
         private static DeviceInput deviceInput = DeviceInput.Key;
         public static DeviceInput GetDeviceInput() { return deviceInput; }
-        // Actionをインスペクターから編集できるようにする
-        [SerializeField]
-        private InputAction _action;
+
+        private GenericInput genericInput;
 
         [SerializeField]
         private Vector2 move;
-
         [SerializeField]
         private string horizontalName = "Horizontal";
         [SerializeField]
         private string verticalName = "Vertical";
-
         public bool IsMove => Mathf.Abs(move.x) > 0.1f || Mathf.Abs(move.y) > 0.1f;
 
         public Vector2 Move => move;
         public float Horizontal => move.x;
         public float Vertical => move.y;
+
+        [SerializeField]
+        private float dash;
+        public float Dash => dash;
+
+        [SerializeField]
+        private float jump;
+        public float Jump => jump;
+        [SerializeField]
+        private bool jumpPush;
+        public bool IsJumpPush => jumpPush;
+
+        public void Setup()
+        {
+            genericInput = new GenericInput();
+        }
 
         public void DoUpdate()
         {
@@ -36,16 +49,17 @@ namespace MyAssets
             switch (deviceInput)
             {
                 case DeviceInput.Key:
-                    var value = _action.ReadValue<Vector2>();
+                    var value = genericInput.Player.Move.ReadValue<Vector2>();
                     move.x = value.x;
                     move.y = value.y;
                     break;
                 case DeviceInput.Controller:
                     move.x = Input.GetAxis("Horizontal");
                     move.y = Input.GetAxis("Vertical");
-
                     break;
             }
+            dash = genericInput.Player.Dash.ReadValue<float>();
+            jump = genericInput.Player.Jump.ReadValue<float>();
         }
 
         public static void CheckInput()
@@ -80,13 +94,20 @@ namespace MyAssets
         void OnEnable()
         {
             // InputActionを有効にする
-            _action.Enable();
+            genericInput.Enable();
         }
 
         void OnDisable()
         {
             // InputActionを無効にする
-            _action.Disable();
+            genericInput.Disable();
+        }
+
+        private void OnDestroy()
+        {
+            // InputActionAssetのラッパークラスの破棄
+            // IDisposableを実装しているので、Disposeする必要がある
+            genericInput.Dispose();
         }
     }
 }
