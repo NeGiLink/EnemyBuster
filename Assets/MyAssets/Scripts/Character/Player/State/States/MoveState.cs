@@ -9,10 +9,14 @@ namespace MyAssets
         private IMovement movement;
         private IMoveInputProvider input;
         private IVelocityComponent velocity;
+        private IObstacleJudgment cliffJudgment;
+        private IStepClimberJudgment stepClimberJudgment;
+        private ICharacterRotation rotation;
         private IPlayerAnimator animator;
         [SerializeField]
         private float moveSpeed = 4.0f;
-
+        [SerializeField]
+        private float moveGravityMultiply;
         [SerializeField]
         private float dashMagnification = 1.5f;
 
@@ -25,6 +29,7 @@ namespace MyAssets
             if (StateChanger.IsContain(IdleState.StateKey)) { re.Add(new IsNotMoveTransition(actor, StateChanger, IdleState.StateKey)); }
             if (StateChanger.IsContain(JumpState.StateKey)) { re.Add(new IsJumpPushTransition(actor, StateChanger, JumpState.StateKey)); }
             if (StateChanger.IsContain(FallState.StateKey)) { re.Add(new IsNotGroundTransition(actor, StateChanger, FallState.StateKey)); }
+            if (StateChanger.IsContain(ClimbState.StateKey)) { re.Add(new IsClimbTransition(actor, StateChanger, ClimbState.StateKey)); }
             return re;
         }
 
@@ -33,8 +38,17 @@ namespace MyAssets
             base.DoSetup(player);
             movement = player.Movement;
             velocity = player.Velocity;
+            cliffJudgment = player.ObstacleJudgment;
+            stepClimberJudgment = player.StepClimberJudgment;
+            rotation = player.Rotation;
             input = player.gameObject.GetComponent<IMoveInputProvider>();
             animator = player.PlayerAnimator;
+        }
+
+        public override void DoStart()
+        {
+            base.DoStart();
+            cliffJudgment.InitRay();
         }
 
         public override void DoUpdate(float time)
@@ -42,6 +56,9 @@ namespace MyAssets
             base.DoUpdate(time);
             animator.Animator.SetFloat("Dash", input.Dash, 0.1f, Time.deltaTime);
             animator.Animator.SetFloat("Speed", velocity.CurrentVelocity.magnitude, 0.1f, Time.deltaTime);
+            cliffJudgment.RayCheck();
+            stepClimberJudgment.HandleStepClimbing();
+            rotation.DoUpdate();
         }
 
         public override void DoFixedUpdate(float time)
@@ -53,6 +70,9 @@ namespace MyAssets
                 speed *= dashMagnification;
             }
             movement.Move(speed);
+            movement.StartClimbStep(stepClimberJudgment.StepGolePosition);
+            velocity.Rigidbody.velocity += Physics.gravity * moveGravityMultiply * time;
+            rotation.DoFixedUpdate(velocity.CurrentVelocity);
         }
     }
 }

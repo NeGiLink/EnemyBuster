@@ -16,15 +16,23 @@ namespace MyAssets
 
         public IVelocityComponent Velocity => velocity;
 
-
+        [SerializeField]
+        private FootIK footIK;
 
         [SerializeField]
         private PlayerRotation rotation;
+        public ICharacterRotation Rotation => rotation;
 
         [SerializeField]
         private GroundCheck groundCheck;
         public IGroundCheck GroundCheck => groundCheck;
 
+        [SerializeField]
+        private ObstacleJudgment obstacleJudgment;
+        public IObstacleJudgment ObstacleJudgment => obstacleJudgment;
+        [SerializeField]
+        private StepClimberJudgment stepClimberJudgment;
+        public IStepClimberJudgment StepClimberJudgment => stepClimberJudgment;
         [SerializeField]
         private PlayerAnimator animator;
         public IPlayerAnimator PlayerAnimator => animator;
@@ -35,8 +43,11 @@ namespace MyAssets
 
         [SerializeField]
         private Movement movement;
-
         public IMovement Movement => movement;
+
+        [SerializeField]
+        private Climb climb;
+        public IClimb Climb => climb;
 
         [SerializeField]
         private string defaultStateKey;
@@ -53,21 +64,34 @@ namespace MyAssets
         [SerializeField]
         private FallState fallState;
 
+        [SerializeField]
+        private LandingState landingState;
+
+        [SerializeField]
+        private ClimbState climbState;
+
         IPlayerState<string>[] states;
 
         private void Awake()
         {
             animator.DoSetup(this);
+            footIK.Setup(animator);
             input = GetComponent<IControllerInput>();
             keyInput = input as PlayerInput;
             velocity.DoSetup(this);
             movement.DoSetup(this);
+            obstacleJudgment.DoSetup(this);
+            stepClimberJudgment.DoSetup(this);
+            climb.DoSetup(this);
+            rotation.DoSetup(this);
             states = new IPlayerState<string>[]
             {
                 idleState,
                 moveState,
                 jumpState,
-                fallState
+                fallState,
+                landingState,
+                climbState
             };
             stateMachine.DoSetup(states);
             foreach (var state in states)
@@ -75,7 +99,6 @@ namespace MyAssets
                 state.DoSetup(this);
             }
             stateMachine.ChangeState(defaultStateKey);
-            rotation.DoSetUp(transform,this);
 
             groundCheck.SetTransform(transform);
 
@@ -101,14 +124,17 @@ namespace MyAssets
         {
             input.DoUpdate();
             groundCheck.CheckGroundStatus();
-            rotation.DoUpdate();
             stateMachine.DoUpdate(Time.deltaTime);
         }
 
         private void FixedUpdate()
         {
             stateMachine.DoFixedUpdate(Time.deltaTime);
-            rotation.DoFixedUpdate(velocity.CurrentVelocity);
+        }
+
+        private void OnAnimatorIK()
+        {
+            footIK.DoUpdate();
         }
 
         private void OnDestroy()

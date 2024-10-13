@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Windows;
 
 namespace MyAssets
 {
@@ -12,7 +13,13 @@ namespace MyAssets
 
         private IVelocityComponent velocity;
 
+        private ICharacterRotation rotation;
+
         private IPlayerAnimator animator;
+
+        private IGroundCheck groundCheck;
+
+        private IObstacleJudgment cliffJudgment;
 
         [SerializeField]
         private float power;
@@ -20,15 +27,16 @@ namespace MyAssets
         private float jumpGravityMultiply;
         [SerializeField]
         private float moveSpeed;
+        [SerializeField]
+        private float dashMagnification = 1.5f;
 
         public static readonly string StateKey = "Jump";
         public override string Key => StateKey;
         public override List<IPlayerStateTransition<string>> CreateTransitionList(IPlayerSetup actor)
         {
             List<IPlayerStateTransition<string>> re = new List<IPlayerStateTransition<string>>();
-            if (StateChanger.IsContain(IdleState.StateKey)) { re.Add(new IsNotJumpTransition(actor, StateChanger, IdleState.StateKey)); }
-            if (StateChanger.IsContain(MoveState.StateKey)) { re.Add(new IsNotJumpTransition(actor, StateChanger, MoveState.StateKey)); }
-            //if (StateChanger.IsContain(FallState.StateKey)) { re.Add(new IsFallVelocityTransition(actor, StateChanger, FallState.StateKey)); }
+            if (StateChanger.IsContain(LandingState.StateKey)) { re.Add(new IsNotJumpTransition(actor, StateChanger, LandingState.StateKey)); }
+            if (StateChanger.IsContain(ClimbState.StateKey)) { re.Add(new IsClimbTransition(actor, StateChanger, ClimbState.StateKey)); }
             return re;
         }
 
@@ -38,12 +46,16 @@ namespace MyAssets
             movement = player.Movement;
             moveInput = player.MoveInput;
             velocity = player.Velocity;
+            rotation = player.Rotation;
             animator = player.PlayerAnimator;
+            groundCheck = player.GroundCheck;
+            cliffJudgment = player.ObstacleJudgment;
         }
 
         public override void DoStart()
         {
             base.DoStart();
+            float p = power;
             if (moveInput.IsMove)
             {
                 animator.Animator.SetInteger("JumpType", 1);
@@ -51,21 +63,33 @@ namespace MyAssets
             else
             {
                 animator.Animator.SetInteger("JumpType", 0);
+                p /= 2;
             }
 
-            velocity.Rigidbody.AddForce(Vector3.up * power,ForceMode.Impulse);
+            velocity.Rigidbody.AddForce(Vector3.up * p,ForceMode.Impulse);
         }
 
         public override void DoUpdate(float time)
         {
             base.DoUpdate(time);
+            cliffJudgment.RayCheck();
+            rotation.DoUpdate();
         }
 
         public override void DoFixedUpdate(float time)
         {
             base.DoFixedUpdate(time);
-            movement.Move(moveSpeed);
+            if (animator.Animator.GetInteger("JumpType") == 1)
+            {
+                float speed = moveSpeed;
+                if (moveInput.Dash > 0)
+                {
+                    speed *= dashMagnification;
+                }
+                movement.Move(speed);
+            }
             velocity.Rigidbody.velocity += Physics.gravity * jumpGravityMultiply * time;
+            rotation.DoFixedUpdate(velocity.CurrentVelocity);
         }
 
         public override void DoExit()
