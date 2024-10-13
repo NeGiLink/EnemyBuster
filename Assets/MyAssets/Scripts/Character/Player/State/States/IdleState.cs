@@ -10,10 +10,16 @@ namespace MyAssets
 
         private IVelocityComponent velocity;
 
+        private IObstacleJudgment cliffJudgment;
+
+        private ICharacterRotation rotation;
+
         private IPlayerAnimator animator;
 
         [SerializeField]
         private float moveSpeed = 4.0f;
+        [SerializeField]
+        private float idleGravityMultiply;
 
         public static readonly string StateKey = "Idle";
         public override string Key => StateKey;
@@ -24,6 +30,7 @@ namespace MyAssets
             if (StateChanger.IsContain(MoveState.StateKey)) { re.Add(new IsMoveTransition(actor, StateChanger, MoveState.StateKey)); }
             if (StateChanger.IsContain(JumpState.StateKey)) { re.Add(new IsJumpPushTransition(actor, StateChanger, JumpState.StateKey)); }
             if (StateChanger.IsContain(FallState.StateKey)) { re.Add(new IsNotGroundTransition(actor, StateChanger, FallState.StateKey)); }
+            if (StateChanger.IsContain(ClimbState.StateKey)) { re.Add(new IsClimbTransition(actor, StateChanger, ClimbState.StateKey)); }
             return re;
         }
         public override void DoSetup(IPlayerSetup player)
@@ -31,6 +38,8 @@ namespace MyAssets
             base.DoSetup(player);
             movement = player.Movement;
             velocity = player.Velocity;
+            cliffJudgment = player.ObstacleJudgment;
+            rotation = player.Rotation;
             animator = player.PlayerAnimator;
         }
 
@@ -38,12 +47,16 @@ namespace MyAssets
         {
             base.DoUpdate(time);
             animator.Animator.SetFloat("Speed", velocity.CurrentVelocity.magnitude, 0.1f, Time.deltaTime);
+            cliffJudgment.RayCheck();
+            rotation.DoUpdate();
         }
 
         public override void DoFixedUpdate(float time)
         {
             base.DoFixedUpdate(time);
             movement.Move(moveSpeed);
+            velocity.Rigidbody.velocity += Physics.gravity * idleGravityMultiply * time;
+            rotation.DoFixedUpdate(velocity.CurrentVelocity);
         }
     }
 }

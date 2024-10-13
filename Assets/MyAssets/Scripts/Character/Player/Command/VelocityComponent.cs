@@ -6,9 +6,11 @@ namespace MyAssets
     [System.Serializable]
     public class VelocityComponent : IVelocityComponent,IPlayerComponent
     {
+        [SerializeField]
         private Rigidbody thisRigidbody;
-        private bool needUpdateVelocity = true;
+        [SerializeField]
         private Vector3 currentVelocity = Vector3.zero;
+        private bool needUpdateVelocity = true;
 
         [SerializeField]
         private bool inheritRigidbodyVelocity = true;

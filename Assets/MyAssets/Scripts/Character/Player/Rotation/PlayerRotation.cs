@@ -3,7 +3,7 @@ using UnityEngine;
 namespace MyAssets
 {
     [System.Serializable]
-    public class PlayerRotation
+    public class PlayerRotation : ICharacterRotation,IPlayerComponent
     {
         [SerializeField]
         private Transform thisTransform;
@@ -14,10 +14,10 @@ namespace MyAssets
 
         private IVelocityComponent velocity;
 
-        public void DoSetUp(Transform transform,IPlayerSetup player)
+        public void DoSetup(IPlayerSetup player)
         {
-            thisTransform = transform;
-            targetRotation = transform.rotation;
+            thisTransform = player.gameObject.transform;
+            targetRotation = thisTransform.rotation;
             velocity = player.Velocity;
             moveInput = player.MoveInput;
         }

@@ -9,7 +9,8 @@ namespace MyAssets
         private IMovement movement;
         private IVelocityComponent velocity;
         private IMoveInputProvider input;
-
+        private ICharacterRotation rotation;
+        private IObstacleJudgment cliffJudgment;
         private IPlayerAnimator animator;
 
         [SerializeField]
@@ -23,9 +24,8 @@ namespace MyAssets
         public override List<IPlayerStateTransition<string>> CreateTransitionList(IPlayerSetup actor)
         {
             List<IPlayerStateTransition<string>> re = new List<IPlayerStateTransition<string>>();
-            if (StateChanger.IsContain(MoveState.StateKey)) { re.Add(new IsGroundTransition(actor, StateChanger, MoveState.StateKey)); }
-            if (StateChanger.IsContain(IdleState.StateKey)) { re.Add(new IsGroundTransition(actor, StateChanger, IdleState.StateKey)); }
-            //if (StateChanger.IsContain(LandingState.StateKey)) { re.Add(new IsGroundTransition(actor, StateChanger, LandingState.StateKey)); }
+            if (StateChanger.IsContain(LandingState.StateKey)) { re.Add(new IsGroundTransition(actor, StateChanger, LandingState.StateKey)); }
+            if (StateChanger.IsContain(ClimbState.StateKey)) { re.Add(new IsClimbTransition(actor, StateChanger, ClimbState.StateKey)); }
             return re;
         }
 
@@ -35,6 +35,8 @@ namespace MyAssets
             base.DoSetup(player);
             movement = player.Movement;
             velocity = player.Velocity;
+            rotation = player.Rotation;
+            cliffJudgment = player.ObstacleJudgment;
             animator = player.PlayerAnimator;
         }
         public override void DoStart()
@@ -43,11 +45,19 @@ namespace MyAssets
             animator.Animator.SetInteger("Fall", 1);
         }
 
+        public override void DoUpdate(float time)
+        {
+            base.DoUpdate(time);
+            cliffJudgment.RayCheck();
+            rotation.DoUpdate();
+        }
+
         public override void DoFixedUpdate(float time)
         {
             base.DoFixedUpdate(time);
             movement.Move(moveSpeed);
             velocity.Rigidbody.velocity += Physics.gravity * fallGravityMultiply * time;
+            rotation.DoFixedUpdate(velocity.CurrentVelocity);
         }
 
         public override void DoExit()

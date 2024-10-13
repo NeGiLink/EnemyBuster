@@ -25,15 +25,16 @@ namespace MyAssets
 
         public Vector2 Move => move;
         public float Horizontal => move.x;
+        public void SetHorizontal(float horizontalRatio) { move.x *= horizontalRatio; }
         public float Vertical => move.y;
-
+        public void SetVertical(float verticalRatio) { move.y *= verticalRatio; }
         [SerializeField]
         private float dash;
         public float Dash => dash;
 
         [SerializeField]
-        private float jump;
-        public float Jump => jump;
+        private bool jump;
+        public bool Jump => jump;
         [SerializeField]
         private bool jumpPush;
         public bool IsJumpPush => jumpPush;
@@ -59,7 +60,12 @@ namespace MyAssets
                     break;
             }
             dash = genericInput.Player.Dash.ReadValue<float>();
-            jump = genericInput.Player.Jump.ReadValue<float>();
+            //var j = genericInput.Player.Jump.ReadValue<float>();
+            //if(j != 0)
+            //{
+            //    jump = true;
+            //}
+            jump = Input.GetKeyDown(KeyCode.Space);
         }
 
         public static void CheckInput()
@@ -90,17 +96,23 @@ namespace MyAssets
                 }
             }
         }
-
-        void OnEnable()
+        private InputAction jumpAction;
+        private void OnEnable()
         {
             // InputActionを有効にする
             genericInput.Enable();
+
+            jumpAction = genericInput.FindAction("Player/Jump");
+
+            jumpAction.Enable();
         }
 
-        void OnDisable()
+        private void OnDisable()
         {
             // InputActionを無効にする
             genericInput.Disable();
+
+            jumpAction.Disable();
         }
 
         private void OnDestroy()
@@ -108,6 +120,8 @@ namespace MyAssets
             // InputActionAssetのラッパークラスの破棄
             // IDisposableを実装しているので、Disposeする必要がある
             genericInput.Dispose();
+
+            jumpAction?.Dispose();
         }
     }
 }

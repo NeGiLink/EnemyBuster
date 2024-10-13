@@ -22,6 +22,8 @@ namespace MyAssets
         private bool landing;
 
         public bool Landing => landing;
+
+        public void SetLanding(bool _landing) { landing = _landing; }
         /// <summary>
         /// GroundCheck処理
         /// SphereCastを使用してtrue、falseの処理を行う

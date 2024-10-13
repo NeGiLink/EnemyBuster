@@ -4,7 +4,7 @@ namespace MyAssets
 {
     public interface IJumpInputProvider
     {
-        float Jump { get; }
+        bool Jump { get; }
         bool IsJumpPush {  get; }
     }
 }
