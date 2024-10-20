@@ -38,6 +38,7 @@ namespace MyAssets
 
         public virtual void DoFixedUpdate(float time) { }
 
+        public virtual void DoAnimatorIKUpdate() { }
         public virtual void DoExit() { }
     }
     public abstract class PlayerStateTransitionBase : IPlayerStateTransition<string>

@@ -27,6 +27,8 @@ namespace MyAssets
 
         public void DoFixedUpdate(float time) => currentState?.DoFixedUpdate(time);
 
+        public void DoAnimatorIKUpdate() => currentState?.DoAnimatorIKUpdate();
+
         public bool IsContain(TKey key) => stateDictionary.ContainsKey(key);
         public bool ChangeState(TKey key)
         {
