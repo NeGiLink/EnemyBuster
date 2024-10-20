@@ -14,6 +14,8 @@ namespace MyAssets
 
         private ICharacterRotation rotation;
 
+        private IFootIK footIK;
+
         private IPlayerAnimator animator;
 
         [SerializeField]
@@ -40,6 +42,7 @@ namespace MyAssets
             velocity = player.Velocity;
             cliffJudgment = player.ObstacleJudgment;
             rotation = player.Rotation;
+            footIK = player.FootIK;
             animator = player.PlayerAnimator;
         }
 
@@ -57,6 +60,12 @@ namespace MyAssets
             movement.Move(moveSpeed);
             velocity.Rigidbody.velocity += Physics.gravity * idleGravityMultiply * time;
             rotation.DoFixedUpdate(velocity.CurrentVelocity);
+        }
+
+        public override void DoAnimatorIKUpdate()
+        {
+            base.DoAnimatorIKUpdate();
+            footIK.DoUpdate();
         }
     }
 }

@@ -1,10 +1,9 @@
-using MyAssets;
 using UnityEngine;
 
 namespace MyAssets
 {
     [System.Serializable]
-    public class FootIK
+    public class FootIK : IFootIK,IPlayerComponent
     {
         private IPlayerAnimator animator;
 
@@ -25,9 +24,9 @@ namespace MyAssets
         private Transform leftToe { get { return animator.Animator.GetBoneTransform(HumanBodyBones.LeftToes); } }
         private Transform rightToe { get { return animator.Animator.GetBoneTransform(HumanBodyBones.RightToes); } }
 
-        public void Setup(IPlayerAnimator _animator)
+        public void DoSetup(IPlayerSetup player)
         {
-            animator = _animator;
+            animator = player.PlayerAnimator;
         }
 
         public void DoUpdate()

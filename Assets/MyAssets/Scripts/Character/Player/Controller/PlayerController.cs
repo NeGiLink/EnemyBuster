@@ -18,6 +18,7 @@ namespace MyAssets
 
         [SerializeField]
         private FootIK footIK;
+        public IFootIK FootIK => footIK;
 
         [SerializeField]
         private PlayerRotation rotation;
@@ -75,7 +76,7 @@ namespace MyAssets
         private void Awake()
         {
             animator.DoSetup(this);
-            footIK.Setup(animator);
+            footIK.DoSetup(this);
             input = GetComponent<IControllerInput>();
             keyInput = input as PlayerInput;
             velocity.DoSetup(this);
@@ -134,7 +135,7 @@ namespace MyAssets
 
         private void OnAnimatorIK()
         {
-            footIK.DoUpdate();
+            stateMachine.DoAnimatorIKUpdate();
         }
 
         private void OnDestroy()

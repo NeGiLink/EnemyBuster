@@ -7,6 +7,8 @@ namespace MyAssets
         void DoStart();
         void DoUpdate(float time);
         void DoFixedUpdate(float time);
+
+        void DoAnimatorIKUpdate();
         void DoExit();
     }
     public interface IStateKey<TKey>
