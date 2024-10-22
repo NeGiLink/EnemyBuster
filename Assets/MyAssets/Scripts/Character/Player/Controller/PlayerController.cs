@@ -10,6 +10,7 @@ namespace MyAssets
 
         private PlayerInput keyInput;
         public IMoveInputProvider MoveInput => keyInput;
+        public IAttackInputProvider TimerInput => keyInput;
 
         [SerializeField]
         private VelocityComponent velocity;
@@ -71,6 +72,13 @@ namespace MyAssets
         [SerializeField]
         private ClimbState climbState;
 
+        [SerializeField]
+        private FirstAttackState firstAttackState;
+        [SerializeField]
+        private SecondAttackState secondAttackState;
+        [SerializeField]
+        private ThirdAttackState thirdAttackState;
+
         IPlayerState<string>[] states;
 
         private void Awake()
@@ -92,7 +100,10 @@ namespace MyAssets
                 jumpState,
                 fallState,
                 landingState,
-                climbState
+                climbState,
+                firstAttackState,
+                secondAttackState,
+                thirdAttackState
             };
             stateMachine.DoSetup(states);
             foreach (var state in states)

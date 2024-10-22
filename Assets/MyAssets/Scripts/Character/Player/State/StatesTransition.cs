@@ -149,4 +149,139 @@ namespace MyAssets
         }
         public override bool IsTransition() => climb.IsClimbEnd;
     }
+
+    public class IsFirstAttackTransition : PlayerStateTransitionBase
+    {
+        private readonly IAttackInputProvider input;
+        private readonly IGroundCheck groundCheck;
+        public IsFirstAttackTransition(IPlayerSetup actor, IStateChanger<string> stateChanger, string changeKey)
+            : base(stateChanger, changeKey)
+        {
+            input = actor.gameObject.GetComponent<IAttackInputProvider>();
+            groundCheck = actor.GroundCheck;
+        }
+        public override bool IsTransition() => input.Attack && groundCheck.Landing;
+    }
+    public class IsLoopFirstAttackTransition : PlayerStateTransitionBase
+    {
+        private readonly IAttackInputProvider input;
+        private readonly IGroundCheck groundCheck;
+        private readonly IPlayerAnimator animator;
+
+        private readonly float maxNormalizedTime;
+        public IsLoopFirstAttackTransition(float _t,IPlayerSetup actor, IStateChanger<string> stateChanger, string changeKey)
+            : base(stateChanger, changeKey)
+        {
+            input = actor.gameObject.GetComponent<IAttackInputProvider>();
+            groundCheck = actor.GroundCheck;
+            maxNormalizedTime = _t;
+            animator = actor.PlayerAnimator;
+        }
+        public override bool IsTransition() => input.Attack && groundCheck.Landing&&
+            animator.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= maxNormalizedTime;
+    }
+
+    public class IsBurstAttackTransition : PlayerStateTransitionBase
+    {
+        private readonly IAttackInputProvider input;
+        private readonly IGroundCheck groundCheck;
+        private readonly IPlayerAnimator animator;
+
+        private readonly float maxNormalizedTime;
+
+        private readonly string motionName;
+        public IsBurstAttackTransition(string _motionName,float _t, IPlayerSetup actor, IStateChanger<string> stateChanger, string changeKey)
+            : base(stateChanger, changeKey)
+        {
+            input = actor.gameObject.GetComponent<IAttackInputProvider>();
+            groundCheck = actor.GroundCheck;
+            animator = actor.PlayerAnimator;
+            maxNormalizedTime = _t;
+            motionName = _motionName;
+        }
+        public override bool IsTransition() =>
+            input.Attack && groundCheck.Landing&&
+            animator.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= maxNormalizedTime&&
+            animator.Animator.GetCurrentAnimatorStateInfo(0).IsName(motionName);
+    }
+
+    public class IsNotAttackTransition : PlayerStateTransitionBase
+    {
+        private readonly IAttackInputProvider input;
+        private readonly IPlayerAnimator animator;
+        private readonly string firstAttackName = "FirstAttack";
+
+        private readonly string[] attackMotionNames = new string[]
+        {
+            "FirstAttack",
+            "SecondAttack",
+            "ThirdAttack"
+        };
+        public IsNotAttackTransition(IPlayerSetup actor, IStateChanger<string> stateChanger, string changeKey)
+            : base(stateChanger, changeKey)
+        {
+            input = actor.gameObject.GetComponent<IAttackInputProvider>();
+            animator = actor.PlayerAnimator;
+        }
+
+        private bool AttackMotionChecker()
+        {
+            AnimatorStateInfo animInfo = animator.Animator.GetCurrentAnimatorStateInfo(0);
+            for(int i = 0; i < attackMotionNames.Length; i++)
+            {
+                if (animInfo.IsName(attackMotionNames[i])&&animInfo.normalizedTime >= 1.0f)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public override bool IsTransition() =>
+            !input.Attack &&
+            AttackMotionChecker();
+    }
+
+    public class IsNotAttackToMoveTransition : PlayerStateTransitionBase
+    {
+        private readonly IMoveInputProvider moveinput;
+        private readonly IAttackInputProvider input;
+        private readonly IPlayerAnimator animator;
+        private readonly string firstAttackName = "FirstAttack";
+
+        private readonly string[] attackMotionNames = new string[]
+        {
+            "FirstAttack",
+            "SecondAttack",
+            "ThirdAttack"
+        };
+
+        private readonly float maxNormalizedTime;
+        public IsNotAttackToMoveTransition(float _t,IPlayerSetup actor, IStateChanger<string> stateChanger, string changeKey)
+            : base(stateChanger, changeKey)
+        {
+            moveinput = actor.MoveInput;
+            input = actor.gameObject.GetComponent<IAttackInputProvider>();
+            animator = actor.PlayerAnimator;
+            maxNormalizedTime = _t;
+        }
+
+        private bool AttackMotionChecker()
+        {
+            AnimatorStateInfo animInfo = animator.Animator.GetCurrentAnimatorStateInfo(0);
+            for (int i = 0; i < attackMotionNames.Length; i++)
+            {
+                if (animInfo.IsName(attackMotionNames[i]) && animInfo.normalizedTime >= maxNormalizedTime)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public override bool IsTransition() =>
+            !input.Attack &&
+            AttackMotionChecker()&&
+            moveinput.IsMove;
+    }
 }

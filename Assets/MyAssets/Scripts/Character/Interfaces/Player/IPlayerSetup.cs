@@ -7,6 +7,8 @@ namespace MyAssets
         GameObject              gameObject { get; }
         ICharacterRotation      Rotation { get; }
         IMoveInputProvider      MoveInput { get; }
+
+        IAttackInputProvider              TimerInput { get; }
         IVelocityComponent      Velocity {  get; }
         IMovement               Movement { get; }
         IClimb                  Climb { get; }

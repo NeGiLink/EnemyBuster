@@ -4808,6 +4808,21 @@ MonoBehaviour:
     fallGravityMultiply: 2
   landingState:
     moveSpeed: 4
+  firstAttackState:
+    attacksGravityMultiply: 2
+    maxAttackingTime: 0.15
+    maxNormalizedTime: 0.4
+    forwardPower: 1
+  secondAttackState:
+    attacksGravityMultiply: 2
+    maxAttackingTime: 0.15
+    maxNormalizedTime: 0.4
+    forwardPower: 2
+  thirdAttackState:
+    attacksGravityMultiply: 2
+    maxAttackingTime: 0.15
+    maxNormalizedTime: 0.4
+    forwardPower: 1
 --- !u!136 &1322567515
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -4876,63 +4891,7 @@ MonoBehaviour:
   dash: 0
   jump: 0
   jumpPush: 0
---- !u!1001 &1649908546
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: -8679921383154817045, guid: 3f5fb22141dbce94397847a9b2b4f9d0, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 3f5fb22141dbce94397847a9b2b4f9d0, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 3f5fb22141dbce94397847a9b2b4f9d0, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 3f5fb22141dbce94397847a9b2b4f9d0, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 3f5fb22141dbce94397847a9b2b4f9d0, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 3f5fb22141dbce94397847a9b2b4f9d0, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 3f5fb22141dbce94397847a9b2b4f9d0, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 3f5fb22141dbce94397847a9b2b4f9d0, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 3f5fb22141dbce94397847a9b2b4f9d0, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 3f5fb22141dbce94397847a9b2b4f9d0, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 919132149155446097, guid: 3f5fb22141dbce94397847a9b2b4f9d0, type: 3}
-      propertyPath: m_Name
-      value: Player@Falling To Landing
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 3f5fb22141dbce94397847a9b2b4f9d0, type: 3}
+  attack: 0
 --- !u!4 &1656723238 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 7ec0a1e43d532484ba20b01d50652317, type: 3}
@@ -5312,4 +5271,3 @@ SceneRoots:
   - {fileID: 309516989}
   - {fileID: 228693122}
   - {fileID: 69319265}
-  - {fileID: 1649908546}
