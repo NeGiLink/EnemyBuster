@@ -28,11 +28,9 @@ namespace MyAssets
             keepVelocity = velocity.CurrentVelocity;
         }
 
-        public void ForwardMove(float maxSpeed)
+        public void ForwardMove(Vector3 basePos, float dis)
         {
-            var moveVelocity = keepVelocity;
-            moveVelocity = moveVelocity * maxSpeed;
-            velocity.Rigidbody.velocity = new Vector3(moveVelocity.x, velocity.Rigidbody.velocity.y, moveVelocity.z);
+            thisTransform.position = Vector3.Lerp(basePos, basePos + thisTransform.forward * dis, Time.deltaTime * 5.0f);
         }
 
         public void StartClimbStep(Vector3 hitPoint)

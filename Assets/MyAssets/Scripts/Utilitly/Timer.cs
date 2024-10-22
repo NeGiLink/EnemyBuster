@@ -1,35 +1,40 @@
-
+using System;
+using UnityEngine;
 
 namespace MyAssets
 {
     [System.Serializable ]
     public class Timer
     {
-        private float count = 0.0f;
+        public event Action OnEnd;
 
-        private bool isStart = false;
+        private float current = 0;
+
+        public float Current => current;
 
         public void Start(float time)
         {
-            count = time;
-
-            isStart = true;
+            current = time;
         }
 
-        public void DoRefresh(float time)
+        public void Update(float time)
         {
-            if (!isStart) { return; }
-            count -= time;
+            if (current <= 0) { return; }
+            current -= time;
+            if (current <= 0)
+            {
+                current = 0;
+                End();
+            }
         }
-
-        public bool IsCounting() => isStart && count > 0.0f;
-
-        public bool IsEnd() => isStart && count < 0.0f;
 
         public void End()
         {
-            count = 0.0f;
-            isStart = false;
+            current = 0;
+            OnEnd?.Invoke();
+            OnEnd = null;
         }
+
+        public bool IsEnd() { return current <= 0; }
     }
 }

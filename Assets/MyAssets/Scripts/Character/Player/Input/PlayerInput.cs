@@ -8,7 +8,7 @@ namespace MyAssets
         Key,
         Controller
     }
-    public class PlayerInput : MonoBehaviour,IMoveInputProvider, IJumpInputProvider, IControllerInput
+    public class PlayerInput : MonoBehaviour,IMoveInputProvider, IJumpInputProvider, IControllerInput,IAttackInputProvider
     {
         private static DeviceInput deviceInput = DeviceInput.Key;
         public static DeviceInput GetDeviceInput() { return deviceInput; }
@@ -38,14 +38,30 @@ namespace MyAssets
         [SerializeField]
         private bool jumpPush;
         public bool IsJumpPush => jumpPush;
+        private InputAction jumpAction;
+
+        [SerializeField]
+        private bool attack;
+        public bool Attack => attack;
+        private InputAction attackAction;
+
+        private Timer attackInputTimer;
+        public Timer AttackInputTimer => attackInputTimer;
 
         public void Setup()
         {
             genericInput = new GenericInput();
+            attackInputTimer = new Timer();
+        }
+
+        private void TimerUpdate()
+        {
+            attackInputTimer.Update(Time.deltaTime);
         }
 
         public void DoUpdate()
         {
+            TimerUpdate();
             CheckInput();
             switch (deviceInput)
             {
@@ -96,7 +112,7 @@ namespace MyAssets
                 }
             }
         }
-        private InputAction jumpAction;
+
         private void OnEnable()
         {
             // InputActionを有効にする
@@ -105,14 +121,43 @@ namespace MyAssets
             jumpAction = genericInput.FindAction("Player/Jump");
 
             jumpAction.Enable();
+
+            attackAction = genericInput.FindAction("Player/Attack");
+
+            attackAction.performed += OnAttack;
+
+            attackAction.Enable();
+
         }
 
         private void OnDisable()
         {
-            // InputActionを無効にする
-            genericInput.Disable();
 
             jumpAction.Disable();
+
+            attackAction.performed -= OnAttack;
+            attackAction.Disable();
+
+            // InputActionを無効にする
+            genericInput.Disable();
+        }
+
+        private void OnAttack(InputAction.CallbackContext context)
+        {
+            attack = true;
+            /*
+            if (attackInputTimer.IsEnd())
+            {
+                attackInputTimer.Start(0.05f);
+            }
+             */
+            // 一瞬だけtrueにして、次のフレームでfalseに戻す
+            StartCoroutine(ResetButtonPress());
+        }
+        private System.Collections.IEnumerator ResetButtonPress()
+        {
+            yield return null; // 1フレーム待つ
+            attack = false;
         }
 
         private void OnDestroy()

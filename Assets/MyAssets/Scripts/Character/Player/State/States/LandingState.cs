@@ -51,7 +51,7 @@ namespace MyAssets
         public override void DoUpdate(float time)
         {
             base.DoUpdate(time);
-            playerTimer.DoRefresh(time);
+            playerTimer.Update(time);
         }
 
         public override void DoFixedUpdate(float time)
