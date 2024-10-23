@@ -2,17 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WeaponPosition : MonoBehaviour
+namespace MyAssets
 {
-    // Start is called before the first frame update
-    void Start()
+    public enum WeaponPositionTag
     {
-        
+        None = -1,
+        Hand,
+        Receipt
     }
 
-    // Update is called once per frame
-    void Update()
+    public class WeaponPosition : MonoBehaviour
     {
-        
+        [SerializeField]
+        private new WeaponPositionTag tag = WeaponPositionTag.None;
+        public WeaponPositionTag Tag => tag;
+
+        public GameObject ThisObject => gameObject;
     }
 }
