@@ -1,0 +1,75 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Default Local Group
+  m_EditorClassIdentifier: 
+  m_GroupName: Default Local Group
+  m_Data:
+    m_SerializedData: []
+  m_GUID: b9488a0227260794b9adfe8e469212b5
+  m_SerializeEntries:
+  - m_GUID: 0158b5fa585bb5f46a68c26b538f5681
+    m_Address: TestCube(5)
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4dfbac003ebe8514e9ef360aa94464d2
+    m_Address: TestCube(2)
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 543291e2b8a936a41b7a30d3f44d951e
+    m_Address: TestCube(8)
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a06747083f7798b4b80207cfb56030ba
+    m_Address: TestCube(9)
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b1ee1722434469d4e9a3b521ec309dd6
+    m_Address: TestCube(7)
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b78e7bfede2ca1c4cab788b31824a27e
+    m_Address: TestCube
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d2a70c3db6c8a8c40af8ac8acddc0dbc
+    m_Address: TestCube(3)
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: eb233e5a398472b45bb4adb4d32f9b97
+    m_Address: TestCube(4)
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f4ca116ccaa75314fa32049a53652e33
+    m_Address: TestCube(1)
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f8f3adad1a160ff478b909e36307c7a1
+    m_Address: TestCube(6)
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 7a6eebbd148b8c84e9a6f3bfb78340b4, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 28508a5041160844c932ca6952d158c9, type: 2}
+    - {fileID: 11400000, guid: 81df8d9db2eef3f4a95ac27824feb358, type: 2}
