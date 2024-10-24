@@ -10,7 +10,15 @@ namespace MyAssets
 
         private PlayerInput keyInput;
         public IMoveInputProvider MoveInput => keyInput;
-        public IAttackInputProvider TimerInput => keyInput;
+        public IAttackInputProvider AttackInput => keyInput;
+        public IToolInputProvider ToolInput => keyInput;
+        [SerializeField]
+        private WeaponController weaponController;
+        public IEquipment Equipment => weaponController;
+
+        [SerializeField]
+        private ChangingState changingState;
+        public IChangingState ChangingState => changingState;
 
         [SerializeField]
         private VelocityComponent velocity;
@@ -20,6 +28,7 @@ namespace MyAssets
         [SerializeField]
         private FootIK footIK;
         public IFootIK FootIK => footIK;
+
 
         [SerializeField]
         private PlayerRotation rotation;
@@ -79,20 +88,28 @@ namespace MyAssets
         [SerializeField]
         private ThirdAttackState thirdAttackState;
 
+        [SerializeField]
+        private WeaponOutState weaponOutState;
+        [SerializeField]
+        private WeaponInState weaponInState;
+
         IPlayerState<string>[] states;
 
         private void Awake()
         {
-            animator.DoSetup(this);
-            footIK.DoSetup(this);
             input = GetComponent<IControllerInput>();
             keyInput = input as PlayerInput;
+            weaponController = GetComponent<WeaponController>();
+            animator.DoSetup(this);
+            footIK.DoSetup(this);
+            changingState.DoSetup(this);
             velocity.DoSetup(this);
             movement.DoSetup(this);
             obstacleJudgment.DoSetup(this);
             stepClimberJudgment.DoSetup(this);
             climb.DoSetup(this);
             rotation.DoSetup(this);
+
             states = new IPlayerState<string>[]
             {
                 idleState,
@@ -103,7 +120,9 @@ namespace MyAssets
                 climbState,
                 firstAttackState,
                 secondAttackState,
-                thirdAttackState
+                thirdAttackState,
+                weaponOutState,
+                weaponInState
             };
             stateMachine.DoSetup(states);
             foreach (var state in states)

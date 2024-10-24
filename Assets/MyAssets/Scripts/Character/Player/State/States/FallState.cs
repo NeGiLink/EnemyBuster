@@ -42,7 +42,7 @@ namespace MyAssets
         public override void DoStart()
         {
             base.DoStart();
-            animator.Animator.SetInteger("Fall", 1);
+            animator.Animator.SetInteger(animator.FallName, 1);
         }
 
         public override void DoUpdate(float time)
@@ -63,7 +63,7 @@ namespace MyAssets
         public override void DoExit()
         {
             base.DoExit();
-            animator.Animator.SetInteger("Fall", 0);
+            animator.Animator.SetInteger(animator.FallName, 0);
         }
     }
 }

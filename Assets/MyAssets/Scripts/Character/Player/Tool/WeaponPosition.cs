@@ -8,7 +8,8 @@ namespace MyAssets
     {
         None = -1,
         Hand,
-        Receipt
+        Receipt,
+        Count
     }
 
     public class WeaponPosition : MonoBehaviour

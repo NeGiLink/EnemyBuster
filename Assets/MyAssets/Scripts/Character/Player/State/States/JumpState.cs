@@ -57,11 +57,11 @@ namespace MyAssets
             float p = power;
             if (moveInput.IsMove)
             {
-                animator.Animator.SetInteger("JumpType", 1);
+                animator.Animator.SetInteger(animator.JumpTypeName, 1);
             }
             else
             {
-                animator.Animator.SetInteger("JumpType", 0);
+                animator.Animator.SetInteger(animator.JumpTypeName, 0);
                 p /= 2;
             }
 
@@ -78,7 +78,7 @@ namespace MyAssets
         public override void DoFixedUpdate(float time)
         {
             base.DoFixedUpdate(time);
-            if (animator.Animator.GetInteger("JumpType") == 1)
+            if (animator.Animator.GetInteger(animator.JumpTypeName) == 1)
             {
                 float speed = moveSpeed;
                 if (moveInput.Dash > 0)
@@ -94,7 +94,7 @@ namespace MyAssets
         public override void DoExit()
         {
             base.DoExit();
-            animator.Animator.SetInteger("JumpType", -1);
+            animator.Animator.SetInteger(animator.JumpTypeName, -1);
         }
     }
 }

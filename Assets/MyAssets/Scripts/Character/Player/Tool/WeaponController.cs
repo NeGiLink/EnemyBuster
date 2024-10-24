@@ -1,13 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace MyAssets
 {
-    public class WeaponController : MonoBehaviour
+    public class WeaponController : MonoBehaviour,IEquipment
     {
         [SerializeField]
-        private Transform[] weaponTransforms = new Transform[2];
+        private Transform[] weaponTransforms = new Transform[(int)WeaponPositionTag.Count];
+
+        [SerializeField]
+        private Transform haveWeapon;
 
         private void Awake()
         {
@@ -24,16 +25,23 @@ namespace MyAssets
                 }
             }
         }
-        // Start is called before the first frame update
-        void Start()
+
+        public void SetInWeapon()
         {
-        
+            SetTransform(weaponTransforms[(int)WeaponPositionTag.Receipt]);
         }
 
-        // Update is called once per frame
-        void Update()
+        public void SetOutWeapon()
         {
-        
+            SetTransform(weaponTransforms[(int)WeaponPositionTag.Hand]);
+        }
+
+        private void SetTransform(Transform nextTransform)
+        {
+            haveWeapon.SetParent(null);
+            haveWeapon.SetParent(nextTransform);
+            haveWeapon.position = nextTransform.position;
+            haveWeapon.rotation = nextTransform.rotation;
         }
     }
 }

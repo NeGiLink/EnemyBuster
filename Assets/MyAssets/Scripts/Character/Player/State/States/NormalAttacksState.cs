@@ -70,7 +70,7 @@ namespace MyAssets
         public override void DoStart()
         {
             base.DoStart();
-            animator.Animator.SetInteger("Attacks", (int)NormalAttackState.First);
+            animator.Animator.SetInteger(animator.AttacksName, (int)NormalAttackState.First);
             velocity.Rigidbody.velocity = Vector3.zero;
             baseTransform = transform.position;
         }
@@ -92,7 +92,7 @@ namespace MyAssets
         public override void DoExit()
         {
             base.DoExit();
-            animator.Animator.SetInteger("Attacks", (int)NormalAttackState.None);
+            animator.Animator.SetInteger(animator.AttacksName, (int)NormalAttackState.None);
         }
     }
     [System.Serializable]
@@ -138,15 +138,14 @@ namespace MyAssets
             base.DoSetup(player);
             velocity = player.Velocity;
             animator = player.PlayerAnimator;
-            inputTimer = player.TimerInput;
+            inputTimer = player.AttackInput;
             transform = player.gameObject.transform;
             movement = player.Movement;
         }
         public override void DoStart()
         {
             base.DoStart();
-            animator.Animator.SetInteger("Attacks", (int)NormalAttackState.Second);
-            inputTimer.AttackInputTimer.End();
+            animator.Animator.SetInteger(animator.AttacksName, (int)NormalAttackState.Second);
             velocity.Rigidbody.velocity = Vector3.zero;
             baseTransform = transform.position;
         }
@@ -167,7 +166,7 @@ namespace MyAssets
         public override void DoExit()
         {
             base.DoExit();
-            animator.Animator.SetInteger("Attacks", (int)NormalAttackState.None);
+            animator.Animator.SetInteger(animator.AttacksName, (int)NormalAttackState.None);
         }
     }
     [System.Serializable]
@@ -214,7 +213,7 @@ namespace MyAssets
         public override void DoStart()
         {
             base.DoStart();
-            animator.Animator.SetInteger("Attacks", (int)NormalAttackState.Third);
+            animator.Animator.SetInteger(animator.AttacksName, (int)NormalAttackState.Third);
             velocity.Rigidbody.velocity = Vector3.zero;
             baseTransform = transform.position;
         }
@@ -236,7 +235,7 @@ namespace MyAssets
         public override void DoExit()
         {
             base.DoExit();
-            animator.Animator.SetInteger("Attacks", (int)NormalAttackState.None);
+            animator.Animator.SetInteger(animator.AttacksName, (int)NormalAttackState.None);
         }
     }
 }
