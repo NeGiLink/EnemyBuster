@@ -8,7 +8,7 @@ namespace MyAssets
         Key,
         Controller
     }
-    public class PlayerInput : MonoBehaviour,IMoveInputProvider, IJumpInputProvider, IControllerInput,IAttackInputProvider
+    public class PlayerInput : MonoBehaviour,IMoveInputProvider, IJumpInputProvider, IControllerInput,IAttackInputProvider,IToolInputProvider
     {
         private static DeviceInput deviceInput = DeviceInput.Key;
         public static DeviceInput GetDeviceInput() { return deviceInput; }
@@ -35,33 +35,23 @@ namespace MyAssets
         [SerializeField]
         private bool jump;
         public bool Jump => jump;
-        [SerializeField]
-        private bool jumpPush;
-        public bool IsJumpPush => jumpPush;
         private InputAction jumpAction;
-
         [SerializeField]
         private bool attack;
         public bool Attack => attack;
         private InputAction attackAction;
-
-        private Timer attackInputTimer;
-        public Timer AttackInputTimer => attackInputTimer;
+        [SerializeField]
+        private bool receipt;
+        public bool Receipt => receipt;
+        private InputAction receiptAction;
 
         public void Setup()
         {
             genericInput = new GenericInput();
-            attackInputTimer = new Timer();
-        }
-
-        private void TimerUpdate()
-        {
-            attackInputTimer.Update(Time.deltaTime);
         }
 
         public void DoUpdate()
         {
-            TimerUpdate();
             CheckInput();
             switch (deviceInput)
             {
@@ -76,12 +66,6 @@ namespace MyAssets
                     break;
             }
             dash = genericInput.Player.Dash.ReadValue<float>();
-            //var j = genericInput.Player.Jump.ReadValue<float>();
-            //if(j != 0)
-            //{
-            //    jump = true;
-            //}
-            jump = Input.GetKeyDown(KeyCode.Space);
         }
 
         public static void CheckInput()
@@ -119,45 +103,64 @@ namespace MyAssets
             genericInput.Enable();
 
             jumpAction = genericInput.FindAction("Player/Jump");
+            attackAction = genericInput.FindAction("Player/Attack");
+            receiptAction = genericInput.FindAction("Player/Receipt");
+
+            jumpAction.performed += OnJump;
+            attackAction.performed += OnAttack;
+            receiptAction.performed += OnReceipt;
 
             jumpAction.Enable();
-
-            attackAction = genericInput.FindAction("Player/Attack");
-
-            attackAction.performed += OnAttack;
-
             attackAction.Enable();
-
+            receiptAction.Enable();
         }
 
         private void OnDisable()
         {
 
-            jumpAction.Disable();
-
+            jumpAction.performed -= OnJump;
             attackAction.performed -= OnAttack;
-            attackAction.Disable();
+            receiptAction.performed -= OnReceipt;
 
             // InputActionを無効にする
+            jumpAction.Disable();
+            attackAction.Disable();
             genericInput.Disable();
+        }
+        private void OnJump(InputAction.CallbackContext context)
+        {
+            jump = true;
+            // 一瞬だけtrueにして、次のフレームでfalseに戻す
+            StartCoroutine(ResetJumpButtonPress());
         }
 
         private void OnAttack(InputAction.CallbackContext context)
         {
             attack = true;
-            /*
-            if (attackInputTimer.IsEnd())
-            {
-                attackInputTimer.Start(0.05f);
-            }
-             */
             // 一瞬だけtrueにして、次のフレームでfalseに戻す
-            StartCoroutine(ResetButtonPress());
+            StartCoroutine(ResetAttackButtonPress());
         }
-        private System.Collections.IEnumerator ResetButtonPress()
+        private void OnReceipt(InputAction.CallbackContext context)
+        {
+            receipt = true;
+            // 一瞬だけtrueにして、次のフレームでfalseに戻す
+            StartCoroutine(ResetReceiptButtonPress());
+        }
+        private System.Collections.IEnumerator ResetJumpButtonPress()
+        {
+            yield return null; // 1フレーム待つ
+            jump = false;
+        }
+
+        private System.Collections.IEnumerator ResetAttackButtonPress()
         {
             yield return null; // 1フレーム待つ
             attack = false;
+        }
+        private System.Collections.IEnumerator ResetReceiptButtonPress()
+        {
+            yield return null; // 1フレーム待つ
+            receipt = false;
         }
 
         private void OnDestroy()

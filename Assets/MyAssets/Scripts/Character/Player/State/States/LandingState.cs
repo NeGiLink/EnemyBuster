@@ -45,7 +45,7 @@ namespace MyAssets
 
             velocity.Rigidbody.velocity = Vector3.zero;
 
-            animator.Animator.SetInteger("Land", 0);
+            animator.Animator.SetInteger(animator.LandName, 0);
         }
 
         public override void DoUpdate(float time)
@@ -64,7 +64,7 @@ namespace MyAssets
         {
             base.DoExit();
             playerTimer.End();
-            animator.Animator.SetInteger("Land", -1);
+            animator.Animator.SetInteger(animator.LandName, -1);
         }
     }
 }

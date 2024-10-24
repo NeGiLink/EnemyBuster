@@ -7,8 +7,8 @@ namespace MyAssets
         GameObject              gameObject { get; }
         ICharacterRotation      Rotation { get; }
         IMoveInputProvider      MoveInput { get; }
-
-        IAttackInputProvider              TimerInput { get; }
+        IAttackInputProvider    AttackInput { get; }
+        IToolInputProvider      ToolInput { get; }
         IVelocityComponent      Velocity {  get; }
         IMovement               Movement { get; }
         IClimb                  Climb { get; }
@@ -18,6 +18,9 @@ namespace MyAssets
         IObstacleJudgment       ObstacleJudgment { get; }
         IStepClimberJudgment    StepClimberJudgment {  get; }
         IFootIK                 FootIK { get; }
+        IChangingState          ChangingState { get; }
+
+        IEquipment              Equipment { get; }
     }
 }
 

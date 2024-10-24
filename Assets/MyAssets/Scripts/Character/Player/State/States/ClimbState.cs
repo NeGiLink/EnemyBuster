@@ -35,7 +35,7 @@ namespace MyAssets
         public override void DoStart()
         {
             base.DoStart();
-            animator.Animator.SetBool("Climb", true);
+            animator.Animator.SetBool(animator.ClimbName, true);
             climb.DoClimbStart();
             Debug.Log("“o‚èŠJŽn");
         }
@@ -55,7 +55,7 @@ namespace MyAssets
         {
             base.DoExit();
             climb.DoClimbExit();
-            animator.Animator.SetBool("Climb", false);
+            animator.Animator.SetBool(animator.ClimbName, false);
         }
     }
 }

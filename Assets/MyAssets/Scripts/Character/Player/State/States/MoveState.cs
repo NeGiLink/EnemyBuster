@@ -13,6 +13,7 @@ namespace MyAssets
         private IStepClimberJudgment stepClimberJudgment;
         private ICharacterRotation rotation;
         private IPlayerAnimator animator;
+        private IChangingState changingState;
         [SerializeField]
         private float moveSpeed = 4.0f;
         [SerializeField]
@@ -31,6 +32,8 @@ namespace MyAssets
             if (StateChanger.IsContain(FallState.StateKey)) { re.Add(new IsNotGroundTransition(actor, StateChanger, FallState.StateKey)); }
             if (StateChanger.IsContain(ClimbState.StateKey)) { re.Add(new IsClimbTransition(actor, StateChanger, ClimbState.StateKey)); }
             if (StateChanger.IsContain(FirstAttackState.StateKey)) { re.Add(new IsFirstAttackTransition(actor, StateChanger, FirstAttackState.StateKey)); }
+            if (StateChanger.IsContain(WeaponOutState.StateKey)) { re.Add(new IsWeaponOutTransition(actor, StateChanger, WeaponOutState.StateKey)); }
+            if (StateChanger.IsContain(WeaponInState.StateKey)) { re.Add(new IsWeaponInTransition(actor, StateChanger, WeaponInState.StateKey)); }
             return re;
         }
 
@@ -44,19 +47,28 @@ namespace MyAssets
             rotation = player.Rotation;
             input = player.gameObject.GetComponent<IMoveInputProvider>();
             animator = player.PlayerAnimator;
+            changingState = player.ChangingState;
         }
 
         public override void DoStart()
         {
             base.DoStart();
             cliffJudgment.InitRay();
+            if (changingState.IsBattleMode)
+            {
+                animator.Animator.SetFloat(animator.AlertLevelName, 1.0f);
+            }
+            else
+            {
+                animator.Animator.SetFloat(animator.AlertLevelName, 0.0f);
+            }
         }
 
         public override void DoUpdate(float time)
         {
             base.DoUpdate(time);
-            animator.Animator.SetFloat("Dash", input.Dash, 0.1f, Time.deltaTime);
-            animator.Animator.SetFloat("Speed", velocity.CurrentVelocity.magnitude, 0.1f, Time.deltaTime);
+            animator.Animator.SetFloat(animator.DashName, input.Dash, 0.1f, Time.deltaTime);
+            animator.Animator.SetFloat(animator.MoveName, velocity.CurrentVelocity.magnitude, 0.1f, Time.deltaTime);
             cliffJudgment.RayCheck();
             stepClimberJudgment.HandleStepClimbing();
             rotation.DoUpdate();

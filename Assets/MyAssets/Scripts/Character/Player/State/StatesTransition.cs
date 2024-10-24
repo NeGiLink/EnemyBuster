@@ -153,14 +153,16 @@ namespace MyAssets
     public class IsFirstAttackTransition : PlayerStateTransitionBase
     {
         private readonly IAttackInputProvider input;
+        private readonly IChangingState changingState;
         private readonly IGroundCheck groundCheck;
         public IsFirstAttackTransition(IPlayerSetup actor, IStateChanger<string> stateChanger, string changeKey)
             : base(stateChanger, changeKey)
         {
             input = actor.gameObject.GetComponent<IAttackInputProvider>();
+            changingState = actor.ChangingState;
             groundCheck = actor.GroundCheck;
         }
-        public override bool IsTransition() => input.Attack && groundCheck.Landing;
+        public override bool IsTransition() => input.Attack && changingState.IsBattleMode && groundCheck.Landing;
     }
     public class IsLoopFirstAttackTransition : PlayerStateTransitionBase
     {
@@ -283,5 +285,40 @@ namespace MyAssets
             !input.Attack &&
             AttackMotionChecker()&&
             moveinput.IsMove;
+    }
+
+    public class IsWeaponOutTransition : PlayerStateTransitionBase
+    {
+        private readonly IAttackInputProvider input;
+        private readonly IChangingState changingState;
+        private readonly IGroundCheck groundCheck;
+        private readonly IPlayerAnimator animator;
+
+        public IsWeaponOutTransition(IPlayerSetup actor, IStateChanger<string> stateChanger, string changeKey)
+            : base(stateChanger, changeKey)
+        {
+            input = actor.gameObject.GetComponent<IAttackInputProvider>();
+            groundCheck = actor.GroundCheck;
+            changingState = actor.ChangingState;
+            animator = actor.PlayerAnimator;
+        }
+        public override bool IsTransition() => input.Attack && !changingState.IsBattleMode;
+    }
+    public class IsWeaponInTransition : PlayerStateTransitionBase
+    {
+        private readonly IToolInputProvider input;
+        private readonly IChangingState changingState;
+        private readonly IGroundCheck groundCheck;
+        private readonly IPlayerAnimator animator;
+
+        public IsWeaponInTransition(IPlayerSetup actor, IStateChanger<string> stateChanger, string changeKey)
+            : base(stateChanger, changeKey)
+        {
+            input = actor.gameObject.GetComponent<IToolInputProvider>();
+            groundCheck = actor.GroundCheck;
+            changingState = actor.ChangingState;
+            animator = actor.PlayerAnimator;
+        }
+        public override bool IsTransition() => input.Receipt && changingState.IsBattleMode;
     }
 }
