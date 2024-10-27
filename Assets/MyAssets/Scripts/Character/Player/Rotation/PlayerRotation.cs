@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem.XR;
 
 namespace MyAssets
 {
@@ -14,12 +15,18 @@ namespace MyAssets
 
         private IVelocityComponent velocity;
 
+        private IFocusInputProvider focusInput;
+
+        private FieldOfView fieldOfView;
+
         public void DoSetup(IPlayerSetup player)
         {
             thisTransform = player.gameObject.transform;
             targetRotation = thisTransform.rotation;
             velocity = player.Velocity;
             moveInput = player.MoveInput;
+            focusInput = player.gameObject.GetComponent<IFocusInputProvider>();
+            fieldOfView = player.gameObject.GetComponent<FieldOfView>();
         }
 
         public void DoUpdate()
@@ -37,25 +44,40 @@ namespace MyAssets
 
         public void DoFixedUpdate(Vector3 velocity)
         {
-            float rotationSpeed = 0;
-            switch (PlayerInput.GetDeviceInput())
+            if(focusInput.Foucus < 1)
             {
-                case DeviceInput.Key:
-                    rotationSpeed = 600 * Time.deltaTime;
-                    if (velocity.magnitude > 0.5f)
-                    {
-                        targetRotation = Quaternion.LookRotation(velocity, Vector3.up);
-                    }
-                    break;
-                case DeviceInput.Controller:
-                    rotationSpeed = 1200 * Time.deltaTime;
-                    if (velocity.magnitude > 0.1f)
-                    {
-                        targetRotation = Quaternion.LookRotation(velocity, Vector3.up);
-                    }
-                    break;
+                float rotationSpeed = 0;
+                switch (PlayerInput.GetDeviceInput())
+                {
+                    case DeviceInput.Key:
+                        rotationSpeed = 600 * Time.deltaTime;
+                        if (velocity.magnitude > 0.5f)
+                        {
+                            targetRotation = Quaternion.LookRotation(velocity, Vector3.up);
+                        }
+                        break;
+                    case DeviceInput.Controller:
+                        rotationSpeed = 1200 * Time.deltaTime;
+                        if (velocity.magnitude > 0.1f)
+                        {
+                            targetRotation = Quaternion.LookRotation(velocity, Vector3.up);
+                        }
+                        break;
+                }
+                thisTransform.rotation = Quaternion.RotateTowards(thisTransform.rotation, targetRotation, rotationSpeed);
             }
-            thisTransform.rotation = Quaternion.RotateTowards(thisTransform.rotation, targetRotation, rotationSpeed);
+            else if (focusInput.Foucus > 0)
+            {
+                if(fieldOfView.TargetObject != null)
+                {
+                    // 敵の方向ベクトルを取得
+                    Vector3 targetObject = fieldOfView.TargetObject.transform.position;
+                    targetObject.y = thisTransform.transform.position.y;
+                    Vector3 enemyDirection = (targetObject - thisTransform.transform.position).normalized;
+                    // プレイヤーが常に敵の方向を向く
+                    thisTransform.rotation = Quaternion.LookRotation(enemyDirection, Vector3.up);
+                }
+            }
         }
     }
 }

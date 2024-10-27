@@ -6,6 +6,8 @@ namespace MyAssets
 {
     public class PlayerController : MonoBehaviour,IPlayerSetup
     {
+        private FieldOfView fieldOfView;
+
         private IControllerInput input;
 
         private PlayerInput keyInput;
@@ -97,6 +99,9 @@ namespace MyAssets
 
         private void Awake()
         {
+            fieldOfView = GetComponent<FieldOfView>();
+
+
             input = GetComponent<IControllerInput>();
             keyInput = input as PlayerInput;
             weaponController = GetComponent<WeaponController>();
@@ -161,6 +166,13 @@ namespace MyAssets
         private void FixedUpdate()
         {
             stateMachine.DoFixedUpdate(Time.deltaTime);
+
+            TargetUpdate();
+        }
+
+        private void TargetUpdate()
+        {
+            fieldOfView.DoUpdate();
         }
 
         private void OnAnimatorIK()
