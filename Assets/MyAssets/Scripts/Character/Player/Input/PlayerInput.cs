@@ -8,7 +8,7 @@ namespace MyAssets
         Key,
         Controller
     }
-    public class PlayerInput : MonoBehaviour,IMoveInputProvider, IJumpInputProvider, IControllerInput,IAttackInputProvider,IToolInputProvider
+    public class PlayerInput : MonoBehaviour,IMoveInputProvider, IJumpInputProvider, IControllerInput,IAttackInputProvider,IToolInputProvider,IFocusInputProvider
     {
         private static DeviceInput deviceInput = DeviceInput.Key;
         public static DeviceInput GetDeviceInput() { return deviceInput; }
@@ -45,6 +45,10 @@ namespace MyAssets
         public bool Receipt => receipt;
         private InputAction receiptAction;
 
+        [SerializeField]
+        private float foucus;
+        public float Foucus => foucus;
+        private InputAction foucusAction;
         public void Setup()
         {
             genericInput = new GenericInput();
@@ -66,6 +70,8 @@ namespace MyAssets
                     break;
             }
             dash = genericInput.Player.Dash.ReadValue<float>();
+
+            foucus = genericInput.Player.Foucus.ReadValue<float>();
         }
 
         public static void CheckInput()
@@ -105,14 +111,17 @@ namespace MyAssets
             jumpAction = genericInput.FindAction("Player/Jump");
             attackAction = genericInput.FindAction("Player/Attack");
             receiptAction = genericInput.FindAction("Player/Receipt");
+            //foucusAction = genericInput.FindAction("Player/Foucus");
 
             jumpAction.performed += OnJump;
             attackAction.performed += OnAttack;
             receiptAction.performed += OnReceipt;
+            //foucusAction.performed += OnFoucus;
 
             jumpAction.Enable();
             attackAction.Enable();
             receiptAction.Enable();
+            //foucusAction.Enable();
         }
 
         private void OnDisable()
@@ -121,10 +130,13 @@ namespace MyAssets
             jumpAction.performed -= OnJump;
             attackAction.performed -= OnAttack;
             receiptAction.performed -= OnReceipt;
+            //foucusAction.performed -= OnFoucus;
 
             // InputActionを無効にする
             jumpAction.Disable();
             attackAction.Disable();
+            receiptAction.Disable();
+            //foucusAction.Disable();
             genericInput.Disable();
         }
         private void OnJump(InputAction.CallbackContext context)
@@ -146,6 +158,14 @@ namespace MyAssets
             // 一瞬だけtrueにして、次のフレームでfalseに戻す
             StartCoroutine(ResetReceiptButtonPress());
         }
+
+        private void OnFoucus(InputAction.CallbackContext context)
+        {
+            //foucus = true;
+            // 一瞬だけtrueにして、次のフレームでfalseに戻す
+            StartCoroutine(ResetFoucusButtonPress());
+        }
+
         private System.Collections.IEnumerator ResetJumpButtonPress()
         {
             yield return null; // 1フレーム待つ
@@ -161,6 +181,11 @@ namespace MyAssets
         {
             yield return null; // 1フレーム待つ
             receipt = false;
+        }
+        private System.Collections.IEnumerator ResetFoucusButtonPress()
+        {
+            yield return null; // 1フレーム待つ
+            //foucus = false;
         }
 
         private void OnDestroy()
