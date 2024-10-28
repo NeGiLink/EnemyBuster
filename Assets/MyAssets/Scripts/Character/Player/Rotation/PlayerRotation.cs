@@ -44,7 +44,7 @@ namespace MyAssets
 
         public void DoFixedUpdate(Vector3 velocity)
         {
-            if(focusInput.Foucus < 1)
+            if(focusInput.Foucus < 1||moveInput.Dash > 0)
             {
                 float rotationSpeed = 0;
                 switch (PlayerInput.GetDeviceInput())
@@ -66,7 +66,7 @@ namespace MyAssets
                 }
                 thisTransform.rotation = Quaternion.RotateTowards(thisTransform.rotation, targetRotation, rotationSpeed);
             }
-            else if (focusInput.Foucus > 0)
+            else if (focusInput.Foucus > 0 && moveInput.Dash < 1)
             {
                 if(fieldOfView.TargetObject != null)
                 {
