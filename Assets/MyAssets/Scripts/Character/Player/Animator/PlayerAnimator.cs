@@ -11,6 +11,9 @@ namespace MyAssets
 
         public Animator Animator => thisAnimator;
 
+        public string VelocityX         => "VelocityX";
+        public string VelocityZ         => "VelocityZ";
+
         public string MoveName          => "Speed";
         public string DashName          => "Dash";
         public string AlertLevelName    => "AlertLevel";

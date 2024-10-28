@@ -7,6 +7,8 @@ namespace MyAssets
     {
         Animator Animator { get;}
 
+        string VelocityX {  get;}
+        string VelocityZ {  get;}
         string MoveName { get; }
         string DashName {  get; }
         string AlertLevelName {  get; }
