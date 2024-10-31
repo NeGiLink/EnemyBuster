@@ -33,6 +33,10 @@ namespace MyAssets
 
         private IAllPlayerCamera usePlayerCamera;
 
+        private Quaternion fixedCamRotation;
+        public Quaternion FixedCamRotation => fixedCamRotation;
+        public void SetFixedCamRotation(Quaternion rotation) { fixedCamRotation = rotation; }
+
         public void Setup(GameObject _controller, IMainCameraProvider _this)
         {
             focusInput = _controller.gameObject.GetComponent<IFocusInputProvider>();
@@ -57,6 +61,8 @@ namespace MyAssets
         public void DoStart()
         {
             cameraTag = PlayerCameraTag.Free;
+
+            usePlayerCamera.Start();
         }
 
         public void DoUpdate()
@@ -78,12 +84,19 @@ namespace MyAssets
             }
 
 
-            if(usePlayerCamera != allPlayerCamera[(int)cameraTag])
-            {
-                usePlayerCamera = allPlayerCamera[(int)cameraTag];
-            }
+            CheckCameraType();
 
             usePlayerCamera?.CameraUpdate();
+        }
+
+        private void CheckCameraType()
+        {
+            if (usePlayerCamera != allPlayerCamera[(int)cameraTag])
+            {
+                usePlayerCamera.Exit();
+                usePlayerCamera = allPlayerCamera[(int)cameraTag];
+                usePlayerCamera.Start();
+            }
         }
     }
 
@@ -99,16 +112,29 @@ namespace MyAssets
             playerUsesCamera = controller;
             mainCameraProvider = controller.MainCameraController;
         }
+        public void Start()
+        {
+            mainCameraProvider.VirtualCameras[(int)PlayerCameraTag.Free].Priority = 10;
+            mainCameraProvider.VirtualCameras[(int)PlayerCameraTag.Target].Priority = 1;
+            mainCameraProvider.VirtualCameras[(int)PlayerCameraTag.Foucus].Priority = 1;
+            mainCameraProvider.VirtualCameras[(int)PlayerCameraTag.Target].LookAt = null;
+
+            // POVカメラのPOVコンポーネントを取得
+            var povComponent = mainCameraProvider.VirtualCameras[(int)PlayerCameraTag.Free].GetCinemachineComponent<CinemachinePOV>();
+
+            // Quaternionをオイラー角に変換し、POVコンポーネントの軸に反映
+            Vector3 eulerRotation = playerUsesCamera.FixedCamRotation.eulerAngles;
+            povComponent.m_VerticalAxis.Value = eulerRotation.x;
+            povComponent.m_HorizontalAxis.Value = eulerRotation.y;
+        }
+
+        public void Exit()
+        {
+
+        }
 
         public void CameraUpdate()
         {
-            if (mainCameraProvider.VirtualCameras[(int)PlayerCameraTag.Free].Priority < 10)
-            {
-                mainCameraProvider.VirtualCameras[(int)PlayerCameraTag.Free].Priority = 10;
-                mainCameraProvider.VirtualCameras[(int)PlayerCameraTag.Target].Priority = 1;
-                mainCameraProvider.VirtualCameras[(int)PlayerCameraTag.Foucus].Priority = 1;
-                mainCameraProvider.VirtualCameras[(int)PlayerCameraTag.Target].LookAt = null;
-            }
         }
     }
 
@@ -124,15 +150,21 @@ namespace MyAssets
             playerUsesCamera = controller;
             mainCameraProvider = controller.MainCameraController;
         }
+        public void Start()
+        {
+            mainCameraProvider.VirtualCameras[(int)PlayerCameraTag.Target].Priority = 10;
+            mainCameraProvider.VirtualCameras[(int)PlayerCameraTag.Free].Priority = 5;
+            mainCameraProvider.VirtualCameras[(int)PlayerCameraTag.Foucus].Priority = 1;
+        }
+
+        public void Exit()
+        {
+            GameObject camera = mainCameraProvider.VirtualCameras[(int)PlayerCameraTag.Target].gameObject;
+            playerUsesCamera.SetFixedCamRotation(camera.transform.rotation);
+        }
 
         public void CameraUpdate()
         {
-            if (mainCameraProvider.VirtualCameras[(int)PlayerCameraTag.Target].Priority < 10)
-            {
-                mainCameraProvider.VirtualCameras[(int)PlayerCameraTag.Target].Priority = 10;
-                mainCameraProvider.VirtualCameras[(int)PlayerCameraTag.Free].Priority = 1;
-                mainCameraProvider.VirtualCameras[(int)PlayerCameraTag.Foucus].Priority = 1;
-            }
 
             if(fieldOfView.TargetObject?.transform != null&& mainCameraProvider.VirtualCameras[(int)PlayerCameraTag.Target].LookAt == null)
             {
@@ -152,15 +184,21 @@ namespace MyAssets
             playerUsesCamera = controller;
             mainCameraProvider = controller.MainCameraController;
         }
+        public void Start()
+        {
+            mainCameraProvider.VirtualCameras[(int)PlayerCameraTag.Foucus].Priority = 10;
+            mainCameraProvider.VirtualCameras[(int)PlayerCameraTag.Free].Priority = 5;
+            mainCameraProvider.VirtualCameras[(int)PlayerCameraTag.Target].Priority = 1;
+        }
+
+        public void Exit()
+        {
+            GameObject camera = mainCameraProvider.VirtualCameras[(int)PlayerCameraTag.Foucus].gameObject;
+            playerUsesCamera.SetFixedCamRotation(camera.transform.rotation);
+        }
 
         public void CameraUpdate()
         {
-            if (mainCameraProvider.VirtualCameras[(int)PlayerCameraTag.Foucus].Priority < 10)
-            {
-                mainCameraProvider.VirtualCameras[(int)PlayerCameraTag.Foucus].Priority = 10;
-                mainCameraProvider.VirtualCameras[(int)PlayerCameraTag.Free].Priority = 1;
-                mainCameraProvider.VirtualCameras[(int)PlayerCameraTag.Target].Priority = 1;
-            }
         }
     }
 }

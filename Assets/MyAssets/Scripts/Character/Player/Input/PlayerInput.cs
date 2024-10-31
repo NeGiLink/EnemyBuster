@@ -44,6 +44,9 @@ namespace MyAssets
         private bool receipt;
         public bool Receipt => receipt;
         private InputAction receiptAction;
+        [SerializeField]
+        private float receipting;
+        public float Receipting => receipting;
 
         [SerializeField]
         private float foucus;
@@ -70,8 +73,8 @@ namespace MyAssets
                     break;
             }
             dash = genericInput.Player.Dash.ReadValue<float>();
-
             foucus = genericInput.Player.Foucus.ReadValue<float>();
+            receipting = genericInput.Player.Receipt.ReadValue<float>();
         }
 
         public static void CheckInput()

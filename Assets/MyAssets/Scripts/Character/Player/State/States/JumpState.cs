@@ -36,6 +36,7 @@ namespace MyAssets
             List<IPlayerStateTransition<string>> re = new List<IPlayerStateTransition<string>>();
             if (StateChanger.IsContain(LandingState.StateKey)) { re.Add(new IsNotJumpTransition(actor, StateChanger, LandingState.StateKey)); }
             if (StateChanger.IsContain(ClimbState.StateKey)) { re.Add(new IsClimbTransition(actor, StateChanger, ClimbState.StateKey)); }
+            if (StateChanger.IsContain(ReadyJumpAttack.StateKey)) { re.Add(new IsReadyJumpAttackTransition(actor, StateChanger, ReadyJumpAttack.StateKey)); }
             return re;
         }
 

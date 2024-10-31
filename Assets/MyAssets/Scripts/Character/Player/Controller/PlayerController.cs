@@ -89,6 +89,12 @@ namespace MyAssets
         private SecondAttackState secondAttackState;
         [SerializeField]
         private ThirdAttackState thirdAttackState;
+        [SerializeField]
+        private ReadyJumpAttack readyJumpAttack;
+        [SerializeField]
+        private JumpAttackState jumpAttackState;
+        [SerializeField]
+        private JumpAttackLandingState jumpAttackLandingState;
 
         [SerializeField]
         private WeaponOutState weaponOutState;
@@ -126,6 +132,9 @@ namespace MyAssets
                 firstAttackState,
                 secondAttackState,
                 thirdAttackState,
+                readyJumpAttack,
+                jumpAttackState,
+                jumpAttackLandingState,
                 weaponOutState,
                 weaponInState
             };

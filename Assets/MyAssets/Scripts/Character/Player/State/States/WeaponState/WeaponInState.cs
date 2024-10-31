@@ -35,6 +35,7 @@ namespace MyAssets
             changingState.SetBattleMode(false);
             equipment.SetInWeapon();
             animator.Animator.SetInteger(animator.Weapon_In_OutName, 1);
+            animator.Animator.SetFloat(animator.ToolLevel, 0.0f);
         }
 
         public override void DoUpdate(float time)

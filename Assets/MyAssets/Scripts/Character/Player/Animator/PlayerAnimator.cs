@@ -18,6 +18,7 @@ namespace MyAssets
         public string DashName          => "Dash";
         public string AlertLevelName    => "AlertLevel";
         public string BattleModeName    => "BattleMode";
+        public string ToolLevel         => "ToolLevel";
         public string JumpTypeName      => "JumpType";
         public string FallName          => "Fall";
         public string LandName          => "Land";

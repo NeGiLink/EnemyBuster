@@ -8,6 +8,8 @@ namespace MyAssets
     {
         bool Receipt { get; }
 
+        float Receipting {  get; }
+
     }
 
 }
