@@ -8,6 +8,8 @@ namespace MyAssets
     {
         void Setup(PlayerUsesCamera controller);
 
+        void Start();
         void CameraUpdate();
+        void Exit();
     }
 }

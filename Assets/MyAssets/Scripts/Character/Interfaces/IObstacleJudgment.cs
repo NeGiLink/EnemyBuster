@@ -8,5 +8,6 @@ namespace MyAssets
 
         void InitRay();
         bool IsClimbStart { get;}
+        //bool IsHurdleJumping {  get;}
     }
 }

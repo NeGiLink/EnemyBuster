@@ -5,53 +5,51 @@ using UnityEngine;
 namespace MyAssets
 {
     [System.Serializable]
-    public class WeaponOutState : PlayerStateBase
+    public class ReadyJumpAttack : PlayerStateBase
     {
-        private IChangingState changingState;
+        private IVelocityComponent velocity;
+
         private IEquipment equipment;
+
+        private IChangingState changingState;
+
         private IPlayerAnimator animator;
 
-        public static readonly string StateKey = "WeaponOut";
-
+        public static readonly string StateKey = "ReadyJumpAttack";
         public override string Key => StateKey;
+
         public override List<IPlayerStateTransition<string>> CreateTransitionList(IPlayerSetup actor)
         {
             List<IPlayerStateTransition<string>> re = new List<IPlayerStateTransition<string>>();
-            if (StateChanger.IsContain(FirstAttackState.StateKey)) { re.Add(new IsFirstAttackTransition(actor, StateChanger, FirstAttackState.StateKey)); }
+            if (StateChanger.IsContain(JumpAttackState.StateKey)) { re.Add(new IsJumpAttackTransition(actor, StateChanger, JumpAttackState.StateKey)); }
             return re;
         }
-
         public override void DoSetup(IPlayerSetup player)
         {
             base.DoSetup(player);
-            changingState = player.ChangingState;
+            velocity = player.Velocity;
             equipment = player.Equipment;
             animator = player.PlayerAnimator;
+            changingState = player.ChangingState;
         }
 
         public override void DoStart()
         {
             base.DoStart();
-            changingState.SetBattleMode(true);
             equipment.SetOutWeapon();
-            animator.Animator.SetInteger(animator.Weapon_In_OutName, 0);
-            animator.Animator.SetFloat(animator.ToolLevel, 1.0f);
-        }
+            changingState.SetBattleMode(true);
 
-        public override void DoUpdate(float time)
-        {
-            base.DoUpdate(time);
-            AnimatorStateInfo animInfo = animator.Animator.GetCurrentAnimatorStateInfo(0);
-            if(animInfo.normalizedTime > 0.5f && animInfo.normalizedTime < 0.55f)
-            {
-                //equipment.SetOutWeapon();
-            }
+            animator.Animator.SetInteger(animator.AttacksName, 3);
+            animator.Animator.SetFloat(animator.ToolLevel, 1.0f);
+
+            velocity.Rigidbody.velocity = Vector3.zero;
+            velocity.Rigidbody.useGravity = false;
         }
 
         public override void DoExit()
         {
             base.DoExit();
-            animator.Animator.SetInteger(animator.Weapon_In_OutName, -1);
+            velocity.Rigidbody.useGravity = true;
         }
     }
 }

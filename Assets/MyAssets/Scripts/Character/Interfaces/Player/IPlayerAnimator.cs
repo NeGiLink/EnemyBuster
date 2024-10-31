@@ -13,6 +13,7 @@ namespace MyAssets
         string DashName {  get; }
         string AlertLevelName {  get; }
         string BattleModeName {  get; }
+        string ToolLevel {  get; }
         string JumpTypeName {  get; }
         string FallName {  get; }
         string LandName {  get; }

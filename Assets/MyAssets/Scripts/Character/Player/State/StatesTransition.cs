@@ -51,6 +51,17 @@ namespace MyAssets
         public override bool IsTransition() => timer.IsEnd() && !input.IsMove;
     }
 
+    public class IsTimerTransition : PlayerStateTransitionBase
+    {
+        private readonly Timer timer;
+        public IsTimerTransition(IPlayerSetup actor, Timer _timer, IStateChanger<string> stateChanger, string changeKey)
+            : base(stateChanger, changeKey)
+        {
+            timer = _timer;
+        }
+        public override bool IsTransition() => timer.IsEnd();
+    }
+
     /// <summary>
     /// ƒWƒƒƒ“ƒv“ü—Í‚É‚æ‚é‘JˆÚ
     /// </summary>
@@ -319,6 +330,46 @@ namespace MyAssets
             changingState = actor.ChangingState;
             animator = actor.PlayerAnimator;
         }
-        public override bool IsTransition() => input.Receipt && changingState.IsBattleMode;
+        public override bool IsTransition() => (input.Receipt||input.Receipting > 0) && changingState.IsBattleMode;
+    }
+
+    public class IsReadyJumpAttackTransition : PlayerStateTransitionBase
+    {
+        private readonly IAttackInputProvider input;
+        private readonly IMoveInputProvider moveInput;
+        private readonly IGroundCheck groundCheck;
+        private readonly IPlayerAnimator animator;
+
+        public IsReadyJumpAttackTransition(IPlayerSetup actor, IStateChanger<string> stateChanger, string changeKey)
+            : base(stateChanger, changeKey)
+        {
+            input = actor.gameObject.GetComponent<IAttackInputProvider>();
+            groundCheck = actor.GroundCheck;
+            moveInput = actor.MoveInput;
+            animator = actor.PlayerAnimator;
+        }
+        public override bool IsTransition() => input.Attack &&moveInput.IsMove&&
+            !groundCheck.Landing;
+    }
+
+    public class IsJumpAttackTransition : PlayerStateTransitionBase
+    {
+        private readonly IAttackInputProvider input;
+        private readonly IChangingState changingState;
+        private readonly IGroundCheck groundCheck;
+        private readonly IPlayerAnimator animator;
+
+        private readonly string readyJumpAttackName = "JumpAttackPosture";
+
+        public IsJumpAttackTransition(IPlayerSetup actor, IStateChanger<string> stateChanger, string changeKey)
+            : base(stateChanger, changeKey)
+        {
+            input = actor.gameObject.GetComponent<IAttackInputProvider>();
+            groundCheck = actor.GroundCheck;
+            changingState = actor.ChangingState;
+            animator = actor.PlayerAnimator;
+        }
+        public override bool IsTransition() => animator.Animator.GetCurrentAnimatorStateInfo(0).IsName(readyJumpAttackName)&&
+            animator.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime  >= 1.0f;
     }
 }

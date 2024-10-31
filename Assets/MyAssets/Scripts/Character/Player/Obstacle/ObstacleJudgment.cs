@@ -19,22 +19,18 @@ namespace MyAssets
         private bool[] cliffHits = new bool[(int)JudgmentTag.Count];
 
         [Header("前方に飛ばすレイの位置"), SerializeField]
-        private float[] cliffCheckOffsets = new float[]
-        {
-            0.5f,
-            0.0f,
-        };
+        private float[] cliffCheckOffsets = new float[]{};
 
         [Header("レイの長さ"),SerializeField]
-        private float[] cliffDistances = new float[]
-        {
-            0.2f,
-            0.2f
-        };
+        private float[] cliffDistances = new float[]{};
 
         [SerializeField]
         private bool climbStart;
         public bool IsClimbStart => climbStart;
+
+        //[SerializeField]
+        //private bool hurdleJumping;
+        //public bool IsHurdleJumping => hurdleJumping;
 
         public void DoSetup(IPlayerSetup player)
         {
