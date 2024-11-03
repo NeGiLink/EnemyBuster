@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace MyAssets
 {
-    public interface ICharacterRotation
+    public interface IRotation
     {
         void DoUpdate();
 

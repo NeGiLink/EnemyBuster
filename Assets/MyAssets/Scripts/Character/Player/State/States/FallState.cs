@@ -9,7 +9,7 @@ namespace MyAssets
         private IMovement movement;
         private IVelocityComponent velocity;
         private IMoveInputProvider input;
-        private ICharacterRotation rotation;
+        private IRotation rotation;
         private IObstacleJudgment cliffJudgment;
         private IPlayerAnimator animator;
 

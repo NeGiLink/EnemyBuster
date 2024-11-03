@@ -27,8 +27,15 @@ namespace MyAssets
             velocity.Rigidbody.velocity = new Vector3(moveVelocity.x, velocity.Rigidbody.velocity.y, moveVelocity.z);
             keepVelocity = velocity.CurrentVelocity;
         }
+        public void ForwardMove(float maxSpeed)
+        {
+            var moveVelocity = velocity.CurrentVelocity;
+            moveVelocity = moveVelocity * maxSpeed;
+            velocity.Rigidbody.velocity = new Vector3(moveVelocity.x, velocity.Rigidbody.velocity.y, moveVelocity.z);
+            keepVelocity = velocity.CurrentVelocity;
+        }
 
-        public void ForwardMove(Vector3 basePos, float dis)
+        public void ForwardLerpMove(Vector3 basePos, float dis)
         {
             thisTransform.position = Vector3.Lerp(basePos, basePos + thisTransform.forward * dis, Time.deltaTime * 5.0f);
         }

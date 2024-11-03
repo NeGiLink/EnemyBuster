@@ -5,11 +5,11 @@ using UnityEngine;
 
 namespace MyAssets
 {
-    public enum PlayerCameraTag
+    public enum CameraTag
     {
         Free,
         Target,
-        Foucus,
+        OverTheShoulder,
         Count
     }
 
@@ -27,9 +27,9 @@ namespace MyAssets
         public FieldOfView FoucusTarget => foucusTarget;
 
         [SerializeField]
-        private PlayerCameraTag cameraTag;
+        private CameraTag cameraTag;
 
-        private IAllPlayerCamera[] allPlayerCamera = new IAllPlayerCamera[(int)PlayerCameraTag.Count];
+        private IAllPlayerCamera[] allPlayerCamera = new IAllPlayerCamera[(int)CameraTag.Count];
 
         private IAllPlayerCamera usePlayerCamera;
 
@@ -45,9 +45,9 @@ namespace MyAssets
 
             allPlayerCamera = new IAllPlayerCamera[]
             {
-                new FreePlayerCamera(),
-                new TargetPlayerCamera(),
-                new FoucusPlayerCamera(),
+                new FreeCamera(),
+                new TargetCamera(),
+                new OverTheShoulderCamera(),
             };
 
             foreach (var camera in allPlayerCamera)
@@ -55,32 +55,32 @@ namespace MyAssets
                 camera.Setup(this);
             }
 
-            usePlayerCamera = allPlayerCamera[(int)PlayerCameraTag.Free];
+            usePlayerCamera = allPlayerCamera[(int)CameraTag.Free];
         }
 
         public void DoStart()
         {
-            cameraTag = PlayerCameraTag.Free;
+            cameraTag = CameraTag.Free;
 
             usePlayerCamera.Start();
         }
 
         public void DoUpdate()
         {
-            if(focusInput.Foucus > 0&&cameraTag != PlayerCameraTag.Target && cameraTag != PlayerCameraTag.Foucus)
+            if(focusInput.Foucus > 0)
             {
                 if(foucusTarget.TargetObject != null)
                 {
-                    cameraTag = PlayerCameraTag.Target;
+                    cameraTag = CameraTag.Target;
                 }
                 else
                 {
-                    cameraTag = PlayerCameraTag.Foucus;
+                    cameraTag = CameraTag.OverTheShoulder;
                 }
             }
-            else if(focusInput.Foucus <= 0 &&cameraTag != PlayerCameraTag.Free)
+            else if(focusInput.Foucus <= 0)
             {
-                cameraTag = PlayerCameraTag.Free;
+                cameraTag = CameraTag.Free;
             }
 
 
@@ -100,7 +100,7 @@ namespace MyAssets
         }
     }
 
-    public class FreePlayerCamera : IAllPlayerCamera
+    public class FreeCamera : IAllPlayerCamera
     {
         private IMainCameraProvider mainCameraProvider;
         private PlayerUsesCamera playerUsesCamera;
@@ -114,13 +114,13 @@ namespace MyAssets
         }
         public void Start()
         {
-            mainCameraProvider.VirtualCameras[(int)PlayerCameraTag.Free].Priority = 10;
-            mainCameraProvider.VirtualCameras[(int)PlayerCameraTag.Target].Priority = 1;
-            mainCameraProvider.VirtualCameras[(int)PlayerCameraTag.Foucus].Priority = 1;
-            mainCameraProvider.VirtualCameras[(int)PlayerCameraTag.Target].LookAt = null;
+            mainCameraProvider.VirtualCameras[(int)CameraTag.Free].Priority = 10;
+            mainCameraProvider.VirtualCameras[(int)CameraTag.Target].Priority = 1;
+            mainCameraProvider.VirtualCameras[(int)CameraTag.OverTheShoulder].Priority = 1;
+            mainCameraProvider.VirtualCameras[(int)CameraTag.Target].LookAt = null;
 
             // POVカメラのPOVコンポーネントを取得
-            var povComponent = mainCameraProvider.VirtualCameras[(int)PlayerCameraTag.Free].GetCinemachineComponent<CinemachinePOV>();
+            var povComponent = mainCameraProvider.VirtualCameras[(int)CameraTag.Free].GetCinemachineComponent<CinemachinePOV>();
 
             // Quaternionをオイラー角に変換し、POVコンポーネントの軸に反映
             Vector3 eulerRotation = playerUsesCamera.FixedCamRotation.eulerAngles;
@@ -138,7 +138,7 @@ namespace MyAssets
         }
     }
 
-    public class TargetPlayerCamera : IAllPlayerCamera
+    public class TargetCamera : IAllPlayerCamera
     {
         private IMainCameraProvider mainCameraProvider;
         private PlayerUsesCamera playerUsesCamera;
@@ -152,27 +152,35 @@ namespace MyAssets
         }
         public void Start()
         {
-            mainCameraProvider.VirtualCameras[(int)PlayerCameraTag.Target].Priority = 10;
-            mainCameraProvider.VirtualCameras[(int)PlayerCameraTag.Free].Priority = 5;
-            mainCameraProvider.VirtualCameras[(int)PlayerCameraTag.Foucus].Priority = 1;
+            mainCameraProvider.VirtualCameras[(int)CameraTag.Target].Priority = 10;
+            mainCameraProvider.VirtualCameras[(int)CameraTag.Free].Priority = 5;
+            mainCameraProvider.VirtualCameras[(int)CameraTag.OverTheShoulder].Priority = 1;
+
+            // POVカメラのPOVコンポーネントを取得
+            var povComponent = mainCameraProvider.VirtualCameras[(int)CameraTag.Free].GetCinemachineComponent<CinemachinePOV>();
+
+            // Quaternionをオイラー角に変換し、POVコンポーネントの軸に反映
+            Vector3 eulerRotation = playerUsesCamera.FixedCamRotation.eulerAngles;
+            povComponent.m_VerticalAxis.Value = eulerRotation.x;
+            povComponent.m_HorizontalAxis.Value = eulerRotation.y;
         }
 
         public void Exit()
         {
-            GameObject camera = mainCameraProvider.VirtualCameras[(int)PlayerCameraTag.Target].gameObject;
+            GameObject camera = mainCameraProvider.VirtualCameras[(int)CameraTag.Target].gameObject;
             playerUsesCamera.SetFixedCamRotation(camera.transform.rotation);
         }
 
         public void CameraUpdate()
         {
 
-            if(fieldOfView.TargetObject?.transform != null&& mainCameraProvider.VirtualCameras[(int)PlayerCameraTag.Target].LookAt == null)
+            if(fieldOfView.TargetObject?.transform != null&& mainCameraProvider.VirtualCameras[(int)CameraTag.Target].LookAt == null)
             {
-                mainCameraProvider.VirtualCameras[(int)PlayerCameraTag.Target].LookAt = fieldOfView.TargetObject.transform;
+                mainCameraProvider.VirtualCameras[(int)CameraTag.Target].LookAt = fieldOfView.TargetObject.transform;
             }
         }
     }
-    public class FoucusPlayerCamera : IAllPlayerCamera
+    public class OverTheShoulderCamera : IAllPlayerCamera
     {
         private IMainCameraProvider mainCameraProvider;
         private PlayerUsesCamera playerUsesCamera;
@@ -186,14 +194,22 @@ namespace MyAssets
         }
         public void Start()
         {
-            mainCameraProvider.VirtualCameras[(int)PlayerCameraTag.Foucus].Priority = 10;
-            mainCameraProvider.VirtualCameras[(int)PlayerCameraTag.Free].Priority = 5;
-            mainCameraProvider.VirtualCameras[(int)PlayerCameraTag.Target].Priority = 1;
+            mainCameraProvider.VirtualCameras[(int)CameraTag.OverTheShoulder].Priority = 10;
+            mainCameraProvider.VirtualCameras[(int)CameraTag.Free].Priority = 5;
+            mainCameraProvider.VirtualCameras[(int)CameraTag.Target].Priority = 1;
+
+            // POVカメラのPOVコンポーネントを取得
+            var povComponent = mainCameraProvider.VirtualCameras[(int)CameraTag.Free].GetCinemachineComponent<CinemachinePOV>();
+
+            // Quaternionをオイラー角に変換し、POVコンポーネントの軸に反映
+            Vector3 eulerRotation = playerUsesCamera.FixedCamRotation.eulerAngles;
+            povComponent.m_VerticalAxis.Value = eulerRotation.x;
+            povComponent.m_HorizontalAxis.Value = eulerRotation.y;
         }
 
         public void Exit()
         {
-            GameObject camera = mainCameraProvider.VirtualCameras[(int)PlayerCameraTag.Foucus].gameObject;
+            GameObject camera = mainCameraProvider.MainCamera;
             playerUsesCamera.SetFixedCamRotation(camera.transform.rotation);
         }
 

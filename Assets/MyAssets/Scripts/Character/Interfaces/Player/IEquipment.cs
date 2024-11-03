@@ -6,6 +6,8 @@ namespace MyAssets
 {
     public interface IEquipment
     {
+        ShieldTool ShieldTool {  get; }
+
         //bool IsHaveWeapon {  get; }
         void SetInWeapon();
         void SetOutWeapon();

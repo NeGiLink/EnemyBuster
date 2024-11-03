@@ -23,6 +23,27 @@ namespace MyAssets
         public override bool IsTransition() => !input.IsMove;
     }
 
+    public class IsBattleModeTransition : PlayerStateTransitionBase
+    {
+        private IFocusInputProvider focusInput;
+        public IsBattleModeTransition(IPlayerSetup character, IStateChanger<string> stateChanger, string changeKey)
+            : base(stateChanger, changeKey)
+        {
+            focusInput = character.gameObject.GetComponent<IFocusInputProvider>();
+        }
+        public override bool IsTransition() => focusInput.Foucus > 0;
+    }
+    public class IsNotBattleModeTransition : PlayerStateTransitionBase
+    {
+        private IFocusInputProvider focusInput;
+        public IsNotBattleModeTransition(IPlayerSetup character, IStateChanger<string> stateChanger, string changeKey)
+            : base(stateChanger, changeKey)
+        {
+            focusInput = character.gameObject.GetComponent<IFocusInputProvider>();
+        }
+        public override bool IsTransition() => focusInput.Foucus < 1;
+    }
+
     /// <summary>
     /// àÍíËéûä‘à»ç~ÇÃà⁄ìÆì¸óÕÇ…ÇÊÇÈëJà⁄
     /// </summary>
@@ -69,13 +90,15 @@ namespace MyAssets
     {
         private readonly IGroundCheck groundCheck;
         private readonly IJumpInputProvider input;
+        private readonly IPlayerAnimator animator;
         public IsJumpPushTransition(IPlayerSetup actor, IStateChanger<string> stateChanger, string changeKey)
             : base(stateChanger, changeKey)
         {
             groundCheck = actor.GroundCheck;
             input = actor.gameObject.GetComponent<IJumpInputProvider>();
+            animator = actor.PlayerAnimator;
         }
-        public override bool IsTransition() => input.Jump;
+        public override bool IsTransition() => input.Jump&&animator.Animator.GetInteger(animator.LandName) == -1;
 
         
     }
@@ -93,7 +116,42 @@ namespace MyAssets
             velocity = actor.Velocity;
             input = actor.gameObject.GetComponent<IJumpInputProvider>();
         }
-        public override bool IsTransition() => velocity.Rigidbody.velocity.y < -0.5f&& !input.Jump && groundCheck.Landing;
+        public override bool IsTransition() => velocity.Rigidbody.velocity.y < -0.5f && groundCheck.Landing;
+    }
+    /// <summary>
+    /// ÉçÅ[ÉäÉìÉOÇ…ÇÊÇÈëJà⁄
+    /// </summary>
+    public class IsRollingTransition : PlayerStateTransitionBase
+    {
+        private readonly IPlayerAnimator animator;
+
+        private readonly IJumpInputProvider input;
+
+        private readonly IFocusInputProvider focusInput;
+        public IsRollingTransition(IPlayerSetup actor, IStateChanger<string> stateChanger, string changeKey)
+            : base(stateChanger, changeKey)
+        {
+            animator = actor.PlayerAnimator;
+            input = actor.gameObject.GetComponent<IJumpInputProvider>();
+            focusInput = actor.gameObject.GetComponent<IFocusInputProvider>();
+        }
+        public override bool IsTransition() => input.Jump;
+    }
+    public class IsNotRollingTransition : PlayerStateTransitionBase
+    {
+        private readonly IPlayerAnimator animator;
+
+        private readonly IJumpInputProvider input;
+
+        private readonly IFocusInputProvider focusInput;
+        public IsNotRollingTransition(IPlayerSetup actor, IStateChanger<string> stateChanger, string changeKey)
+            : base(stateChanger, changeKey)
+        {
+            animator = actor.PlayerAnimator;
+            input = actor.gameObject.GetComponent<IJumpInputProvider>();
+            focusInput = actor.gameObject.GetComponent<IFocusInputProvider>();
+        }
+        public override bool IsTransition() => animator.Animator.GetCurrentAnimatorStateInfo(0).IsName("Rolling")&&animator.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f;
     }
 
     /// <summary>
