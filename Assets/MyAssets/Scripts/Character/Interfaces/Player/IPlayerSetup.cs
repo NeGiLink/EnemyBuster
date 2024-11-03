@@ -5,7 +5,7 @@ namespace MyAssets
     public interface IPlayerSetup
     {
         GameObject              gameObject { get; }
-        ICharacterRotation      Rotation { get; }
+        IRotation      Rotation { get; }
         IMoveInputProvider      MoveInput { get; }
         IAttackInputProvider    AttackInput { get; }
         IToolInputProvider      ToolInput { get; }

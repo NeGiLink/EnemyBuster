@@ -12,7 +12,7 @@ namespace MyAssets
 
         private IVelocityComponent velocity;
 
-        private ICharacterRotation rotation;
+        private IRotation rotation;
 
         private IPlayerAnimator animator;
 

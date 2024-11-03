@@ -34,7 +34,7 @@ namespace MyAssets
 
         [SerializeField]
         private PlayerRotation rotation;
-        public ICharacterRotation Rotation => rotation;
+        public IRotation Rotation => rotation;
 
         [SerializeField]
         private GroundCheck groundCheck;
@@ -72,7 +72,16 @@ namespace MyAssets
         private MoveState moveState;
 
         [SerializeField]
+        private BattleIdleState battleIdleState;
+
+        [SerializeField]
+        private BattleMoveState battleMoveState;
+
+        [SerializeField]
         private JumpState jumpState;
+
+        [SerializeField]
+        private RollingState rollingState;
 
         [SerializeField]
         private FallState fallState;
@@ -125,7 +134,10 @@ namespace MyAssets
             {
                 idleState,
                 moveState,
+                battleIdleState,
+                battleMoveState,
                 jumpState,
+                rollingState,
                 fallState,
                 landingState,
                 climbState,

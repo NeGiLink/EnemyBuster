@@ -86,7 +86,7 @@ namespace MyAssets
         {
             AnimatorStateInfo aniInfo = animator.Animator.GetCurrentAnimatorStateInfo(0);
             if(aniInfo.normalizedTime > maxAttackingTime) { return; }
-            movement.ForwardMove(baseTransform,forwardPower);
+            movement.ForwardLerpMove(baseTransform,forwardPower);
         }
 
         public override void DoExit()
@@ -160,7 +160,7 @@ namespace MyAssets
         {
             AnimatorStateInfo aniInfo = animator.Animator.GetCurrentAnimatorStateInfo(0);
             if (aniInfo.normalizedTime > maxAttackingTime) { return; }
-            movement.ForwardMove(baseTransform, forwardPower);
+            movement.ForwardLerpMove(baseTransform, forwardPower);
         }
 
         public override void DoExit()
@@ -229,7 +229,7 @@ namespace MyAssets
         {
             AnimatorStateInfo aniInfo = animator.Animator.GetCurrentAnimatorStateInfo(0);
             if (aniInfo.normalizedTime > maxAttackingTime) { return; }
-            movement.ForwardMove(baseTransform, forwardPower);
+            movement.ForwardLerpMove(baseTransform, forwardPower);
         }
 
         public override void DoExit()

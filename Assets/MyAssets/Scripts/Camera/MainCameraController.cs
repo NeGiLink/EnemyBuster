@@ -7,10 +7,14 @@ namespace MyAssets
     public interface IMainCameraProvider
     {
         List<CinemachineVirtualCamera> VirtualCameras {  get; }
+
+        GameObject MainCamera { get; }
     }
     public class MainCameraController : MonoBehaviour, IMainCameraProvider
     {
-
+        [SerializeField]
+        private GameObject mainCamera;
+        public GameObject MainCamera => mainCamera;
         [SerializeField]
         private List<CinemachineVirtualCamera> virtualCameras = new List<CinemachineVirtualCamera>();
         public List<CinemachineVirtualCamera> VirtualCameras => virtualCameras;
@@ -26,6 +30,13 @@ namespace MyAssets
 
         private void Awake()
         {
+            Camera camera = Camera.main;
+            if(camera != null)
+            {
+                mainCamera = camera.gameObject;
+            }
+
+
             GameObject player = GameObject.FindGameObjectWithTag("Player");
 
             //var list = GetComponentsInChildren<CinemachineVirtualCamera>();

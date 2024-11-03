@@ -4,38 +4,41 @@ using UnityEngine;
 namespace MyAssets
 {
     [System.Serializable]
-    public class MoveState : PlayerStateBase
+    public class IdleState : PlayerStateBase
     {
         private IMoveInputProvider input;
-
+        
         private IFocusInputProvider focusInputProvider;
         
         private IVelocityComponent velocity;
-        
+
         private IMovement movement;
         
-        private ICharacterRotation rotation;
-        
+        private IRotation rotation;
+
         private IObstacleJudgment cliffJudgment;
-        
-        private IStepClimberJudgment stepClimberJudgment;
-        
+
         private IPlayerAnimator animator;
+
+        private IFootIK footIK;
+        
+        private FieldOfView fieldOfView;
+
+        private IEquipment equipment;
 
         [SerializeField]
         private float moveSpeed = 4.0f;
         [SerializeField]
-        private float moveGravityMultiply;
-        [SerializeField]
-        private float dashMagnification = 1.5f;
+        private float idleGravityMultiply;
 
-        public static readonly string StateKey = "Move";
-
+        public static readonly string StateKey = "Idle";
         public override string Key => StateKey;
+
         public override List<IPlayerStateTransition<string>> CreateTransitionList(IPlayerSetup actor)
         {
             List<IPlayerStateTransition<string>> re = new List<IPlayerStateTransition<string>>();
-            if (StateChanger.IsContain(IdleState.StateKey)) { re.Add(new IsNotMoveTransition(actor, StateChanger, IdleState.StateKey)); }
+            if (StateChanger.IsContain(MoveState.StateKey)) { re.Add(new IsMoveTransition(actor, StateChanger, MoveState.StateKey)); }
+            if (StateChanger.IsContain(BattleIdleState.StateKey)) { re.Add(new IsBattleModeTransition(actor, StateChanger, BattleIdleState.StateKey)); }
             if (StateChanger.IsContain(JumpState.StateKey)) { re.Add(new IsJumpPushTransition(actor, StateChanger, JumpState.StateKey)); }
             if (StateChanger.IsContain(FallState.StateKey)) { re.Add(new IsNotGroundTransition(actor, StateChanger, FallState.StateKey)); }
             if (StateChanger.IsContain(ClimbState.StateKey)) { re.Add(new IsClimbTransition(actor, StateChanger, ClimbState.StateKey)); }
@@ -44,79 +47,65 @@ namespace MyAssets
             if (StateChanger.IsContain(WeaponInState.StateKey)) { re.Add(new IsWeaponInTransition(actor, StateChanger, WeaponInState.StateKey)); }
             return re;
         }
-
         public override void DoSetup(IPlayerSetup player)
         {
             base.DoSetup(player);
-            movement = player.Movement;
-            velocity = player.Velocity;
-            cliffJudgment = player.ObstacleJudgment;
-            stepClimberJudgment = player.StepClimberJudgment;
-            rotation = player.Rotation;
-            input = player.gameObject.GetComponent<IMoveInputProvider>();
             focusInputProvider = player.gameObject.GetComponent<IFocusInputProvider>();
+            input = player.gameObject.GetComponent<IMoveInputProvider>();
+            velocity = player.Velocity;
+            movement = player.Movement;
+            rotation = player.Rotation;
+            cliffJudgment = player.ObstacleJudgment;
+            footIK = player.FootIK;
             animator = player.PlayerAnimator;
+            fieldOfView = player.gameObject.GetComponent<FieldOfView>();
+            equipment = player.gameObject.GetComponent<IEquipment>();
         }
 
         public override void DoStart()
         {
             base.DoStart();
-            cliffJudgment.InitRay();
-
-            if(focusInputProvider.Foucus > 0)
-            {
-                animator.Animator.SetFloat(animator.BattleModeName, 1.0f);
-            }
-            else
-            {
-                animator.Animator.SetFloat(animator.BattleModeName, 0.0f);
-            }
         }
 
         public override void DoUpdate(float time)
         {
             base.DoUpdate(time);
-            
-            animator.Animator.SetFloat(animator.DashName, input.Dash, 0.1f, Time.deltaTime);
-            animator.Animator.SetFloat(animator.MoveName, velocity.CurrentVelocity.magnitude, 0.1f, Time.deltaTime);
-            animator.Animator.SetFloat(animator.VelocityX, input.Horizontal, 0.1f, Time.deltaTime);
-            animator.Animator.SetFloat(animator.VelocityZ, input.Vertical, 0.1f, Time.deltaTime);
+            AnimationUpdate();
+            cliffJudgment.RayCheck();
+            rotation.DoUpdate();
+        }
 
-            if (focusInputProvider.Foucus > 0)
+        private void AnimationUpdate()
+        {
+            animator.Animator.SetFloat(animator.MoveName, velocity.CurrentVelocity.magnitude, 0.1f, Time.deltaTime);
+
+            animator.UpdateWeight();
+
+            if (fieldOfView.TargetObject != null)
             {
-                animator.Animator.SetFloat(animator.BattleModeName, 1.0f,0.1f,Time.deltaTime);
+                animator.Animator.SetFloat(animator.AlertLevelName, 1.0f,0.1f,Time.deltaTime);
             }
             else
             {
-                animator.Animator.SetFloat(animator.BattleModeName, 0.0f,0.1f,Time.deltaTime);
+                animator.Animator.SetFloat(animator.AlertLevelName, 0.0f, 0.1f, Time.deltaTime);
             }
-
-            cliffJudgment.RayCheck();
-            stepClimberJudgment.HandleStepClimbing();
-            rotation.DoUpdate();
         }
 
         public override void DoFixedUpdate(float time)
         {
             base.DoFixedUpdate(time);
-            float speed = moveSpeed;
-            if(input.Dash > 0)
-            {
-                speed *= dashMagnification;
-            }
-            movement.Move(speed);
-            movement.StartClimbStep(stepClimberJudgment.StepGolePosition);
-            velocity.Rigidbody.velocity += Physics.gravity * moveGravityMultiply * time;
+
+            movement.Move(moveSpeed);
+            
+            velocity.Rigidbody.velocity += Physics.gravity * idleGravityMultiply * time;
+            
             rotation.DoFixedUpdate(velocity.CurrentVelocity);
         }
 
-        public override void DoExit()
+        public override void DoAnimatorIKUpdate()
         {
-            base.DoExit();
-            animator.Animator.SetFloat(animator.DashName, 0f);
-            animator.Animator.SetFloat(animator.MoveName, 0f);
-            animator.Animator.SetFloat(animator.VelocityX, 0f);
-            animator.Animator.SetFloat(animator.VelocityZ, 0f);
+            base.DoAnimatorIKUpdate();
+            footIK.DoUpdate();
         }
     }
 }

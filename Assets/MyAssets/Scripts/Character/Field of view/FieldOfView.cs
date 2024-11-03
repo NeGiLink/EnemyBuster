@@ -96,16 +96,16 @@ namespace MyAssets
                     Vector3 directionToObject = (obj.transform.position - transform.position).normalized;
                     float angle = Vector3.Angle(transform.forward, directionToObject);
 
+                    // Raycastで壁越しを除去
+                    if (Physics.Raycast(transform.position, directionToObject, out RaycastHit hit, range, targetObjectLayer))
+                    {
+                        if (hit.transform.gameObject == obj)
+                        {
+                            insideObjects.Add(obj); // オブジェクトを視界内リストに追加
+                        }
+                    }
                     if (angle <= viewAngle)
                     {
-                        // Raycastで壁越しを除去
-                        if (Physics.Raycast(transform.position, directionToObject, out RaycastHit hit, range, targetObjectLayer))
-                        {
-                            if (hit.transform.gameObject == obj)
-                            {
-                                insideObjects.Add(obj); // オブジェクトを視界内リストに追加
-                            }
-                        }
                     }
                 }
             }

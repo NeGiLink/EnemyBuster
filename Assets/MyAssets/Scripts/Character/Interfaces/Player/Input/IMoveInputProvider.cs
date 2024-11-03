@@ -1,9 +1,13 @@
 using UnityEngine;
+using Cinemachine;
+using UnityEngine.InputSystem;
 
 namespace MyAssets
 {
     public interface IMoveInputProvider
     {
+        AxisState AimVertical { get; }
+        AxisState AimHorizontal {  get; }
         bool IsMove { get; }
         Vector2 Move { get; }
         float Horizontal { get; }

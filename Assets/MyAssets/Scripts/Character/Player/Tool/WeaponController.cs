@@ -10,6 +10,10 @@ namespace MyAssets
         [SerializeField]
         private Transform haveWeapon;
 
+        [SerializeField]
+        private ShieldTool shieldTool;
+        public ShieldTool ShieldTool => shieldTool;
+
         private void Awake()
         {
             WeaponPosition[] weaponPosition = GetComponentsInChildren<WeaponPosition>();
@@ -23,6 +27,12 @@ namespace MyAssets
                 {
                     weaponTransforms[(int)WeaponPositionTag.Receipt] = weaponPosition[i].ThisObject.transform;
                 }
+            }
+
+            ShieldTool s = GetComponentInChildren<ShieldTool>();
+            if(s != null)
+            {
+                shieldTool = s;
             }
         }
 

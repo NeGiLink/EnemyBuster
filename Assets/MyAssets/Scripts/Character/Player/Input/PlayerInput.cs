@@ -1,3 +1,4 @@
+using Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -8,10 +9,19 @@ namespace MyAssets
         Key,
         Controller
     }
+
     public class PlayerInput : MonoBehaviour,IMoveInputProvider, IJumpInputProvider, IControllerInput,IAttackInputProvider,IToolInputProvider,IFocusInputProvider
     {
         private static DeviceInput deviceInput = DeviceInput.Key;
         public static DeviceInput GetDeviceInput() { return deviceInput; }
+
+        [Header("Aim")]
+        [SerializeField]
+        AxisState aimVertical;
+        public AxisState AimVertical => aimVertical;
+        [SerializeField]
+        AxisState aimHorizontal;
+        public AxisState AimHorizontal => aimHorizontal;
 
         private GenericInput genericInput;
 
@@ -59,6 +69,9 @@ namespace MyAssets
 
         public void DoUpdate()
         {
+            aimHorizontal.Update(Time.deltaTime);
+            aimVertical.Update(Time.deltaTime);
+
             CheckInput();
             switch (deviceInput)
             {
@@ -98,8 +111,8 @@ namespace MyAssets
             if (!Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D) &&
                !Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.S))
             {
-                if ((Mathf.Abs(Input.GetAxis("Horizontal")) >= 1.0f) ||
-                    (Mathf.Abs(Input.GetAxis("Vertical")) >= 1.0f))
+                if ((Mathf.Abs(Input.GetAxis("Horizontal")) >= Define.PressNum) ||
+                    (Mathf.Abs(Input.GetAxis("Vertical")) >= Define.PressNum))
                 {
                     deviceInput = DeviceInput.Controller;
                 }

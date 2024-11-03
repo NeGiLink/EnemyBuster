@@ -20,5 +20,8 @@ namespace MyAssets
         string AttacksName {  get; }
         string Weapon_In_OutName {  get; }
         string ClimbName {  get; }
+
+        void SetWeight(bool enabled, int layer);
+        void UpdateWeight();
     }
 }
