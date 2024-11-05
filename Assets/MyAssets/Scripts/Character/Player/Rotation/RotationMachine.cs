@@ -2,17 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RotationMachine : MonoBehaviour
+namespace MyAssets
 {
-    // Start is called before the first frame update
-    void Start()
+    public class RotationMachine : MonoBehaviour
     {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

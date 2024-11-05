@@ -99,7 +99,7 @@ namespace MyAssets
             
             velocity.Rigidbody.velocity += Physics.gravity * idleGravityMultiply * time;
             
-            rotation.DoFixedUpdate(velocity.CurrentVelocity);
+            rotation.DoFixedUpdate();
         }
 
         public override void DoAnimatorIKUpdate()

@@ -24,6 +24,7 @@ namespace MyAssets
         private IPlayerAnimator animator;
 
         // 追加: 切り替え前の回転を保持する変数
+        [SerializeField]
         private Quaternion previousCameraRotation;
 
         public void DoSetup(IPlayerSetup player)
@@ -50,7 +51,7 @@ namespace MyAssets
             }
         }
 
-        public void DoFixedUpdate(Vector3 velocity)
+        public void DoFixedUpdate()
         {
             if(focusInput.Foucus < Define.PressNum)
             {
@@ -59,23 +60,23 @@ namespace MyAssets
                 {
                     case DeviceInput.Key:
                         rotationSpeed = 600 * Time.deltaTime;
-                        if (velocity.magnitude > 0.5f)
+                        if (velocity.CurrentVelocity.magnitude > 0.5f)
                         {
-                            targetRotation = Quaternion.LookRotation(velocity, Vector3.up);
+                            targetRotation = Quaternion.LookRotation(velocity.CurrentVelocity, Vector3.up);
                         }
                         break;
                     case DeviceInput.Controller:
                         rotationSpeed = 1200 * Time.deltaTime;
-                        if (velocity.magnitude > 0.1f)
+                        if (velocity.CurrentVelocity.magnitude > 0.1f)
                         {
-                            targetRotation = Quaternion.LookRotation(velocity, Vector3.up);
+                            targetRotation = Quaternion.LookRotation(velocity.CurrentVelocity, Vector3.up);
                         }
                         break;
                 }
-                // 切り替え前の回転量を適用
-                //targetRotation = previousCameraRotation * targetRotation;
 
                 thisTransform.rotation = Quaternion.RotateTowards(thisTransform.rotation, targetRotation, rotationSpeed);
+                // 切り替え前の回転量を適用
+                //targetRotation = previousCameraRotation * targetRotation;
             }
             else if (focusInput.Foucus > Define.NullNum)
             {
@@ -92,10 +93,11 @@ namespace MyAssets
                     y_Focus.localRotation = verticalRotation;
 
                     // ここでカメラ切り替え前の回転量を適用
-                    targetRotation = previousCameraRotation * targetRotation;
+                    targetRotation = horizontalRotation;
                 }
             }
         }
+
 
         public void DoLookOnTarget(Vector3 dir)
         {
@@ -105,6 +107,49 @@ namespace MyAssets
             Vector3 enemyDirection = (targetObject - thisTransform.transform.position).normalized;
             // プレイヤーが常に敵の方向を向く
             thisTransform.rotation = Quaternion.LookRotation(enemyDirection);
+            // ここでカメラ切り替え前の回転量を適用
+            targetRotation = thisTransform.rotation;
+        }
+
+        public void DoFreeMode()
+        {
+            float rotationSpeed = Define.NullNum;
+            switch (PlayerInput.GetDeviceInput())
+            {
+                case DeviceInput.Key:
+                    rotationSpeed = 600 * Time.deltaTime;
+                    if (velocity.CurrentVelocity.magnitude > 0.5f)
+                    {
+                        targetRotation = Quaternion.LookRotation(velocity.CurrentVelocity, Vector3.up);
+                    }
+                    break;
+                case DeviceInput.Controller:
+                    rotationSpeed = 1200 * Time.deltaTime;
+                    if (velocity.CurrentVelocity.magnitude > 0.1f)
+                    {
+                        targetRotation = Quaternion.LookRotation(velocity.CurrentVelocity, Vector3.up);
+                    }
+                    break;
+            }
+
+            thisTransform.rotation = Quaternion.RotateTowards(thisTransform.rotation, targetRotation, rotationSpeed);
+        }
+
+        public void DoTargetLookOnMode()
+        {
+            if (fieldOfView.TargetObject == null) { return; }
+            DoLookOnTarget(fieldOfView.TargetObject.transform.position);
+        }
+
+        public void OverTheShoulder()
+        {
+            var horizontalRotation = Quaternion.AngleAxis(moveInput.AimHorizontal.Value, Vector3.up);
+            var verticalRotation = Quaternion.AngleAxis(moveInput.AimVertical.Value, Vector3.right);
+            thisTransform.rotation = horizontalRotation;
+            y_Focus.localRotation = verticalRotation;
+
+            // ここでカメラ切り替え前の回転量を適用
+            targetRotation = horizontalRotation;
         }
     }
 }

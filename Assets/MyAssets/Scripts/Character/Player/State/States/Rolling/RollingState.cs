@@ -72,6 +72,11 @@ namespace MyAssets
             {
                 direction += -thisTransform.forward;
             }
+
+            animator.Animator.SetFloat(animator.VelocityX, input.Horizontal, 0.1f, Time.deltaTime);
+            animator.Animator.SetFloat(animator.VelocityZ, input.Vertical, 0.1f, Time.deltaTime);
+
+            velocity.CurrentVelocity = Vector3.zero;
         }
         public override void DoFixedUpdate(float time)
         {
@@ -84,6 +89,7 @@ namespace MyAssets
         {
             base.DoExit();
             animator.Animator.SetInteger("Rolling", -1);
+            velocity.CurrentVelocity = Vector3.zero;
         }
     }
 }

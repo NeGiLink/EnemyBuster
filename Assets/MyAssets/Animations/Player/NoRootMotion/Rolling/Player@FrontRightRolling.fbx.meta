@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 516eccdaa6003f54fbc55d230be44df0
+guid: 590c0a0644c8c6845b4f0b67e3d7e7a3
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -33,13 +33,13 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Rolling
+      name: FrontRightRolling
       takeName: Armature|Armature|mixamo.com|Layer0
       internalID: -4791504522942941401
       firstFrame: 0
       lastFrame: 35
       wrapMode: 0
-      orientationOffsetY: 0
+      orientationOffsetY: -45
       level: 0
       cycleOffset: 0
       loop: 0

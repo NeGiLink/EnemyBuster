@@ -90,7 +90,7 @@ namespace MyAssets
 
             movement.Move(speed);
             velocity.Rigidbody.velocity += Physics.gravity * moveGravityMultiply * time;
-            rotation.DoFixedUpdate(velocity.CurrentVelocity);
+            rotation.DoFixedUpdate();
         }
 
         public override void DoExit()

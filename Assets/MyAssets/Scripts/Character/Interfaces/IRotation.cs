@@ -8,6 +8,12 @@ namespace MyAssets
     {
         void DoUpdate();
 
-        void DoFixedUpdate(Vector3 velocity);
+        void DoFixedUpdate();
+
+        void DoFreeMode();
+
+        void DoTargetLookOnMode();
+
+        void OverTheShoulder();
     }
 }
