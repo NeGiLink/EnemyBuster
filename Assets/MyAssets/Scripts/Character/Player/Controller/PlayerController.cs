@@ -180,7 +180,7 @@ namespace MyAssets
         void Update()
         {
             input.DoUpdate();
-            groundCheck.CheckGroundStatus();
+            groundCheck.DoUpdate();
             stateMachine.DoUpdate(Time.deltaTime);
         }
 

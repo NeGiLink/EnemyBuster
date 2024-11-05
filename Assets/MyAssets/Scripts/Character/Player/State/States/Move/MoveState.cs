@@ -102,7 +102,7 @@ namespace MyAssets
             movement.Move(speed);
             movement.StartClimbStep(stepClimberJudgment.StepGolePosition);
             velocity.Rigidbody.velocity += Physics.gravity * moveGravityMultiply * time;
-            rotation.DoFixedUpdate(velocity.CurrentVelocity);
+            rotation.DoFixedUpdate();
         }
 
         public override void DoExit()
@@ -110,8 +110,7 @@ namespace MyAssets
             base.DoExit();
             animator.Animator.SetFloat(animator.DashName, 0f);
             animator.Animator.SetFloat(animator.MoveName, 0f);
-            //animator.Animator.SetFloat(animator.VelocityX, 0f);
-            //animator.Animator.SetFloat(animator.VelocityZ, 0f);
+
         }
     }
 }

@@ -12,6 +12,7 @@ namespace MyAssets
         private IRotation rotation;
         private IObstacleJudgment cliffJudgment;
         private IPlayerAnimator animator;
+        private IGroundCheck groundCheck;
 
         [SerializeField]
         float moveSpeed;
@@ -39,6 +40,7 @@ namespace MyAssets
             rotation = player.Rotation;
             cliffJudgment = player.ObstacleJudgment;
             animator = player.PlayerAnimator;
+            groundCheck = player.GroundCheck;
         }
         public override void DoStart()
         {
@@ -49,6 +51,7 @@ namespace MyAssets
         public override void DoUpdate(float time)
         {
             base.DoUpdate(time);
+            groundCheck.FallTimeUpdate();
             cliffJudgment.RayCheck();
             rotation.DoUpdate();
         }
@@ -58,7 +61,7 @@ namespace MyAssets
             base.DoFixedUpdate(time);
             movement.Move(moveSpeed);
             velocity.Rigidbody.velocity += Physics.gravity * fallGravityMultiply * time;
-            rotation.DoFixedUpdate(velocity.CurrentVelocity);
+            rotation.DoFixedUpdate();
         }
 
         public override void DoExit()

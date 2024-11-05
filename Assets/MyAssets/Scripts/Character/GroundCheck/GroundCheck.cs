@@ -24,24 +24,42 @@ namespace MyAssets
         public bool Landing => landing;
 
         public void SetLanding(bool _landing) { landing = _landing; }
+
+        [SerializeField]
+        private float fallCount = 0;
+
+        public bool IsFalling => fallCount >= 0.1f;
+
+        public void DoUpdate()
+        {
+            CheckGroundStatus();
+
+        }
+
         /// <summary>
         /// GroundCheck処理
         /// SphereCastを使用してtrue、falseの処理を行う
         /// </summary>
         /// <returns></returns>
-        public void CheckGroundStatus()
+        private void CheckGroundStatus()
         {
-            landing = Physics.SphereCast(transform.position + groundCheckOffsetY * Vector3.up,
+            bool land = false;
+            land = Physics.SphereCast(transform.position + groundCheckOffsetY * Vector3.up,
                 groundCheckRadius, Vector3.down, out hit, groundCheckDistance, groundLayers,
                 QueryTriggerInteraction.Ignore);
+            if(land != landing)
+            {
+                if (landing)
+                {
+                    fallCount = 0;
+                }
+                landing = land;
+            }
         }
-        /*
-        public bool CheckGroundStatus()
+
+        public void FallTimeUpdate()
         {
-            return Physics.SphereCast(transform.position + groundCheckOffsetY * Vector3.up,
-                groundCheckRadius, Vector3.down, out hit, groundCheckDistance, groundLayers,
-                QueryTriggerInteraction.Ignore);
+            fallCount += Time.deltaTime;
         }
-         */
     }
 }

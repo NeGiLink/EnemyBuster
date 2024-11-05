@@ -6,5 +6,9 @@ namespace MyAssets
         bool Landing {  get;}
 
         void SetLanding(bool b);
+
+        void FallTimeUpdate();
+
+        bool IsFalling { get;}
     }
 }

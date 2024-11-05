@@ -72,6 +72,7 @@ namespace MyAssets
         public override void DoUpdate(float time)
         {
             base.DoUpdate(time);
+            groundCheck.FallTimeUpdate();
             cliffJudgment.RayCheck();
             rotation.DoUpdate();
         }
@@ -89,7 +90,7 @@ namespace MyAssets
                 movement.Move(speed);
             }
             velocity.Rigidbody.velocity += Physics.gravity * jumpGravityMultiply * time;
-            rotation.DoFixedUpdate(velocity.CurrentVelocity);
+            rotation.DoFixedUpdate();
         }
 
         public override void DoExit()

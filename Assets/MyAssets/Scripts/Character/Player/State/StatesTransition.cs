@@ -151,7 +151,7 @@ namespace MyAssets
             input = actor.gameObject.GetComponent<IJumpInputProvider>();
             focusInput = actor.gameObject.GetComponent<IFocusInputProvider>();
         }
-        public override bool IsTransition() => animator.Animator.GetCurrentAnimatorStateInfo(0).IsName("Rolling")&&animator.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f;
+        public override bool IsTransition() => animator.Animator.GetInteger("Rolling") > -1&&animator.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f;
     }
 
     /// <summary>
@@ -168,7 +168,7 @@ namespace MyAssets
             groundCheck = player.GroundCheck;
             velocity = player.Velocity;
         }
-        public override bool IsTransition() => velocity.Rigidbody.velocity.y > -0.1f&&groundCheck.Landing;
+        public override bool IsTransition() => groundCheck.IsFalling&&groundCheck.Landing;
     }
     public class IsNotGroundTransition : PlayerStateTransitionBase
     {
