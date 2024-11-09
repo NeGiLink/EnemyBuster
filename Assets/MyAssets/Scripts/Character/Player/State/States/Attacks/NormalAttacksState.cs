@@ -28,7 +28,7 @@ namespace MyAssets
     public class FirstAttackState : PlayerStateBase
     {
         private IVelocityComponent velocity;
-        private IMovement movement;
+        private ICharacterMovement movement;
         private IPlayerAnimator animator;
         private Transform transform;
 
@@ -50,11 +50,11 @@ namespace MyAssets
         public override string Key => StateKey;
 
         private readonly string currentMotionName = "FirstAttack";
-        public override List<IPlayerStateTransition<string>> CreateTransitionList(IPlayerSetup actor)
+        public override List<ICharacterStateTransition<string>> CreateTransitionList(IPlayerSetup actor)
         {
-            List<IPlayerStateTransition<string>> re = new List<IPlayerStateTransition<string>>();
+            List<ICharacterStateTransition<string>> re = new List<ICharacterStateTransition<string>>();
             if (StateChanger.IsContain(SecondAttackState.StateKey)) { re.Add(new IsBurstAttackTransition(currentMotionName,maxAttackingTime,actor, StateChanger, SecondAttackState.StateKey)); }
-            if (StateChanger.IsContain(IdleState.StateKey)) { re.Add(new IsNotAttackTransition(actor, StateChanger, IdleState.StateKey)); }
+            if (StateChanger.IsContain(PlayerIdleState.StateKey)) { re.Add(new IsNotAttackTransition(actor, StateChanger, PlayerIdleState.StateKey)); }
             if (StateChanger.IsContain(MoveState.StateKey)) { re.Add(new IsNotAttackToMoveTransition(maxNormalizedTime, actor, StateChanger, MoveState.StateKey)); }
             return re;
         }
@@ -99,7 +99,7 @@ namespace MyAssets
     public class SecondAttackState : PlayerStateBase
     {
         private IVelocityComponent velocity;
-        private IMovement movement;
+        private ICharacterMovement movement;
         private IPlayerAnimator animator;
 
         private IAttackInputProvider inputTimer;
@@ -124,11 +124,11 @@ namespace MyAssets
         public override string Key => StateKey;
 
         private readonly string currentMotionName = "SecondAttack";
-        public override List<IPlayerStateTransition<string>> CreateTransitionList(IPlayerSetup actor)
+        public override List<ICharacterStateTransition<string>> CreateTransitionList(IPlayerSetup actor)
         {
-            List<IPlayerStateTransition<string>> re = new List<IPlayerStateTransition<string>>();
+            List<ICharacterStateTransition<string>> re = new List<ICharacterStateTransition<string>>();
             if (StateChanger.IsContain(ThirdAttackState.StateKey)) { re.Add(new IsBurstAttackTransition(currentMotionName, maxAttackingTime, actor, StateChanger, ThirdAttackState.StateKey)); }
-            if (StateChanger.IsContain(IdleState.StateKey)) { re.Add(new IsNotAttackTransition(actor, StateChanger, IdleState.StateKey)); }
+            if (StateChanger.IsContain(PlayerIdleState.StateKey)) { re.Add(new IsNotAttackTransition(actor, StateChanger, PlayerIdleState.StateKey)); }
             if (StateChanger.IsContain(MoveState.StateKey)) { re.Add(new IsNotAttackToMoveTransition(maxNormalizedTime, actor, StateChanger, MoveState.StateKey)); }
             return re;
         }
@@ -173,7 +173,7 @@ namespace MyAssets
     public class ThirdAttackState : PlayerStateBase
     {
         private IVelocityComponent velocity;
-        private IMovement movement;
+        private ICharacterMovement movement;
         private IPlayerAnimator animator;
         private Transform transform;
         [SerializeField]
@@ -193,10 +193,10 @@ namespace MyAssets
 
         public static readonly string StateKey = "ThirsAttack";
         public override string Key => StateKey;
-        public override List<IPlayerStateTransition<string>> CreateTransitionList(IPlayerSetup actor)
+        public override List<ICharacterStateTransition<string>> CreateTransitionList(IPlayerSetup actor)
         {
-            List<IPlayerStateTransition<string>> re = new List<IPlayerStateTransition<string>>();
-            if (StateChanger.IsContain(IdleState.StateKey)) { re.Add(new IsNotAttackTransition(actor, StateChanger, IdleState.StateKey)); }
+            List<ICharacterStateTransition<string>> re = new List<ICharacterStateTransition<string>>();
+            if (StateChanger.IsContain(PlayerIdleState.StateKey)) { re.Add(new IsNotAttackTransition(actor, StateChanger, PlayerIdleState.StateKey)); }
             if (StateChanger.IsContain(MoveState.StateKey)) { re.Add(new IsNotAttackToMoveTransition(maxNormalizedTime, actor, StateChanger, MoveState.StateKey)); }
             if (StateChanger.IsContain(FirstAttackState.StateKey)) { re.Add(new IsLoopFirstAttackTransition(maxNormalizedTime,actor, StateChanger, FirstAttackState.StateKey)); }
             return re;

@@ -1,6 +1,5 @@
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.InputSystem;
+
 
 namespace MyAssets
 {
@@ -56,7 +55,7 @@ namespace MyAssets
 
         [SerializeField]
         private Movement movement;
-        public IMovement Movement => movement;
+        public ICharacterMovement Movement => movement;
 
         [SerializeField]
         private Climb climb;
@@ -66,7 +65,7 @@ namespace MyAssets
         private string defaultStateKey;
 
         [SerializeField]
-        private IdleState idleState;
+        private PlayerIdleState idleState;
 
         [SerializeField]
         private MoveState moveState;
@@ -171,10 +170,6 @@ namespace MyAssets
             {
                 Debug.LogError("Animatorがアタッチされていません");
             }
-        }
-
-        void Start()
-        {
         }
 
         void Update()

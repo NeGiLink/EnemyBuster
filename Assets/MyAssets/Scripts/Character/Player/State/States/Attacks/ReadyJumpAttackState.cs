@@ -18,9 +18,9 @@ namespace MyAssets
         public static readonly string StateKey = "ReadyJumpAttack";
         public override string Key => StateKey;
 
-        public override List<IPlayerStateTransition<string>> CreateTransitionList(IPlayerSetup actor)
+        public override List<ICharacterStateTransition<string>> CreateTransitionList(IPlayerSetup actor)
         {
-            List<IPlayerStateTransition<string>> re = new List<IPlayerStateTransition<string>>();
+            List<ICharacterStateTransition<string>> re = new List<ICharacterStateTransition<string>>();
             if (StateChanger.IsContain(JumpAttackState.StateKey)) { re.Add(new IsJumpAttackTransition(actor, StateChanger, JumpAttackState.StateKey)); }
             return re;
         }

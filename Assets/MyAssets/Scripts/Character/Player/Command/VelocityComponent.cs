@@ -4,7 +4,7 @@ using UnityEngine.Assertions;
 namespace MyAssets
 {
     [System.Serializable]
-    public class VelocityComponent : IVelocityComponent,IPlayerComponent
+    public class VelocityComponent : IVelocityComponent,ICharacterComponent
     {
         [SerializeField]
         private Rigidbody thisRigidbody;
@@ -34,12 +34,12 @@ namespace MyAssets
         public Vector2 CurrentMove => new Vector2(CurrentVelocity.x, CurrentVelocity.z);
         public float CurrentMoveSpeed => CurrentMove.magnitude;
 
-        public void DoSetup(IPlayerSetup actor)
+        public void DoSetup(ICharacterSetup chara)
         {
-            thisRigidbody = actor.gameObject.GetComponent<Rigidbody>();
+            thisRigidbody = chara.gameObject.GetComponent<Rigidbody>();
             Assert.IsNotNull(thisRigidbody);
         }
-
+        /*
         public void RefreshVelocity()
         {
             if (needUpdateVelocity && inheritRigidbodyVelocity)
@@ -49,6 +49,7 @@ namespace MyAssets
             thisRigidbody.velocity = currentVelocity;
             needUpdateVelocity = true;
         }
+        */
 
         public Rigidbody Rigidbody { get { return thisRigidbody; }set { thisRigidbody = value; } }
     }

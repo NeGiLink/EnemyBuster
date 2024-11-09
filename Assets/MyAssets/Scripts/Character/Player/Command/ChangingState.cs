@@ -11,9 +11,6 @@ namespace MyAssets
 
         public void SetBattleMode(bool b) { battleMode = b; }
 
-        public void DoSetup(IPlayerSetup player)
-        {
-
-        }
+        public void DoSetup(IPlayerSetup player){}
     }
 }
