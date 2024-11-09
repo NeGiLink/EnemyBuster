@@ -8,7 +8,7 @@ namespace MyAssets
     {
         private Timer playerTimer = new Timer();
 
-        private IMovement movement;
+        private ICharacterMovement movement;
 
         private IVelocityComponent velocity;
 
@@ -20,12 +20,12 @@ namespace MyAssets
         public static readonly string StateKey = "Landing";
         public override string Key => StateKey;
 
-        public override List<IPlayerStateTransition<string>> CreateTransitionList(IPlayerSetup player)
+        public override List<ICharacterStateTransition<string>> CreateTransitionList(IPlayerSetup player)
         {
-            List<IPlayerStateTransition<string>> re = new List<IPlayerStateTransition<string>>();
+            List<ICharacterStateTransition<string>> re = new List<ICharacterStateTransition<string>>();
             if (StateChanger.IsContain(MoveState.StateKey)) { re.Add(new IsTimerAndMoveTransition(player, playerTimer, StateChanger, MoveState.StateKey)); }
-            else if (StateChanger.IsContain(IdleState.StateKey)) { re.Add(new IsTimerAndMoveTransition(player, playerTimer, StateChanger, IdleState.StateKey)); }
-            if (StateChanger.IsContain(IdleState.StateKey)) { re.Add(new IsTimerAndNotMoveTransition(player, playerTimer, StateChanger, IdleState.StateKey)); }
+            else if (StateChanger.IsContain(PlayerIdleState.StateKey)) { re.Add(new IsTimerAndMoveTransition(player, playerTimer, StateChanger, PlayerIdleState.StateKey)); }
+            if (StateChanger.IsContain(PlayerIdleState.StateKey)) { re.Add(new IsTimerAndNotMoveTransition(player, playerTimer, StateChanger, PlayerIdleState.StateKey)); }
             return re;
         }
         public override void DoSetup(IPlayerSetup actor)

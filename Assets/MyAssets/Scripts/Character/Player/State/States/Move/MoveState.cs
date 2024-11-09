@@ -12,7 +12,7 @@ namespace MyAssets
         
         private IVelocityComponent velocity;
         
-        private IMovement movement;
+        private ICharacterMovement movement;
         
         private IRotation rotation;
         
@@ -34,10 +34,10 @@ namespace MyAssets
         public static readonly string StateKey = "Move";
 
         public override string Key => StateKey;
-        public override List<IPlayerStateTransition<string>> CreateTransitionList(IPlayerSetup actor)
+        public override List<ICharacterStateTransition<string>> CreateTransitionList(IPlayerSetup actor)
         {
-            List<IPlayerStateTransition<string>> re = new List<IPlayerStateTransition<string>>();
-            if (StateChanger.IsContain(IdleState.StateKey)) { re.Add(new IsNotMoveTransition(actor, StateChanger, IdleState.StateKey)); }
+            List<ICharacterStateTransition<string>> re = new List<ICharacterStateTransition<string>>();
+            if (StateChanger.IsContain(PlayerIdleState.StateKey)) { re.Add(new IsNotMoveTransition(actor, StateChanger, PlayerIdleState.StateKey)); }
             if (StateChanger.IsContain(JumpState.StateKey)) { re.Add(new IsJumpPushTransition(actor, StateChanger, JumpState.StateKey)); }
             if (StateChanger.IsContain(FallState.StateKey)) { re.Add(new IsNotGroundTransition(actor, StateChanger, FallState.StateKey)); }
             if (StateChanger.IsContain(ClimbState.StateKey)) { re.Add(new IsClimbTransition(actor, StateChanger, ClimbState.StateKey)); }

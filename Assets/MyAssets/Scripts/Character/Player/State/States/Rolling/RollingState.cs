@@ -10,7 +10,7 @@ namespace MyAssets
 
         private IVelocityComponent velocity;
 
-        private IMovement movement;
+        private ICharacterMovement movement;
 
         private IRotation rotation;
 
@@ -30,9 +30,9 @@ namespace MyAssets
 
         public override string Key => StateKey;
 
-        public override List<IPlayerStateTransition<string>> CreateTransitionList(IPlayerSetup actor)
+        public override List<ICharacterStateTransition<string>> CreateTransitionList(IPlayerSetup actor)
         {
-            List<IPlayerStateTransition<string>> re = new List<IPlayerStateTransition<string>>();
+            List<ICharacterStateTransition<string>> re = new List<ICharacterStateTransition<string>>();
             if (StateChanger.IsContain(BattleMoveState.StateKey)) { re.Add(new IsNotRollingTransition(actor, StateChanger, BattleMoveState.StateKey)); }
             if (StateChanger.IsContain(BattleIdleState.StateKey)) { re.Add(new IsNotRollingTransition(actor, StateChanger, BattleIdleState.StateKey)); }
             return re;

@@ -79,7 +79,7 @@ namespace MyAssets
         IEnumerator UpdateRoutine()
         {
             var refreshWait = new WaitForSeconds(refreshTime);
-            Collider[] colliders = new Collider[100]; // 予め一定数のコライダ用配列を用意
+            Collider[] colliders = new Collider[10]; // 予め一定数のコライダ用配列を用意
             while (true)
             {
                 yield return refreshWait;
@@ -99,7 +99,7 @@ namespace MyAssets
                     // Raycastで壁越しを除去
                     if (Physics.Raycast(transform.position, directionToObject, out RaycastHit hit, range, targetObjectLayer))
                     {
-                        if (hit.transform.gameObject == obj)
+                        if (hit.transform.gameObject == obj||hit.collider.gameObject.layer == 9)
                         {
                             insideObjects.Add(obj); // オブジェクトを視界内リストに追加
                         }

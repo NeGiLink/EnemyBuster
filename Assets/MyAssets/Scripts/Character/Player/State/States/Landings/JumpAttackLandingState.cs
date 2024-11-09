@@ -9,7 +9,7 @@ namespace MyAssets
     {
         private Timer playerTimer = new Timer();
 
-        private IMovement movement;
+        private ICharacterMovement movement;
 
         private IVelocityComponent velocity;
 
@@ -21,10 +21,10 @@ namespace MyAssets
         public static readonly string StateKey = "JumpAttackLanding";
         public override string Key => StateKey;
 
-        public override List<IPlayerStateTransition<string>> CreateTransitionList(IPlayerSetup player)
+        public override List<ICharacterStateTransition<string>> CreateTransitionList(IPlayerSetup player)
         {
-            List<IPlayerStateTransition<string>> re = new List<IPlayerStateTransition<string>>();
-            if (StateChanger.IsContain(IdleState.StateKey)) { re.Add(new IsTimerTransition(player, playerTimer, StateChanger, IdleState.StateKey)); }
+            List<ICharacterStateTransition<string>> re = new List<ICharacterStateTransition<string>>();
+            if (StateChanger.IsContain(PlayerIdleState.StateKey)) { re.Add(new IsTimerTransition(player, playerTimer, StateChanger, PlayerIdleState.StateKey)); }
             if (StateChanger.IsContain(MoveState.StateKey)) { re.Add(new IsTimerTransition(player, playerTimer, StateChanger, MoveState.StateKey)); }
             return re;
         }
