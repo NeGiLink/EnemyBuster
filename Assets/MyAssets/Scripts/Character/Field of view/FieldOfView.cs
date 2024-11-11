@@ -26,6 +26,9 @@ namespace MyAssets
         [SerializeField]
         LayerMask targetObjectLayer = Physics.AllLayers;
 
+        [SerializeField]
+        private bool allSearch = false;
+
         // 視界範囲内のオブジェクトリスト
         List<GameObject> insideObjects = new List<GameObject>();
 
@@ -96,16 +99,30 @@ namespace MyAssets
                     Vector3 directionToObject = (obj.transform.position - transform.position).normalized;
                     float angle = Vector3.Angle(transform.forward, directionToObject);
 
-                    // Raycastで壁越しを除去
-                    if (Physics.Raycast(transform.position, directionToObject, out RaycastHit hit, range, targetObjectLayer))
+                    if (allSearch)
                     {
-                        if (hit.transform.gameObject == obj||hit.collider.gameObject.layer == 9)
+                        // Raycastで壁越しを除去
+                        if (Physics.Raycast(transform.position, directionToObject, out RaycastHit hit, range, targetObjectLayer))
                         {
-                            insideObjects.Add(obj); // オブジェクトを視界内リストに追加
+                            if (hit.transform.gameObject == obj || hit.collider.gameObject.layer == 9)
+                            {
+                                insideObjects.Add(obj); // オブジェクトを視界内リストに追加
+                            }
                         }
                     }
-                    if (angle <= viewAngle)
+                    else
                     {
+                        if (angle <= viewAngle)
+                        {
+                            // Raycastで壁越しを除去
+                            if (Physics.Raycast(transform.position, directionToObject, out RaycastHit hit, range, targetObjectLayer))
+                            {
+                                if (hit.transform.gameObject == obj||hit.collider.gameObject.layer == 9)
+                                {
+                                    insideObjects.Add(obj); // オブジェクトを視界内リストに追加
+                                }
+                            }
+                        }
                     }
                 }
             }

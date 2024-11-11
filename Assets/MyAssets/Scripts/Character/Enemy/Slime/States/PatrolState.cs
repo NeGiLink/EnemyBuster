@@ -34,6 +34,7 @@ namespace MyAssets
         {
             List<ICharacterStateTransition<string>> re = new List<ICharacterStateTransition<string>>();
             if (StateChanger.IsContain(SlimeIdleState.StateKey)) { re.Add(new IsNotPatrolTransition(actor, StateChanger, SlimeIdleState.StateKey)); }
+            if (StateChanger.IsContain(ChaseState.StateKey)) { re.Add(new IsTargetInViewTransition(actor, StateChanger, ChaseState.StateKey)); }
             return re;
         }
 
@@ -112,5 +113,16 @@ namespace MyAssets
             fieldOfView = actor.gameObject.GetComponent<FieldOfView>();
         }
         public override bool IsTransition() => fieldOfView.TryGetFirstObject(out var obj);
+    }
+
+    public class IsNoTargetInViewTransition : CharacterStateTransitionBase
+    {
+        readonly FieldOfView fieldOfView;
+        public IsNoTargetInViewTransition(ICharacterSetup actor, IStateChanger<string> stateChanger, string changeKey)
+            : base(stateChanger, changeKey)
+        {
+            fieldOfView = actor.gameObject.GetComponent<FieldOfView>();
+        }
+        public override bool IsTransition() => !fieldOfView.TryGetFirstObject(out var obj);
     }
 }

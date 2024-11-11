@@ -23,6 +23,7 @@ namespace MyAssets
         {
             List<ICharacterStateTransition<string>> re = new List<ICharacterStateTransition<string>>();
             if (StateChanger.IsContain(PatrolState.StateKey)) { re.Add(new IsPatrolTransition(actor,idleTimer, StateChanger, PatrolState.StateKey)); }
+            if (StateChanger.IsContain(ChaseState.StateKey)) { re.Add(new IsTargetInViewTransition(actor, StateChanger, ChaseState.StateKey)); }
             return re;
         }
         public override void DoSetup(ISlimeSetup slime)
