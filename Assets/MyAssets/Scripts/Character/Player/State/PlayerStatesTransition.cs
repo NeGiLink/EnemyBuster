@@ -75,7 +75,7 @@ namespace MyAssets
     public class IsTimerTransition : CharacterStateTransitionBase
     {
         private readonly Timer timer;
-        public IsTimerTransition(IPlayerSetup actor, Timer _timer, IStateChanger<string> stateChanger, string changeKey)
+        public IsTimerTransition(ICharacterSetup actor, Timer _timer, IStateChanger<string> stateChanger, string changeKey)
             : base(stateChanger, changeKey)
         {
             timer = _timer;

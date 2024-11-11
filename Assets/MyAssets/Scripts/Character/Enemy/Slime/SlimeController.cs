@@ -38,6 +38,9 @@ namespace MyAssets
         [SerializeField]
         private PatrolState patrolState;
 
+        [SerializeField]
+        private ChaseState chaseState;
+
         ISlimeState<string>[] states;
         private void Awake()
         {
@@ -52,6 +55,7 @@ namespace MyAssets
             {
                 idleState,
                 patrolState,
+                chaseState
             };
             stateMachine.DoSetup(states);
             foreach (var state in states)
