@@ -32,6 +32,8 @@ namespace MyAssets
         //private bool hurdleJumping;
         //public bool IsHurdleJumping => hurdleJumping;
 
+        [SerializeField]
+        private LayerMask targetLayer;
         public void DoSetup(IPlayerSetup player)
         {
             transform = player.gameObject.transform;
@@ -50,7 +52,7 @@ namespace MyAssets
             {
                 //åıê¸çÏê¨
                 cliffRays[i] = new Ray(rayTransform.position + Vector3.up * cliffCheckOffsets[i],transform.forward);
-                cliffHits[i] = Physics.Raycast(cliffRays[i],out hit[i], cliffDistances[i]);
+                cliffHits[i] = Physics.Raycast(cliffRays[i],out hit[i], cliffDistances[i],targetLayer);
                 Debug.DrawRay(cliffRays[i].origin, cliffRays[i].direction * cliffDistances[i], Color.red);
             }
 

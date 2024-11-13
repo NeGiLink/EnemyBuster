@@ -6,9 +6,12 @@ namespace MyAssets
     {
         GameObject gameObject { get; }
         IVelocityComponent Velocity { get; }
-        ICharacterMovement Movement { get; }
+        IMovement Movement { get; }
         IStepClimberJudgment StepClimberJudgment { get; }
         IRotation Rotation { get; }
+
+        IDamagement Damagement { get; }
+        IDamageContainer DamageContainer { get; }
     }
     public interface IPlayerSetup : ICharacterSetup
     {

@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace MyAssets
 {
-    public class PlayerController : MonoBehaviour,IPlayerSetup
+    public class PlayerController : CharacterBaseController,IPlayerSetup
     {
         private FieldOfView fieldOfView;
 
@@ -22,11 +22,6 @@ namespace MyAssets
         public IChangingState ChangingState => changingState;
 
         [SerializeField]
-        private VelocityComponent velocity;
-
-        public IVelocityComponent Velocity => velocity;
-
-        [SerializeField]
         private FootIK footIK;
         public IFootIK FootIK => footIK;
 
@@ -34,10 +29,6 @@ namespace MyAssets
         [SerializeField]
         private PlayerRotation rotation;
         public IRotation Rotation => rotation;
-
-        [SerializeField]
-        private GroundCheck groundCheck;
-        public IGroundCheck GroundCheck => groundCheck;
 
         [SerializeField]
         private ObstacleJudgment obstacleJudgment;
@@ -55,7 +46,7 @@ namespace MyAssets
 
         [SerializeField]
         private Movement movement;
-        public ICharacterMovement Movement => movement;
+        public IMovement Movement => movement;
 
         [SerializeField]
         private Climb climb;
@@ -109,9 +100,15 @@ namespace MyAssets
         [SerializeField]
         private WeaponInState weaponInState;
 
+        [SerializeField]
+        private PlayerDamageState damageState;
+
+        [SerializeField]
+        private GetUpState getUpState;
+
         IPlayerState<string>[] states;
 
-        private void Awake()
+        protected override void Awake()
         {
             fieldOfView = GetComponent<FieldOfView>();
 
@@ -124,6 +121,8 @@ namespace MyAssets
             changingState.DoSetup(this);
             velocity.DoSetup(this);
             movement.DoSetup(this);
+            damageContainer.DoSetup(this);
+            damagement.DoSetup(this);
             obstacleJudgment.DoSetup(this);
             stepClimberJudgment.DoSetup(this);
             climb.DoSetup(this);
@@ -147,7 +146,9 @@ namespace MyAssets
                 jumpAttackState,
                 jumpAttackLandingState,
                 weaponOutState,
-                weaponInState
+                weaponInState,
+                damageState,
+                getUpState
             };
             stateMachine.DoSetup(states);
             foreach (var state in states)
@@ -172,7 +173,7 @@ namespace MyAssets
             }
         }
 
-        void Update()
+        protected override void Update()
         {
             input.DoUpdate();
             groundCheck.DoUpdate();
@@ -199,6 +200,21 @@ namespace MyAssets
         private void OnDestroy()
         {
             stateMachine.Dispose();
+        }
+
+        protected override void OnTriggerEnter(Collider other)
+        {
+            stateMachine.DoTriggerEnter(other);
+        }
+
+        protected override void OnTriggerStay(Collider other)
+        {
+            stateMachine.DoTriggerStay(other);
+        }
+
+        protected override void OnTriggerExit(Collider other)
+        {
+            stateMachine?.DoTriggerExit(other);
         }
     }
 }

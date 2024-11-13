@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 
 namespace MyAssets
 {
@@ -429,5 +430,73 @@ namespace MyAssets
         }
         public override bool IsTransition() => animator.Animator.GetCurrentAnimatorStateInfo(0).IsName(readyJumpAttackName)&&
             animator.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime  >= 1.0f;
+    }
+
+    public class IsDamageTransition : CharacterStateTransitionBase
+    {
+        private readonly IDamageContainer damageContainer;
+
+        public IsDamageTransition(IPlayerSetup chara, IStateChanger<string> stateChanger, string changeKey)
+            : base(stateChanger, changeKey)
+        {
+            damageContainer = chara.DamageContainer;
+        }
+        public override bool IsTransition() => damageContainer.AttackType != AttackType.None;
+    }
+    public class IsPlayerDamageToGetUpTransition : CharacterStateTransitionBase
+    {
+
+        private readonly Timer damageTimer;
+
+        private readonly IPlayerAnimator animator;
+
+        public IsPlayerDamageToGetUpTransition(IPlayerSetup player, Timer t, IStateChanger<string> stateChanger, string changeKey)
+            : base(stateChanger, changeKey)
+        {
+            damageTimer = t;
+            animator = player.PlayerAnimator;
+        }
+        public override bool IsTransition() => damageTimer.IsEnd() && animator.Animator.GetCurrentAnimatorStateInfo(0).IsName("BigImpact");
+    }
+
+    public class IsNotPlayerDamageToBattleTransition : CharacterStateTransitionBase
+    {
+        private IFocusInputProvider focusInput;
+
+        private readonly IChangingState changingState;
+
+        private readonly IDamageContainer damageContainer;
+
+        private readonly Timer damageTimer;
+
+        public IsNotPlayerDamageToBattleTransition(IPlayerSetup chara,Timer t, IStateChanger<string> stateChanger, string changeKey)
+            : base(stateChanger, changeKey)
+        {
+            changingState = chara.ChangingState;
+            focusInput = chara.gameObject.GetComponent<IFocusInputProvider>();
+            damageTimer = t;
+            damageContainer = chara.DamageContainer;
+        }
+        public override bool IsTransition() => damageTimer.IsEnd()&&changingState.IsBattleMode;
+    }
+    public class IsNotPlayerDamageToTransition : CharacterStateTransitionBase
+    {
+        private IFocusInputProvider focusInput;
+
+        private readonly IChangingState changingState;
+
+        private readonly IDamageContainer damageContainer;
+
+        private readonly Timer damageTimer;
+
+        public IsNotPlayerDamageToTransition(IPlayerSetup chara, Timer t, IStateChanger<string> stateChanger, string changeKey)
+            : base(stateChanger, changeKey)
+        {
+            changingState = chara.ChangingState;
+            focusInput = chara.gameObject.GetComponent<IFocusInputProvider>();
+            damageTimer = t;
+            damageContainer = chara.DamageContainer;
+        }
+        public override bool IsTransition() => damageTimer.IsEnd() && !changingState.IsBattleMode;
     }
 }

@@ -6,13 +6,14 @@ namespace MyAssets
     [System.Serializable]
     public class FallState : PlayerStateBase
     {
-        private ICharacterMovement movement;
+        private IMovement movement;
         private IVelocityComponent velocity;
         private IMoveInputProvider input;
         private IRotation rotation;
         private IObstacleJudgment cliffJudgment;
         private IPlayerAnimator animator;
         private IGroundCheck groundCheck;
+        private IDamageContainer damageContainer;
 
         [SerializeField]
         float moveSpeed;
@@ -28,6 +29,7 @@ namespace MyAssets
             if (StateChanger.IsContain(LandingState.StateKey)) { re.Add(new IsGroundTransition(actor, StateChanger, LandingState.StateKey)); }
             if (StateChanger.IsContain(ClimbState.StateKey)) { re.Add(new IsClimbTransition(actor, StateChanger, ClimbState.StateKey)); }
             if (StateChanger.IsContain(ReadyJumpAttack.StateKey)) { re.Add(new IsReadyJumpAttackTransition(actor, StateChanger, ReadyJumpAttack.StateKey)); }
+            if (StateChanger.IsContain(PlayerDamageState.StateKey)) { re.Add(new IsDamageTransition(actor, StateChanger, PlayerDamageState.StateKey)); }
             return re;
         }
 
@@ -41,6 +43,7 @@ namespace MyAssets
             cliffJudgment = player.ObstacleJudgment;
             animator = player.PlayerAnimator;
             groundCheck = player.GroundCheck;
+            damageContainer = player.DamageContainer;
         }
         public override void DoStart()
         {
@@ -68,6 +71,16 @@ namespace MyAssets
         {
             base.DoExit();
             animator.Animator.SetInteger(animator.FallName, 0);
+        }
+
+        public override void DoTriggerEnter(Collider collider)
+        {
+            base.DoTriggerEnter(collider);
+            AttackObject data = collider.GetComponent<AttackObject>();
+            if (data == null) { return; }
+            damageContainer.SetAttackType(data.Type);
+            damageContainer.SetData(data.Power);
+            damageContainer.SetAttacker(collider.transform);
         }
     }
 }

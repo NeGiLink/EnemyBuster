@@ -10,6 +10,8 @@ namespace MyAssets
         private IEquipment equipment;
         private IPlayerAnimator animator;
 
+        private IDamageContainer damageContainer;
+
         public static readonly string StateKey = "WeaponIn";
 
         public override string Key => StateKey;
@@ -18,6 +20,7 @@ namespace MyAssets
             List<ICharacterStateTransition<string>> re = new List<ICharacterStateTransition<string>>();
             if (StateChanger.IsContain(MoveState.StateKey)) { re.Add(new IsMoveTransition(actor, StateChanger, MoveState.StateKey)); }
             if (StateChanger.IsContain(PlayerIdleState.StateKey)) { re.Add(new IsNotMoveTransition(actor, StateChanger, PlayerIdleState.StateKey)); }
+            if (StateChanger.IsContain(PlayerDamageState.StateKey)) { re.Add(new IsDamageTransition(actor, StateChanger, PlayerDamageState.StateKey)); }
             return re;
         }
 
@@ -27,6 +30,7 @@ namespace MyAssets
             changingState = player.ChangingState;
             equipment = player.Equipment;
             animator = player.PlayerAnimator;
+            damageContainer = player.DamageContainer;
         }
 
         public override void DoStart()
@@ -52,6 +56,16 @@ namespace MyAssets
         {
             base.DoExit();
             animator.Animator.SetInteger(animator.Weapon_In_OutName, -1);
+        }
+
+        public override void DoTriggerEnter(Collider collider)
+        {
+            base.DoTriggerEnter(collider);
+            AttackObject data = collider.GetComponent<AttackObject>();
+            if (data == null) { return; }
+            damageContainer.SetAttackType(data.Type);
+            damageContainer.SetData(data.Power);
+            damageContainer.SetAttacker(collider.transform);
         }
     }
 }

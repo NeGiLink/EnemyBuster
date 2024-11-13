@@ -28,9 +28,11 @@ namespace MyAssets
     public class FirstAttackState : PlayerStateBase
     {
         private IVelocityComponent velocity;
-        private ICharacterMovement movement;
+        private IMovement movement;
         private IPlayerAnimator animator;
         private Transform transform;
+
+        private IDamageContainer damageContainer;
 
         [SerializeField]
         private float attacksGravityMultiply;
@@ -56,6 +58,7 @@ namespace MyAssets
             if (StateChanger.IsContain(SecondAttackState.StateKey)) { re.Add(new IsBurstAttackTransition(currentMotionName,maxAttackingTime,actor, StateChanger, SecondAttackState.StateKey)); }
             if (StateChanger.IsContain(PlayerIdleState.StateKey)) { re.Add(new IsNotAttackTransition(actor, StateChanger, PlayerIdleState.StateKey)); }
             if (StateChanger.IsContain(MoveState.StateKey)) { re.Add(new IsNotAttackToMoveTransition(maxNormalizedTime, actor, StateChanger, MoveState.StateKey)); }
+            //if (StateChanger.IsContain(DamageState.StateKey)) { re.Add(new IsDamageTransition(actor, StateChanger, DamageState.StateKey)); }
             return re;
         }
 
@@ -66,6 +69,7 @@ namespace MyAssets
             movement = player.Movement;
             animator = player.PlayerAnimator;
             transform = player.gameObject.transform;
+            damageContainer = player.DamageContainer;
         }
         public override void DoStart()
         {
@@ -94,17 +98,31 @@ namespace MyAssets
             base.DoExit();
             animator.Animator.SetInteger(animator.AttacksName, (int)NormalAttackState.None);
         }
+
+        public override void DoTriggerEnter(Collider collider)
+        {
+            base.DoTriggerEnter(collider);
+            AttackObject data = collider.GetComponent<AttackObject>();
+            if (data == null) { return; }
+            //TODO : 状態を変更せずにダメージを与える処理を追加
+            
+            damageContainer.SetAttackType(AttackType.Small);
+            damageContainer.SetData(data.Power);
+            damageContainer.SetAttacker(collider.transform);
+        }
     }
     [System.Serializable]
     public class SecondAttackState : PlayerStateBase
     {
         private IVelocityComponent velocity;
-        private ICharacterMovement movement;
+        private IMovement movement;
         private IPlayerAnimator animator;
 
         private IAttackInputProvider inputTimer;
 
         private Transform transform;
+
+        private IDamageContainer damageContainer;
 
         [SerializeField]
         private float attacksGravityMultiply;
@@ -130,6 +148,7 @@ namespace MyAssets
             if (StateChanger.IsContain(ThirdAttackState.StateKey)) { re.Add(new IsBurstAttackTransition(currentMotionName, maxAttackingTime, actor, StateChanger, ThirdAttackState.StateKey)); }
             if (StateChanger.IsContain(PlayerIdleState.StateKey)) { re.Add(new IsNotAttackTransition(actor, StateChanger, PlayerIdleState.StateKey)); }
             if (StateChanger.IsContain(MoveState.StateKey)) { re.Add(new IsNotAttackToMoveTransition(maxNormalizedTime, actor, StateChanger, MoveState.StateKey)); }
+            //if (StateChanger.IsContain(DamageState.StateKey)) { re.Add(new IsDamageTransition(actor, StateChanger, DamageState.StateKey)); }
             return re;
         }
 
@@ -141,6 +160,7 @@ namespace MyAssets
             inputTimer = player.AttackInput;
             transform = player.gameObject.transform;
             movement = player.Movement;
+            damageContainer = player.DamageContainer;
         }
         public override void DoStart()
         {
@@ -168,14 +188,26 @@ namespace MyAssets
             base.DoExit();
             animator.Animator.SetInteger(animator.AttacksName, (int)NormalAttackState.None);
         }
+
+        public override void DoTriggerEnter(Collider collider)
+        {
+            base.DoTriggerEnter(collider);
+            AttackObject data = collider.GetComponent<AttackObject>();
+            if (data == null) { return; }
+            damageContainer.SetAttackType(AttackType.Small);
+            damageContainer.SetData(data.Power);
+            damageContainer.SetAttacker(collider.transform);
+        }
     }
     [System.Serializable]
     public class ThirdAttackState : PlayerStateBase
     {
         private IVelocityComponent velocity;
-        private ICharacterMovement movement;
+        private IMovement movement;
         private IPlayerAnimator animator;
         private Transform transform;
+        private IDamageContainer damageContainer;
+
         [SerializeField]
         private float attacksGravityMultiply;
 
@@ -199,6 +231,7 @@ namespace MyAssets
             if (StateChanger.IsContain(PlayerIdleState.StateKey)) { re.Add(new IsNotAttackTransition(actor, StateChanger, PlayerIdleState.StateKey)); }
             if (StateChanger.IsContain(MoveState.StateKey)) { re.Add(new IsNotAttackToMoveTransition(maxNormalizedTime, actor, StateChanger, MoveState.StateKey)); }
             if (StateChanger.IsContain(FirstAttackState.StateKey)) { re.Add(new IsLoopFirstAttackTransition(maxNormalizedTime,actor, StateChanger, FirstAttackState.StateKey)); }
+            //if (StateChanger.IsContain(DamageState.StateKey)) { re.Add(new IsDamageTransition(actor, StateChanger, DamageState.StateKey)); }
             return re;
         }
 
@@ -209,6 +242,7 @@ namespace MyAssets
             animator = player.PlayerAnimator;
             movement = player.Movement;
             transform = player.gameObject.transform;
+            damageContainer = player.DamageContainer;
         }
         public override void DoStart()
         {
@@ -237,5 +271,15 @@ namespace MyAssets
             base.DoExit();
             animator.Animator.SetInteger(animator.AttacksName, (int)NormalAttackState.None);
         }
+        public override void DoTriggerEnter(Collider collider)
+        {
+            base.DoTriggerEnter(collider);
+            AttackObject data = collider.GetComponent<AttackObject>();
+            if (data == null) { return; }
+            damageContainer.SetAttackType(AttackType.Small);
+            damageContainer.SetData(data.Power);
+            damageContainer.SetAttacker(collider.transform);
+        }
+
     }
 }

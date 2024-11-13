@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace MyAssets
 {
@@ -28,6 +29,12 @@ namespace MyAssets
         public void DoFixedUpdate(float time) => currentState?.DoFixedUpdate(time);
 
         public void DoAnimatorIKUpdate() => currentState?.DoAnimatorIKUpdate();
+
+        public void DoTriggerEnter(Collider collider) => currentState?.DoTriggerEnter(collider);
+
+        public void DoTriggerStay(Collider collider) => currentState?.DoTriggerStay(collider);
+
+        public void DoTriggerExit(Collider collider) => currentState?.DoTriggerExit(collider);
 
         public bool IsContain(TKey key) => stateDictionary.ContainsKey(key);
         public bool ChangeState(TKey key)

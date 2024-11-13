@@ -3,7 +3,7 @@ using UnityEngine;
 namespace MyAssets
 {
 
-    public interface ICharacterMovement
+    public interface IMovement
     {
         void Move(float maxSpeed);
         void ForwardMove(float maxSpeed);

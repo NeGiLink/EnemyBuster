@@ -8,7 +8,7 @@ namespace MyAssets
     {
         private Timer playerTimer = new Timer();
 
-        private ICharacterMovement movement;
+        private IMovement movement;
 
         private IVelocityComponent velocity;
 
