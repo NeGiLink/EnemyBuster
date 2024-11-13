@@ -12,7 +12,7 @@ namespace MyAssets
     [System.Serializable]
     public class PatrolState : SlimeStateBase
     {
-        private ICharacterMovement movement;
+        private IMovement movement;
         private Transform thisTransform;
 
         private ISlimeAnimator animator;

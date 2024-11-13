@@ -2,22 +2,20 @@ using UnityEngine;
 
 namespace MyAssets
 {
-    public class SlimeController : MonoBehaviour,ISlimeSetup
+    public class SlimeController : CharacterBaseController,ISlimeSetup
     {
-        [SerializeField]
-        private VelocityComponent velocity;
-        public IVelocityComponent Velocity => velocity;
+
         [SerializeField]
         private Movement movement;
-        public ICharacterMovement Movement => movement;
+        public IMovement Movement => movement;
+        
         private StepClimberJudgment stepClimberJudgment;
         public IStepClimberJudgment StepClimberJudgment => stepClimberJudgment;
+        
         [SerializeField]
         private SlimeRotation rotation;
         public IRotation Rotation => rotation;
-        [SerializeField]
-        private GroundCheck groundCheck;
-        public IGroundCheck GroundCheck => groundCheck;
+
         [SerializeField]
         private SlimeAnimator animator;
         public ISlimeAnimator SlimeAnimator => animator;
@@ -41,8 +39,11 @@ namespace MyAssets
         [SerializeField]
         private ChaseState chaseState;
 
+        [SerializeField]
+        private DamageState damageState;
+
         ISlimeState<string>[] states;
-        private void Awake()
+        protected override void Awake()
         {
             fieldOfView = GetComponent<FieldOfView>();
 
@@ -50,12 +51,14 @@ namespace MyAssets
             velocity.DoSetup(this);
             movement.DoSetup(this);
             rotation.DoSetup(this);
+            damageContainer.DoSetup(this);
 
             states = new ISlimeState<string>[]
             {
                 idleState,
                 patrolState,
-                chaseState
+                chaseState,
+                damageState
             };
             stateMachine.DoSetup(states);
             foreach (var state in states)
@@ -72,14 +75,14 @@ namespace MyAssets
             }
         }
 
-        void Update()
+        protected override void Update()
         {
             groundCheck.DoUpdate();
             stateMachine.DoUpdate(Time.deltaTime);
             fieldOfView.DoUpdate();
         }
 
-        private void FixedUpdate()
+        protected override void FixedUpdate()
         {
             stateMachine.DoFixedUpdate(Time.deltaTime);
         }

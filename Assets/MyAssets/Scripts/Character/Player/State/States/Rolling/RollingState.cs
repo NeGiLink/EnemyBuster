@@ -10,7 +10,7 @@ namespace MyAssets
 
         private IVelocityComponent velocity;
 
-        private ICharacterMovement movement;
+        private IMovement movement;
 
         private IRotation rotation;
 
@@ -78,11 +78,18 @@ namespace MyAssets
 
             velocity.CurrentVelocity = Vector3.zero;
         }
+
+        public override void DoUpdate(float time)
+        {
+            base.DoUpdate(time);
+            rotation.DoFixedUpdate();
+        }
+
         public override void DoFixedUpdate(float time)
         {
             base.DoFixedUpdate(time);
             movement.Move(rollingSpeed);
-            //rotation.DoLookOnTarget(direction);
+            rotation.DoFixedUpdate();
         }
 
         public override void DoExit()

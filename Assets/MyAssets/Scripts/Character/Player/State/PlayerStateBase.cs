@@ -40,6 +40,10 @@ namespace MyAssets
 
         public virtual void DoAnimatorIKUpdate() { }
         public virtual void DoExit() { }
+
+        public virtual void DoTriggerEnter(Collider collider) { }
+        public virtual void DoTriggerStay(Collider collider) { }
+        public virtual void DoTriggerExit(Collider collider) { }
     }
 
     public abstract class SlimeStateBase : ISlimeState<string>
@@ -79,6 +83,10 @@ namespace MyAssets
 
         public virtual void DoAnimatorIKUpdate() { }
         public virtual void DoExit() { }
+
+        public virtual void DoTriggerEnter(Collider collider) { }
+        public virtual void DoTriggerStay(Collider collider) { }
+        public virtual void DoTriggerExit(Collider collider) { }
     }
 
     public abstract class CharacterStateTransitionBase : ICharacterStateTransition<string>

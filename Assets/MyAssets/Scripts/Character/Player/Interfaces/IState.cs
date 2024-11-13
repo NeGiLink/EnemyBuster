@@ -1,5 +1,7 @@
 
 
+using UnityEngine;
+
 namespace MyAssets
 {
     public interface IState
@@ -7,9 +9,12 @@ namespace MyAssets
         void DoStart();
         void DoUpdate(float time);
         void DoFixedUpdate(float time);
-
         void DoAnimatorIKUpdate();
         void DoExit();
+
+        void DoTriggerEnter(Collider collider);
+        void DoTriggerStay(Collider collider);
+        void DoTriggerExit(Collider collider);
     }
     public interface IStateKey<TKey>
     {

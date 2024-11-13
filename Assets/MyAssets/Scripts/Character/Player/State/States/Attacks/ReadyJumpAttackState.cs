@@ -15,6 +15,8 @@ namespace MyAssets
 
         private IPlayerAnimator animator;
 
+        private IDamageContainer damageContainer;
+
         public static readonly string StateKey = "ReadyJumpAttack";
         public override string Key => StateKey;
 
@@ -22,6 +24,7 @@ namespace MyAssets
         {
             List<ICharacterStateTransition<string>> re = new List<ICharacterStateTransition<string>>();
             if (StateChanger.IsContain(JumpAttackState.StateKey)) { re.Add(new IsJumpAttackTransition(actor, StateChanger, JumpAttackState.StateKey)); }
+            //if (StateChanger.IsContain(DamageState.StateKey)) { re.Add(new IsDamageTransition(actor, StateChanger, DamageState.StateKey)); }
             return re;
         }
         public override void DoSetup(IPlayerSetup player)
@@ -31,6 +34,7 @@ namespace MyAssets
             equipment = player.Equipment;
             animator = player.PlayerAnimator;
             changingState = player.ChangingState;
+            damageContainer = player.DamageContainer;
         }
 
         public override void DoStart()
@@ -50,6 +54,16 @@ namespace MyAssets
         {
             base.DoExit();
             velocity.Rigidbody.useGravity = true;
+        }
+
+        public override void DoTriggerEnter(Collider collider)
+        {
+            base.DoTriggerEnter(collider);
+            AttackObject data = collider.GetComponent<AttackObject>();
+            if (data == null) { return; }
+            damageContainer.SetAttackType(data.Type);
+            damageContainer.SetData(data.Power);
+            damageContainer.SetAttacker(collider.transform);
         }
     }
 }

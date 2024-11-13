@@ -12,7 +12,7 @@ namespace MyAssets
         
         private IVelocityComponent velocity;
         
-        private ICharacterMovement movement;
+        private IMovement movement;
         
         private IRotation rotation;
         
@@ -23,6 +23,7 @@ namespace MyAssets
         private IPlayerAnimator animator;
 
         private IEquipment equipment;
+        private IDamageContainer damageContainer;
 
         [SerializeField]
         private float moveSpeed = 4.0f;
@@ -45,6 +46,7 @@ namespace MyAssets
             if (StateChanger.IsContain(WeaponOutState.StateKey)) { re.Add(new IsWeaponOutTransition(actor, StateChanger, WeaponOutState.StateKey)); }
             if (StateChanger.IsContain(WeaponInState.StateKey)) { re.Add(new IsWeaponInTransition(actor, StateChanger, WeaponInState.StateKey)); }
             if (StateChanger.IsContain(BattleMoveState.StateKey)) { re.Add(new IsBattleModeTransition(actor, StateChanger, BattleMoveState.StateKey)); }
+            if (StateChanger.IsContain(PlayerDamageState.StateKey)) { re.Add(new IsDamageTransition(actor, StateChanger, PlayerDamageState.StateKey)); }
             return re;
         }
 
@@ -60,6 +62,7 @@ namespace MyAssets
             focusInputProvider = player.gameObject.GetComponent<IFocusInputProvider>();
             animator = player.PlayerAnimator;
             equipment = player.gameObject.GetComponent<IEquipment>();
+            damageContainer = player.DamageContainer;
         }
 
         public override void DoStart()
@@ -108,9 +111,16 @@ namespace MyAssets
         public override void DoExit()
         {
             base.DoExit();
-            animator.Animator.SetFloat(animator.DashName, 0f);
-            animator.Animator.SetFloat(animator.MoveName, 0f);
 
+        }
+        public override void DoTriggerEnter(Collider collider)
+        {
+            base.DoTriggerEnter(collider);
+            AttackObject data = collider.GetComponent<AttackObject>();
+            if (data == null) { return; }
+            damageContainer.SetAttackType(data.Type);
+            damageContainer.SetData(data.Power);
+            damageContainer.SetAttacker(collider.transform);
         }
     }
 }

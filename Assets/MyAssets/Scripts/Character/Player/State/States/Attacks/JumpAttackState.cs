@@ -9,9 +9,11 @@ namespace MyAssets
     {
         private IVelocityComponent velocity;
 
-        private ICharacterMovement movement;
+        private IMovement movement;
 
         private IPlayerAnimator animator;
+
+        private IDamageContainer damageContainer;
 
         [SerializeField]
         private float jumpAttackGravityMultiply = 1.5f;
@@ -26,6 +28,7 @@ namespace MyAssets
         {
             List<ICharacterStateTransition<string>> re = new List<ICharacterStateTransition<string>>();
             if (StateChanger.IsContain(JumpAttackLandingState.StateKey)) { re.Add(new IsGroundTransition(actor, StateChanger, JumpAttackLandingState.StateKey)); }
+            //if (StateChanger.IsContain(DamageState.StateKey)) { re.Add(new IsDamageTransition(actor, StateChanger, DamageState.StateKey)); }
             return re;
         }
         public override void DoSetup(IPlayerSetup player)
@@ -34,6 +37,7 @@ namespace MyAssets
             velocity = player.Velocity;
             movement = player.Movement;
             animator = player.PlayerAnimator;
+            damageContainer = player.DamageContainer;
         }
 
         public override void DoUpdate(float time)
@@ -48,5 +52,15 @@ namespace MyAssets
             movement.Move(moveSpeed);
             velocity.Rigidbody.velocity += Physics.gravity * jumpAttackGravityMultiply * time;
         }
+        public override void DoTriggerEnter(Collider collider)
+        {
+            base.DoTriggerEnter(collider);
+            AttackObject data = collider.GetComponent<AttackObject>();
+            if (data == null) { return; }
+            damageContainer.SetAttackType(AttackType.Small);
+            damageContainer.SetData(data.Power);
+            damageContainer.SetAttacker(collider.transform);
+        }
+
     }
 }

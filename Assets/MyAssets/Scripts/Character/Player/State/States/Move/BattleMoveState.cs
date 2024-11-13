@@ -13,7 +13,7 @@ namespace MyAssets
 
         private IVelocityComponent velocity;
 
-        private ICharacterMovement movement;
+        private IMovement movement;
 
         private IRotation rotation;
 
@@ -24,6 +24,8 @@ namespace MyAssets
         private IPlayerAnimator animator;
 
         private IEquipment equipment;
+
+        private IDamageContainer damageContainer;
 
         [SerializeField]
         private float moveSpeed = 4.0f;
@@ -45,6 +47,7 @@ namespace MyAssets
             if (StateChanger.IsContain(FirstAttackState.StateKey)) { re.Add(new IsFirstAttackTransition(actor, StateChanger, FirstAttackState.StateKey)); }
             if (StateChanger.IsContain(WeaponOutState.StateKey)) { re.Add(new IsWeaponOutTransition(actor, StateChanger, WeaponOutState.StateKey)); }
             if (StateChanger.IsContain(WeaponInState.StateKey)) { re.Add(new IsWeaponInTransition(actor, StateChanger, WeaponInState.StateKey)); }
+            if (StateChanger.IsContain(PlayerDamageState.StateKey)) { re.Add(new IsDamageTransition(actor, StateChanger, PlayerDamageState.StateKey)); }
             return re;
         }
 
@@ -60,6 +63,7 @@ namespace MyAssets
             focusInputProvider = player.gameObject.GetComponent<IFocusInputProvider>();
             animator = player.PlayerAnimator;
             equipment = player.gameObject.GetComponent<IEquipment>();
+            damageContainer = player.DamageContainer;
         }
 
         public override void DoStart()
@@ -101,6 +105,16 @@ namespace MyAssets
             animator.Animator.SetFloat(animator.BattleModeName, 0.0f);
             animator.SetWeight(false, 1);
             equipment.ShieldTool.ShieldClose();
+        }
+
+        public override void DoTriggerEnter(Collider collider)
+        {
+            base.DoTriggerEnter(collider);
+            AttackObject data = collider.GetComponent<AttackObject>();
+            if (data == null) { return; }
+            damageContainer.SetAttackType(data.Type);
+            damageContainer.SetData(data.Power);
+            damageContainer.SetAttacker(collider.transform);
         }
     }
 }

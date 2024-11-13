@@ -8,7 +8,7 @@ namespace MyAssets
     [System.Serializable]
     public class ChaseState : SlimeStateBase
     {
-        private ICharacterMovement movement;
+        private IMovement movement;
         private Transform thisTransform;
         private FieldOfView fieldOfView;
 

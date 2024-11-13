@@ -6,7 +6,7 @@ namespace MyAssets
     [System.Serializable]
     public class SlimeIdleState : SlimeStateBase
     {
-        private ICharacterMovement movement;
+        private IMovement movement;
 
         private Timer idleTimer = new Timer();
 
