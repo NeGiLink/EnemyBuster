@@ -40,7 +40,7 @@ namespace MyAssets
         private ChaseState chaseState;
 
         [SerializeField]
-        private DamageState damageState;
+        private SlimeDamageState damageState;
 
         ISlimeState<string>[] states;
         protected override void Awake()
@@ -52,6 +52,7 @@ namespace MyAssets
             movement.DoSetup(this);
             rotation.DoSetup(this);
             damageContainer.DoSetup(this);
+            damagement.DoSetup(this);
 
             states = new ISlimeState<string>[]
             {
@@ -95,6 +96,11 @@ namespace MyAssets
         private void OnDestroy()
         {
             stateMachine.Dispose();
+        }
+
+        protected override void OnTriggerEnter(Collider other)
+        {
+            stateMachine.DoTriggerEnter(gameObject,other);
         }
     }
 }

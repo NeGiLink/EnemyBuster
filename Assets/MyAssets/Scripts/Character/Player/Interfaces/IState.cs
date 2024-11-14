@@ -12,9 +12,9 @@ namespace MyAssets
         void DoAnimatorIKUpdate();
         void DoExit();
 
-        void DoTriggerEnter(Collider collider);
-        void DoTriggerStay(Collider collider);
-        void DoTriggerExit(Collider collider);
+        void DoTriggerEnter(GameObject thisObject,Collider collider);
+        void DoTriggerStay(GameObject thisObject,Collider collider);
+        void DoTriggerExit(GameObject thisObject, Collider collider);
     }
     public interface IStateKey<TKey>
     {
