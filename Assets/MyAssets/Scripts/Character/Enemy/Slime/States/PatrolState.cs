@@ -17,6 +17,8 @@ namespace MyAssets
 
         private ISlimeAnimator animator;
 
+        private IDamageContainer damageContainer;
+
         [SerializeField]
         private PatrplPointContainer patrplPointContainer;
 
@@ -35,6 +37,7 @@ namespace MyAssets
             List<ICharacterStateTransition<string>> re = new List<ICharacterStateTransition<string>>();
             if (StateChanger.IsContain(SlimeIdleState.StateKey)) { re.Add(new IsNotPatrolTransition(actor, StateChanger, SlimeIdleState.StateKey)); }
             if (StateChanger.IsContain(ChaseState.StateKey)) { re.Add(new IsTargetInViewTransition(actor, StateChanger, ChaseState.StateKey)); }
+            if (StateChanger.IsContain(SlimeDamageState.StateKey)) { re.Add(new IsEnemyDamageTransition(actor, StateChanger, SlimeDamageState.StateKey)); }
             return re;
         }
 
@@ -44,6 +47,7 @@ namespace MyAssets
             thisTransform = actor.gameObject.transform;
             movement = actor.Movement;
             animator = actor.SlimeAnimator;
+            damageContainer = actor.DamageContainer;
             patrplPointContainer = actor.gameObject.GetComponent<PatrplPointContainer>();
             patrplPointContainer.SetCurrentPoint(GetMinDistancePointIndex());
         }
@@ -101,6 +105,15 @@ namespace MyAssets
         {
             base.DoExit();
             animator.Animator.SetInteger("Move", 0);
+        }
+        public override void DoTriggerEnter(GameObject thisObject, Collider collider)
+        {
+            base.DoTriggerEnter(thisObject, collider);
+            AttackObject data = collider.GetComponent<AttackObject>();
+            if (data == null) { return; }
+            damageContainer.SetAttackType(data.Type);
+            damageContainer.SetData(data.Power);
+            damageContainer.SetAttacker(collider.transform);
         }
     }
 

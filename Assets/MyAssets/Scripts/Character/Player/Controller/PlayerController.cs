@@ -180,7 +180,7 @@ namespace MyAssets
             stateMachine.DoUpdate(Time.deltaTime);
         }
 
-        private void FixedUpdate()
+        protected override void FixedUpdate()
         {
             stateMachine.DoFixedUpdate(Time.deltaTime);
 
@@ -204,17 +204,17 @@ namespace MyAssets
 
         protected override void OnTriggerEnter(Collider other)
         {
-            stateMachine.DoTriggerEnter(other);
+            stateMachine.DoTriggerEnter(gameObject,other);
         }
 
         protected override void OnTriggerStay(Collider other)
         {
-            stateMachine.DoTriggerStay(other);
+            stateMachine.DoTriggerStay(gameObject,other);
         }
 
         protected override void OnTriggerExit(Collider other)
         {
-            stateMachine?.DoTriggerExit(other);
+            stateMachine?.DoTriggerExit(gameObject,other);
         }
     }
 }

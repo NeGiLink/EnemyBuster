@@ -52,9 +52,9 @@ namespace MyAssets
             movement.Move(moveSpeed);
             velocity.Rigidbody.velocity += Physics.gravity * jumpAttackGravityMultiply * time;
         }
-        public override void DoTriggerEnter(Collider collider)
+        public override void DoTriggerEnter(GameObject thisObject,Collider collider)
         {
-            base.DoTriggerEnter(collider);
+            base.DoTriggerEnter(thisObject,collider);
             AttackObject data = collider.GetComponent<AttackObject>();
             if (data == null) { return; }
             damageContainer.SetAttackType(AttackType.Small);

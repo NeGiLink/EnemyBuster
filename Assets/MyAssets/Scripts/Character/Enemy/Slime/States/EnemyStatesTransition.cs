@@ -25,4 +25,32 @@ namespace MyAssets
         }
         public override bool IsTransition() => container.IsStop;
     }
+
+    public class IsEnemyDamageTransition : CharacterStateTransitionBase
+    {
+        private readonly IDamageContainer damageContainer;
+
+        public IsEnemyDamageTransition(ISlimeSetup chara, IStateChanger<string> stateChanger, string changeKey)
+            : base(stateChanger, changeKey)
+        {
+            damageContainer = chara.DamageContainer;
+        }
+        public override bool IsTransition() => damageContainer.AttackType != AttackType.None;
+    }
+
+    public class IsNotDamageToTransition : CharacterStateTransitionBase
+    {
+
+        private readonly IDamageContainer damageContainer;
+
+        private readonly Timer damageTimer;
+
+        public IsNotDamageToTransition(ISlimeSetup chara, Timer t, IStateChanger<string> stateChanger, string changeKey)
+            : base(stateChanger, changeKey)
+        {
+            damageTimer = t;
+            damageContainer = chara.DamageContainer;
+        }
+        public override bool IsTransition() => damageTimer.IsEnd();
+    }
 }

@@ -169,7 +169,7 @@ namespace MyAssets
             groundCheck = player.GroundCheck;
             velocity = player.Velocity;
         }
-        public override bool IsTransition() => groundCheck.IsFalling&&groundCheck.Landing;
+        public override bool IsTransition() => velocity.Rigidbody.velocity.y < -1.0f &&groundCheck.Landing;
     }
     public class IsNotGroundTransition : CharacterStateTransitionBase
     {
@@ -281,7 +281,6 @@ namespace MyAssets
     {
         private readonly IAttackInputProvider input;
         private readonly IPlayerAnimator animator;
-        private readonly string firstAttackName = "FirstAttack";
 
         private readonly string[] attackMotionNames = new string[]
         {
@@ -319,7 +318,6 @@ namespace MyAssets
         private readonly IMoveInputProvider moveinput;
         private readonly IAttackInputProvider input;
         private readonly IPlayerAnimator animator;
-        private readonly string firstAttackName = "FirstAttack";
 
         private readonly string[] attackMotionNames = new string[]
         {

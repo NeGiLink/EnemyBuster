@@ -10,6 +10,8 @@ namespace MyAssets
 
         private Timer idleTimer = new Timer();
 
+        private IDamageContainer damageContainer;
+
         public static readonly string StateKey = "Idle";
         public override string Key => StateKey;
 
@@ -24,12 +26,14 @@ namespace MyAssets
             List<ICharacterStateTransition<string>> re = new List<ICharacterStateTransition<string>>();
             if (StateChanger.IsContain(PatrolState.StateKey)) { re.Add(new IsPatrolTransition(actor,idleTimer, StateChanger, PatrolState.StateKey)); }
             if (StateChanger.IsContain(ChaseState.StateKey)) { re.Add(new IsTargetInViewTransition(actor, StateChanger, ChaseState.StateKey)); }
+            if (StateChanger.IsContain(SlimeDamageState.StateKey)) { re.Add(new IsEnemyDamageTransition(actor, StateChanger, SlimeDamageState.StateKey)); }
             return re;
         }
         public override void DoSetup(ISlimeSetup slime)
         {
             base.DoSetup(slime);
             movement = slime.Movement;
+            damageContainer = slime.DamageContainer;
         }
 
         public override void DoStart()
@@ -49,6 +53,16 @@ namespace MyAssets
         {
             base.DoFixedUpdate(time);
             movement.Move(moveSpeed);
+        }
+
+        public override void DoTriggerEnter(GameObject thisObject, Collider collider)
+        {
+            base.DoTriggerEnter(thisObject, collider);
+            AttackObject data = collider.GetComponent<AttackObject>();
+            if (data == null) { return; }
+            damageContainer.SetAttackType(data.Type);
+            damageContainer.SetData(data.Power);
+            damageContainer.SetAttacker(collider.transform);
         }
     }
 }

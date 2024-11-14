@@ -30,11 +30,11 @@ namespace MyAssets
 
         public void DoAnimatorIKUpdate() => currentState?.DoAnimatorIKUpdate();
 
-        public void DoTriggerEnter(Collider collider) => currentState?.DoTriggerEnter(collider);
+        public void DoTriggerEnter(GameObject thisObject, Collider collider) => currentState?.DoTriggerEnter(thisObject,collider);
 
-        public void DoTriggerStay(Collider collider) => currentState?.DoTriggerStay(collider);
+        public void DoTriggerStay(GameObject thisObject, Collider collider) => currentState?.DoTriggerStay(thisObject, collider);
 
-        public void DoTriggerExit(Collider collider) => currentState?.DoTriggerExit(collider);
+        public void DoTriggerExit(GameObject thisObject, Collider collider) => currentState?.DoTriggerExit(thisObject, collider);
 
         public bool IsContain(TKey key) => stateDictionary.ContainsKey(key);
         public bool ChangeState(TKey key)

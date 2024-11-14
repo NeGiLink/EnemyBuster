@@ -99,9 +99,9 @@ namespace MyAssets
             animator.Animator.SetInteger(animator.AttacksName, (int)NormalAttackState.None);
         }
 
-        public override void DoTriggerEnter(Collider collider)
+        public override void DoTriggerEnter(GameObject thisObject,Collider collider)
         {
-            base.DoTriggerEnter(collider);
+            base.DoTriggerEnter(thisObject,collider);
             AttackObject data = collider.GetComponent<AttackObject>();
             if (data == null) { return; }
             //TODO : 状態を変更せずにダメージを与える処理を追加
@@ -189,9 +189,9 @@ namespace MyAssets
             animator.Animator.SetInteger(animator.AttacksName, (int)NormalAttackState.None);
         }
 
-        public override void DoTriggerEnter(Collider collider)
+        public override void DoTriggerEnter(GameObject thisObject,Collider collider)
         {
-            base.DoTriggerEnter(collider);
+            base.DoTriggerEnter(thisObject,collider);
             AttackObject data = collider.GetComponent<AttackObject>();
             if (data == null) { return; }
             damageContainer.SetAttackType(AttackType.Small);
@@ -271,9 +271,9 @@ namespace MyAssets
             base.DoExit();
             animator.Animator.SetInteger(animator.AttacksName, (int)NormalAttackState.None);
         }
-        public override void DoTriggerEnter(Collider collider)
+        public override void DoTriggerEnter(GameObject thisObject,Collider collider)
         {
-            base.DoTriggerEnter(collider);
+            base.DoTriggerEnter(thisObject,collider);
             AttackObject data = collider.GetComponent<AttackObject>();
             if (data == null) { return; }
             damageContainer.SetAttackType(AttackType.Small);

@@ -27,10 +27,6 @@ namespace MyAssets
 
         [SerializeField]
         private Vector2 move;
-        [SerializeField]
-        private string horizontalName = "Horizontal";
-        [SerializeField]
-        private string verticalName = "Vertical";
         public bool IsMove => Mathf.Abs(move.x) > 0.1f || Mathf.Abs(move.y) > 0.1f;
 
         public Vector2 Move => move;
