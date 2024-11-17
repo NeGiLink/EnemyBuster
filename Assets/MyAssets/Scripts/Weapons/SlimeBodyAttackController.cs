@@ -21,6 +21,8 @@ namespace MyAssets
         [SerializeField]
         private float dis = 1.0f;
 
+        private new Collider collider;
+
         private void Awake()
         {
             attackObject = GetComponent<AttackObject>();
@@ -31,12 +33,21 @@ namespace MyAssets
             {
                 animator = controller.SlimeAnimator;
             }
+
+            collider = GetComponent<Collider>();
+        }
+
+        private void Start()
+        {
+            collider.enabled = false;
         }
 
         public void EnabledCollider(float start, float end, bool all)
         {
             if (all)
             {
+                collider.enabled = true;
+                /*
                 Ray ray = new Ray(transform.position, transform.up);
                 RaycastHit hit;
                 if (Physics.SphereCast(ray, radius, out hit, dis, hitLayer))
@@ -49,6 +60,7 @@ namespace MyAssets
                     damageContainer.SetData(attackObject.Power);
                     damageContainer.SetAttacker(transform);
                 }
+                 */
             }
             else
             {
@@ -69,6 +81,11 @@ namespace MyAssets
                     }
                 }
             }
+        }
+
+        public void NotEnabledCollider()
+        {
+            collider.enabled = false;
         }
 
         //‹…ó‚ÌRay‚ğ‰Â‹‰»

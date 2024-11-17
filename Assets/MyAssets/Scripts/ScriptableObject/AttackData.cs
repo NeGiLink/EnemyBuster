@@ -8,7 +8,7 @@ namespace MyAssets
     [Serializable]
     public struct AttackDataInfo
     {
-        public float power;
+        public int power;
 
         public AttackType attackType;
     }

@@ -25,6 +25,8 @@ namespace MyAssets
 
         private Timer invincibilityTimer = new Timer();
 
+        private IPlayerStauts stauts;
+
         [SerializeField]
         private float knockBack = 5.0f;
 
@@ -45,6 +47,7 @@ namespace MyAssets
             if (StateChanger.IsContain(PlayerIdleState.StateKey)) { re.Add(new IsNotPlayerDamageToTransition(actor, damageTimer, StateChanger, PlayerIdleState.StateKey)); }
             if (StateChanger.IsContain(BattleIdleState.StateKey)) { re.Add(new IsNotPlayerDamageToBattleTransition(actor, damageTimer, StateChanger, BattleIdleState.StateKey)); }
             if (StateChanger.IsContain(BattleMoveState.StateKey)) { re.Add(new IsNotPlayerDamageToBattleTransition(actor, damageTimer, StateChanger, BattleMoveState.StateKey)); }
+            if (StateChanger.IsContain(PlayerDeathState.StateKey)) { re.Add(new IsDeathTransition(actor, StateChanger, PlayerDeathState.StateKey)); }
             return re;
         }
         public override void DoSetup(IPlayerSetup player)
@@ -57,6 +60,7 @@ namespace MyAssets
             groundCheck = player.GroundCheck;
             damageContainer = player.DamageContainer;
             damageMove = player.Damagement;
+            stauts = player.Stauts;
         }
 
         public override void DoStart()
@@ -92,8 +96,10 @@ namespace MyAssets
                 damageMove.AddForceMove(thisTransform.position, damageContainer.Attacker.position, knockBack * 2.0f);
                 damageTimer.Start(1.5f);
             }
-            animator.Animator.SetInteger("Impact", damageType);
-
+            if (!stauts.DecreaseAndDeathCheck(damageContainer.Data))
+            {
+                animator.Animator.SetInteger("Impact", damageType);
+            }
         }
 
         public override void DoUpdate(float time)

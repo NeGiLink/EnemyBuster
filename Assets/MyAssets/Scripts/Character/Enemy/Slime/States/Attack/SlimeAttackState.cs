@@ -55,7 +55,16 @@ namespace MyAssets
         public override void DoFixedUpdate(float time)
         {
             base.DoFixedUpdate(time);
-            movement.ForwardLerpMove(thisTransform.position, movePower);
+
+            AnimatorStateInfo animInfo = animator.Animator.GetCurrentAnimatorStateInfo(0);
+            if(animInfo.normalizedTime < 0.6f)
+            {
+                movement.ForwardLerpMove(thisTransform.position, movePower);
+            }
+            else
+            {
+                movement.Move(0);
+            }
         }
 
         public override void DoExit()
@@ -63,6 +72,7 @@ namespace MyAssets
             base.DoExit();
             animator.Animator.SetInteger(animator.AttacksName, -1);
             movement.Move(0);
+            attackObject.NotEnabledCollider();
         }
     }
 }

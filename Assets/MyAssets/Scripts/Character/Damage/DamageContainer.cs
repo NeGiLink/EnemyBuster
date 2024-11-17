@@ -9,9 +9,9 @@ namespace MyAssets
     public class DamageContainer : IDamageContainer,ICharacterComponent
     {
         [SerializeField]
-        private float data = 0.0f;
-        public void SetData(float d) { data = d; }
-        public float Data => data;
+        private int data = 0;
+        public void SetData(int d) { data = d; }
+        public int Data => data;
 
         private AttackType attackType = AttackType.None;
         public void SetAttackType(AttackType type) { attackType = type; }

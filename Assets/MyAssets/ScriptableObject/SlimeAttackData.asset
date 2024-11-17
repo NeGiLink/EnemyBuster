@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: SlimeAttackData
   m_EditorClassIdentifier: 
   dataInfo:
-  - power: 0.5
+  - power: 50
     attackType: 1

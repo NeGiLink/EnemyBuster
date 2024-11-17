@@ -5,6 +5,12 @@ namespace MyAssets
 {
     public class PlayerController : CharacterBaseController,IPlayerSetup
     {
+        [SerializeField]
+        private PlayerStatusProperty property;
+
+        public IPlayerStauts Stauts => property;
+        public IBaseStauts BaseStauts => property;
+
         private FieldOfView fieldOfView;
 
         private IControllerInput input;
@@ -55,6 +61,7 @@ namespace MyAssets
         [SerializeField]
         private string defaultStateKey;
 
+        [Header("下記はキャラクターの状態クラス")]
         [SerializeField]
         private PlayerIdleState idleState;
 
@@ -104,6 +111,9 @@ namespace MyAssets
         private PlayerDamageState damageState;
 
         [SerializeField]
+        private PlayerDeathState deathState;
+
+        [SerializeField]
         private GetUpState getUpState;
 
         IPlayerState<string>[] states;
@@ -148,6 +158,7 @@ namespace MyAssets
                 weaponOutState,
                 weaponInState,
                 damageState,
+                deathState,
                 getUpState
             };
             stateMachine.DoSetup(states);

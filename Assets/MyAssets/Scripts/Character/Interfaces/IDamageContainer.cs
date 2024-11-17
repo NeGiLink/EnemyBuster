@@ -4,9 +4,9 @@ namespace MyAssets
 {
     public interface IDamageContainer
     {
-        float Data { get; }
+        int Data { get; }
 
-        void SetData(float d);
+        void SetData(int d);
 
         AttackType AttackType { get; }
         void SetAttackType(AttackType attackType);

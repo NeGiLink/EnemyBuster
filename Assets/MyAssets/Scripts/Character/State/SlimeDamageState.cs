@@ -8,6 +8,8 @@ namespace MyAssets
     [System.Serializable]
     public class SlimeDamageState : SlimeStateBase
     {
+        private IBaseStauts stauts;
+
         private Transform thisTransform;
 
         private IVelocityComponent velocity;
@@ -48,11 +50,13 @@ namespace MyAssets
             List<ICharacterStateTransition<string>> re = new List<ICharacterStateTransition<string>>();
             if (StateChanger.IsContain(SlimeIdleState.StateKey)) { re.Add(new IsNotDamageToTransition(actor, damageTimer, StateChanger, SlimeIdleState.StateKey)); }
             if (StateChanger.IsContain(ChaseState.StateKey)) { re.Add(new IsTimerTargetInViewTransition(actor, damageTimer, StateChanger, ChaseState.StateKey)); }
+            if (StateChanger.IsContain(SlimeDeathState.StateKey)) { re.Add(new IsDeathTransition(actor, StateChanger, SlimeDeathState.StateKey)); }
             return re;
         }
         public override void DoSetup(ISlimeSetup enemy)
         {
             base.DoSetup(enemy);
+            stauts = enemy.BaseStauts;
             thisTransform = enemy.gameObject.transform;
             velocity = enemy.Velocity;
             movement = enemy.Movement;
@@ -74,7 +78,10 @@ namespace MyAssets
             int damageType = 0;
             damageMove.AddForceMove(thisTransform.position, damageContainer.Attacker.position, knockBack * 1.0f);
             damageTimer.Start(damageIdleCount);
-            animator.Animator.SetInteger("Impact", damageType);
+            if (!stauts.DecreaseAndDeathCheck(damageContainer.Data))
+            {
+                animator.Animator.SetInteger("Impact", damageType);
+            }
         }
 
         private void FoundTarget()
