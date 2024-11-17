@@ -55,8 +55,11 @@ namespace MyAssets
             //今追っかけてるオブジェクトが見える
             if (IsInside(targetObject))
             {
-                targetLastPoint = targetObject.transform.position;
-                currentSearchinTimer.End();
+                if(targetObject != null)
+                {
+                    targetLastPoint = targetObject.transform.position;
+                    currentSearchinTimer.End();
+                }
                 return;
             }
             else

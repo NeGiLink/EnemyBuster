@@ -4,6 +4,7 @@ namespace MyAssets
 {
     public interface ICharacterSetup
     {
+        IBaseStauts            BaseStauts { get; }
         GameObject gameObject { get; }
         IVelocityComponent Velocity { get; }
         IMovement Movement { get; }
@@ -15,6 +16,8 @@ namespace MyAssets
     }
     public interface IPlayerSetup : ICharacterSetup
     {
+        IPlayerStauts           Stauts { get; }
+
         IMoveInputProvider      MoveInput { get; }
         IAttackInputProvider    AttackInput { get; }
         IToolInputProvider      ToolInput { get; }
@@ -35,6 +38,8 @@ namespace MyAssets
         ISlimeAnimator SlimeAnimator { get; }
         IGroundCheck GroundCheck { get; }
         SlimeBodyAttackController AttackObject { get; }
+
+        void RunDestroy();
     }
 }
 

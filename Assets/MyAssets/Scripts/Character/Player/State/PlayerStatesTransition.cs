@@ -497,4 +497,17 @@ namespace MyAssets
         }
         public override bool IsTransition() => damageTimer.IsEnd() && !changingState.IsBattleMode;
     }
+
+    public class IsDeathTransition : CharacterStateTransitionBase
+    {
+
+        private readonly IBaseStauts stauts;
+
+        public IsDeathTransition(ICharacterSetup chara, IStateChanger<string> stateChanger, string changeKey)
+            : base(stateChanger, changeKey)
+        {
+            stauts = chara.BaseStauts;
+        }
+        public override bool IsTransition() => stauts.HP <= 0;
+    }
 }

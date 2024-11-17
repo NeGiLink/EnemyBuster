@@ -4,6 +4,9 @@ namespace MyAssets
 {
     public class SlimeController : CharacterBaseController,ISlimeSetup
     {
+        [SerializeField]
+        private SlimeStatusProperty property;
+        public IBaseStauts BaseStauts => property;
 
         [SerializeField]
         private Movement movement;
@@ -52,6 +55,9 @@ namespace MyAssets
         [SerializeField]
         private SlimeDamageState damageState;
 
+        [SerializeField]
+        private SlimeDeathState deathState;
+
         ISlimeState<string>[] states;
         protected override void Awake()
         {
@@ -72,7 +78,8 @@ namespace MyAssets
                 chaseState,
                 readyAttackState,
                 attackState,
-                damageState
+                damageState,
+                deathState
             };
             stateMachine.DoSetup(states);
             foreach (var state in states)
@@ -124,6 +131,11 @@ namespace MyAssets
         protected override void OnTriggerExit(Collider other)
         {
             stateMachine.DoTriggerExit(gameObject,other);
+        }
+
+        public void RunDestroy()
+        {
+            Destroy(gameObject);
         }
     }
 }

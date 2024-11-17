@@ -17,7 +17,7 @@ namespace MyAssets
         private int attackTypeCount = 0;
         public void SetAttackTypeCount(int c) { attackTypeCount = c; }
 
-        public float Power => data.AttackDataInfo[attackTypeCount].power;
+        public int Power => data.AttackDataInfo[attackTypeCount].power;
 
         public AttackType Type => data.AttackDataInfo[attackTypeCount].attackType;
 

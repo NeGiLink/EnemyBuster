@@ -19,34 +19,18 @@ ModelImporter:
     rigImportErrors: 
     rigImportWarnings: "Copied Avatar Rig Configuration mis-match. Bone length in
       copied configuration does not match position in animation file:\n\t'mixamorig:LeftUpLeg'
-      : position error = 98.668633 mm\n\t'mixamorig:RightUpLeg' : position error
-      = 98.668633 mm\n"
+      : position error = 98.668518 mm\n\t'mixamorig:RightUpLeg' : position error
+      = 98.668526 mm\n"
     animationImportErrors: 
     animationImportWarnings: "\nClip 'Armature|BackLeftMove' has import animation
       warnings that might lower retargeting quality:\nNote: Activate translation
-      DOF on avatar to improve retargeting quality.\n\t'mixamorig:Hips' has translation
-      animation that will be discarded.\n\t'mixamorig:Hips' is inbetween humanoid
-      transforms and has rotation animation that will be discarded.\n\t'mixamorig:LeftUpLeg'
-      has translation animation that will be discarded.\n\t'mixamorig:RightUpLeg'
-      has translation animation that will be discarded.\n\nClip 'Armature|BackMove'
+      DOF on avatar to improve retargeting quality.\n\t'mixamorig:LeftUpLeg' has
+      translation animation that will be discarded.\n\t'mixamorig:RightUpLeg' has
+      translation animation that will be discarded.\n\nClip 'Armature|BackRightMove'
       has import animation warnings that might lower retargeting quality:\nNote:
-      Activate translation DOF on avatar to improve retargeting quality.\n\t'mixamorig:Hips'
-      has translation animation that will be discarded.\n\t'mixamorig:Hips' is inbetween
-      humanoid transforms and has rotation animation that will be discarded.\n\nClip
-      'Armature|BackRightMove' has import animation warnings that might lower retargeting
-      quality:\nNote: Activate translation DOF on avatar to improve retargeting quality.\n\t'mixamorig:Hips'
-      has translation animation that will be discarded.\n\t'mixamorig:Hips' is inbetween
-      humanoid transforms and has rotation animation that will be discarded.\n\t'mixamorig:LeftUpLeg'
+      Activate translation DOF on avatar to improve retargeting quality.\n\t'mixamorig:LeftUpLeg'
       has translation animation that will be discarded.\n\t'mixamorig:RightUpLeg'
-      has translation animation that will be discarded.\n\nClip 'Armature|LeftMove'
-      has import animation warnings that might lower retargeting quality:\nNote:
-      Activate translation DOF on avatar to improve retargeting quality.\n\t'mixamorig:Hips'
-      has translation animation that will be discarded.\n\t'mixamorig:Hips' is inbetween
-      humanoid transforms and has rotation animation that will be discarded.\n\nClip
-      'Armature|RightMove' has import animation warnings that might lower retargeting
-      quality:\nNote: Activate translation DOF on avatar to improve retargeting quality.\n\t'mixamorig:Hips'
-      has translation animation that will be discarded.\n\t'mixamorig:Hips' is inbetween
-      humanoid transforms and has rotation animation that will be discarded.\n"
+      has translation animation that will be discarded.\n"
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
@@ -511,13 +495,13 @@ ModelImporter:
         length: 0
         modified: 0
     skeleton:
-    - name: Player2(Clone)
+    - name: Player(Clone)
       parentName: 
       position: {x: 0, y: 0, z: 0}
       rotation: {x: 0, y: 0, z: 0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: Armature
-      parentName: Player2(Clone)
+      parentName: Player(Clone)
       position: {x: -0, y: 0, z: 0}
       rotation: {x: -0.000000037748947, y: 0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
@@ -807,47 +791,47 @@ ModelImporter:
       rotation: {x: 0.000000052270476, y: -0.000000030093357, z: 0.000000020445441, w: 1}
       scale: {x: 1.0000001, y: 1, z: 1.0000001}
     - name: 1_Underwear
-      parentName: Player2(Clone)
+      parentName: Player(Clone)
       position: {x: 0.00000005403068, y: 0.00000008381901, z: 0.000000003874296}
       rotation: {x: -0.7071069, y: -1.6582746e-10, z: -0.0000000011606858, w: 0.7071067}
       scale: {x: 15.020646, y: 15.1974125, z: 35.657394}
     - name: 2_ArmProtector
-      parentName: Player2(Clone)
+      parentName: Player(Clone)
       position: {x: 0.00000002354383, y: 0.00000008950939, z: 0.0000000041723176}
       rotation: {x: -0.7071069, y: 0.0000000011125658, z: -0.0000000013954289, w: 0.7071067}
       scale: {x: 14.739354, y: 14.912801, z: 34.196335}
     - name: 4_Boots
-      parentName: Player2(Clone)
+      parentName: Player(Clone)
       position: {x: 0.000000021941958, y: 0.000000092983235, z: 0.000000008828929}
       rotation: {x: -0.7071069, y: -0.0000000016341618, z: 0.0000000014304878, w: 0.7071067}
       scale: {x: 14.739354, y: 14.912801, z: 34.196327}
     - name: 3_Pants
-      parentName: Player2(Clone)
+      parentName: Player(Clone)
       position: {x: 0.000000018738211, y: 0.00000002145767, z: 0.000000007580963}
       rotation: {x: -0.7071069, y: -0.0000000038521, z: 0.0000000026003262, w: 0.7071067}
       scale: {x: 15.313021, y: 15.954486, z: 35.52729}
     - name: Body
-      parentName: Player2(Clone)
+      parentName: Player(Clone)
       position: {x: 0.000000021941958, y: 0.000000092983235, z: 0.000000008828929}
       rotation: {x: -0.7071069, y: -0.0000000016341618, z: 0.0000000014304878, w: 0.7071067}
       scale: {x: 14.739354, y: 14.912801, z: 34.196327}
     - name: 1_Clothes
-      parentName: Player2(Clone)
+      parentName: Player(Clone)
       position: {x: 0.00000002682212, y: 0.000000059269368, z: 0.0000000017427326}
       rotation: {x: -0.7071068, y: 1.8496218e-12, z: 9.658227e-13, w: 0.7071067}
       scale: {x: 14.912802, y: 14.912802, z: 14.912802}
     - name: 0_Food
-      parentName: Player2(Clone)
+      parentName: Player(Clone)
       position: {x: 0.000000026822114, y: 0.000000059269368, z: 0.0000000017427331}
       rotation: {x: -0.7071069, y: 1.1166296e-10, z: 1.1012782e-10, w: 0.7071067}
       scale: {x: 24.1309, y: 24.1309, z: 24.1309}
     - name: Head
-      parentName: Player2(Clone)
+      parentName: Player(Clone)
       position: {x: 0.000000025629992, y: -0.000000007450581, z: 6.615412e-16}
       rotation: {x: -0.70710677, y: 0.000000008831935, z: -0.000000005829078, w: 0.7071068}
       scale: {x: 14.912802, y: 14.912802, z: 14.912802}
     - name: Eye
-      parentName: Player2(Clone)
+      parentName: Player(Clone)
       position: {x: 0.000000025655124, y: 0, z: -0.0000000149011585}
       rotation: {x: -0.7071069, y: 0, z: 0, w: 0.7071067}
       scale: {x: 4.3922906, y: 1.3157029, z: 4.3922906}
