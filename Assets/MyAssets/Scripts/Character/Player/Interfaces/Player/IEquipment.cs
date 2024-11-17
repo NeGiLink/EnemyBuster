@@ -8,7 +8,7 @@ namespace MyAssets
     {
         ShieldTool ShieldTool {  get; }
 
-        //bool IsHaveWeapon {  get; }
+        GameObject HaveWeapon {  get; }
         void SetInWeapon();
         void SetOutWeapon();
     }

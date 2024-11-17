@@ -19,28 +19,51 @@ ModelImporter:
     rigImportErrors: 
     rigImportWarnings: "Copied Avatar Rig Configuration mis-match. Bone length in
       copied configuration does not match position in animation file:\n\t'mixamorig:LeftUpLeg'
-      : position error = 35.210968 mm\n\t'mixamorig:LeftLeg' : position error = 13.940638
-      mm\n\t'mixamorig:LeftFoot' : position error = 20.978436 mm\n\t'mixamorig:LeftToeBase'
-      : position error = 3.177302 mm\n\t'mixamorig:RightUpLeg' : position error =
-      36.940365 mm\n\t'mixamorig:RightLeg' : position error = 13.826962 mm\n\t'mixamorig:RightFoot'
-      : position error = 20.643358 mm\n\t'mixamorig:RightToeBase' : position error
-      = 1.442807 mm\n"
+      : position error = 35.211006 mm\n\t'mixamorig:LeftLeg' : position error = 13.940655
+      mm\n\t'mixamorig:LeftFoot' : position error = 20.978203 mm\n\t'mixamorig:LeftToeBase'
+      : position error = 3.177379 mm\n\t'mixamorig:RightUpLeg' : position error =
+      36.940392 mm\n\t'mixamorig:RightLeg' : position error = 13.826904 mm\n\t'mixamorig:RightFoot'
+      : position error = 20.643383 mm\n\t'mixamorig:RightToeBase' : position error
+      = 1.442771 mm\n"
     animationImportErrors: 
-    animationImportWarnings: "\nClip 'Armature|FirstAttack' has import animation
-      warnings that might lower retargeting quality:\nNote: Activate translation
-      DOF on avatar to improve retargeting quality.\n\t'mixamorig:LeftUpLeg' has
-      translation animation that will be discarded.\n\t'mixamorig:RightUpLeg' has
-      translation animation that will be discarded.\n\nClip 'Armature|FrontLeftRun'
+    animationImportWarnings: "\nClip 'Armature|BattleFrontRightRunIK' has import
+      animation warnings that might lower retargeting quality:\nNote: Activate translation
+      DOF on avatar to improve retargeting quality.\n\t'mixamorig:Hips' has translation
+      animation that will be discarded.\n\t'mixamorig:Hips' is inbetween humanoid
+      transforms and has rotation animation that will be discarded.\n\nClip 'Armature|BattleRun'
       has import animation warnings that might lower retargeting quality:\nNote:
-      Activate translation DOF on avatar to improve retargeting quality.\n\t'mixamorig:LeftUpLeg'
+      Activate translation DOF on avatar to improve retargeting quality.\n\t'mixamorig:Hips'
+      has translation animation that will be discarded.\n\t'mixamorig:Hips' is inbetween
+      humanoid transforms and has rotation animation that will be discarded.\n\nClip
+      'Armature|BattleRunIK' has import animation warnings that might lower retargeting
+      quality:\nNote: Activate translation DOF on avatar to improve retargeting quality.\n\t'mixamorig:Hips'
+      has translation animation that will be discarded.\n\t'mixamorig:Hips' is inbetween
+      humanoid transforms and has rotation animation that will be discarded.\n\nClip
+      'Armature|FirstAttack' has import animation warnings that might lower retargeting
+      quality:\nNote: Activate translation DOF on avatar to improve retargeting quality.\n\t'mixamorig:Hips'
+      is inbetween humanoid transforms and has rotation animation that will be discarded.\n\t'mixamorig:LeftUpLeg'
+      has translation animation that will be discarded.\n\t'mixamorig:RightUpLeg'
+      has translation animation that will be discarded.\n\nClip 'Armature|FrontLeftRun'
+      has import animation warnings that might lower retargeting quality:\nNote:
+      Activate translation DOF on avatar to improve retargeting quality.\n\t'mixamorig:Hips'
+      has translation animation that will be discarded.\n\t'mixamorig:Hips' is inbetween
+      humanoid transforms and has rotation animation that will be discarded.\n\t'mixamorig:LeftUpLeg'
       has translation animation that will be discarded.\n\t'mixamorig:RightUpLeg'
       has translation animation that will be discarded.\n\nClip 'Armature|FrontRightRun'
       has import animation warnings that might lower retargeting quality:\nNote:
-      Activate translation DOF on avatar to improve retargeting quality.\n\t'mixamorig:LeftUpLeg'
+      Activate translation DOF on avatar to improve retargeting quality.\n\t'mixamorig:Hips'
+      has translation animation that will be discarded.\n\t'mixamorig:Hips' is inbetween
+      humanoid transforms and has rotation animation that will be discarded.\n\t'mixamorig:LeftUpLeg'
       has translation animation that will be discarded.\n\t'mixamorig:RightUpLeg'
-      has translation animation that will be discarded.\n\nClip 'Armature|InWeapon'
-      has import animation warnings that might lower retargeting quality:\nNote:
-      Activate translation DOF on avatar to improve retargeting quality.\n\t'mixamorig:RightHandIndex1'
+      has translation animation that will be discarded.\n\nClip 'Armature|Idle' has
+      import animation warnings that might lower retargeting quality:\nNote: Activate
+      translation DOF on avatar to improve retargeting quality.\n\t'mixamorig:Hips'
+      has translation animation that will be discarded.\n\t'mixamorig:Hips' is inbetween
+      humanoid transforms and has rotation animation that will be discarded.\n\nClip
+      'Armature|InWeapon' has import animation warnings that might lower retargeting
+      quality:\nNote: Activate translation DOF on avatar to improve retargeting quality.\n\t'mixamorig:Hips'
+      has translation animation that will be discarded.\n\t'mixamorig:Hips' is inbetween
+      humanoid transforms and has rotation animation that will be discarded.\n\t'mixamorig:RightHandIndex1'
       has translation animation that will be discarded.\n\t'mixamorig:RightHandIndex2'
       has translation animation that will be discarded.\n\t'mixamorig:RightHandMiddle1'
       has translation animation that will be discarded.\n\t'mixamorig:RightHandMiddle2'
@@ -49,7 +72,9 @@ ModelImporter:
       has translation animation that will be discarded.\n\t'mixamorig:RightHandRing2'
       has translation animation that will be discarded.\n\nClip 'Armature|OutWeapon'
       has import animation warnings that might lower retargeting quality:\nNote:
-      Activate translation DOF on avatar to improve retargeting quality.\n\t'mixamorig:RightHandIndex1'
+      Activate translation DOF on avatar to improve retargeting quality.\n\t'mixamorig:Hips'
+      has translation animation that will be discarded.\n\t'mixamorig:Hips' is inbetween
+      humanoid transforms and has rotation animation that will be discarded.\n\t'mixamorig:RightHandIndex1'
       has translation animation that will be discarded.\n\t'mixamorig:RightHandIndex2'
       has translation animation that will be discarded.\n\t'mixamorig:RightHandMiddle1'
       has translation animation that will be discarded.\n\t'mixamorig:RightHandMiddle2'
@@ -58,10 +83,18 @@ ModelImporter:
       has translation animation that will be discarded.\n\t'mixamorig:RightHandRing2'
       has translation animation that will be discarded.\n\nClip 'Armature|SecondAttack'
       has import animation warnings that might lower retargeting quality:\nNote:
-      Activate translation DOF on avatar to improve retargeting quality.\n\t'mixamorig:RightUpLeg'
-      has translation animation that will be discarded.\n\nClip 'Armature|ThirdAttack'
+      Activate translation DOF on avatar to improve retargeting quality.\n\t'mixamorig:Hips'
+      has translation animation that will be discarded.\n\t'mixamorig:Hips' is inbetween
+      humanoid transforms and has rotation animation that will be discarded.\n\t'mixamorig:RightUpLeg'
+      has translation animation that will be discarded.\n\nClip 'Armature|StandardRun'
       has import animation warnings that might lower retargeting quality:\nNote:
-      Activate translation DOF on avatar to improve retargeting quality.\n\t'mixamorig:LeftUpLeg'
+      Activate translation DOF on avatar to improve retargeting quality.\n\t'mixamorig:Hips'
+      has translation animation that will be discarded.\n\t'mixamorig:Hips' is inbetween
+      humanoid transforms and has rotation animation that will be discarded.\n\nClip
+      'Armature|ThirdAttack' has import animation warnings that might lower retargeting
+      quality:\nNote: Activate translation DOF on avatar to improve retargeting quality.\n\t'mixamorig:Hips'
+      has translation animation that will be discarded.\n\t'mixamorig:Hips' is inbetween
+      humanoid transforms and has rotation animation that will be discarded.\n\t'mixamorig:LeftUpLeg'
       has translation animation that will be discarded.\n\t'mixamorig:RightUpLeg'
       has translation animation that will be discarded.\n"
     animationRetargetingWarnings: 

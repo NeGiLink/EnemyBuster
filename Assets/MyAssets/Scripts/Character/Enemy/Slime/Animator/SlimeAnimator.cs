@@ -13,6 +13,8 @@ namespace MyAssets
 
         public Animator Animator => thisAnimator;
 
+        public string AttacksName => "AttackLevel";
+
         public void DoSetup(ISlimeSetup slime)
         {
             thisAnimator = slime.gameObject.GetComponentInChildren<Animator>();

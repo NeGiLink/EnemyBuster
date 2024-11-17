@@ -54,15 +54,5 @@ namespace MyAssets
             base.DoFixedUpdate(time);
             movement.Move(moveSpeed);
         }
-
-        public override void DoTriggerEnter(GameObject thisObject, Collider collider)
-        {
-            base.DoTriggerEnter(thisObject, collider);
-            AttackObject data = collider.GetComponent<AttackObject>();
-            if (data == null) { return; }
-            damageContainer.SetAttackType(data.Type);
-            damageContainer.SetData(data.Power);
-            damageContainer.SetAttacker(collider.transform);
-        }
     }
 }

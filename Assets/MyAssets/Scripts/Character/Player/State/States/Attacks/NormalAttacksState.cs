@@ -34,6 +34,8 @@ namespace MyAssets
 
         private IDamageContainer damageContainer;
 
+        private SwordController sword;
+
         [SerializeField]
         private float attacksGravityMultiply;
 
@@ -70,6 +72,7 @@ namespace MyAssets
             animator = player.PlayerAnimator;
             transform = player.gameObject.transform;
             damageContainer = player.DamageContainer;
+            sword = player.Equipment.HaveWeapon.GetComponent<SwordController>();
         }
         public override void DoStart()
         {
@@ -77,6 +80,12 @@ namespace MyAssets
             animator.Animator.SetInteger(animator.AttacksName, (int)NormalAttackState.First);
             velocity.Rigidbody.velocity = Vector3.zero;
             baseTransform = transform.position;
+        }
+
+        public override void DoUpdate(float time)
+        {
+            base.DoUpdate(time);
+            sword.EnabledCollider(0.0f, 0.6f, false);
         }
 
         public override void DoFixedUpdate(float time)
@@ -124,6 +133,8 @@ namespace MyAssets
 
         private IDamageContainer damageContainer;
 
+        private SwordController sword;
+
         [SerializeField]
         private float attacksGravityMultiply;
 
@@ -161,6 +172,7 @@ namespace MyAssets
             transform = player.gameObject.transform;
             movement = player.Movement;
             damageContainer = player.DamageContainer;
+            sword = player.Equipment.HaveWeapon.GetComponent<SwordController>();
         }
         public override void DoStart()
         {
@@ -168,6 +180,12 @@ namespace MyAssets
             animator.Animator.SetInteger(animator.AttacksName, (int)NormalAttackState.Second);
             velocity.Rigidbody.velocity = Vector3.zero;
             baseTransform = transform.position;
+        }
+
+        public override void DoUpdate(float time)
+        {
+            base.DoUpdate(time);
+            sword.EnabledCollider(0.0f,0.5f, false);
         }
 
         public override void DoFixedUpdate(float time)
@@ -208,6 +226,8 @@ namespace MyAssets
         private Transform transform;
         private IDamageContainer damageContainer;
 
+        private SwordController sword;
+
         [SerializeField]
         private float attacksGravityMultiply;
 
@@ -243,6 +263,7 @@ namespace MyAssets
             movement = player.Movement;
             transform = player.gameObject.transform;
             damageContainer = player.DamageContainer;
+            sword = player.Equipment.HaveWeapon.GetComponent<SwordController>();
         }
         public override void DoStart()
         {
@@ -250,6 +271,12 @@ namespace MyAssets
             animator.Animator.SetInteger(animator.AttacksName, (int)NormalAttackState.Third);
             velocity.Rigidbody.velocity = Vector3.zero;
             baseTransform = transform.position;
+        }
+
+        public override void DoUpdate(float time)
+        {
+            base.DoUpdate(time);
+            sword.EnabledCollider(0.0f,0.6f,false);
         }
 
         public override void DoFixedUpdate(float time)

@@ -9706,7 +9706,6 @@ GameObject:
   - component: {fileID: 23704745735541114}
   - component: {fileID: 3391072539575216221}
   - component: {fileID: 5880129336027353048}
-  - component: {fileID: 3858231981492047019}
   m_Layer: 0
   m_Name: MoonSword 1b
   m_TagString: Untagged
@@ -9809,29 +9808,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackObject: {fileID: 0}
---- !u!136 &3858231981492047019
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1711279095464942}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
+  collider: {fileID: 0}
+  excludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_ExcludeLayers:
+  hitLayer:
     serializedVersion: 2
     m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.34
-  m_Height: 1.516298
-  m_Direction: 1
-  m_Center: {x: 0, y: 1.043565, z: 0.000000024835265}
+  radius: 0.5
+  dis: 1
 --- !u!1 &1963275604197132
 GameObject:
   m_ObjectHideFlags: 0

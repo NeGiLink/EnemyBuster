@@ -10,6 +10,7 @@ namespace MyAssets
         [SerializeField]
         private GameObject targetObject;
         public GameObject TargetObject => targetObject;
+        public void SetTargetObject(GameObject t) {  targetObject = t; }
         [SerializeField]
         private Vector3 targetLastPoint;
 
@@ -28,6 +29,8 @@ namespace MyAssets
 
         [SerializeField]
         private bool allSearch = false;
+
+        public void SetAllSearch(bool a) {  allSearch = a; }
 
         // 視界範囲内のオブジェクトリスト
         List<GameObject> insideObjects = new List<GameObject>();

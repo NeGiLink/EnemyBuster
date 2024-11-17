@@ -10,6 +10,8 @@ namespace MyAssets
         [SerializeField]
         private Transform haveWeapon;
 
+        public GameObject HaveWeapon => haveWeapon.gameObject;
+
         [SerializeField]
         private ShieldTool shieldTool;
         public ShieldTool ShieldTool => shieldTool;

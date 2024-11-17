@@ -34,6 +34,7 @@ namespace MyAssets
         IStateMachine StateMachine { get; }
         ISlimeAnimator SlimeAnimator { get; }
         IGroundCheck GroundCheck { get; }
+        SlimeBodyAttackController AttackObject { get; }
     }
 }
 

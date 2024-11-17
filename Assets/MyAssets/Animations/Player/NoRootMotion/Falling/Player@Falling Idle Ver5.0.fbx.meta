@@ -19,14 +19,18 @@ ModelImporter:
     rigImportErrors: 
     rigImportWarnings: "Copied Avatar Rig Configuration mis-match. Bone length in
       copied configuration does not match position in animation file:\n\t'mixamorig:LeftUpLeg'
-      : position error = 11104.351562 mm\n\t'mixamorig:LeftLeg' : position error
-      = 35951.101562 mm\n\t'mixamorig:LeftFoot' : position error = 34838.636719 mm\n\t'mixamorig:LeftToeBase'
-      : position error = 20945.091797 mm\n\t'mixamorig:RightUpLeg' : position error
-      = 11118.366211 mm\n\t'mixamorig:RightLeg' : position error = 35914.511719 mm\n\t'mixamorig:RightFoot'
-      : position error = 34872.894531 mm\n\t'mixamorig:RightToeBase' : position error
-      = 20431.224609 mm\n"
+      : position error = 11011.851562 mm\n\t'mixamorig:LeftLeg' : position error
+      = 35743.746094 mm\n\t'mixamorig:LeftFoot' : position error = 34603.214844 mm\n\t'mixamorig:LeftToeBase'
+      : position error = 20819.341797 mm\n\t'mixamorig:RightUpLeg' : position error
+      = 11024.818359 mm\n\t'mixamorig:RightLeg' : position error = 35707.273438 mm\n\t'mixamorig:RightFoot'
+      : position error = 34637.593750 mm\n\t'mixamorig:RightToeBase' : position error
+      = 20304.017578 mm\n"
     animationImportErrors: 
-    animationImportWarnings: 
+    animationImportWarnings: "\nClip 'Armature|Armature|mixamo.com|Layer0.001' has
+      import animation warnings that might lower retargeting quality:\nNote: Activate
+      translation DOF on avatar to improve retargeting quality.\n\t'mixamorig:Hips'
+      has translation animation that will be discarded.\n\t'mixamorig:Hips' is inbetween
+      humanoid transforms and has rotation animation that will be discarded.\n"
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
