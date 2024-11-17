@@ -22,6 +22,8 @@ namespace MyAssets
 
         private IGroundCheck groundCheck;
 
+        private FieldOfView fieldOfView;
+
         private Timer damageTimer = new Timer();
 
         private Timer invincibilityTimer = new Timer();
@@ -35,39 +37,52 @@ namespace MyAssets
         [SerializeField]
         private float damageGravityMultiply = 2.0f;
 
+        [SerializeField]
+        private float damageIdleCount = 0.5f;
+
         public static readonly string StateKey = "Damage";
         public override string Key => StateKey;
 
         public override List<ICharacterStateTransition<string>> CreateTransitionList(ISlimeSetup actor)
         {
             List<ICharacterStateTransition<string>> re = new List<ICharacterStateTransition<string>>();
-
             if (StateChanger.IsContain(SlimeIdleState.StateKey)) { re.Add(new IsNotDamageToTransition(actor, damageTimer, StateChanger, SlimeIdleState.StateKey)); }
-
+            if (StateChanger.IsContain(ChaseState.StateKey)) { re.Add(new IsTimerTargetInViewTransition(actor, damageTimer, StateChanger, ChaseState.StateKey)); }
             return re;
         }
-        public override void DoSetup(ISlimeSetup player)
+        public override void DoSetup(ISlimeSetup enemy)
         {
-            base.DoSetup(player);
-            thisTransform = player.gameObject.transform;
-            velocity = player.Velocity;
-            movement = player.Movement;
-            animator = player.SlimeAnimator;
-            groundCheck = player.GroundCheck;
-            damageContainer = player.DamageContainer;
-            damageMove = player.Damagement;
+            base.DoSetup(enemy);
+            thisTransform = enemy.gameObject.transform;
+            velocity = enemy.Velocity;
+            movement = enemy.Movement;
+            animator = enemy.SlimeAnimator;
+            groundCheck = enemy.GroundCheck;
+            damageContainer = enemy.DamageContainer;
+            damageMove = enemy.Damagement;
+            fieldOfView = enemy.gameObject.GetComponent<FieldOfView>();
         }
 
         public override void DoStart()
         {
             base.DoStart();
+            FoundTarget();
+
             velocity.Rigidbody.velocity = Vector3.zero;
 
             AttackType type = damageContainer.AttackType;
             int damageType = 0;
-            damageMove.AddForceMove(thisTransform.position, damageContainer.Attacker.position, knockBack * 1.5f);
-            damageTimer.Start(0.25f);
+            damageMove.AddForceMove(thisTransform.position, damageContainer.Attacker.position, knockBack * 1.0f);
+            damageTimer.Start(damageIdleCount);
             animator.Animator.SetInteger("Impact", damageType);
+        }
+
+        private void FoundTarget()
+        {
+            fieldOfView.SetAllSearch(true);
+            Vector3 target = damageContainer.Attacker.position;
+            target = new Vector3(target.x, thisTransform.position.y, target.z);
+            thisTransform.LookAt(target);
         }
 
         public override void DoUpdate(float time)
@@ -88,6 +103,7 @@ namespace MyAssets
         public override void DoExit()
         {
             base.DoExit();
+            fieldOfView.SetAllSearch(false);
             damageContainer.SetData(0);
             damageContainer.SetAttacker(null);
             damageContainer.SetAttackType(AttackType.None);

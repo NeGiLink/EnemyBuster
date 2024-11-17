@@ -19,13 +19,14 @@ ModelImporter:
     rigImportErrors: 
     rigImportWarnings: "Copied Avatar Rig Configuration mis-match. Bone length in
       copied configuration does not match position in animation file:\n\t'mixamorig:LeftUpLeg'
-      : position error = 76.423416 mm\n\t'mixamorig:RightUpLeg' : position error
-      = 92.224426 mm\n"
+      : position error = 76.423500 mm\n\t'mixamorig:RightUpLeg' : position error
+      = 92.224556 mm\n"
     animationImportErrors: 
     animationImportWarnings: "\nClip 'Armature|BattleIdle' has import animation warnings
       that might lower retargeting quality:\nNote: Activate translation DOF on avatar
-      to improve retargeting quality.\n\t'mixamorig:Spine' has translation animation
-      that will be discarded.\n"
+      to improve retargeting quality.\n\t'mixamorig:Hips' has translation animation
+      that will be discarded.\n\t'mixamorig:Spine' has translation animation that
+      will be discarded.\n"
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0

@@ -12,6 +12,8 @@ namespace MyAssets
         private Transform thisTransform;
         private FieldOfView fieldOfView;
 
+        private IDamageContainer damageContainer;
+
         private ISlimeAnimator animator;
 
         Timer currentSearchinTimer = new Timer();
@@ -28,6 +30,9 @@ namespace MyAssets
         [SerializeField]
         float searchingTime = 1.0f;
 
+        [SerializeField]
+        float minChaseDistance = 2.5f;
+
         public static readonly string StateKey = "Chase";
         public override string Key => StateKey;
 
@@ -35,6 +40,8 @@ namespace MyAssets
         {
             List<ICharacterStateTransition<string>> re = new List<ICharacterStateTransition<string>>();
             if (StateChanger.IsContain(SlimeIdleState.StateKey)) { re.Add(new IsNoTargetInViewTransition(enemy, StateChanger, SlimeIdleState.StateKey)); }
+            if (StateChanger.IsContain(SlimeDamageState.StateKey)) { re.Add(new IsEnemyDamageTransition(enemy, StateChanger, SlimeDamageState.StateKey)); }
+            if (StateChanger.IsContain(ReadySlimeAttackState.StateKey)) { re.Add(new IsReadyAttackTransition(enemy, StateChanger, ReadySlimeAttackState.StateKey)); }
             return re;
         }
 
@@ -45,12 +52,11 @@ namespace MyAssets
             thisTransform = enemy.gameObject.transform;
             fieldOfView = enemy.gameObject.GetComponent<FieldOfView>();
             animator = enemy.SlimeAnimator;
+            damageContainer = enemy.DamageContainer;
         }
 
         public override void DoStart()
         {
-            animator.Animator.SetInteger("Move", 1);
-
             if (fieldOfView.TryGetFirstObject(out targetObject))
             {
                 targetLastPoint = targetObject.transform.position;
@@ -95,13 +101,14 @@ namespace MyAssets
             Vector3 targetVec = targetLastPoint - thisTransform.position;
             targetVec.y = 0.0f;
             float targetDistance = targetVec.magnitude;
-            const float minChaseDistance = 1.0f;
             if (targetDistance < minChaseDistance)
             {
+                animator.Animator.SetInteger("Move", 0);
                 movement.Move(0f);
             }
             else
             {
+                animator.Animator.SetInteger("Move", 1);
                 movement.MoveTo(targetLastPoint, moveSpeed, moveSpeedChangeRate, rotationSpeed, time);
             }
         }
@@ -110,7 +117,9 @@ namespace MyAssets
         {
             base.DoExit();
             animator.Animator.SetInteger("Move", 0);
+            movement.Move(0f);
         }
+
     }
 }
 

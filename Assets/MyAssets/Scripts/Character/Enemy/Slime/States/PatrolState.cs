@@ -32,12 +32,12 @@ namespace MyAssets
         public static readonly string StateKey = "Patrol";
         public override string Key => StateKey;
 
-        public override List<ICharacterStateTransition<string>> CreateTransitionList(ISlimeSetup actor)
+        public override List<ICharacterStateTransition<string>> CreateTransitionList(ISlimeSetup enemy)
         {
             List<ICharacterStateTransition<string>> re = new List<ICharacterStateTransition<string>>();
-            if (StateChanger.IsContain(SlimeIdleState.StateKey)) { re.Add(new IsNotPatrolTransition(actor, StateChanger, SlimeIdleState.StateKey)); }
-            if (StateChanger.IsContain(ChaseState.StateKey)) { re.Add(new IsTargetInViewTransition(actor, StateChanger, ChaseState.StateKey)); }
-            if (StateChanger.IsContain(SlimeDamageState.StateKey)) { re.Add(new IsEnemyDamageTransition(actor, StateChanger, SlimeDamageState.StateKey)); }
+            if (StateChanger.IsContain(SlimeIdleState.StateKey)) { re.Add(new IsNotPatrolTransition(enemy, StateChanger, SlimeIdleState.StateKey)); }
+            if (StateChanger.IsContain(ChaseState.StateKey)) { re.Add(new IsTargetInViewTransition(enemy, StateChanger, ChaseState.StateKey)); }
+            if (StateChanger.IsContain(SlimeDamageState.StateKey)) { re.Add(new IsEnemyDamageTransition(enemy, StateChanger, SlimeDamageState.StateKey)); }
             return re;
         }
 
@@ -106,15 +106,6 @@ namespace MyAssets
             base.DoExit();
             animator.Animator.SetInteger("Move", 0);
         }
-        public override void DoTriggerEnter(GameObject thisObject, Collider collider)
-        {
-            base.DoTriggerEnter(thisObject, collider);
-            AttackObject data = collider.GetComponent<AttackObject>();
-            if (data == null) { return; }
-            damageContainer.SetAttackType(data.Type);
-            damageContainer.SetData(data.Power);
-            damageContainer.SetAttacker(collider.transform);
-        }
     }
 
     public class IsTargetInViewTransition : CharacterStateTransitionBase
@@ -126,6 +117,20 @@ namespace MyAssets
             fieldOfView = actor.gameObject.GetComponent<FieldOfView>();
         }
         public override bool IsTransition() => fieldOfView.TryGetFirstObject(out var obj);
+    }
+
+    public class IsTimerTargetInViewTransition : CharacterStateTransitionBase
+    {
+        readonly FieldOfView fieldOfView;
+
+        private Timer damageTimer;
+        public IsTimerTargetInViewTransition(ICharacterSetup actor,Timer _t, IStateChanger<string> stateChanger, string changeKey)
+            : base(stateChanger, changeKey)
+        {
+            fieldOfView = actor.gameObject.GetComponent<FieldOfView>();
+            damageTimer = _t;
+        }
+        public override bool IsTransition() => fieldOfView.TryGetFirstObject(out var obj)&&damageTimer.IsEnd();
     }
 
     public class IsNoTargetInViewTransition : CharacterStateTransitionBase

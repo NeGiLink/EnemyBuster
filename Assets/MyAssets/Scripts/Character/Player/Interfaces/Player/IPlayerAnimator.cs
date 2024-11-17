@@ -28,6 +28,7 @@ namespace MyAssets
     public interface ISlimeAnimator
     {
         Animator Animator { get; }
+        string AttacksName { get; }
         /*
         string VelocityX { get; }
         string VelocityZ { get; }
@@ -39,7 +40,6 @@ namespace MyAssets
         string JumpTypeName { get; }
         string FallName { get; }
         string LandName { get; }
-        string AttacksName { get; }
         string Weapon_In_OutName { get; }
         string ClimbName { get; }
 

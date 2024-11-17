@@ -15,6 +15,8 @@ namespace MyAssets
 
         private IDamageContainer damageContainer;
 
+        private SwordController sword;
+
         [SerializeField]
         private float jumpAttackGravityMultiply = 1.5f;
 
@@ -38,12 +40,13 @@ namespace MyAssets
             movement = player.Movement;
             animator = player.PlayerAnimator;
             damageContainer = player.DamageContainer;
+            sword = player.Equipment.HaveWeapon?.GetComponent<SwordController>();
         }
 
         public override void DoUpdate(float time)
         {
+            sword.EnabledCollider(0, 0, true);
             base.DoUpdate(time);
-
         }
 
         public override void DoFixedUpdate(float time)
@@ -52,6 +55,12 @@ namespace MyAssets
             movement.Move(moveSpeed);
             velocity.Rigidbody.velocity += Physics.gravity * jumpAttackGravityMultiply * time;
         }
+
+        public override void DoExit()
+        {
+            base.DoExit();
+        }
+
         public override void DoTriggerEnter(GameObject thisObject,Collider collider)
         {
             base.DoTriggerEnter(thisObject,collider);

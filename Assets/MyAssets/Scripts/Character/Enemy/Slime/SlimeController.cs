@@ -23,6 +23,10 @@ namespace MyAssets
         private FieldOfView fieldOfView;
 
         [SerializeField]
+        private SlimeBodyAttackController attackObject;
+        public SlimeBodyAttackController AttackObject => attackObject;
+
+        [SerializeField]
         private StateMachine<string> stateMachine;
         public IStateMachine StateMachine => stateMachine;
 
@@ -40,12 +44,19 @@ namespace MyAssets
         private ChaseState chaseState;
 
         [SerializeField]
+        private ReadySlimeAttackState readyAttackState;
+
+        [SerializeField]
+        private SlimeAttackState attackState;
+
+        [SerializeField]
         private SlimeDamageState damageState;
 
         ISlimeState<string>[] states;
         protected override void Awake()
         {
             fieldOfView = GetComponent<FieldOfView>();
+            attackObject = GetComponentInChildren<SlimeBodyAttackController>();
 
             animator.DoSetup(this);
             velocity.DoSetup(this);
@@ -59,6 +70,8 @@ namespace MyAssets
                 idleState,
                 patrolState,
                 chaseState,
+                readyAttackState,
+                attackState,
                 damageState
             };
             stateMachine.DoSetup(states);
@@ -101,6 +114,16 @@ namespace MyAssets
         protected override void OnTriggerEnter(Collider other)
         {
             stateMachine.DoTriggerEnter(gameObject,other);
+        }
+
+        protected override void OnTriggerStay(Collider other)
+        {
+            stateMachine.DoTriggerStay(gameObject,other);
+        }
+
+        protected override void OnTriggerExit(Collider other)
+        {
+            stateMachine.DoTriggerExit(gameObject,other);
         }
     }
 }
