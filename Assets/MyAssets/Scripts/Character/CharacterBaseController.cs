@@ -23,6 +23,7 @@ namespace MyAssets
 
         protected virtual void Awake()
         {
+            groundCheck.Setup(this);
         }
 
         protected virtual void Start()

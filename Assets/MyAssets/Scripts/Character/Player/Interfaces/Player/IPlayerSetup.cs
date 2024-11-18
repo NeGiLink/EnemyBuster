@@ -4,15 +4,15 @@ namespace MyAssets
 {
     public interface ICharacterSetup
     {
-        IBaseStauts            BaseStauts { get; }
-        GameObject gameObject { get; }
-        IVelocityComponent Velocity { get; }
-        IMovement Movement { get; }
-        IStepClimberJudgment StepClimberJudgment { get; }
-        IRotation Rotation { get; }
+        IBaseStauts             BaseStauts { get; }
+        GameObject              gameObject { get; }
+        IVelocityComponent      Velocity { get; }
+        IMovement               Movement { get; }
+        IStepClimberJudgment    StepClimberJudgment { get; }
+        IRotation               Rotation { get; }
 
-        IDamagement Damagement { get; }
-        IDamageContainer DamageContainer { get; }
+        IDamagement             Damagement { get; }
+        IDamageContainer        DamageContainer { get; }
     }
     public interface IPlayerSetup : ICharacterSetup
     {
@@ -40,6 +40,11 @@ namespace MyAssets
         SlimeBodyAttackController AttackObject { get; }
 
         void RunDestroy();
+    }
+
+    public interface IDummySetup : ICharacterSetup
+    {
+
     }
 }
 

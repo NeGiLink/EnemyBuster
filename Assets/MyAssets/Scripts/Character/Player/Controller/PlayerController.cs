@@ -120,6 +120,7 @@ namespace MyAssets
 
         protected override void Awake()
         {
+            base.Awake();
             fieldOfView = GetComponent<FieldOfView>();
 
 

@@ -30,6 +30,20 @@ namespace MyAssets
 
         public bool IsFalling => fallCount >= 0.1f;
 
+        [SerializeField]
+        private PhysicMaterialData physicMaterialData;
+
+        private Collider collider;
+
+        public void Setup(CharacterBaseController controller)
+        {
+            collider = controller.gameObject.GetComponent<Collider>();
+            if(collider != null)
+            {
+                collider.material = physicMaterialData.Data[(int)PhysicMaterialTag.Landing];
+            }
+        }
+
         public void DoUpdate()
         {
             CheckGroundStatus();
@@ -52,6 +66,11 @@ namespace MyAssets
                 if (landing)
                 {
                     fallCount = 0;
+                    collider.material = physicMaterialData.Data[(int)PhysicMaterialTag.NoLanding];
+                }
+                else
+                {
+                    collider.material = physicMaterialData.Data[(int)PhysicMaterialTag.Landing];
                 }
                 landing = land;
             }

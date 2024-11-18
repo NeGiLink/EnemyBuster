@@ -1,0 +1,59 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+namespace MyAssets
+{
+    public class DummyController : CharacterBaseController,IDummySetup
+    {
+        public IBaseStauts BaseStauts => null;
+
+        [SerializeField]
+        private Movement movement;
+        public IMovement Movement => movement;
+
+        [SerializeField]
+        private StepClimberJudgment stepClimberJudgment;
+        public IStepClimberJudgment StepClimberJudgment => stepClimberJudgment;
+
+        [SerializeField]
+        private PlayerRotation rotation;
+        public IRotation Rotation => rotation;
+
+        private Timer damageCoolDownTimer;
+
+        protected override void Awake()
+        {
+            velocity.DoSetup(this);
+            movement.DoSetup(this);
+            damageContainer.DoSetup(this);
+            damagement.DoSetup(this);
+
+            damageCoolDownTimer = new Timer();
+        }
+
+        protected override void Update()
+        {
+            velocity.Rigidbody.velocity = Vector3.zero;
+            damageCoolDownTimer.Update(Time.deltaTime);
+            if (!damageCoolDownTimer.IsEnd()) 
+            {
+                damageContainer.SetAttackType(AttackType.None);
+                damageContainer.SetData(0);
+                damageContainer.SetAttacker(null);
+                return; 
+            }
+            DamageUI();
+        }
+
+        private void DamageUI()
+        {
+            if(damageContainer.AttackType == AttackType.None) { return; }
+            damageCoolDownTimer.Start(0.25f);
+            GameManager.Instance.DamageTextCreator.Crate(transform, damageContainer.Data);
+            damageContainer.SetAttackType(AttackType.None);
+            damageContainer.SetData(0);
+            damageContainer.SetAttacker(null);
+        }
+    }
+}
