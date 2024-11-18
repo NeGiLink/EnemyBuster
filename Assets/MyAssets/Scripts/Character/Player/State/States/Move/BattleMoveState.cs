@@ -67,6 +67,7 @@ namespace MyAssets
         public override void DoStart()
         {
             base.DoStart();
+            animator.Animator.SetFloat(animator.DashName, 0);
 
             animator.Animator.SetFloat(animator.BattleModeName, Define.PressNum);
 

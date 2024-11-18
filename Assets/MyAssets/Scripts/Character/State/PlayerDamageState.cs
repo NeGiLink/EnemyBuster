@@ -100,6 +100,7 @@ namespace MyAssets
             {
                 animator.Animator.SetInteger("Impact", damageType);
             }
+            GameManager.Instance.DamageTextCreator.Crate(thisTransform, damageContainer.Data);
         }
 
         public override void DoUpdate(float time)

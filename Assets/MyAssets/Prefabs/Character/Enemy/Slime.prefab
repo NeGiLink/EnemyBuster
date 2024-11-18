@@ -64,6 +64,7 @@ MonoBehaviour:
       m_Bits: 8
     landing: 0
     fallCount: 0
+    physicMaterialData: {fileID: 11400000, guid: 847aa92f1a8e8b044822fea7587ff168, type: 2}
   property:
     hp: 3
   rotation:

@@ -78,6 +78,7 @@ namespace MyAssets
             int damageType = 0;
             damageMove.AddForceMove(thisTransform.position, damageContainer.Attacker.position, knockBack * 1.0f);
             damageTimer.Start(damageIdleCount);
+            GameManager.Instance.DamageTextCreator.Crate(thisTransform, damageContainer.Data);
             if (!stauts.DecreaseAndDeathCheck(damageContainer.Data))
             {
                 animator.Animator.SetInteger("Impact", damageType);

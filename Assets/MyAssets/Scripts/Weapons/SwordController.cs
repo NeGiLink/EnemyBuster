@@ -12,14 +12,6 @@ namespace MyAssets
         [SerializeField]
         private IPlayerAnimator animator;
 
-        //private AnimatorStateInfo animInfo;
-
-        [SerializeField]
-        private new Collider collider;
-
-        [SerializeField]
-        private LayerMask excludeLayers;
-
         [SerializeField]
         private LayerMask hitLayer;
 
@@ -39,8 +31,6 @@ namespace MyAssets
             {
                 animator = controller.PlayerAnimator;
             }
-            
-            collider = GetComponentInParent<Collider>();
         }
 
         public void EnabledCollider(float start,float end,bool all)
