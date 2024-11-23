@@ -22,6 +22,16 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2163008d627370d45a37604f78fc0c2b
+    m_Address: TestSubScene02
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 40508fef217c3b94ab01d598bf427650
+    m_Address: SubScene01
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 4dfbac003ebe8514e9ef360aa94464d2
     m_Address: TestCube(2)
     m_ReadOnly: 0
@@ -29,6 +39,11 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 543291e2b8a936a41b7a30d3f44d951e
     m_Address: TestCube(8)
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6f6ccd17d89ffd74a855d915d4c20263
+    m_Address: StageObjects01
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

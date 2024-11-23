@@ -108,11 +108,6 @@ namespace MyAssets
             rotation.DoFixedUpdate();
         }
 
-        public override void DoExit()
-        {
-            base.DoExit();
-
-        }
         public override void DoTriggerEnter(GameObject thisObject,Collider collider)
         {
             base.DoTriggerEnter(thisObject,collider);
