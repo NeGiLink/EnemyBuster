@@ -66,11 +66,6 @@ namespace MyAssets
             damageContainer = player.DamageContainer;
         }
 
-        public override void DoStart()
-        {
-            base.DoStart();
-        }
-
         public override void DoUpdate(float time)
         {
             base.DoUpdate(time);

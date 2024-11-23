@@ -29,6 +29,10 @@ namespace MyAssets
             {
                 UnloadAssets();
             }
+            else if (Input.GetKeyDown(KeyCode.C))
+            {
+                LoadAssets();
+            }
         }
 
         // 複数のアセットをロード
