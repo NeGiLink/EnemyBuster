@@ -38,6 +38,8 @@ namespace MyAssets
 
         public virtual void DoFixedUpdate(float time) { }
 
+        public virtual void DoLateUpdate(float time) { }
+
         public virtual void DoAnimatorIKUpdate() { }
         public virtual void DoExit() { }
 
@@ -81,6 +83,7 @@ namespace MyAssets
 
         public virtual void DoFixedUpdate(float time) { }
 
+        public virtual void DoLateUpdate(float time) { }
         public virtual void DoAnimatorIKUpdate() { }
         public virtual void DoExit() { }
 

@@ -22,5 +22,12 @@ namespace MyAssets
         public Transform Attacker => attacker;
 
         public void DoSetup(ICharacterSetup chara){}
+
+        public void SetAttackerData(int power, AttackType type, Transform transform)
+        {
+            data = power;
+            attackType = type;
+            attacker = transform;
+        }
     }
 }

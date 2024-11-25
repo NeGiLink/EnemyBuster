@@ -5,60 +5,60 @@ namespace MyAssets
     public class SlimeController : CharacterBaseController,ISlimeSetup
     {
         [SerializeField]
-        private SlimeStatusProperty property;
-        public IBaseStauts BaseStauts => property;
+        private SlimeStatusProperty         property;
+        public IBaseStauts                  BaseStauts => property;
 
         [SerializeField]
-        private Movement movement;
-        public IMovement Movement => movement;
+        private Movement                    movement;
+        public IMovement                    Movement => movement;
         
-        private StepClimberJudgment stepClimberJudgment;
-        public IStepClimberJudgment StepClimberJudgment => stepClimberJudgment;
+        private StepClimberJudgment         stepClimberJudgment;
+        public IStepClimberJudgment         StepClimberJudgment => stepClimberJudgment;
         
         [SerializeField]
-        private SlimeRotation rotation;
-        public IRotation Rotation => rotation;
+        private SlimeRotation               rotation;
+        public IRotation                    Rotation => rotation;
 
         [SerializeField]
-        private SlimeAnimator animator;
-        public ISlimeAnimator SlimeAnimator => animator;
+        private SlimeAnimator               animator;
+        public ISlimeAnimator               SlimeAnimator => animator;
 
-        private FieldOfView fieldOfView;
-
-        [SerializeField]
-        private SlimeBodyAttackController attackObject;
-        public SlimeBodyAttackController AttackObject => attackObject;
+        private FieldOfView                 fieldOfView;
 
         [SerializeField]
-        private StateMachine<string> stateMachine;
-        public IStateMachine StateMachine => stateMachine;
+        private SlimeBodyAttackController   attackObject;
+        public SlimeBodyAttackController    AttackObject => attackObject;
 
         [SerializeField]
-        private string defaultStateKey;
+        private StateMachine<string>        stateMachine;
+        public IStateMachine                StateMachine => stateMachine;
 
         [SerializeField]
-        private SlimeIdleState idleState;
+        private string                      defaultStateKey;
+
+        [SerializeField]
+        private SlimeIdleState              idleState;
 
 
         [SerializeField]
-        private PatrolState patrolState;
+        private PatrolState                 patrolState;
 
         [SerializeField]
-        private ChaseState chaseState;
+        private ChaseState                  chaseState;
 
         [SerializeField]
-        private ReadySlimeAttackState readyAttackState;
+        private ReadySlimeAttackState       readyAttackState;
 
         [SerializeField]
-        private SlimeAttackState attackState;
+        private SlimeAttackState            attackState;
 
         [SerializeField]
-        private SlimeDamageState damageState;
+        private SlimeDamageState            damageState;
 
         [SerializeField]
-        private SlimeDeathState deathState;
+        private SlimeDeathState             deathState;
 
-        ISlimeState<string>[] states;
+        ISlimeState<string>[]               states;
         protected override void Awake()
         {
             fieldOfView = GetComponent<FieldOfView>();

@@ -110,14 +110,17 @@ namespace MyAssets
         private readonly IVelocityComponent velocity;
 
         private readonly IJumpInputProvider input;
-        public IsNotJumpTransition(IPlayerSetup actor, IStateChanger<string> stateChanger, string changeKey)
+
+        private Timer jumpStartTimer;
+        public IsNotJumpTransition(IPlayerSetup actor,Timer _t, IStateChanger<string> stateChanger, string changeKey)
             : base(stateChanger, changeKey)
         {
             groundCheck = actor.GroundCheck;
             velocity = actor.Velocity;
             input = actor.gameObject.GetComponent<IJumpInputProvider>();
+            jumpStartTimer = _t;
         }
-        public override bool IsTransition() => velocity.Rigidbody.velocity.y < -0.5f && groundCheck.Landing;
+        public override bool IsTransition() => velocity.Rigidbody.velocity.y < -0.5f && groundCheck.Landing&&jumpStartTimer.IsEnd();
     }
     /// <summary>
     /// ƒ[ƒŠƒ“ƒO‚É‚æ‚é‘JˆÚ

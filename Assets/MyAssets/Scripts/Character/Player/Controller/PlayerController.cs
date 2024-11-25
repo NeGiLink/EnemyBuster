@@ -6,117 +6,117 @@ namespace MyAssets
     public class PlayerController : CharacterBaseController,IPlayerSetup
     {
         [SerializeField]
-        private PlayerStatusProperty property;
+        private PlayerStatusProperty    property;
 
-        public IPlayerStauts Stauts => property;
-        public IBaseStauts BaseStauts => property;
+        public IPlayerStauts            Stauts => property;
+        public IBaseStauts              BaseStauts => property;
 
-        private FieldOfView fieldOfView;
+        private FieldOfView             fieldOfView;
 
-        private IControllerInput input;
+        private IControllerInput        input;
 
-        private PlayerInput keyInput;
-        public IMoveInputProvider MoveInput => keyInput;
-        public IAttackInputProvider AttackInput => keyInput;
-        public IToolInputProvider ToolInput => keyInput;
+        private PlayerInput             keyInput;
+        public IMoveInputProvider       MoveInput => keyInput;
+        public IAttackInputProvider     AttackInput => keyInput;
+        public IToolInputProvider       ToolInput => keyInput;
         [SerializeField]
-        private WeaponController weaponController;
-        public IEquipment Equipment => weaponController;
-
-        [SerializeField]
-        private ChangingState changingState;
-        public IChangingState ChangingState => changingState;
+        private WeaponController        weaponController;
+        public IEquipment               Equipment => weaponController;
 
         [SerializeField]
-        private FootIK footIK;
-        public IFootIK FootIK => footIK;
+        private ChangingState           changingState;
+        public IChangingState           ChangingState => changingState;
+
+        [SerializeField]
+        private IKController                  footIK;
+        public IAllIK                  FootIK => footIK;
 
 
         [SerializeField]
-        private PlayerRotation rotation;
-        public IRotation Rotation => rotation;
+        private PlayerRotation          rotation;
+        public IRotation                Rotation => rotation;
 
         [SerializeField]
-        private ObstacleJudgment obstacleJudgment;
-        public IObstacleJudgment ObstacleJudgment => obstacleJudgment;
+        private ObstacleJudgment        obstacleJudgment;
+        public IObstacleJudgment        ObstacleJudgment => obstacleJudgment;
         [SerializeField]
-        private StepClimberJudgment stepClimberJudgment;
-        public IStepClimberJudgment StepClimberJudgment => stepClimberJudgment;
+        private StepClimberJudgment     stepClimberJudgment;
+        public IStepClimberJudgment     StepClimberJudgment => stepClimberJudgment;
         [SerializeField]
-        private PlayerAnimator animator;
-        public IPlayerAnimator PlayerAnimator => animator;
+        private PlayerAnimator          animator;
+        public IPlayerAnimator          PlayerAnimator => animator;
 
         [SerializeField]
-        private StateMachine<string> stateMachine;
-        public IStateMachine StateMachine => stateMachine;
+        private StateMachine<string>    stateMachine;
+        public IStateMachine            StateMachine => stateMachine;
 
         [SerializeField]
-        private Movement movement;
-        public IMovement Movement => movement;
+        private Movement                movement;
+        public IMovement                Movement => movement;
 
         [SerializeField]
-        private Climb climb;
-        public IClimb Climb => climb;
+        private Climb                   climb;
+        public IClimb                   Climb => climb;
 
         [SerializeField]
-        private string defaultStateKey;
+        private string                  defaultStateKey;
 
         [Header("下記はキャラクターの状態クラス")]
         [SerializeField]
-        private PlayerIdleState idleState;
+        private PlayerIdleState         idleState;
 
         [SerializeField]
-        private MoveState moveState;
+        private MoveState               moveState;
 
         [SerializeField]
-        private BattleIdleState battleIdleState;
+        private BattleIdleState         battleIdleState;
 
         [SerializeField]
-        private BattleMoveState battleMoveState;
+        private BattleMoveState         battleMoveState;
 
         [SerializeField]
-        private JumpState jumpState;
+        private JumpState               jumpState;
 
         [SerializeField]
-        private RollingState rollingState;
+        private RollingState            rollingState;
 
         [SerializeField]
-        private FallState fallState;
+        private FallState               fallState;
 
         [SerializeField]
-        private LandingState landingState;
+        private LandingState            landingState;
 
         [SerializeField]
-        private ClimbState climbState;
+        private ClimbState              climbState;
 
         [SerializeField]
-        private FirstAttackState firstAttackState;
+        private FirstAttackState        firstAttackState;
         [SerializeField]
-        private SecondAttackState secondAttackState;
+        private SecondAttackState       secondAttackState;
         [SerializeField]
-        private ThirdAttackState thirdAttackState;
+        private ThirdAttackState        thirdAttackState;
         [SerializeField]
-        private ReadyJumpAttack readyJumpAttack;
+        private ReadyJumpAttack         readyJumpAttack;
         [SerializeField]
-        private JumpAttackState jumpAttackState;
+        private JumpAttackState         jumpAttackState;
         [SerializeField]
-        private JumpAttackLandingState jumpAttackLandingState;
+        private JumpAttackLandingState  jumpAttackLandingState;
 
         [SerializeField]
-        private WeaponOutState weaponOutState;
+        private WeaponOutState          weaponOutState;
         [SerializeField]
-        private WeaponInState weaponInState;
+        private WeaponInState           weaponInState;
 
         [SerializeField]
-        private PlayerDamageState damageState;
+        private PlayerDamageState       damageState;
 
         [SerializeField]
-        private PlayerDeathState deathState;
+        private PlayerDeathState        deathState;
 
         [SerializeField]
-        private GetUpState getUpState;
+        private GetUpState              getUpState;
 
-        IPlayerState<string>[] states;
+        IPlayerState<string>[]          states;
 
         protected override void Awake()
         {
@@ -198,6 +198,12 @@ namespace MyAssets
 
             TargetUpdate();
         }
+
+        protected virtual void LateUpdate()
+        {
+            stateMachine.DoLateUpdate(Time.deltaTime);
+        }
+
 
         private void TargetUpdate()
         {

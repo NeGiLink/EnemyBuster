@@ -48,8 +48,8 @@ namespace MyAssets
 
         public override void DoUpdate(float time)
         {
-            base.DoUpdate(time);
             attackObject.EnabledCollider(0f, 0f, true);
+            base.DoUpdate(time);
         }
 
         public override void DoFixedUpdate(float time)

@@ -225,6 +225,11 @@ MonoBehaviour:
   m_Damping: 1
   m_DampingWhenOccluded: 1
   m_OptimalTargetDistance: 0
+--- !u!4 &61610170 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 9045002453905824116, guid: 39c6fce0edb1b684082725c825f5cdb5, type: 3}
+  m_PrefabInstance: {fileID: 3502816935589134328}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &101311571
 GameObject:
   m_ObjectHideFlags: 0
@@ -519,7 +524,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 646989777369678678, guid: 6f6ccd17d89ffd74a855d915d4c20263, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 689715889530077709, guid: 6f6ccd17d89ffd74a855d915d4c20263, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1938,6 +1943,11 @@ Transform:
   - {fileID: 442214436}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
+--- !u!4 &1292053750 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4838911823307938409, guid: 39c6fce0edb1b684082725c825f5cdb5, type: 3}
+  m_PrefabInstance: {fileID: 3502816935589134328}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1304181653
 GameObject:
   m_ObjectHideFlags: 0
@@ -3191,10 +3201,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3667963436937609142, guid: 39c6fce0edb1b684082725c825f5cdb5, type: 3}
+      propertyPath: footIK.headIK.headTransform
+      value: 
+      objectReference: {fileID: 1292053750}
+    - target: {fileID: 8030908066179279220, guid: 39c6fce0edb1b684082725c825f5cdb5, type: 3}
+      propertyPath: guardThreshold
+      value: 0.25
+      objectReference: {fileID: 0}
     - target: {fileID: 8732599098942333029, guid: 39c6fce0edb1b684082725c825f5cdb5, type: 3}
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 8788143743617279595, guid: 39c6fce0edb1b684082725c825f5cdb5, type: 3}
+      propertyPath: haveWeapon
+      value: 
+      objectReference: {fileID: 61610170}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -31,12 +31,16 @@ namespace MyAssets
         [SerializeField]
         private float dashMagnification = 1.5f;
 
+        [SerializeField]
+        private float jumpStartCount = 0.25f;
+        private Timer jumpStartTimer = new Timer();
+
         public static readonly string StateKey = "Jump";
         public override string Key => StateKey;
         public override List<ICharacterStateTransition<string>> CreateTransitionList(IPlayerSetup actor)
         {
             List<ICharacterStateTransition<string>> re = new List<ICharacterStateTransition<string>>();
-            if (StateChanger.IsContain(LandingState.StateKey)) { re.Add(new IsNotJumpTransition(actor, StateChanger, LandingState.StateKey)); }
+            if (StateChanger.IsContain(LandingState.StateKey)) { re.Add(new IsNotJumpTransition(actor,jumpStartTimer, StateChanger, LandingState.StateKey)); }
             if (StateChanger.IsContain(ClimbState.StateKey)) { re.Add(new IsClimbTransition(actor, StateChanger, ClimbState.StateKey)); }
             if (StateChanger.IsContain(ReadyJumpAttack.StateKey)) { re.Add(new IsReadyJumpAttackTransition(actor, StateChanger, ReadyJumpAttack.StateKey)); }
             if (StateChanger.IsContain(PlayerDamageState.StateKey)) { re.Add(new IsDamageTransition(actor, StateChanger, PlayerDamageState.StateKey)); }
@@ -59,6 +63,9 @@ namespace MyAssets
         public override void DoStart()
         {
             base.DoStart();
+
+            jumpStartTimer.Start(jumpStartCount);
+
             float p = power;
             if (moveInput.IsMove)
             {
@@ -76,6 +83,8 @@ namespace MyAssets
         public override void DoUpdate(float time)
         {
             base.DoUpdate(time);
+            jumpStartTimer.Update(time);
+
             groundCheck.FallTimeUpdate();
             cliffJudgment.RayCheck();
             rotation.DoUpdate();
@@ -108,9 +117,7 @@ namespace MyAssets
             base.DoTriggerEnter(thisObject,collider);
             AttackObject data = collider.GetComponent<AttackObject>();
             if (data == null) { return; }
-            damageContainer.SetAttackType(data.Type);
-            damageContainer.SetData(data.Power);
-            damageContainer.SetAttacker(collider.transform);
+            damageContainer.SetAttackerData(data.Power, data.Type, collider.transform);
         }
     }
 }

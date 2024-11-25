@@ -121,9 +121,7 @@ namespace MyAssets
         public override void DoExit()
         {
             base.DoExit();
-            damageContainer.SetData(0);
-            damageContainer.SetAttacker(null);
-            damageContainer.SetAttackType(AttackType.None);
+            damageContainer.SetAttackerData(0, AttackType.None, null);
             animator.Animator.SetInteger("Impact", -1);
         }
     }
