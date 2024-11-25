@@ -114,10 +114,7 @@ namespace MyAssets
             AttackObject data = collider.GetComponent<AttackObject>();
             if (data == null) { return; }
             //TODO : 状態を変更せずにダメージを与える処理を追加
-            
-            damageContainer.SetAttackType(AttackType.Small);
-            damageContainer.SetData(data.Power);
-            damageContainer.SetAttacker(collider.transform);
+            damageContainer.SetAttackerData(data.Power, AttackType.Small, collider.transform);
         }
     }
     [System.Serializable]
@@ -212,9 +209,7 @@ namespace MyAssets
             base.DoTriggerEnter(thisObject,collider);
             AttackObject data = collider.GetComponent<AttackObject>();
             if (data == null) { return; }
-            damageContainer.SetAttackType(AttackType.Small);
-            damageContainer.SetData(data.Power);
-            damageContainer.SetAttacker(collider.transform);
+            damageContainer.SetAttackerData(data.Power, AttackType.Small, collider.transform);
         }
     }
     [System.Serializable]
@@ -303,9 +298,7 @@ namespace MyAssets
             base.DoTriggerEnter(thisObject,collider);
             AttackObject data = collider.GetComponent<AttackObject>();
             if (data == null) { return; }
-            damageContainer.SetAttackType(AttackType.Small);
-            damageContainer.SetData(data.Power);
-            damageContainer.SetAttacker(collider.transform);
+            damageContainer.SetAttackerData(data.Power, AttackType.Small, collider.transform);
         }
 
     }

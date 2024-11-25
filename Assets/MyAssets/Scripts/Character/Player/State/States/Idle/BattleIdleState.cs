@@ -21,7 +21,7 @@ namespace MyAssets
 
         private IPlayerAnimator animator;
 
-        private IFootIK footIK;
+        private IAllIK ik;
 
         private FieldOfView fieldOfView;
 
@@ -61,7 +61,7 @@ namespace MyAssets
             movement = player.Movement;
             rotation = player.Rotation;
             cliffJudgment = player.ObstacleJudgment;
-            footIK = player.FootIK;
+            ik = player.FootIK;
             animator = player.PlayerAnimator;
             fieldOfView = player.gameObject.GetComponent<FieldOfView>();
             equipment = player.gameObject.GetComponent<IEquipment>();
@@ -115,10 +115,16 @@ namespace MyAssets
             rotation.DoFixedUpdate();
         }
 
+        public override void DoLateUpdate(float time)
+        {
+            base.DoLateUpdate(time);
+            ik.DoHeadIKUpdate();
+        }
+
         public override void DoAnimatorIKUpdate()
         {
             base.DoAnimatorIKUpdate();
-            footIK.DoUpdate();
+            ik.DoFootIKUpdate();
         }
 
         public override void DoExit()
@@ -133,9 +139,11 @@ namespace MyAssets
             base.DoTriggerEnter(thisObject,collider);
             AttackObject data = collider.GetComponent<AttackObject>();
             if (data == null) { return; }
-            damageContainer.SetAttackType(data.Type);
-            damageContainer.SetData(data.Power);
-            damageContainer.SetAttacker(collider.transform);
+            if (equipment.ShieldTool.IsGuarid(collider.transform,thisObject.transform))
+            {
+                return;
+            }
+            damageContainer.SetAttackerData(data.Power, data.Type, collider.transform);
         }
     }
 }

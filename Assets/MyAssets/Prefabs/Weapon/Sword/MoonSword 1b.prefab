@@ -9808,10 +9808,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackObject: {fileID: 0}
-  collider: {fileID: 0}
-  excludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
   hitLayer:
     serializedVersion: 2
     m_Bits: 0

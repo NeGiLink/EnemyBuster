@@ -25,6 +25,8 @@ namespace MyAssets
         private IEquipment equipment;
         private IDamageContainer damageContainer;
 
+        private IAllIK ik;
+
         [SerializeField]
         private float moveSpeed = 4.0f;
         [SerializeField]
@@ -63,6 +65,7 @@ namespace MyAssets
             animator = player.PlayerAnimator;
             equipment = player.gameObject.GetComponent<IEquipment>();
             damageContainer = player.DamageContainer;
+            ik = player.FootIK;
         }
 
         public override void DoStart()
@@ -108,14 +111,17 @@ namespace MyAssets
             rotation.DoFixedUpdate();
         }
 
+        public override void DoLateUpdate(float time)
+        {
+            base.DoLateUpdate(time);
+            ik.DoHeadIKUpdate();
+        }
         public override void DoTriggerEnter(GameObject thisObject,Collider collider)
         {
             base.DoTriggerEnter(thisObject,collider);
             AttackObject data = collider.GetComponent<AttackObject>();
             if (data == null) { return; }
-            damageContainer.SetAttackType(data.Type);
-            damageContainer.SetData(data.Power);
-            damageContainer.SetAttacker(collider.transform);
+            damageContainer.SetAttackerData(data.Power, data.Type, collider.transform);
         }
     }
 }

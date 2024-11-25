@@ -9,6 +9,7 @@ namespace MyAssets
         void DoStart();
         void DoUpdate(float time);
         void DoFixedUpdate(float time);
+        void DoLateUpdate(float time);
         void DoAnimatorIKUpdate();
         void DoExit();
 

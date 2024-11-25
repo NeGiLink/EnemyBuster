@@ -26,7 +26,7 @@ namespace MyAssets
         IPlayerAnimator         PlayerAnimator { get; }
         IGroundCheck            GroundCheck { get; }
         IObstacleJudgment       ObstacleJudgment { get; }
-        IFootIK                 FootIK { get; }
+        IAllIK                 FootIK { get; }
         IChangingState          ChangingState { get; }
 
         IEquipment              Equipment { get; }

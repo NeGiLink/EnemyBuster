@@ -28,6 +28,8 @@ namespace MyAssets
 
         public void DoFixedUpdate(float time) => currentState?.DoFixedUpdate(time);
 
+        public void DoLateUpdate(float time) => currentState?.DoLateUpdate(time);
+
         public void DoAnimatorIKUpdate() => currentState?.DoAnimatorIKUpdate();
 
         public void DoTriggerEnter(GameObject thisObject, Collider collider) => currentState?.DoTriggerEnter(thisObject,collider);

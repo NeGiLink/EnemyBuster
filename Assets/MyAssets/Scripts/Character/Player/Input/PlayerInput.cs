@@ -60,7 +60,11 @@ namespace MyAssets
         private InputAction foucusAction;
         public void Setup()
         {
-            genericInput = new GenericInput();
+            if(genericInput == null)
+            {
+                genericInput = new GenericInput();
+
+            }
         }
 
         public void DoUpdate()
@@ -117,6 +121,10 @@ namespace MyAssets
 
         private void OnEnable()
         {
+            if(genericInput == null)
+            {
+                genericInput = new GenericInput();
+            }
             // InputAction‚ð—LŒø‚É‚·‚é
             genericInput.Enable();
 

@@ -13,8 +13,8 @@ namespace MyAssets
         public GameObject HaveWeapon => haveWeapon.gameObject;
 
         [SerializeField]
-        private ShieldTool shieldTool;
-        public ShieldTool ShieldTool => shieldTool;
+        private ShieldController shieldTool;
+        public ShieldController ShieldTool => shieldTool;
 
         private void Awake()
         {
@@ -31,7 +31,7 @@ namespace MyAssets
                 }
             }
 
-            ShieldTool s = GetComponentInChildren<ShieldTool>();
+            ShieldController s = GetComponentInChildren<ShieldController>();
             if(s != null)
             {
                 shieldTool = s;

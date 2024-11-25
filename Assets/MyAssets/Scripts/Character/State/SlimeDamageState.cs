@@ -78,7 +78,10 @@ namespace MyAssets
             int damageType = 0;
             damageMove.AddForceMove(thisTransform.position, damageContainer.Attacker.position, knockBack * 1.0f);
             damageTimer.Start(damageIdleCount);
-            GameManager.Instance.DamageTextCreator.Crate(thisTransform, damageContainer.Data);
+            if(damageContainer.Data >= 0)
+            {
+                GameManager.Instance.DamageTextCreator.Crate(thisTransform, damageContainer.Data);
+            }
             if (!stauts.DecreaseAndDeathCheck(damageContainer.Data))
             {
                 animator.Animator.SetInteger("Impact", damageType);
@@ -112,9 +115,7 @@ namespace MyAssets
         {
             base.DoExit();
             fieldOfView.SetAllSearch(false);
-            damageContainer.SetData(0);
-            damageContainer.SetAttacker(null);
-            damageContainer.SetAttackType(AttackType.None);
+            damageContainer.SetAttackerData(0, AttackType.None, null);
             animator.Animator.SetInteger("Impact", -1);
         }
     }

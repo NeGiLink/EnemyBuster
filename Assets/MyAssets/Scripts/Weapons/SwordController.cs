@@ -45,9 +45,7 @@ namespace MyAssets
                     if (characterSetup == null) { return; }
                     IDamageContainer damageContainer = characterSetup.DamageContainer;
                     if (damageContainer == null) { return; }
-                    damageContainer.SetAttackType(attackObject.Type);
-                    damageContainer.SetData(attackObject.Power);
-                    damageContainer.SetAttacker(transform);
+                    damageContainer.SetAttackerData(attackObject.Power, attackObject.Type, transform);
                 }
             }
             else
@@ -63,9 +61,7 @@ namespace MyAssets
                         if (characterSetup == null) { return; }
                         IDamageContainer damageContainer = characterSetup.DamageContainer;
                         if (damageContainer == null) { return; }
-                        damageContainer.SetAttackType(attackObject.Type);
-                        damageContainer.SetData(attackObject.Power);
-                        damageContainer.SetAttacker(transform);
+                        damageContainer.SetAttackerData(attackObject.Power, attackObject.Type, transform);
                     }
                 }
             }

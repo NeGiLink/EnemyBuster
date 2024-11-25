@@ -13,5 +13,7 @@ namespace MyAssets
 
         Transform Attacker { get; }
         void SetAttacker(Transform t);
+
+        void SetAttackerData(int power, AttackType type, Transform transform);
     }
 }
