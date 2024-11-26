@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4954688070698626}
   - component: {fileID: 33403238898073430}
   - component: {fileID: 23609397973093770}
-  - component: {fileID: -7300857612779414346}
+  - component: {fileID: 52345125074829375}
   m_Layer: 0
   m_Name: Pine01
   m_TagString: Untagged
@@ -85,7 +85,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &-7300857612779414346
+--- !u!64 &52345125074829375
 MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

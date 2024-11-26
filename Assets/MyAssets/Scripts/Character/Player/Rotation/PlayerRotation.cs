@@ -41,13 +41,13 @@ namespace MyAssets
         public void DoUpdate()
         {
             var horizontalRotation = Quaternion.AngleAxis(Camera.main.transform.eulerAngles.y, Vector3.up);
-            if (moveInput.Horizontal != Define.NullNum && moveInput.Vertical != Define.NullNum)
+            if (moveInput.Horizontal != Define.Zero && moveInput.Vertical != Define.Zero)
             {
-                velocity.CurrentVelocity = horizontalRotation * new Vector3(moveInput.Horizontal, Define.NullNum, moveInput.Vertical).normalized;
+                velocity.CurrentVelocity = horizontalRotation * new Vector3(moveInput.Horizontal, Define.Zero, moveInput.Vertical).normalized;
             }
             else
             {
-                velocity.CurrentVelocity = horizontalRotation * new Vector3(moveInput.Horizontal, Define.NullNum, moveInput.Vertical);
+                velocity.CurrentVelocity = horizontalRotation * new Vector3(moveInput.Horizontal, Define.Zero, moveInput.Vertical);
             }
         }
 
@@ -55,7 +55,7 @@ namespace MyAssets
         {
             if(focusInput.Foucus < Define.PressNum)
             {
-                float rotationSpeed = Define.NullNum;
+                float rotationSpeed = Define.Zero;
                 switch (PlayerInput.GetDeviceInput())
                 {
                     case DeviceInput.Key:
@@ -78,7 +78,7 @@ namespace MyAssets
                 // Ø‚è‘Ö‚¦‘O‚Ì‰ñ“]—Ê‚ð“K—p
                 //targetRotation = previousCameraRotation * targetRotation;
             }
-            else if (focusInput.Foucus > Define.NullNum)
+            else if (focusInput.Foucus > Define.Zero)
             {
                 if(fieldOfView.TargetObject != null)
                 {
@@ -113,7 +113,7 @@ namespace MyAssets
 
         public void DoFreeMode()
         {
-            float rotationSpeed = Define.NullNum;
+            float rotationSpeed = Define.Zero;
             switch (PlayerInput.GetDeviceInput())
             {
                 case DeviceInput.Key:

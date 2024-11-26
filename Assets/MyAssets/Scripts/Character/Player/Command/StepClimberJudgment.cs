@@ -32,11 +32,23 @@ namespace MyAssets
             thisTransform = player.gameObject.transform;
         }
 
+        // 値の範囲
+        private const float MinValue = 0.0f;
+        private const float MaxValue = 0.25f;
+
+        // 周期（値が増減する速さを調整）
+        public float speed = 1.0f;
+
+        // 現在の値（範囲内で増減する値）
+        private float currentValue;
+
+
         public void HandleStepClimbing()
         {
+            currentValue = Mathf.PingPong(Time.time * speed, MaxValue - MinValue) + MinValue;
             //キャラクターの前方にレイキャストを飛ばす
             RaycastHit hitLower;
-            Vector3 rayStart = thisTransform.position + Vector3.up * maxStepCheck;
+            Vector3 rayStart = thisTransform.position + Vector3.up * currentValue;
             Ray ray1 = new Ray(rayStart, thisTransform.forward * 0.5f);
             if(Physics.Raycast(ray1,out hitLower, 0.5f, groundMask))
             {
@@ -61,7 +73,7 @@ namespace MyAssets
             {
                 stepGolePosition = Vector3.zero;
             }
-            Debug.DrawRay(ray1.origin,ray1.direction * 0.5f,Color.blue);
+            Debug.DrawRay(ray1.origin,ray1.direction * 0.5f, Color.blue);
         }
     }
 }
