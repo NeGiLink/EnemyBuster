@@ -42,7 +42,6 @@ namespace MyAssets
 
             movement.Move(0);
             animator.Animator.SetTrigger("AttackStart");
-            animator.Animator.SetInteger(animator.AttacksName,0);
         }
 
         public override void DoUpdate(float time)

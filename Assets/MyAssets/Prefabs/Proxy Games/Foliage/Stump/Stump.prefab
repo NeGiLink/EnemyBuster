@@ -11,12 +11,12 @@ GameObject:
   - component: {fileID: 8228440031246197733}
   - component: {fileID: 4813922211006306649}
   - component: {fileID: 1979624520827634946}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Stump_LOD2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &8228440031246197733
 Transform:
@@ -94,12 +94,12 @@ GameObject:
   - component: {fileID: 6479606651210384647}
   - component: {fileID: 5738358572514241374}
   - component: {fileID: 5524950625577626301}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Stump_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &6479606651210384647
 Transform:
@@ -177,12 +177,12 @@ GameObject:
   - component: {fileID: 5124730060526293666}
   - component: {fileID: 2574303973355235900}
   - component: {fileID: 2417767375907638927}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Stump_LOD3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &5124730060526293666
 Transform:
@@ -259,13 +259,12 @@ GameObject:
   m_Component:
   - component: {fileID: 2481384745673457707}
   - component: {fileID: 8156590878013693598}
-  - component: {fileID: 4960096696798466291}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Stump
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &2481384745673457707
 Transform:
@@ -277,8 +276,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 2597595484410883877}
   - {fileID: 6479606651210384647}
@@ -300,46 +299,23 @@ LODGroup:
   m_AnimateCrossFading: 1
   m_LastLODIsBillboard: 0
   m_LODs:
-  - screenRelativeHeight: 0.09890114
+  - screenRelativeHeight: 0.74360204
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 7777023126427894283}
-  - screenRelativeHeight: 0.05372258
+  - screenRelativeHeight: 0.5141535
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 5524950625577626301}
-  - screenRelativeHeight: 0.028387757
+  - screenRelativeHeight: 0.3487514
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 1979624520827634946}
-  - screenRelativeHeight: 0.01
+  - screenRelativeHeight: 0.08803487
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 2417767375907638927}
   m_Enabled: 1
---- !u!136 &4960096696798466291
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7110513248368685802}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.33
-  m_Height: 0.95
-  m_Direction: 1
-  m_Center: {x: 0, y: 0.37, z: 0}
 --- !u!1 &8534235163752558671
 GameObject:
   m_ObjectHideFlags: 0
@@ -351,12 +327,13 @@ GameObject:
   - component: {fileID: 2597595484410883877}
   - component: {fileID: 2130552960667334996}
   - component: {fileID: 7777023126427894283}
-  m_Layer: 0
+  - component: {fileID: 6844068803709011725}
+  m_Layer: 3
   m_Name: Stump_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &2597595484410883877
 Transform:
@@ -423,3 +400,25 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &6844068803709011725
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8534235163752558671}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 3671139315329054930, guid: e019a327afd8a364a8cae984935ca573, type: 3}

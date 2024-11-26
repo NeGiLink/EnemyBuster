@@ -103,7 +103,8 @@ namespace MyAssets
             float targetDistance = targetVec.magnitude;
             if (targetDistance < minChaseDistance)
             {
-                animator.Animator.SetInteger("Move", 0);
+                animator.Animator.SetInteger("Move", Define.Zero);
+                animator.Animator.SetInteger(animator.AttacksName, Define.Zero);
                 movement.Move(0f);
             }
             else
@@ -116,7 +117,7 @@ namespace MyAssets
         public override void DoExit()
         {
             base.DoExit();
-            animator.Animator.SetInteger("Move", 0);
+            animator.Animator.SetInteger("Move", Define.Zero);
             movement.Move(0f);
         }
 
