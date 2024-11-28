@@ -6,8 +6,6 @@ namespace MyAssets
     public class StepClimberJudgment : IStepClimberJudgment,IPlayerComponent
     {
         [SerializeField]
-        private float maxStepCheck = 0.25f;
-        [SerializeField]
         private float maxStepHeight = 0.5f;
         public float MaxStepHeight => maxStepHeight;
         [SerializeField]

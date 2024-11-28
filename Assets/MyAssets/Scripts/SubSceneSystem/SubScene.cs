@@ -18,16 +18,16 @@ namespace MyAssets
         bool load = false;
 
         [SerializeField]
-        private float dis = 300.0f;
+        private float objectRectWidth = 100f; // オブジェクトの四角形の幅
 
-        void LoadAsset()
+        public void LoadAsset()
         {
-            if (load) { return; }
+            if (handle.IsValid()&& load) { return; }
             handle = reference.InstantiateAsync();
             load = true;
         }
 
-        void UnloadAsset()
+        public void UnloadAsset()
         {
             if (!handle.IsValid())
             {
@@ -38,21 +38,21 @@ namespace MyAssets
             load = false;
         }
 
-        public void DoUpdate(Transform player)
+        /// <summary>
+        /// オブジェクトの四角形を取得
+        /// </summary>
+        /// <returns>オブジェクトの四角形（中心とサイズ）</returns>
+        public Rect GetObjectRectangle(SubScene targetSubScene)
         {
-            Vector3 loader = player.position;
-            loader.y = 0;
-            Vector3 mine = transform.position;
-            mine.y = 0;
-            Vector3 sub = mine - loader;
-            if (sub.magnitude <= dis)
-            {
-                LoadAsset();
-            }
-            else
-            {
-                UnloadAsset();
-            }
+            // オブジェクトのローカル座標系での中心
+            Vector3 localCenter = targetSubScene.transform.position;
+
+            Rect rect = new Rect(localCenter.x - objectRectWidth / 2,
+                localCenter.z - objectRectWidth / 2,
+                objectRectWidth,
+                objectRectWidth
+            );
+            return rect;
         }
     }
 }
