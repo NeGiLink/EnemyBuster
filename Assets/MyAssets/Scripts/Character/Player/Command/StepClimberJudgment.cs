@@ -24,21 +24,23 @@ namespace MyAssets
 
         public Vector3 StepGolePosition => stepGolePosition;
 
+        // 値の範囲
+        private const float MinValue = 0.0f;
+        private const float MaxValue = 0.25f;
+
+        // 周期（値が増減する速さを調整）
+        [SerializeField]
+        private float speed = 1.0f;
+
+        // 現在の値（範囲内で増減する値）
+        private float currentValue;
+
         public void DoSetup(IPlayerSetup player)
         {
             velocity = player.Velocity;
             thisTransform = player.gameObject.transform;
         }
 
-        // 値の範囲
-        private const float MinValue = 0.0f;
-        private const float MaxValue = 0.25f;
-
-        // 周期（値が増減する速さを調整）
-        public float speed = 1.0f;
-
-        // 現在の値（範囲内で増減する値）
-        private float currentValue;
 
 
         public void HandleStepClimbing()
