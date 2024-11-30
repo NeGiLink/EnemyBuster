@@ -28,19 +28,28 @@ namespace MyAssets
         private bool climbStart;
         public bool IsClimbStart => climbStart;
 
-        //[SerializeField]
-        //private bool hurdleJumping;
-        //public bool IsHurdleJumping => hurdleJumping;
-
         [SerializeField]
         private LayerMask targetLayer;
+
+        [SerializeField]
+        private Transform rayTransform;
+
+        // 値の範囲
+        private const float MinValue = -0.6f;
+        private const float MaxValue = -0.1f;
+
+        // 周期（値が増減する速さを調整）
+        [SerializeField]
+        private float speed = 1.0f;
+
+        // 現在の値（範囲内で増減する値）
+        private float currentValue;
+
         public void DoSetup(IPlayerSetup player)
         {
             transform = player.gameObject.transform;
         }
 
-        [SerializeField]
-        private Transform rayTransform;
 
         public void RayCheck()
         {
@@ -50,9 +59,19 @@ namespace MyAssets
             RaycastHit[] hit = new RaycastHit[(int)JudgmentTag.Count];
             for(int i = 0; i < cliffRays.Length; i++)
             {
+                float upOffset = 0;
+                if(i == (int)JudgmentTag.MaxRay)
+                {
+                    upOffset = cliffCheckOffsets[i];
+                }
+                else
+                {
+                    currentValue = Mathf.PingPong(Time.time * speed, MaxValue - MinValue) + MinValue;
+                    upOffset = currentValue;
+                }
                 //光線作成
-                cliffRays[i] = new Ray(rayTransform.position + Vector3.up * cliffCheckOffsets[i],transform.forward);
-                cliffHits[i] = Physics.Raycast(cliffRays[i],out hit[i], cliffDistances[i],targetLayer);
+                cliffRays[i] = new Ray(rayTransform.position + Vector3.up * upOffset, transform.forward);
+                cliffHits[i] = Physics.Raycast(cliffRays[i], out hit[i], cliffDistances[i], targetLayer);
                 Debug.DrawRay(cliffRays[i].origin, cliffRays[i].direction * cliffDistances[i], Color.red);
             }
 

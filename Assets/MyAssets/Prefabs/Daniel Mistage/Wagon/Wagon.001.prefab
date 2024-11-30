@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 6346814706847661224}
   - component: {fileID: 9219041132274632802}
   - component: {fileID: 3158456755011458225}
-  m_Layer: 0
-  m_Name: Wagon
+  m_Layer: 3
+  m_Name: Wagon.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -26,6 +26,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7273420465368885687}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -38,7 +39,6 @@ Transform:
   - {fileID: 6154849744362262450}
   - {fileID: 6168258415777710800}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &6346814706847661224
 MeshFilter:
@@ -98,9 +98,17 @@ MeshCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7273420465368885687}
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
   m_IsTrigger: 0
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 4
+  serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -6299455910856566172, guid: f2188007460e85e439d9bd0c71e8f855, type: 3}
@@ -109,6 +117,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 8051224249105265421}
     m_Modifications:
     - target: {fileID: 5819851457899768362, guid: 06149c1ae660c564ab321d9c3842074a, type: 3}
@@ -171,7 +180,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: WagonWheel (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 6597655516226777232, guid: 06149c1ae660c564ab321d9c3842074a, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 06149c1ae660c564ab321d9c3842074a, type: 3}
 --- !u!4 &6154849745299488376 stripped
 Transform:
@@ -183,6 +199,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 8051224249105265421}
     m_Modifications:
     - target: {fileID: 5819851457899768362, guid: 06149c1ae660c564ab321d9c3842074a, type: 3}
@@ -233,7 +250,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: WagonWheel
       objectReference: {fileID: 0}
+    - target: {fileID: 6597655516226777232, guid: 06149c1ae660c564ab321d9c3842074a, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 06149c1ae660c564ab321d9c3842074a, type: 3}
 --- !u!4 &6154849744752049117 stripped
 Transform:
@@ -245,6 +269,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 8051224249105265421}
     m_Modifications:
     - target: {fileID: 3667859412272067099, guid: 9924e7d3fef4b754eae91575b112bb8d, type: 3}
@@ -295,7 +320,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: WagonProp
       objectReference: {fileID: 0}
+    - target: {fileID: 4155989160739268769, guid: 9924e7d3fef4b754eae91575b112bb8d, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9924e7d3fef4b754eae91575b112bb8d, type: 3}
 --- !u!4 &3983703906236343348 stripped
 Transform:
@@ -307,6 +339,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 8051224249105265421}
     m_Modifications:
     - target: {fileID: 5819851457899768362, guid: 06149c1ae660c564ab321d9c3842074a, type: 3}
@@ -357,7 +390,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: WagonWheel (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 6597655516226777232, guid: 06149c1ae660c564ab321d9c3842074a, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 06149c1ae660c564ab321d9c3842074a, type: 3}
 --- !u!4 &6154849744940362567 stripped
 Transform:
@@ -369,6 +409,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 8051224249105265421}
     m_Modifications:
     - target: {fileID: 5819851457899768362, guid: 06149c1ae660c564ab321d9c3842074a, type: 3}
@@ -431,7 +472,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: WagonWheel (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 6597655516226777232, guid: 06149c1ae660c564ab321d9c3842074a, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 06149c1ae660c564ab321d9c3842074a, type: 3}
 --- !u!4 &6154849744362262450 stripped
 Transform:
@@ -443,6 +491,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 8051224249105265421}
     m_Modifications:
     - target: {fileID: 2424214146224596469, guid: 1433fa7d59e31684d90afbf730a17596, type: 3}
@@ -493,7 +542,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Lamp.002 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3093789603115695951, guid: 1433fa7d59e31684d90afbf730a17596, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8002732960232354186, guid: 1433fa7d59e31684d90afbf730a17596, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1433fa7d59e31684d90afbf730a17596, type: 3}
 --- !u!4 &6168258415777710800 stripped
 Transform:
