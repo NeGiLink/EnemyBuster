@@ -1,12 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
 
 namespace MyAssets
 {
     [System.Serializable]
-    public class SlimeAnimator : ISlimeAnimator,ISlimeComponent
+    public class SlimeAnimator : ISlimeAnimator, ICharacterComponent<ISlimeSetup>
     {
         [SerializeField]
         private Animator thisAnimator;

@@ -29,22 +29,10 @@ namespace MyAssets
     {
         Animator Animator { get; }
         string AttacksName { get; }
-        /*
-        string VelocityX { get; }
-        string VelocityZ { get; }
-        string MoveName { get; }
-        string DashName { get; }
-        string AlertLevelName { get; }
-        string BattleModeName { get; }
-        string ToolLevel { get; }
-        string JumpTypeName { get; }
-        string FallName { get; }
-        string LandName { get; }
-        string Weapon_In_OutName { get; }
-        string ClimbName { get; }
+    }
 
-        void SetWeight(bool enabled, int layer);
-        void UpdateWeight();
-        */
+    public interface INPCAnimator
+    {
+        Animator Animator { get; }
     }
 }

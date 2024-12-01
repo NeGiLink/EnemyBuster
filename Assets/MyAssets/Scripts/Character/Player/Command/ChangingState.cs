@@ -3,7 +3,7 @@ using UnityEngine;
 namespace MyAssets
 {
     [System.Serializable]
-    public class ChangingState : IChangingState,IPlayerComponent
+    public class ChangingState : IChangingState,ICharacterComponent<IPlayerSetup>
     {
         [SerializeField]
         private bool battleMode = false;

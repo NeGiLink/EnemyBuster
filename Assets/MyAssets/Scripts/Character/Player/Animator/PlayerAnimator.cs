@@ -4,7 +4,7 @@ using UnityEngine.Assertions;
 namespace MyAssets
 {
     [System.Serializable]
-    public class PlayerAnimator : IPlayerAnimator,IPlayerComponent
+    public class PlayerAnimator : IPlayerAnimator, ICharacterComponent<IPlayerSetup>
     {
         [SerializeField]
         private Animator thisAnimator;

@@ -3,7 +3,7 @@ using UnityEngine;
 namespace MyAssets
 {
     [System.Serializable]
-    public class IKController : IAllIK,IPlayerComponent
+    public class IKController : IAllIK, ICharacterComponent<IPlayerSetup>
     {
 
         [SerializeField]
@@ -173,7 +173,7 @@ namespace MyAssets
     }
 
     [System.Serializable]
-    public class HeadIK : IPlayerComponent
+    public class HeadIK : ICharacterComponent<IPlayerSetup>
     {
         [SerializeField]
         private Transform headTransform;

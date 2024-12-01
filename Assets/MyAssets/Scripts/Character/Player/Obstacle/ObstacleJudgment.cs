@@ -9,7 +9,7 @@ namespace MyAssets
         Count
     }
     [System.Serializable]
-    public class ObstacleJudgment : IObstacleJudgment,IPlayerComponent
+    public class ObstacleJudgment : IObstacleJudgment, ICharacterComponent<IPlayerSetup>
     {
 
         [SerializeField]

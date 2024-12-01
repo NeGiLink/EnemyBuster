@@ -6,7 +6,7 @@ using UnityEngine;
 namespace MyAssets
 {
     [System.Serializable]
-    public class SlimeRotation : IRotation,ISlimeComponent
+    public class SlimeRotation : IRotation, ICharacterComponent<ISlimeSetup>
     {
         [SerializeField]
         private Transform thisTransform;

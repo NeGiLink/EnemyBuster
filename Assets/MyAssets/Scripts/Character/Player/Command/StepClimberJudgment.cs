@@ -3,7 +3,7 @@ using UnityEngine;
 namespace MyAssets
 {
     [System.Serializable]
-    public class StepClimberJudgment : IStepClimberJudgment,IPlayerComponent
+    public class StepClimberJudgment : IStepClimberJudgment, ICharacterComponent<IPlayerSetup>
     {
         [SerializeField]
         private float maxStepHeight = 0.5f;

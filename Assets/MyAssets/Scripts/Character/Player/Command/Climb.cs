@@ -4,7 +4,7 @@ namespace MyAssets
 {
     [System.Serializable]
 
-    public class Climb : IClimb,IPlayerComponent
+    public class Climb : IClimb,ICharacterComponent<IPlayerSetup>
     {
         private Transform thisTransform;
 
