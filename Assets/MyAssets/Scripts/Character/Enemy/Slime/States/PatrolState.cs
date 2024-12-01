@@ -4,10 +4,6 @@ using UnityEngine;
 
 namespace MyAssets
 {
-    public class PatrolController : MonoBehaviour
-    {
-        public List<PatrolState> patrolStates;
-    }
 
     [System.Serializable]
     public class PatrolState : SlimeStateBase

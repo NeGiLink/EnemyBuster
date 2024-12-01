@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace MyAssets
@@ -21,6 +19,8 @@ namespace MyAssets
         public IRotation Rotation => rotation;
 
         private Timer damageCoolDownTimer;
+
+        public IStateMachine StateMachine => null;
 
         protected override void Awake()
         {

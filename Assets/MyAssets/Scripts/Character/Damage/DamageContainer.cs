@@ -1,12 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Assertions;
 
 namespace MyAssets
 {
     [System.Serializable]
-    public class DamageContainer : IDamageContainer,ICharacterComponent
+    public class DamageContainer : IDamageContainer,ICharacterComponent<ICharacterSetup>
     {
         [SerializeField]
         private int data = 0;

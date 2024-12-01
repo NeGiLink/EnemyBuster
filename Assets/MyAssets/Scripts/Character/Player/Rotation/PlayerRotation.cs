@@ -3,7 +3,7 @@ using UnityEngine;
 namespace MyAssets
 {
     [System.Serializable]
-    public class PlayerRotation : IRotation,IPlayerComponent
+    public class PlayerRotation : IRotation, ICharacterComponent<IPlayerSetup>
     {
         [SerializeField]
         private Transform thisTransform;

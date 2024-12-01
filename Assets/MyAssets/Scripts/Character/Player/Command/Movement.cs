@@ -3,7 +3,7 @@ using UnityEngine;
 namespace MyAssets
 {
     [System.Serializable]
-    public class Movement : IMovement,ICharacterComponent
+    public class Movement : IMovement,ICharacterComponent<ICharacterSetup>
     {
         private Transform thisTransform;
 

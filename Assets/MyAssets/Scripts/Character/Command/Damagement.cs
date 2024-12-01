@@ -5,7 +5,7 @@ using UnityEngine;
 namespace MyAssets
 {
     [System.Serializable]
-    public class Damagement : IDamagement,ICharacterComponent
+    public class Damagement : IDamagement,ICharacterComponent<ICharacterSetup>
     {
         private Transform thisTransform;
 

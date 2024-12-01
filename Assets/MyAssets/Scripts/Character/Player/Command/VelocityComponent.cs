@@ -4,7 +4,7 @@ using UnityEngine.Assertions;
 namespace MyAssets
 {
     [System.Serializable]
-    public class VelocityComponent : IVelocityComponent,ICharacterComponent
+    public class VelocityComponent : IVelocityComponent,ICharacterComponent<ICharacterSetup>
     {
         [SerializeField]
         private Rigidbody thisRigidbody;

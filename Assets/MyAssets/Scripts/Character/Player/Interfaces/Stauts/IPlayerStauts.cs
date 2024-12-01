@@ -18,4 +18,8 @@ namespace MyAssets
     {
 
     }
+    public interface INPCStauts : IBaseStauts
+    {
+
+    }
 }
