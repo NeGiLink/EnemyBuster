@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace MyAssets
 {
-    public class FieldOfView : MonoBehaviour
+    public class FieldOfView : MonoBehaviour , IFieldOfView
     {
         private Timer currentSearchinTimer = new Timer();
         [SerializeField]
