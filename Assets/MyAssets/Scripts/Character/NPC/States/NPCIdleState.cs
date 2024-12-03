@@ -10,6 +10,8 @@ namespace MyAssets
 
         private IVelocityComponent velocity;
 
+        private IFieldOfView fieldOfView;
+
         [SerializeField]
         private float moveSpeed;
 
@@ -28,11 +30,18 @@ namespace MyAssets
             base.DoSetup(actor);
             movement = actor.Movement;
             velocity = actor.Velocity;
+            fieldOfView = actor.FieldOfView;
         }
 
         public override void DoStart()
         {
             base.DoStart();
+        }
+
+        public override void DoUpdate(float time)
+        {
+            base.DoUpdate(time);
+            fieldOfView.DoUpdate();
         }
 
         public override void DoFixedUpdate(float time)

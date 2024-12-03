@@ -20,6 +20,8 @@ namespace MyAssets
 
         private Timer damageCoolDownTimer;
 
+        public IFieldOfView FieldOfView => null;
+
         public IStateMachine StateMachine => null;
 
         protected override void Awake()

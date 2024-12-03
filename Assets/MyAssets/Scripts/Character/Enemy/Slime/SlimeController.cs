@@ -24,6 +24,7 @@ namespace MyAssets
         public ISlimeAnimator               SlimeAnimator => animator;
 
         private FieldOfView                 fieldOfView;
+        public IFieldOfView FieldOfView => fieldOfView;
 
         [SerializeField]
         private SlimeBodyAttackController   attackObject;

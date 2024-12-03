@@ -12,6 +12,7 @@ namespace MyAssets
         public IBaseStauts              BaseStauts => property;
 
         private FieldOfView             fieldOfView;
+        public IFieldOfView FieldOfView => fieldOfView;
 
         private IControllerInput        input;
 

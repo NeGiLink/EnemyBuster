@@ -17,6 +17,8 @@ namespace MyAssets
 
         IDamagement             Damagement { get; }
         IDamageContainer        DamageContainer { get; }
+
+        IFieldOfView            FieldOfView { get; }
     }
     /// <summary>
     /// プレイヤーで使うインタフェース

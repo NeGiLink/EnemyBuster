@@ -62,6 +62,16 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: aa7aaad017f9af346a43769475b6a7b3
+    m_Address: StageObjects00
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: aaf78ae2f22e776449b1481666ade9b3
+    m_Address: StageObjects08
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: b1ee1722434469d4e9a3b521ec309dd6
     m_Address: TestCube(7)
     m_ReadOnly: 0
