@@ -104,11 +104,9 @@ namespace MyAssets
     {
         private IMainCameraProvider mainCameraProvider;
         private PlayerUsesCamera playerUsesCamera;
-        private FieldOfView fieldOfView;
 
         public void Setup(PlayerUsesCamera controller)
         {
-            fieldOfView = controller.FoucusTarget;
             playerUsesCamera = controller;
             mainCameraProvider = controller.MainCameraController;
         }

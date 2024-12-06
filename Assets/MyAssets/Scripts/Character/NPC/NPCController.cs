@@ -22,9 +22,8 @@ namespace MyAssets
         [SerializeField]
         private NPCAnimator animator;
         public INPCAnimator Animator => animator;
-
-        private FieldOfView fieldOfView;
-        public IFieldOfView FieldOfView => fieldOfView;
+        
+        public IFieldOfView FieldOfView => null;
 
         [SerializeField]
         private StateMachine<string> stateMachine;
@@ -42,7 +41,6 @@ namespace MyAssets
         private INPCState<string>[] states;
         protected override void Awake()
         {
-            fieldOfView = GetComponent<FieldOfView>();
 
             animator.DoSetup(this);
             velocity.DoSetup(this);

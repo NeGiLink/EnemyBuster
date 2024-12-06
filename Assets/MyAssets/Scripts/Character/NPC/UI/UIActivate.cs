@@ -10,35 +10,29 @@ namespace MyAssets
         [SerializeField]
         private Sprite sprite;
 
-        private IFieldOfView fieldOfView;
-
         [SerializeField]
         private LockAtUI lockAtUI;
-        private void Awake()
+
+        public void SetAwake()
         {
             spriteRenderer = GetComponent<SpriteRenderer>();
-
-            fieldOfView = GetComponentInParent<IFieldOfView>();
-
             lockAtUI.Setup(transform);
         }
 
-        private void Start()
+        public void Setup()
         {
             spriteRenderer.sprite = null;
         }
 
-        public void Update()
+        public void EventUpdate()
         {
-            if (fieldOfView.TargetObject != null)
-            {
-                spriteRenderer.sprite = sprite;
-                lockAtUI.DoUpdate();
-            }
-            else
-            {
-                spriteRenderer.sprite = null;
-            }
+            spriteRenderer.sprite = sprite;
+            lockAtUI.DoUpdate();
+        }
+
+        public void NoEvent()
+        {
+            spriteRenderer.sprite = null;
         }
     }
 }
