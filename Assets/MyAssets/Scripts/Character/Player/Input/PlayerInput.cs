@@ -58,6 +58,8 @@ namespace MyAssets
         private float foucus;
         public float Foucus => foucus;
         private InputAction foucusAction;
+
+
         public void Setup()
         {
             if(genericInput == null)
@@ -157,6 +159,7 @@ namespace MyAssets
             attackAction.Disable();
             receiptAction.Disable();
             //foucusAction.Disable();
+
             genericInput.Disable();
         }
         private void OnJump(InputAction.CallbackContext context)

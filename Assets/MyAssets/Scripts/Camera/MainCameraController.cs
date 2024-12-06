@@ -19,6 +19,26 @@ namespace MyAssets
         private List<CinemachineVirtualCamera> virtualCameras = new List<CinemachineVirtualCamera>();
         public List<CinemachineVirtualCamera> VirtualCameras => virtualCameras;
 
+        private List<int> virtualCameraPrioritys = new List<int>();
+
+        public void ActivateAllCamera(bool a)
+        {
+            if (a)
+            {
+                for(int i = 0; i < virtualCameras.Count; i++)
+                {
+                    virtualCameras[i].Priority = virtualCameraPrioritys[i];
+                }
+            }
+            else
+            {
+                foreach(var cam in virtualCameras)
+                {
+                    cam.Priority = 0;
+                }
+            }
+        }
+
         [SerializeField]
         private Transform cameraUseTransform;
 
@@ -39,10 +59,6 @@ namespace MyAssets
 
             GameObject player = GameObject.FindGameObjectWithTag("Player");
 
-            //var list = GetComponentsInChildren<CinemachineVirtualCamera>();
-
-            //virtualCameras = list;
-
 
             if(player != null)
             {
@@ -58,6 +74,11 @@ namespace MyAssets
         // Start is called before the first frame update
         void Start()
         {
+            foreach(var cam in virtualCameras)
+            {
+                virtualCameraPrioritys.Add(cam.Priority);
+            }
+
             playerUsesCamera.DoStart();
         }
 
