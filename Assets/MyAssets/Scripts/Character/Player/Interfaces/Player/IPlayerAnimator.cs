@@ -6,7 +6,8 @@ namespace MyAssets
     public interface IPlayerAnimator
     {
         Animator Animator { get;}
-
+        AnimatorStateInfo AnimatorStateInfo {  get;}
+        bool IsEndMotion();
         string VelocityX {  get;}
         string VelocityZ {  get;}
         string MoveName { get; }
@@ -24,10 +25,18 @@ namespace MyAssets
         void SetWeight(bool enabled, int layer);
         void UpdateWeight();
     }
-
-    public interface ISlimeAnimator
+    public interface IEnemyAnimator
     {
         Animator Animator { get; }
+    }
+
+    public interface ISlimeAnimator : IEnemyAnimator
+    {
+        string AttacksName { get; }
+    }
+
+    public interface IMushroomAnimator : IEnemyAnimator
+    {
         string AttacksName { get; }
     }
 

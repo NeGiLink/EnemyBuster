@@ -39,10 +39,16 @@ namespace MyAssets
 
         IEquipment              Equipment { get; }
     }
+
+    public interface IEnemySetup : ICharacterSetup
+    {
+        IEnemyAnimator EnemyAnimator { get; }
+    }
+
     /// <summary>
     /// 敵(スライム)で使うインタフェース
     /// </summary>
-    public interface ISlimeSetup : ICharacterSetup
+    public interface ISlimeSetup : IEnemySetup
     {
         ISlimeAnimator SlimeAnimator { get; }
         IGroundCheck GroundCheck { get; }
@@ -53,9 +59,20 @@ namespace MyAssets
     /// <summary>
     /// かかしとかプレイヤーの戦闘練習台に使うインタフェース
     /// </summary>
-    public interface IDummySetup : ICharacterSetup
+    public interface IDummySetup : IEnemySetup
     {
 
+    }
+    /// <summary>
+    /// キノコモンスターに使うインタフェース
+    /// </summary>
+    public interface IMushroomSetup : IEnemySetup
+    {
+        IMushroomAnimator MushroomAnimator { get; }
+        IGroundCheck GroundCheck {  get; }
+        MushroomAttackController AttackObject { get; }
+
+        void RunDestroy();
     }
     /// <summary>
     /// NPCに使うインタフェース

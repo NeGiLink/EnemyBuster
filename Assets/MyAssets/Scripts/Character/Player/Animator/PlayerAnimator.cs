@@ -11,6 +11,13 @@ namespace MyAssets
 
         public Animator Animator => thisAnimator;
 
+        public AnimatorStateInfo AnimatorStateInfo => thisAnimator.GetCurrentAnimatorStateInfo(0);
+
+        public bool IsEndMotion()
+        {
+            return AnimatorStateInfo.normalizedTime >= 1.0f;
+        }
+
         public string VelocityX         => "VelocityX";
         public string VelocityZ         => "VelocityZ";
 

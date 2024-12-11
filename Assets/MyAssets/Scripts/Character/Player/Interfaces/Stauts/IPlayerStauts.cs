@@ -18,6 +18,10 @@ namespace MyAssets
     {
 
     }
+    public interface IMushroomStauts : IBaseStauts
+    {
+
+    }
     public interface INPCStauts : IBaseStauts
     {
 

@@ -39,9 +39,9 @@ namespace MyAssets
         public override List<ICharacterStateTransition<string>> CreateTransitionList(ISlimeSetup enemy)
         {
             List<ICharacterStateTransition<string>> re = new List<ICharacterStateTransition<string>>();
-            if (StateChanger.IsContain(SlimeIdleState.StateKey)) { re.Add(new IsNoTargetInViewTransition(enemy, StateChanger, SlimeIdleState.StateKey)); }
-            if (StateChanger.IsContain(SlimeDamageState.StateKey)) { re.Add(new IsEnemyDamageTransition(enemy, StateChanger, SlimeDamageState.StateKey)); }
-            if (StateChanger.IsContain(ReadySlimeAttackState.StateKey)) { re.Add(new IsReadyAttackTransition(enemy, StateChanger, ReadySlimeAttackState.StateKey)); }
+            if (StateChanger.IsContain(MushroomIdleState.StateKey)) { re.Add(new IsNoTargetInViewTransition(enemy, StateChanger, MushroomIdleState.StateKey)); }
+            //if (StateChanger.IsContain(SlimeDamageState.StateKey)) { re.Add(new IsEnemyDamageTransition(enemy, StateChanger, SlimeDamageState.StateKey)); }
+            //if (StateChanger.IsContain(ReadySlimeAttackState.StateKey)) { re.Add(new IsReadyAttackTransition(enemy, StateChanger, ReadySlimeAttackState.StateKey)); }
             return re;
         }
 

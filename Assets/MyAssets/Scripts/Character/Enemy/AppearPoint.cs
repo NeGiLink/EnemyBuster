@@ -11,11 +11,6 @@ namespace MyAssets
         [SerializeField]
         private LayerMask layer;
 
-        [SerializeField]
-        private SlimeController controller;
-
-
-
         private void Update()
         {
             Rigidbody rigidbody = GetComponent<Rigidbody>();
