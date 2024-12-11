@@ -64,11 +64,33 @@ namespace MyAssets
         }
     }
 
+    public abstract class EnemyStateBase : CharacterStateBase<string, IEnemySetup>, IEnemyState<string>
+    {
+        public override abstract string Key { get; }
+
+        public override List<ICharacterStateTransition<string>> CreateTransitionList(IEnemySetup actor)
+        {
+            // SlimeState専用のトランジションリスト作成処理を実装
+            return new List<ICharacterStateTransition<string>>();
+        }
+    }
+
     public abstract class SlimeStateBase : CharacterStateBase<string, ISlimeSetup>, ISlimeState<string>
     {
         public override abstract string Key { get; }
 
         public override List<ICharacterStateTransition<string>> CreateTransitionList(ISlimeSetup actor)
+        {
+            // SlimeState専用のトランジションリスト作成処理を実装
+            return new List<ICharacterStateTransition<string>>();
+        }
+    }
+
+    public abstract class MushroomStateBase : CharacterStateBase<string, IMushroomSetup>, IMushroomState<string>
+    {
+        public override abstract string Key { get; }
+
+        public override List<ICharacterStateTransition<string>> CreateTransitionList(IMushroomSetup actor)
         {
             // SlimeState専用のトランジションリスト作成処理を実装
             return new List<ICharacterStateTransition<string>>();

@@ -1,5 +1,5 @@
+using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.TextCore.Text;
 
 namespace MyAssets
 {
@@ -122,6 +122,25 @@ namespace MyAssets
         }
         public override bool IsTransition() => velocity.Rigidbody.velocity.y < -0.5f && groundCheck.Landing&&jumpStartTimer.IsEnd();
     }
+
+    public class IsJumpToFallTransition : CharacterStateTransitionBase
+    {
+        private readonly IPlayerAnimator animator;
+        private readonly IGroundCheck groundCheck;
+        private readonly IVelocityComponent velocity;
+        public IsJumpToFallTransition(IPlayerSetup actor, IStateChanger<string> stateChanger, string changeKey)
+            : base(stateChanger, changeKey)
+        {
+            animator = actor.PlayerAnimator;
+            groundCheck = actor.GroundCheck;
+            velocity = actor.Velocity;
+        }
+        public override bool IsTransition() => !groundCheck.Landing && velocity.Rigidbody.velocity.y < -0.5f &&
+            animator.Animator.GetInteger(animator.JumpTypeName) == 1 && animator.IsEndMotion();
+
+
+    }
+
     /// <summary>
     /// ƒ[ƒŠƒ“ƒO‚É‚æ‚é‘JˆÚ
     /// </summary>

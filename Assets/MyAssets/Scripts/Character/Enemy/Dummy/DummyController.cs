@@ -24,6 +24,8 @@ namespace MyAssets
 
         public IStateMachine StateMachine => null;
 
+        public IEnemyAnimator EnemyAnimator => null;
+
         protected override void Awake()
         {
             velocity.DoSetup(this);

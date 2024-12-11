@@ -13,7 +13,11 @@ namespace MyAssets
 
     public interface IPlayerState<TKey> : ICharacterState<TKey, IPlayerSetup> { }
 
+    public interface IEnemyState<TKey> : ICharacterState<TKey, IEnemySetup> { }
+
     public interface ISlimeState<TKey> : ICharacterState<TKey, ISlimeSetup> { }
+
+    public interface IMushroomState<TKey> : ICharacterState<TKey, IMushroomSetup> { }
     public interface INPCState<TKey> : ICharacterState<TKey, INPCSetup> { }
 
     public interface ICharacterStateTransition<TKey>

@@ -40,6 +40,7 @@ namespace MyAssets
         public override List<ICharacterStateTransition<string>> CreateTransitionList(IPlayerSetup actor)
         {
             List<ICharacterStateTransition<string>> re = new List<ICharacterStateTransition<string>>();
+            if (StateChanger.IsContain(FallState.StateKey)) { re.Add(new IsJumpToFallTransition(actor, StateChanger, FallState.StateKey)); }
             if (StateChanger.IsContain(LandingState.StateKey)) { re.Add(new IsNotJumpTransition(actor,jumpStartTimer, StateChanger, LandingState.StateKey)); }
             if (StateChanger.IsContain(ClimbState.StateKey)) { re.Add(new IsClimbTransition(actor, StateChanger, ClimbState.StateKey)); }
             if (StateChanger.IsContain(ReadyJumpAttack.StateKey)) { re.Add(new IsReadyJumpAttackTransition(actor, StateChanger, ReadyJumpAttack.StateKey)); }
