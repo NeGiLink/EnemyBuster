@@ -23,7 +23,8 @@ namespace MyAssets
         {
             List<ICharacterStateTransition<string>> re = new List<ICharacterStateTransition<string>>();
             if (StateChanger.IsContain(MushroomIdleState.StateKey)) { re.Add(new IsNotMushroomAttackTransition(enemy, StateChanger, MushroomIdleState.StateKey)); }
-            //if (StateChanger.IsContain(SlimeDamageState.StateKey)) { re.Add(new IsEnemyDamageTransition(enemy, StateChanger, SlimeDamageState.StateKey)); }
+            if (StateChanger.IsContain(MushroomDamageState.StateKey)) { re.Add(new IsEnemyDamageTransition(enemy, StateChanger, MushroomDamageState.StateKey)); }
+            if (StateChanger.IsContain(MushroomDeathState.StateKey)) { re.Add(new IsDeathTransition(enemy, StateChanger, MushroomDeathState.StateKey)); }
             return re;
         }
 
@@ -41,8 +42,6 @@ namespace MyAssets
             base.DoStart();
 
             movement.Move(0);
-
-            animator.Animator.SetInteger(animator.AttacksName, 1);
         }
 
         public override void DoUpdate(float time)
@@ -69,7 +68,7 @@ namespace MyAssets
         public override void DoExit()
         {
             base.DoExit();
-            animator.Animator.SetInteger("Attack", -1);
+            animator.Animator.SetInteger(animator.AttacksName, -1);
             movement.Move(0);
             attackObject.NotEnabledCollider();
         }

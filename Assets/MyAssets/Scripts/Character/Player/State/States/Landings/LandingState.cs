@@ -26,6 +26,8 @@ namespace MyAssets
             if (StateChanger.IsContain(MoveState.StateKey)) { re.Add(new IsTimerAndMoveTransition(player, playerTimer, StateChanger, MoveState.StateKey)); }
             else if (StateChanger.IsContain(PlayerIdleState.StateKey)) { re.Add(new IsTimerAndMoveTransition(player, playerTimer, StateChanger, PlayerIdleState.StateKey)); }
             if (StateChanger.IsContain(PlayerIdleState.StateKey)) { re.Add(new IsTimerAndNotMoveTransition(player, playerTimer, StateChanger, PlayerIdleState.StateKey)); }
+            if (StateChanger.IsContain(PlayerDamageState.StateKey)) { re.Add(new IsDamageTransition(player, StateChanger, PlayerDamageState.StateKey)); }
+            if (StateChanger.IsContain(PlayerDeathState.StateKey)) { re.Add(new IsDeathTransition(player, StateChanger, PlayerDeathState.StateKey)); }
             return re;
         }
         public override void DoSetup(IPlayerSetup actor)

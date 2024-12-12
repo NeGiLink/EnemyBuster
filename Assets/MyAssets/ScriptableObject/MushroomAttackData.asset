@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: MushroomAttackData
   m_EditorClassIdentifier: 
   dataInfo:
-  - power: 15
+  - power: 25
     attackType: 1

@@ -18,13 +18,38 @@ namespace MyAssets
         public void SetAttacker(Transform t) { attacker = t; }
         public Transform Attacker => attacker;
 
-        public void DoSetup(ICharacterSetup chara){}
+        private IBaseStauts baseStauts;
+
+        private Transform thisTransform;
+
+        public void DoSetup(ICharacterSetup chara)
+        {
+            baseStauts = chara.BaseStauts;
+            thisTransform = chara.gameObject.transform;
+        }
 
         public void SetAttackerData(int power, AttackType type, Transform transform)
         {
-            data = power;
+            if (!baseStauts.InvincibilityTimer.IsEnd()) { return; }
+            baseStauts.DecreaseAndDeathCheck(power);
+            if (power > 0)
+            {
+                GameManager.Instance.DamageTextCreator.Crate(thisTransform, power);
+            }
+            if (baseStauts.IsMaxStoredDamage(power))
+            {
+                data = power;
+                attackType = type;
+                attacker = transform;
+            }
+            baseStauts.InvincibilityTimer.Start(0.1f);
+        }
+
+        public void Recoil(AttackType type, Transform t)
+        {
             attackType = type;
-            attacker = transform;
+            attacker = t;
+            baseStauts.IsMaxStoredDamage(baseStauts.MaxStoredDamage);
         }
     }
 }

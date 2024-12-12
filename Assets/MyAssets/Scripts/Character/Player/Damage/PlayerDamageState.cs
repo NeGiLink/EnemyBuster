@@ -23,8 +23,6 @@ namespace MyAssets
 
         private Timer damageTimer = new Timer();
 
-        private Timer invincibilityTimer = new Timer();
-
         private IPlayerStauts stauts;
 
         [SerializeField]
@@ -96,11 +94,7 @@ namespace MyAssets
                 damageMove.AddForceMove(thisTransform.position, damageContainer.Attacker.position, knockBack * 2.0f);
                 damageTimer.Start(1.5f);
             }
-            if (!stauts.DecreaseAndDeathCheck(damageContainer.Data))
-            {
-                animator.Animator.SetInteger("Impact", damageType);
-            }
-            GameManager.Instance.DamageTextCreator.Crate(thisTransform, damageContainer.Data);
+            animator.Animator.SetInteger("Impact", damageType);
         }
 
         public override void DoUpdate(float time)
@@ -123,6 +117,7 @@ namespace MyAssets
             base.DoExit();
             damageContainer.SetAttackerData(0, AttackType.None, null);
             animator.Animator.SetInteger("Impact", -1);
+            stauts.ClearStoredDamage();
         }
     }
 }

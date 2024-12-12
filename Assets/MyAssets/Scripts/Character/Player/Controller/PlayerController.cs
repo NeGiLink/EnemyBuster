@@ -12,7 +12,7 @@ namespace MyAssets
         public IBaseStauts              BaseStauts => property;
 
         private FieldOfView             fieldOfView;
-        public IFieldOfView FieldOfView => fieldOfView;
+        public IFieldOfView             FieldOfView => fieldOfView;
 
         private IControllerInput        input;
 
@@ -188,9 +188,11 @@ namespace MyAssets
 
         protected override void Update()
         {
+            float t = Time.deltaTime;
+            property.DoUpdate(t);
             input.DoUpdate();
             groundCheck.DoUpdate();
-            stateMachine.DoUpdate(Time.deltaTime);
+            stateMachine.DoUpdate(t);
         }
 
         protected override void FixedUpdate()

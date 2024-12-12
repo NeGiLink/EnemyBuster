@@ -28,7 +28,8 @@ namespace MyAssets
             List<ICharacterStateTransition<string>> re = new List<ICharacterStateTransition<string>>();
             if (StateChanger.IsContain(MushroomPatrolState.StateKey)) { re.Add(new IsPatrolTransition(actor, idleTimer, StateChanger, MushroomPatrolState.StateKey)); }
             if (StateChanger.IsContain(MushroomChaseState.StateKey)) { re.Add(new IsTargetInViewTransition(actor, StateChanger, MushroomChaseState.StateKey)); }
-            //if (StateChanger.IsContain(SlimeDamageState.StateKey)) { re.Add(new IsEnemyDamageTransition(actor, StateChanger, SlimeDamageState.StateKey)); }
+            if (StateChanger.IsContain(MushroomDamageState.StateKey)) { re.Add(new IsEnemyDamageTransition(actor, StateChanger, MushroomDamageState.StateKey)); }
+            if (StateChanger.IsContain(MushroomDeathState.StateKey)) { re.Add(new IsDeathTransition(actor, StateChanger, MushroomDeathState.StateKey)); }
             return re;
         }
         public override void DoSetup(IMushroomSetup actor)

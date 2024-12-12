@@ -21,6 +21,8 @@ namespace MyAssets
             List<ICharacterStateTransition<string>> re = new List<ICharacterStateTransition<string>>();
             if (StateChanger.IsContain(MoveState.StateKey)) { re.Add(new IsEndClimbTransition(actor, StateChanger, MoveState.StateKey)); }
             if (StateChanger.IsContain(PlayerIdleState.StateKey)) { re.Add(new IsEndClimbTransition(actor, StateChanger, PlayerIdleState.StateKey)); }
+            if (StateChanger.IsContain(PlayerDamageState.StateKey)) { re.Add(new IsDamageTransition(actor, StateChanger, PlayerDamageState.StateKey)); }
+            if (StateChanger.IsContain(PlayerDeathState.StateKey)) { re.Add(new IsDeathTransition(actor, StateChanger, PlayerDeathState.StateKey)); }
             return re;
         }
 
@@ -37,7 +39,6 @@ namespace MyAssets
             base.DoStart();
             animator.Animator.SetBool(animator.ClimbName, true);
             climb.DoClimbStart();
-            Debug.Log("“o‚èŠJŽn");
         }
 
         public override void DoUpdate(float time)

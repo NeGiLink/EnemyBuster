@@ -15,5 +15,7 @@ namespace MyAssets
         void SetAttacker(Transform t);
 
         void SetAttackerData(int power, AttackType type, Transform transform);
+
+        void Recoil(AttackType type, Transform t);
     }
 }

@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: TestSwordData
   m_EditorClassIdentifier: 
   dataInfo:
-  - power: 1
+  - power: 25
     attackType: 1

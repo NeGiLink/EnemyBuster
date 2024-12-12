@@ -9,6 +9,6 @@ namespace MyAssets
     {
         [SerializeField]
         private int sp;
-        public int SP => sp; 
+        public int SP => sp;
     }
 }
