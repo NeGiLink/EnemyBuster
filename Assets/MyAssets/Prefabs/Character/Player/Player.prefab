@@ -213,6 +213,8 @@ MonoBehaviour:
     physicMaterialData: {fileID: 11400000, guid: 847aa92f1a8e8b044822fea7587ff168, type: 2}
   property:
     hp: 100
+    maxStoredDamage: 50
+    storedDamage: 0
     sp: 0
   weaponController: {fileID: 0}
   changingState:
@@ -245,6 +247,7 @@ MonoBehaviour:
       serializedVersion: 2
       m_Bits: 8
     rayTransform: {fileID: 553877860098203499}
+    speed: 1
   stepClimberJudgment:
     maxStepHeight: 0.5
     stepSmooth: 0.7
@@ -293,17 +296,17 @@ MonoBehaviour:
   firstAttackState:
     attacksGravityMultiply: 2
     maxAttackingTime: 0.15
-    maxNormalizedTime: 0.4
+    maxNormalizedTime: 0.35
     forwardPower: 1
   secondAttackState:
     attacksGravityMultiply: 2
     maxAttackingTime: 0.15
-    maxNormalizedTime: 0.4
+    maxNormalizedTime: 0.35
     forwardPower: 2
   thirdAttackState:
     attacksGravityMultiply: 2
     maxAttackingTime: 0.15
-    maxNormalizedTime: 0.4
+    maxNormalizedTime: 0.35
     forwardPower: 1
   jumpAttackState:
     jumpAttackGravityMultiply: 1.5

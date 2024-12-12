@@ -27,6 +27,7 @@ namespace MyAssets
             if (StateChanger.IsContain(SlimePatrolState.StateKey)) { re.Add(new IsPatrolTransition(actor,idleTimer, StateChanger, SlimePatrolState.StateKey)); }
             if (StateChanger.IsContain(ChaseState.StateKey)) { re.Add(new IsTargetInViewTransition(actor, StateChanger, ChaseState.StateKey)); }
             if (StateChanger.IsContain(SlimeDamageState.StateKey)) { re.Add(new IsEnemyDamageTransition(actor, StateChanger, SlimeDamageState.StateKey)); }
+            if (StateChanger.IsContain(SlimeDeathState.StateKey)) { re.Add(new IsDeathTransition(actor, StateChanger, SlimeDeathState.StateKey)); }
             return re;
         }
         public override void DoSetup(ISlimeSetup slime)

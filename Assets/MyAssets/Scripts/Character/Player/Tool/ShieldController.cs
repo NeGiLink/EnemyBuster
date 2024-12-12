@@ -54,44 +54,14 @@ namespace MyAssets
                     IDamageContainer damageContainer = characterSetup.DamageContainer;
                     if (damageContainer != null) 
                     {
-                        damageContainer.SetAttackerData(-1, AttackType.Middle, transform);
+                        damageContainer.Recoil( AttackType.Middle, transform);
                     }
                 }
                 return true;
             }
             return false;
         }
-        /*
-        private void Update()
-        {
-            ProtectUpdate();
-        }
 
-        private void ProtectUpdate()
-        {
-            if (!protect) { return; }
-            Ray ray = new Ray(transform.position, transform.up);
-            RaycastHit hit;
-            if (Physics.SphereCast(ray, radius, out hit, dis, hitLayer))
-            {
-                AttackObject attackObject = hit.collider.GetComponent<AttackObject>();
-                if(attackObject == null) { return; }
-                ICharacterSetup characterSetup = GetCharacterSetup(hit.collider.transform);
-                if (characterSetup == null) { return; }
-                IDamageContainer damageContainer = characterSetup.DamageContainer;
-                if (damageContainer == null) { return; }
-                damageContainer.SetAttackerData(0, AttackType.Middle, transform);
-            }
-        }
-
-
-        //球状のRayを可視化
-        void OnDrawGizmos()
-        {
-            Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(transform.position + transform.up * dis, radius);
-        }
-         */
         private ICharacterSetup GetCharacterSetup(Transform transform)
         {
             // transform が null の場合は終了

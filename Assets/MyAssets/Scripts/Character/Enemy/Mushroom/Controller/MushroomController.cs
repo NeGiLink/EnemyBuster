@@ -50,17 +50,14 @@ namespace MyAssets
         [SerializeField]
         private MushroomChaseState chaseState;
 
-        //[SerializeField]
-        //private ReadySlimeAttackState readyAttackState;
-
         [SerializeField]
         private MushroomAttackState attackState;
-        //
-        //[SerializeField]
-        //private SlimeDamageState damageState;
-        //
-        //[SerializeField]
-        //private SlimeDeathState deathState;
+        
+        [SerializeField]
+        private MushroomDamageState damageState;
+        
+        [SerializeField]
+        private MushroomDeathState deathState;
 
         IMushroomState<string>[] states;
         protected override void Awake()
@@ -80,7 +77,9 @@ namespace MyAssets
                 idleState,
                 patrolState,
                 chaseState,
-                attackState
+                attackState,
+                damageState,
+                deathState
             };
             stateMachine.DoSetup(states);
             foreach (var state in states)
@@ -99,8 +98,10 @@ namespace MyAssets
 
         protected override void Update()
         {
+            float t = Time.deltaTime;
+            property.DoUpdate(t);
             groundCheck.DoUpdate();
-            stateMachine.DoUpdate(Time.deltaTime);
+            stateMachine.DoUpdate(t);
             fieldOfView.DoUpdate();
         }
 

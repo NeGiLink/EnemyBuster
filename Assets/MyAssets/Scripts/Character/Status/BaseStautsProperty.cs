@@ -7,6 +7,10 @@ namespace MyAssets
     public class BaseStautsProperty
     {
         [SerializeField]
+        private int maxHP;
+        public int MaxHP => maxHP;
+
+        [SerializeField]
         private int hp;
         public int HP => hp;
         public void Recovery(int h)
@@ -23,5 +27,33 @@ namespace MyAssets
             }
             return false;
         }
+
+        [SerializeField]
+        private int maxStoredDamage;
+        public int MaxStoredDamage => maxStoredDamage;
+        [SerializeField]
+        private int storedDamage;
+        public int StoredDamage => storedDamage;
+        public bool IsMaxStoredDamage(int damage)
+        {
+            storedDamage += damage;
+            if (storedDamage >= maxStoredDamage)
+            {
+                return true;
+            }
+            return false;
+        }
+        public void ClearStoredDamage()
+        {
+            storedDamage = 0;
+        }
+        private Timer invincibilityTimer = new Timer();
+        public Timer InvincibilityTimer => invincibilityTimer;
+
+        public void DoUpdate(float time)
+        {
+            invincibilityTimer.Update(time);
+        }
+
     }
 }

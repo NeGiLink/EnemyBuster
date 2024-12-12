@@ -6,13 +6,22 @@ namespace MyAssets
 {
     public interface IBaseStauts
     {
-        public int HP { get; }
-        public void Recovery(int h);
-        public bool DecreaseAndDeathCheck(int d);
+        int MaxHP { get; }
+        int HP { get; }
+        void Recovery(int h);
+        bool DecreaseAndDeathCheck(int d);
+        int MaxStoredDamage {  get; }
+        int StoredDamage {  get; }
+        bool IsMaxStoredDamage(int damage);
+        void ClearStoredDamage();
+
+        public Timer InvincibilityTimer {  get; }
+
+        void DoUpdate(float time);
     }
     public interface IPlayerStauts : IBaseStauts
     {
-        public int SP {  get; }
+        int SP {  get; }
     }
     public interface ISlimeStauts : IBaseStauts
     {

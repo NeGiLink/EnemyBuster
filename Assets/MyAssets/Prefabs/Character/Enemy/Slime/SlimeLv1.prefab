@@ -67,7 +67,9 @@ MonoBehaviour:
     fallCount: 0
     physicMaterialData: {fileID: 11400000, guid: 847aa92f1a8e8b044822fea7587ff168, type: 2}
   property:
-    hp: 3
+    hp: 100
+    maxStoredDamage: 50
+    storedDamage: 0
   rotation:
     thisTransform: {fileID: 0}
     previousCameraRotation: {x: 0, y: 0, z: 0, w: 0}
@@ -201,7 +203,6 @@ MonoBehaviour:
   layer:
     serializedVersion: 2
     m_Bits: 8
-  controller: {fileID: 0}
 --- !u!1 &9171715797255571987
 GameObject:
   m_ObjectHideFlags: 0

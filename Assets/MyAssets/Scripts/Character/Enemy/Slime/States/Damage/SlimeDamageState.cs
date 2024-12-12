@@ -1,5 +1,3 @@
-using MyAssets;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,21 +12,15 @@ namespace MyAssets
 
         private IVelocityComponent velocity;
 
-        private IMovement movement;
-
         private ISlimeAnimator animator;
 
         private IDamageContainer damageContainer;
 
         private IDamagement damageMove;
 
-        private IGroundCheck groundCheck;
-
         private FieldOfView fieldOfView;
 
         private Timer damageTimer = new Timer();
-
-        private Timer invincibilityTimer = new Timer();
 
         [SerializeField]
         private float knockBack = 5.0f;
@@ -59,9 +51,7 @@ namespace MyAssets
             stauts = enemy.BaseStauts;
             thisTransform = enemy.gameObject.transform;
             velocity = enemy.Velocity;
-            movement = enemy.Movement;
             animator = enemy.SlimeAnimator;
-            groundCheck = enemy.GroundCheck;
             damageContainer = enemy.DamageContainer;
             damageMove = enemy.Damagement;
             fieldOfView = enemy.gameObject.GetComponent<FieldOfView>();
@@ -71,21 +61,12 @@ namespace MyAssets
         {
             base.DoStart();
             FoundTarget();
-
             velocity.Rigidbody.velocity = Vector3.zero;
-
             AttackType type = damageContainer.AttackType;
             int damageType = 0;
             damageMove.AddForceMove(thisTransform.position, damageContainer.Attacker.position, knockBack * 1.0f);
             damageTimer.Start(damageIdleCount);
-            if(damageContainer.Data >= 0)
-            {
-                GameManager.Instance.DamageTextCreator.Crate(thisTransform, damageContainer.Data);
-            }
-            if (!stauts.DecreaseAndDeathCheck(damageContainer.Data))
-            {
-                animator.Animator.SetInteger("Impact", damageType);
-            }
+            animator.Animator.SetInteger("Impact", damageType);
         }
 
         private void FoundTarget()
@@ -117,6 +98,7 @@ namespace MyAssets
             fieldOfView.SetAllSearch(false);
             damageContainer.SetAttackerData(0, AttackType.None, null);
             animator.Animator.SetInteger("Impact", -1);
+            stauts.ClearStoredDamage();
         }
     }
 }

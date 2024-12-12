@@ -13,7 +13,7 @@ namespace MyAssets
 
         public Animator Animator => thisAnimator;
 
-        public string AttacksName => "AttackLevel";
+        public string AttacksName => "Attack";
 
         public void DoSetup(IMushroomSetup mushroom)
         {

@@ -456,12 +456,15 @@ namespace MyAssets
     {
         private readonly IDamageContainer damageContainer;
 
+        private readonly IBaseStauts baseStauts;
+
         public IsDamageTransition(IPlayerSetup chara, IStateChanger<string> stateChanger, string changeKey)
             : base(stateChanger, changeKey)
         {
             damageContainer = chara.DamageContainer;
+            baseStauts = chara.BaseStauts;
         }
-        public override bool IsTransition() => damageContainer.AttackType != AttackType.None;
+        public override bool IsTransition() => baseStauts.MaxStoredDamage <= baseStauts.StoredDamage;
     }
     public class IsPlayerDamageToGetUpTransition : CharacterStateTransitionBase
     {

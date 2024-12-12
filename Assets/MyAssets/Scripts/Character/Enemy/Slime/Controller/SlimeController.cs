@@ -100,8 +100,10 @@ namespace MyAssets
 
         protected override void Update()
         {
+            float t = Time.deltaTime;
+            property.DoUpdate(t);
             groundCheck.DoUpdate();
-            stateMachine.DoUpdate(Time.deltaTime);
+            stateMachine.DoUpdate(t);
             fieldOfView.DoUpdate();
         }
 

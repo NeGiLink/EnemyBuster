@@ -26,6 +26,8 @@ namespace MyAssets
             List<ICharacterStateTransition<string>> re = new List<ICharacterStateTransition<string>>();
             if (StateChanger.IsContain(PlayerIdleState.StateKey)) { re.Add(new IsTimerTransition(player, playerTimer, StateChanger, PlayerIdleState.StateKey)); }
             if (StateChanger.IsContain(MoveState.StateKey)) { re.Add(new IsTimerTransition(player, playerTimer, StateChanger, MoveState.StateKey)); }
+            if (StateChanger.IsContain(PlayerDamageState.StateKey)) { re.Add(new IsDamageTransition(player, StateChanger, PlayerDamageState.StateKey)); }
+            if (StateChanger.IsContain(PlayerDeathState.StateKey)) { re.Add(new IsDeathTransition(player, StateChanger, PlayerDeathState.StateKey)); }
             return re;
         }
         public override void DoSetup(IPlayerSetup actor)

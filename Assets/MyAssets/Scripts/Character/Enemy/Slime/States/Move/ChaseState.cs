@@ -40,8 +40,9 @@ namespace MyAssets
         {
             List<ICharacterStateTransition<string>> re = new List<ICharacterStateTransition<string>>();
             if (StateChanger.IsContain(MushroomIdleState.StateKey)) { re.Add(new IsNoTargetInViewTransition(enemy, StateChanger, MushroomIdleState.StateKey)); }
-            //if (StateChanger.IsContain(SlimeDamageState.StateKey)) { re.Add(new IsEnemyDamageTransition(enemy, StateChanger, SlimeDamageState.StateKey)); }
-            //if (StateChanger.IsContain(ReadySlimeAttackState.StateKey)) { re.Add(new IsReadyAttackTransition(enemy, StateChanger, ReadySlimeAttackState.StateKey)); }
+            if (StateChanger.IsContain(SlimeDamageState.StateKey)) { re.Add(new IsEnemyDamageTransition(enemy, StateChanger, SlimeDamageState.StateKey)); }
+            if (StateChanger.IsContain(ReadySlimeAttackState.StateKey)) { re.Add(new IsReadyAttackTransition(enemy, StateChanger, ReadySlimeAttackState.StateKey)); }
+            if (StateChanger.IsContain(SlimeDeathState.StateKey)) { re.Add(new IsDeathTransition(enemy, StateChanger, SlimeDeathState.StateKey)); }
             return re;
         }
 

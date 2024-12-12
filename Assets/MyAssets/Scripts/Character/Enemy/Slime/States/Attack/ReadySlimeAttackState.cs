@@ -24,7 +24,7 @@ namespace MyAssets
             
             if (StateChanger.IsContain(SlimeDamageState.StateKey)) { re.Add(new IsEnemyDamageTransition(enemy, StateChanger, SlimeDamageState.StateKey)); }
             if (StateChanger.IsContain(SlimeAttackState.StateKey)) { re.Add(new IsAttackTransition(enemy,readyTimer, StateChanger, SlimeAttackState.StateKey)); }
-            
+            if (StateChanger.IsContain(SlimeDeathState.StateKey)) { re.Add(new IsDeathTransition(enemy, StateChanger, SlimeDeathState.StateKey)); }
             return re;
         }
 
