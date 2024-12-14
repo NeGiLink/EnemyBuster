@@ -200,6 +200,7 @@ MonoBehaviour:
     currentVelocity: {x: 0, y: 0, z: 0}
     inheritRigidbodyVelocity: 1
   damageContainer:
+    damageCoolDownCount: 0.15
     data: 0
   groundCheck:
     groundCheckRadius: 0.2
@@ -212,6 +213,7 @@ MonoBehaviour:
     fallCount: 0
     physicMaterialData: {fileID: 11400000, guid: 847aa92f1a8e8b044822fea7587ff168, type: 2}
   property:
+    maxHP: 100
     hp: 100
     maxStoredDamage: 50
     storedDamage: 0
@@ -295,14 +297,22 @@ MonoBehaviour:
     moveSpeed: 3.5
   firstAttackState:
     attacksGravityMultiply: 2
-    maxAttackingTime: 0.15
+    secondVer1ToTransitionTime: 0.15
+    secondVer2ToTransitionTime: 0.3
     maxNormalizedTime: 0.35
     forwardPower: 1
-  secondAttackState:
+  secondAttackVer1State:
     attacksGravityMultiply: 2
     maxAttackingTime: 0.15
     maxNormalizedTime: 0.35
-    forwardPower: 2
+    forwardPower: 1
+  secondAttackVer2State:
+    attacksGravityMultiply: 2
+    maxAttackingTime: 0.15
+    maxNormalizedTime: 0.35
+    forwardPower: 1
+    power: 600
+    jumpStartCount: 0.25
   thirdAttackState:
     attacksGravityMultiply: 2
     maxAttackingTime: 0.15
@@ -936,11 +946,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2327789286364246167, guid: 9d74ef137d44cec4dbdece4b44498847, type: 3}
       propertyPath: dis
-      value: 0.7
-      objectReference: {fileID: 0}
-    - target: {fileID: 2327789286364246167, guid: 9d74ef137d44cec4dbdece4b44498847, type: 3}
-      propertyPath: radius
-      value: 0.25
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5461248342790469516, guid: 9d74ef137d44cec4dbdece4b44498847, type: 3}
       propertyPath: m_LocalPosition.x

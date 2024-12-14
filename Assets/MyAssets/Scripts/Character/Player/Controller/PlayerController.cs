@@ -93,7 +93,9 @@ namespace MyAssets
         [SerializeField]
         private FirstAttackState        firstAttackState;
         [SerializeField]
-        private SecondAttackState       secondAttackState;
+        private SecondAttackState       secondAttackVer1State;
+        [SerializeField]
+        private SecondDerivationAttack2State secondAttackVer2State;
         [SerializeField]
         private ThirdAttackState        thirdAttackState;
         [SerializeField]
@@ -152,7 +154,8 @@ namespace MyAssets
                 landingState,
                 climbState,
                 firstAttackState,
-                secondAttackState,
+                secondAttackVer1State,
+                secondAttackVer2State,
                 thirdAttackState,
                 readyJumpAttack,
                 jumpAttackState,

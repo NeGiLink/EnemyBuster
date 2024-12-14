@@ -3,7 +3,17 @@ guid: 27a7bf6a12c73a14389dcdedb048e33a
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Blade
+    second: {fileID: 2100000, guid: 80489d5bb6aaed64b921d7de9e903203, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MainTecColor
+    second: {fileID: 2100000, guid: f058c79b1ff0dc74e8758e25d85e3145, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

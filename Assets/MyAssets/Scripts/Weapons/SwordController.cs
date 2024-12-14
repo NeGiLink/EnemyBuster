@@ -21,6 +21,9 @@ namespace MyAssets
         [SerializeField]
         private float dis = 1.0f;
 
+        [SerializeField]
+        private new Collider collider;
+
         private void Awake()
         {
             attackObject = GetComponent<AttackObject>();
@@ -31,12 +34,21 @@ namespace MyAssets
             {
                 animator = controller.PlayerAnimator;
             }
+
+            collider = GetComponent<Collider>();
+        }
+
+        private void Start()
+        {
+            collider.enabled = false;
         }
 
         public void EnabledCollider(float start,float end,bool all)
         {
             if (all)
             {
+                collider.enabled = true;
+                /*
                 Ray ray = new Ray(transform.position, transform.up);
                 RaycastHit hit;
                 if (Physics.SphereCast(ray, radius, out hit, dis, hitLayer))
@@ -47,12 +59,15 @@ namespace MyAssets
                     if (damageContainer == null) { return; }
                     damageContainer.SetAttackerData(attackObject.Power, attackObject.Type, transform);
                 }
+                 */
             }
             else
             {
                 AnimatorStateInfo animInfo = animator.Animator.GetCurrentAnimatorStateInfo(0);
                 if(animInfo.normalizedTime >= start &&animInfo.normalizedTime <= end)
                 {
+                    collider.enabled = true;
+                    /*
                     Ray ray = new Ray(transform.position, transform.up);
                     RaycastHit hit;
                     if (Physics.SphereCast(ray, radius, out hit, dis, hitLayer))
@@ -63,15 +78,32 @@ namespace MyAssets
                         if (damageContainer == null) { return; }
                         damageContainer.SetAttackerData(attackObject.Power, attackObject.Type, transform);
                     }
+                     */
                 }
             }
         }
+        public void NotEnabledCollider()
+        {
+            collider.enabled = false;
+        }
 
         //‹…ó‚ÌRay‚ð‰ÂŽ‹‰»
+        /*
         void OnDrawGizmos()
         {
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(transform.position + transform.up * dis, radius);
+        }
+
+         */
+        private void OnTriggerEnter(Collider other)
+        {
+            if(other.gameObject.layer != 8) { return; }
+            ICharacterSetup characterSetup = other.GetComponent<ICharacterSetup>();
+            if (characterSetup == null) { return; }
+            IDamageContainer damageContainer = characterSetup.DamageContainer;
+            if (damageContainer == null) { return; }
+            damageContainer.SetAttackerData(attackObject.Power, attackObject.Type, transform);
         }
 
     }

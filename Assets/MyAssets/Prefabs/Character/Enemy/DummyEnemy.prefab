@@ -141,14 +141,19 @@ MonoBehaviour:
     landing: 0
     fallCount: 0
     physicMaterialData: {fileID: 11400000, guid: 847aa92f1a8e8b044822fea7587ff168, type: 2}
+  property:
+    maxHP: 100
+    hp: 100
+    maxStoredDamage: 0
+    storedDamage: 0
   stepClimberJudgment:
-    maxStepCheck: 0.25
     maxStepHeight: 0.5
     stepSmooth: 0.7
     maxSlopeAngle: 90
     groundMask:
       serializedVersion: 2
       m_Bits: 0
+    speed: 1
   rotation:
     thisTransform: {fileID: 0}
     y_Focus: {fileID: 0}

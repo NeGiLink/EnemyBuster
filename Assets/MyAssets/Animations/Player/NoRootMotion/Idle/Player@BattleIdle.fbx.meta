@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: ced493701574f384dbf4d21117233a84
+guid: 1cd7e7f239281fd4094c0be02d38c1af
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -22,10 +22,7 @@ ModelImporter:
       : position error = 76.423416 mm\n\t'mixamorig:RightUpLeg' : position error
       = 92.224426 mm\n"
     animationImportErrors: 
-    animationImportWarnings: "\nClip 'Armature|BattleIdle' has import animation warnings
-      that might lower retargeting quality:\nNote: Activate translation DOF on avatar
-      to improve retargeting quality.\n\t'mixamorig:Spine' has translation animation
-      that will be discarded.\n"
+    animationImportWarnings: 
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0

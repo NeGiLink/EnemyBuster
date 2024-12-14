@@ -6,6 +6,8 @@ namespace MyAssets
     [System.Serializable]
     public class MoveState : PlayerStateBase
     {
+        private IPlayerStauts stauts;
+
         private IMoveInputProvider input;
 
         private IFocusInputProvider focusInputProvider;
@@ -56,6 +58,7 @@ namespace MyAssets
         public override void DoSetup(IPlayerSetup player)
         {
             base.DoSetup(player);
+            stauts = player.Stauts;
             movement = player.Movement;
             velocity = player.Velocity;
             cliffJudgment = player.ObstacleJudgment;
@@ -87,8 +90,8 @@ namespace MyAssets
         public override void DoUpdate(float time)
         {
             base.DoUpdate(time);
-            
-            animator.Animator.SetFloat(animator.DashName, input.Dash, 0.1f, Time.deltaTime);
+
+            DashUpdate();
             animator.Animator.SetFloat(animator.MoveName, velocity.CurrentVelocity.magnitude, 0.1f, Time.deltaTime);
 
             animator.UpdateWeight();
@@ -98,11 +101,25 @@ namespace MyAssets
             rotation.DoUpdate();
         }
 
+        private void DashUpdate()
+        {
+            if(stauts.SP > 0 && input.Dash > 0)
+            {
+                animator.Animator.SetFloat(animator.DashName, input.Dash, 0.1f, Time.deltaTime);
+                stauts.DecreaseSP(1);
+            }
+            else
+            {
+                animator.Animator.SetFloat(animator.DashName, input.Dash, 0.1f, Time.deltaTime);
+                stauts.RecoverySP(1);
+            }
+        }
+
         public override void DoFixedUpdate(float time)
         {
             base.DoFixedUpdate(time);
             float speed = moveSpeed;
-            if(input.Dash > 0)
+            if(stauts.SP > 0 && input.Dash > 0)
             {
                 speed *= dashMagnification;
             }

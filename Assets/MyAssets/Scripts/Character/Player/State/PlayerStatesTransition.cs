@@ -430,6 +430,27 @@ namespace MyAssets
         public override bool IsTransition() => input.Attack &&moveInput.IsMove&&
             !groundCheck.Landing;
     }
+    public class IsSecondAttackVer2ToReadyJumpAttackTransition : CharacterStateTransitionBase
+    {
+        private readonly IAttackInputProvider input;
+        private readonly IMoveInputProvider moveInput;
+        private readonly IGroundCheck groundCheck;
+        private readonly IPlayerAnimator animator;
+
+        private string motionName;
+
+        public IsSecondAttackVer2ToReadyJumpAttackTransition(IPlayerSetup actor,string name, IStateChanger<string> stateChanger, string changeKey)
+            : base(stateChanger, changeKey)
+        {
+            input = actor.gameObject.GetComponent<IAttackInputProvider>();
+            groundCheck = actor.GroundCheck;
+            moveInput = actor.MoveInput;
+            animator = actor.PlayerAnimator;
+            motionName = name;
+        }
+        public override bool IsTransition() => input.Attack && animator.Animator.GetCurrentAnimatorStateInfo(0).IsName(motionName) &&
+            !groundCheck.Landing;
+    }
 
     public class IsJumpAttackTransition : CharacterStateTransitionBase
     {
