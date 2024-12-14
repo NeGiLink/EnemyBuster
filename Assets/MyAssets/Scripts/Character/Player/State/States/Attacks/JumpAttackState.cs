@@ -60,6 +60,7 @@ namespace MyAssets
         public override void DoExit()
         {
             base.DoExit();
+            sword.NotEnabledCollider();
         }
 
         public override void DoTriggerEnter(GameObject thisObject,Collider collider)

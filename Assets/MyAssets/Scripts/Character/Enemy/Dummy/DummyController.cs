@@ -4,7 +4,9 @@ namespace MyAssets
 {
     public class DummyController : CharacterBaseController,IDummySetup
     {
-        public IBaseStauts BaseStauts => null;
+        [SerializeField]
+        private DummyStatusProperty property;
+        public IBaseStauts BaseStauts => property;
 
         [SerializeField]
         private Movement movement;
@@ -38,6 +40,10 @@ namespace MyAssets
 
         protected override void Update()
         {
+            property.RecoveryHP(1);
+
+            property.DoUpdate(Time.deltaTime);
+
             velocity.Rigidbody.velocity = Vector3.zero;
             damageCoolDownTimer.Update(Time.deltaTime);
             if (!damageCoolDownTimer.IsEnd()) 

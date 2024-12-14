@@ -6,6 +6,9 @@ namespace MyAssets
     public class DamageContainer : IDamageContainer,ICharacterComponent<ICharacterSetup>
     {
         [SerializeField]
+        private float damageCoolDownCount = 0.15f;
+
+        [SerializeField]
         private int data = 0;
         public void SetData(int d) { data = d; }
         public int Data => data;
@@ -30,6 +33,7 @@ namespace MyAssets
 
         public void SetAttackerData(int power, AttackType type, Transform transform)
         {
+            if(baseStauts.HP <= 0) { return; }
             if (!baseStauts.InvincibilityTimer.IsEnd()) { return; }
             baseStauts.DecreaseAndDeathCheck(power);
             if (power > 0)
@@ -42,7 +46,7 @@ namespace MyAssets
                 attackType = type;
                 attacker = transform;
             }
-            baseStauts.InvincibilityTimer.Start(0.1f);
+            baseStauts.InvincibilityTimer.Start(damageCoolDownCount);
         }
 
         public void Recoil(AttackType type, Transform t)

@@ -44,7 +44,7 @@ namespace MyAssets
             equipment.SetOutWeapon();
             changingState.SetBattleMode(true);
 
-            animator.Animator.SetInteger(animator.AttacksName, 3);
+            animator.Animator.SetInteger(animator.AttacksName, (int)NormalAttackState.JumpAttack);
             animator.Animator.SetFloat(animator.ToolLevel, 1.0f);
 
             velocity.Rigidbody.velocity = Vector3.zero;

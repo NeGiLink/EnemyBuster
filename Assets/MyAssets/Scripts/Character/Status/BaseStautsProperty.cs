@@ -13,9 +13,13 @@ namespace MyAssets
         [SerializeField]
         private int hp;
         public int HP => hp;
-        public void Recovery(int h)
+        public void RecoveryHP(int h)
         {
             hp += h;
+            if (hp > maxHP)
+            {
+                hp = maxHP;
+            }
         }
 
         public bool DecreaseAndDeathCheck(int d)

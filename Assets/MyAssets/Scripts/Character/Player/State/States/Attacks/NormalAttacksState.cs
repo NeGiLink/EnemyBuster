@@ -21,7 +21,9 @@ namespace MyAssets
         None = -1,
         First,
         Second,
-        Third
+        SecondDer,
+        Third,
+        JumpAttack,
     }
 
     [System.Serializable]
@@ -40,7 +42,9 @@ namespace MyAssets
         private float attacksGravityMultiply;
 
         [SerializeField]
-        private float maxAttackingTime;
+        private float secondVer1ToTransitionTime;
+        [SerializeField]
+        private float secondVer2ToTransitionTime;
 
         [SerializeField]
         private float maxNormalizedTime;
@@ -57,7 +61,8 @@ namespace MyAssets
         public override List<ICharacterStateTransition<string>> CreateTransitionList(IPlayerSetup actor)
         {
             List<ICharacterStateTransition<string>> re = new List<ICharacterStateTransition<string>>();
-            if (StateChanger.IsContain(SecondAttackState.StateKey)) { re.Add(new IsBurstAttackTransition(currentMotionName,maxAttackingTime,actor, StateChanger, SecondAttackState.StateKey)); }
+            if (StateChanger.IsContain(SecondDerivationAttack2State.StateKey)) { re.Add(new IsBurstAttackTransition(currentMotionName, secondVer2ToTransitionTime, actor, StateChanger, SecondDerivationAttack2State.StateKey)); }
+            if (StateChanger.IsContain(SecondAttackState.StateKey)) { re.Add(new IsBurstAttackTransition(currentMotionName, secondVer1ToTransitionTime, actor, StateChanger, SecondAttackState.StateKey)); }
             if (StateChanger.IsContain(PlayerIdleState.StateKey)) { re.Add(new IsNotAttackTransition(actor, StateChanger, PlayerIdleState.StateKey)); }
             if (StateChanger.IsContain(MoveState.StateKey)) { re.Add(new IsNotAttackToMoveTransition(maxNormalizedTime, actor, StateChanger, MoveState.StateKey)); }
             if (StateChanger.IsContain(PlayerDamageState.StateKey)) { re.Add(new IsDamageTransition(actor, StateChanger, PlayerDamageState.StateKey)); }
@@ -85,8 +90,8 @@ namespace MyAssets
 
         public override void DoUpdate(float time)
         {
-            base.DoUpdate(time);
             sword.EnabledCollider(0.0f, 0.6f, false);
+            base.DoUpdate(time);
         }
 
         public override void DoFixedUpdate(float time)
@@ -99,7 +104,7 @@ namespace MyAssets
         private void ForwardMove()
         {
             AnimatorStateInfo aniInfo = animator.Animator.GetCurrentAnimatorStateInfo(0);
-            if(aniInfo.normalizedTime > maxAttackingTime) { return; }
+            if(aniInfo.normalizedTime > secondVer1ToTransitionTime) { return; }
             movement.ForwardLerpMove(baseTransform,forwardPower);
         }
 
@@ -107,6 +112,7 @@ namespace MyAssets
         {
             base.DoExit();
             animator.Animator.SetInteger(animator.AttacksName, (int)NormalAttackState.None);
+            sword.NotEnabledCollider();
         }
 
         public override void DoTriggerEnter(GameObject thisObject,Collider collider)
@@ -183,8 +189,8 @@ namespace MyAssets
 
         public override void DoUpdate(float time)
         {
-            base.DoUpdate(time);
             sword.EnabledCollider(0.0f,0.5f, false);
+            base.DoUpdate(time);
         }
 
         public override void DoFixedUpdate(float time)
@@ -204,6 +210,7 @@ namespace MyAssets
         {
             base.DoExit();
             animator.Animator.SetInteger(animator.AttacksName, (int)NormalAttackState.None);
+            sword.NotEnabledCollider();
         }
 
         public override void DoTriggerEnter(GameObject thisObject,Collider collider)
@@ -214,6 +221,118 @@ namespace MyAssets
             damageContainer.SetAttackerData(data.Power, AttackType.Small, collider.transform);
         }
     }
+
+    [System.Serializable]
+    public class SecondDerivationAttack2State : PlayerStateBase
+    {
+        private IVelocityComponent velocity;
+        private IMovement movement;
+        private IPlayerAnimator animator;
+
+        private IAttackInputProvider inputTimer;
+
+        private Transform transform;
+
+        private IDamageContainer damageContainer;
+
+        private SwordController sword;
+
+        [SerializeField]
+        private float attacksGravityMultiply;
+
+        [SerializeField]
+        private float maxAttackingTime;
+
+        [SerializeField]
+        private float maxNormalizedTime;
+
+        [SerializeField]
+        private float forwardPower;
+
+        private Vector3 baseTransform;
+
+        [SerializeField]
+        private float power;
+
+        [SerializeField]
+        private float jumpStartCount = 0.25f;
+        private Timer jumpStartTimer = new Timer();
+
+        public static readonly string StateKey = "SecondDerivationAttack2";
+        public override string Key => StateKey;
+
+        private readonly string currentMotionName = "SecondDerivationAttack2";
+        private readonly string currentMotionName2 = "SecondDerivationAttack2End";
+        public override List<ICharacterStateTransition<string>> CreateTransitionList(IPlayerSetup actor)
+        {
+            List<ICharacterStateTransition<string>> re = new List<ICharacterStateTransition<string>>();
+            if (StateChanger.IsContain(FallState.StateKey)) { re.Add(new IsJumpToFallTransition(actor, StateChanger, FallState.StateKey)); }
+            if (StateChanger.IsContain(LandingState.StateKey)) { re.Add(new IsNotJumpTransition(actor, jumpStartTimer, StateChanger, LandingState.StateKey)); }
+            if (StateChanger.IsContain(ReadyJumpAttack.StateKey)) { re.Add(new IsSecondAttackVer2ToReadyJumpAttackTransition(actor, currentMotionName2, StateChanger, ReadyJumpAttack.StateKey)); }
+            if (StateChanger.IsContain(PlayerDamageState.StateKey)) { re.Add(new IsDamageTransition(actor, StateChanger, PlayerDamageState.StateKey)); }
+            if (StateChanger.IsContain(PlayerDeathState.StateKey)) { re.Add(new IsDeathTransition(actor, StateChanger, PlayerDeathState.StateKey)); }
+            return re;
+        }
+
+        public override void DoSetup(IPlayerSetup player)
+        {
+            base.DoSetup(player);
+            velocity = player.Velocity;
+            animator = player.PlayerAnimator;
+            inputTimer = player.AttackInput;
+            transform = player.gameObject.transform;
+            movement = player.Movement;
+            damageContainer = player.DamageContainer;
+            sword = player.Equipment.HaveWeapon.GetComponent<SwordController>();
+        }
+        public override void DoStart()
+        {
+            base.DoStart();
+            animator.Animator.SetInteger(animator.AttacksName, (int)NormalAttackState.SecondDer);
+            velocity.Rigidbody.velocity = Vector3.zero;
+            baseTransform = transform.position;
+
+            jumpStartTimer.Start(jumpStartCount);
+            velocity.Rigidbody.AddForce(Vector3.up * power, ForceMode.Impulse);
+        }
+
+        public override void DoUpdate(float time)
+        {
+            sword.EnabledCollider(0.0f, 0.5f, false);
+            base.DoUpdate(time);
+            jumpStartTimer.Update(time);
+        }
+
+        public override void DoFixedUpdate(float time)
+        {
+            base.DoFixedUpdate(time);
+            ForwardMove();
+            velocity.Rigidbody.velocity += Physics.gravity * attacksGravityMultiply * time;
+        }
+        private void ForwardMove()
+        {
+            AnimatorStateInfo aniInfo = animator.Animator.GetCurrentAnimatorStateInfo(0);
+            if (aniInfo.normalizedTime > maxAttackingTime) { return; }
+            baseTransform.y = transform.position.y;
+            movement.ForwardLerpMove(baseTransform, forwardPower);
+        }
+
+        public override void DoExit()
+        {
+            base.DoExit();
+            animator.Animator.SetInteger(animator.AttacksName, (int)NormalAttackState.None);
+            sword.NotEnabledCollider();
+        }
+
+        public override void DoTriggerEnter(GameObject thisObject, Collider collider)
+        {
+            base.DoTriggerEnter(thisObject, collider);
+            AttackObject data = collider.GetComponent<AttackObject>();
+            if (data == null) { return; }
+            damageContainer.SetAttackerData(data.Power, AttackType.Small, collider.transform);
+        }
+    }
+
     [System.Serializable]
     public class ThirdAttackState : PlayerStateBase
     {
@@ -273,8 +392,8 @@ namespace MyAssets
 
         public override void DoUpdate(float time)
         {
+            sword.EnabledCollider(0.0f,1.0f,true);
             base.DoUpdate(time);
-            sword.EnabledCollider(0.0f,0.6f,false);
         }
 
         public override void DoFixedUpdate(float time)
@@ -295,6 +414,7 @@ namespace MyAssets
         {
             base.DoExit();
             animator.Animator.SetInteger(animator.AttacksName, (int)NormalAttackState.None);
+            sword.NotEnabledCollider();
         }
         public override void DoTriggerEnter(GameObject thisObject,Collider collider)
         {

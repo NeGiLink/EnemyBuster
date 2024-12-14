@@ -8,7 +8,7 @@ namespace MyAssets
     {
         int MaxHP { get; }
         int HP { get; }
-        void Recovery(int h);
+        void RecoveryHP(int h);
         bool DecreaseAndDeathCheck(int d);
         int MaxStoredDamage {  get; }
         int StoredDamage {  get; }
@@ -21,7 +21,10 @@ namespace MyAssets
     }
     public interface IPlayerStauts : IBaseStauts
     {
+        int MaxSP { get; }
         int SP {  get; }
+        void DecreaseSP(int s);
+        void RecoverySP(int s);
     }
     public interface ISlimeStauts : IBaseStauts
     {
