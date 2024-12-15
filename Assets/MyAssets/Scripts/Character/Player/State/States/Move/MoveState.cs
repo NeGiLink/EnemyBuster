@@ -110,7 +110,7 @@ namespace MyAssets
             }
             else
             {
-                animator.Animator.SetFloat(animator.DashName, input.Dash, 0.1f, Time.deltaTime);
+                animator.Animator.SetFloat(animator.DashName, 0, 0.1f, Time.deltaTime);
                 stauts.RecoverySP(1);
             }
         }
