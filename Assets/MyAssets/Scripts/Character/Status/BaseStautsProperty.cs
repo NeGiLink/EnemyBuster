@@ -54,7 +54,7 @@ namespace MyAssets
         private Timer invincibilityTimer = new Timer();
         public Timer InvincibilityTimer => invincibilityTimer;
 
-        public void DoUpdate(float time)
+        public virtual void DoUpdate(float time)
         {
             invincibilityTimer.Update(time);
         }
