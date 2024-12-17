@@ -6,6 +6,8 @@ namespace MyAssets
     [System.Serializable]
     public class RollingState : PlayerStateBase
     {
+        private IPlayerStauts stauts;
+
         private IMoveInputProvider input;
 
         private IVelocityComponent velocity;
@@ -16,7 +18,7 @@ namespace MyAssets
 
         private IPlayerAnimator animator;
 
-        private Transform thisTransform;
+        private Timer timer = new Timer();
 
         [SerializeField]
         private float rollingSpeed = 4.0f;
@@ -24,7 +26,7 @@ namespace MyAssets
         private float rollingGravityMultiply;
 
         [SerializeField]
-        private Vector3 direction;
+        private int rollingSp;
 
         public static readonly string StateKey = "Rolling";
 
@@ -33,20 +35,20 @@ namespace MyAssets
         public override List<ICharacterStateTransition<string>> CreateTransitionList(IPlayerSetup actor)
         {
             List<ICharacterStateTransition<string>> re = new List<ICharacterStateTransition<string>>();
-            if (StateChanger.IsContain(BattleMoveState.StateKey)) { re.Add(new IsNotRollingTransition(actor, StateChanger, BattleMoveState.StateKey)); }
-            if (StateChanger.IsContain(BattleIdleState.StateKey)) { re.Add(new IsNotRollingTransition(actor, StateChanger, BattleIdleState.StateKey)); }
+            if (StateChanger.IsContain(BattleMoveState.StateKey)) { re.Add(new IsNotRollingTransition(actor,timer, StateChanger, BattleMoveState.StateKey)); }
+            if (StateChanger.IsContain(BattleIdleState.StateKey)) { re.Add(new IsNotRollingTransition(actor,timer, StateChanger, BattleIdleState.StateKey)); }
             return re;
         }
 
         public override void DoSetup(IPlayerSetup player)
         {
             base.DoSetup(player);
+            stauts = player.Stauts;
             input = player.gameObject.GetComponent<IMoveInputProvider>();
             velocity = player.Velocity;
             movement = player.Movement;
             rotation = player.Rotation;
             animator = player.PlayerAnimator;
-            thisTransform = player.gameObject.transform;
         }
 
 
@@ -54,34 +56,21 @@ namespace MyAssets
         {
             base.DoStart();
             animator.Animator.SetInteger("Rolling", 0);
-            direction = Vector3.zero;
-            if(input.Horizontal > 0)
-            {
-                direction += thisTransform.right;
-            }
-            else if(input.Horizontal < 0)
-            {
-                direction += -thisTransform.right;
-            }
 
-            if(input.Vertical > 0)
-            {
-                direction += thisTransform.forward;
-            }
-            else if(input.Vertical < 0)
-            {
-                direction += -thisTransform.forward;
-            }
+            stauts.DecreaseSP(rollingSp);
 
             animator.Animator.SetFloat(animator.VelocityX, input.Horizontal, 0.1f, Time.deltaTime);
             animator.Animator.SetFloat(animator.VelocityZ, input.Vertical, 0.1f, Time.deltaTime);
 
             velocity.CurrentVelocity = Vector3.zero;
+
+            timer.Start(0.2f);
         }
 
         public override void DoUpdate(float time)
         {
             base.DoUpdate(time);
+            timer.Update(time);
             rotation.DoFixedUpdate();
         }
 
@@ -89,6 +78,7 @@ namespace MyAssets
         {
             base.DoFixedUpdate(time);
             movement.Move(rollingSpeed);
+            velocity.Rigidbody.velocity += Physics.gravity * rollingGravityMultiply * time;
             rotation.DoFixedUpdate();
         }
 
