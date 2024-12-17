@@ -77,7 +77,7 @@ namespace MyAssets
             cliffJudgment.RayCheck();
             rotation.DoUpdate();
 
-            if (stauts.SP > 0 && input.Dash > 0)
+            if (stauts.SP > 0 && input.Dash > 0 && input.IsMove)
             {
                 stauts.DecreaseSP(1);
             }

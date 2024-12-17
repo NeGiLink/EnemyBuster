@@ -7,6 +7,8 @@ namespace MyAssets
     [System.Serializable]
     public class BattleMoveState : PlayerStateBase
     {
+        private IPlayerStauts stauts;
+
         private IMoveInputProvider input;
 
         private IFocusInputProvider focusInputProvider;
@@ -55,6 +57,7 @@ namespace MyAssets
         public override void DoSetup(IPlayerSetup player)
         {
             base.DoSetup(player);
+            stauts = player.Stauts;
             movement = player.Movement;
             velocity = player.Velocity;
             cliffJudgment = player.ObstacleJudgment;
@@ -86,6 +89,15 @@ namespace MyAssets
             animator.Animator.SetFloat(animator.VelocityZ, input.Vertical, 0.1f, Time.deltaTime);
 
             animator.UpdateWeight();
+
+            if (stauts.SP > 0 && input.Dash > 0)
+            {
+                stauts.DecreaseSP(1);
+            }
+            else
+            {
+                stauts.RecoverySP(1);
+            }
 
             rotation.DoUpdate();
         }

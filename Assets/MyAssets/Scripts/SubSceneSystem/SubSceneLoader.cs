@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,9 +16,9 @@ namespace MyAssets
         [SerializeField]
         private List<Vector3> subScenesTransform = new List<Vector3>();
         [SerializeField]
-        private float cameraRectWidth = 100f; // 四角形の幅
+        private float cameraRectWidthX = 100f; // 四角形の幅
         [SerializeField]
-        private float cameraRectWidth2 = 100f; // 四角形の高さ
+        private float cameraRectWidthZ = 100f; // 四角形の高さ
         [SerializeField]
         private float rectDistance = 100f; // カメラから四角形までの距離
 
@@ -52,16 +53,54 @@ namespace MyAssets
         {
             foreach(SubScene targetSubScene in subScenes)
             {
-                if (NoCheckRectanglesOverlap(targetSubScene)) {  continue; }
-                if (DoRectanglesOverlap(GetCameraRectangle(), targetSubScene.GetObjectRectangle(targetSubScene)))
+                if (NoCheckRectanglesOverlap(targetSubScene))
                 {
-                    targetSubScene.LoadAsset();
+                    if (WithinCameraRange(targetSubScene.transform))
+                    {
+                        targetSubScene.LoadAsset();
+                    }
+                    else
+                    {
+                        if (targetSubScene.IsLoading)
+                        {
+                            targetSubScene.UnloadAsset();
+                        }
+                        else
+                        {
+                            continue;
+                        }
+                    }
                 }
                 else
                 {
-                    targetSubScene.UnloadAsset();
+                    if (DoRectanglesOverlap(GetCameraRectangle(), targetSubScene.GetObjectRectangle(targetSubScene)))
+                    {
+                        targetSubScene.LoadAsset();
+                    }
+                    else
+                    {
+                        targetSubScene.UnloadAsset();
+                    }
                 }
             }
+        }
+
+        private bool WithinCameraRange(Transform subScene)
+        {
+            // カメラからオブジェクトへの方向ベクトルを計算
+            Vector3 directionToSubScene = (subScene.position - camera.transform.position).normalized;
+
+            // カメラの前方向ベクトルを取得
+            Vector3 cameraForward = camera.transform.forward;
+
+            // カメラ前方向とオブジェクト方向の内積を計算
+            float dot = Vector3.Dot(cameraForward, directionToSubScene);
+
+            // 視野角のコサイン値を計算
+            float halfFieldOfViewCos = Mathf.Cos(camera.fieldOfView * Mathf.Deg2Rad);
+
+            // 内積が視野角のコサイン値以上なら視野範囲内
+            return dot >= halfFieldOfViewCos;
         }
 
         private bool NoCheckRectanglesOverlap(SubScene subScene)
@@ -81,11 +120,13 @@ namespace MyAssets
             // カメラの向きに基づき四角形の中心を計算
             Vector3 rectCenter = camera.transform.position + (camera.transform.forward * 0.2f) * rectDistance;
 
+
+
             return new Rect(
-                rectCenter.x - cameraRectWidth / 2f,
-                rectCenter.z - cameraRectWidth / 2f,
-                cameraRectWidth,
-                cameraRectWidth2
+                rectCenter.x - cameraRectWidthX / 2f,
+                rectCenter.z - cameraRectWidthX / 2f,
+                cameraRectWidthX,
+                cameraRectWidthZ
             );
         }
 

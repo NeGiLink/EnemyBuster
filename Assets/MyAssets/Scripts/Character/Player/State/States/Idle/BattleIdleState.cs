@@ -7,6 +7,8 @@ namespace MyAssets
     [System.Serializable]
     public class BattleIdleState : PlayerStateBase
     {
+        private IPlayerStauts stauts;
+
         private IMoveInputProvider input;
 
         private IFocusInputProvider focusInputProvider;
@@ -56,6 +58,7 @@ namespace MyAssets
         public override void DoSetup(IPlayerSetup player)
         {
             base.DoSetup(player);
+            stauts = player.Stauts;
             focusInputProvider = player.gameObject.GetComponent<IFocusInputProvider>();
             input = player.gameObject.GetComponent<IMoveInputProvider>();
             velocity = player.Velocity;
@@ -83,6 +86,16 @@ namespace MyAssets
         {
             base.DoUpdate(time);
             AnimationUpdate();
+
+            if (stauts.SP > 0 && input.Dash > 0 && input.IsMove)
+            {
+                stauts.DecreaseSP(1);
+            }
+            else
+            {
+                stauts.RecoverySP(1);
+            }
+
             rotation.DoUpdate();
         }
 

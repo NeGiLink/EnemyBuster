@@ -164,17 +164,16 @@ namespace MyAssets
     {
         private readonly IPlayerAnimator animator;
 
-        private readonly IJumpInputProvider input;
+        private Timer timer;
 
-        private readonly IFocusInputProvider focusInput;
-        public IsNotRollingTransition(IPlayerSetup actor, IStateChanger<string> stateChanger, string changeKey)
+        public IsNotRollingTransition(IPlayerSetup actor,Timer t, IStateChanger<string> stateChanger, string changeKey)
             : base(stateChanger, changeKey)
         {
             animator = actor.PlayerAnimator;
-            input = actor.gameObject.GetComponent<IJumpInputProvider>();
-            focusInput = actor.gameObject.GetComponent<IFocusInputProvider>();
+            timer = t;
         }
-        public override bool IsTransition() => animator.Animator.GetInteger("Rolling") > -1&&animator.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f;
+        public override bool IsTransition() => animator.Animator.GetInteger("Rolling") > -1&&animator.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f&&
+                                                timer.IsEnd();
     }
 
     /// <summary>

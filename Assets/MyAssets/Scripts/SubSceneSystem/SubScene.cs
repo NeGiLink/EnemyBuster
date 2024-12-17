@@ -16,6 +16,7 @@ namespace MyAssets
         private AsyncOperationHandle handle;
 
         bool load = false;
+        public bool IsLoading => load;
 
         [SerializeField]
         private float objectRectWidth = 100f; // オブジェクトの四角形の幅
@@ -47,7 +48,8 @@ namespace MyAssets
             // オブジェクトのローカル座標系での中心
             Vector3 localCenter = targetSubScene.transform.position;
 
-            Rect rect = new Rect(localCenter.x - objectRectWidth / 2,
+            Rect rect = new Rect(
+                localCenter.x - objectRectWidth / 2,
                 localCenter.z - objectRectWidth / 2,
                 objectRectWidth,
                 objectRectWidth
