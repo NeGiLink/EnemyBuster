@@ -1,12 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
-using static UnityEngine.Rendering.VirtualTexturing.Debugging;
 
 namespace MyAssets
 {
+    //オブジェクトをロードするオブジェクトにアタッチするクラス
+    //AssetReferenceにセットしたオブジェクトをSubSceneLoaderとの処理で読み込み&解放する
     public class SubScene : MonoBehaviour
     {
         [SerializeField]
@@ -18,18 +17,31 @@ namespace MyAssets
         bool load = false;
         public bool IsLoading => load;
 
+        // オブジェクトの四角形の幅
         [SerializeField]
-        private float objectRectWidth = 100f; // オブジェクトの四角形の幅
+        private float objectRectWidth = 100f; 
+        //ロード&アンロードを行う処理を少し送らせるのに使っているタイマー
+        private Timer timer = new Timer();
+
+        private float count = 0.25f;
+
+        public void DoUpdate()
+        {
+            timer.Update(Time.deltaTime);
+        }
 
         public void LoadAsset()
         {
+            if (!timer.IsEnd()) { return; }
             if (handle.IsValid()&& load) { return; }
             handle = reference.InstantiateAsync();
             load = true;
+            timer.Start(count);
         }
 
         public void UnloadAsset()
         {
+            if (!timer.IsEnd()) { return; }
             if (!handle.IsValid())
             {
                 return;
@@ -37,6 +49,7 @@ namespace MyAssets
 
             Addressables.ReleaseInstance(handle);
             load = false;
+            timer.Start(count);
         }
 
         /// <summary>
