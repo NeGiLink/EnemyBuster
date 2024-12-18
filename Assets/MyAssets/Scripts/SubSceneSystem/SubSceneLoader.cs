@@ -53,6 +53,7 @@ namespace MyAssets
         {
             foreach(SubScene targetSubScene in subScenes)
             {
+                targetSubScene.DoUpdate();
                 if (NoCheckRectanglesOverlap(targetSubScene))
                 {
                     if (WithinCameraRange(targetSubScene.transform))

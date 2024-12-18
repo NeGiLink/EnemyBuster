@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8128964795687009745}
   - component: {fileID: 8364208160701568202}
   m_Layer: 0
-  m_Name: StageTrees03
+  m_Name: StageObjects22
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
