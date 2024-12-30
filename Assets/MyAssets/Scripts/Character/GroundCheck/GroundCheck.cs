@@ -27,6 +27,7 @@ namespace MyAssets
 
         [SerializeField]
         private float fallCount = 0;
+        public float FallCount => fallCount;
 
         public bool IsFalling => fallCount >= 0.1f;
 
@@ -35,6 +36,8 @@ namespace MyAssets
 
         private Collider collider;
 
+        private IVelocityComponent velocity;
+
         public void Setup(CharacterBaseController controller)
         {
             collider = controller.gameObject.GetComponent<Collider>();
@@ -42,6 +45,7 @@ namespace MyAssets
             {
                 collider.material = physicMaterialData.Data[(int)PhysicMaterialTag.Landing];
             }
+            velocity = controller.Velocity;
         }
 
         public void DoUpdate()
@@ -78,6 +82,7 @@ namespace MyAssets
 
         public void FallTimeUpdate()
         {
+            if(velocity.Rigidbody.velocity.y > 0) { return; }
             fallCount += Time.deltaTime;
         }
     }

@@ -55,6 +55,7 @@ MonoBehaviour:
     currentVelocity: {x: 0, y: 0, z: 0}
     inheritRigidbodyVelocity: 1
   damageContainer:
+    damageCoolDownCount: 0.15
     data: 0
   groundCheck:
     groundCheckRadius: 0.4
@@ -67,6 +68,7 @@ MonoBehaviour:
     fallCount: 0
     physicMaterialData: {fileID: 11400000, guid: 847aa92f1a8e8b044822fea7587ff168, type: 2}
   property:
+    maxHP: 0
     hp: 100
     maxStoredDamage: 50
     storedDamage: 0
@@ -92,7 +94,7 @@ MonoBehaviour:
     searchingTime: 1
     minChaseDistance: 2.5
   readyAttackState:
-    readyCount: 2
+    readyCount: 1
   attackState:
     movePower: 0.6
   damageState:

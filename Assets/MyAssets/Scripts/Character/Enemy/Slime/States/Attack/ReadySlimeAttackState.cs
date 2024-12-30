@@ -15,6 +15,9 @@ namespace MyAssets
         [SerializeField]
         private float readyCount;
 
+        [SerializeField]
+        private float idleSpeed;
+
         public static readonly string StateKey = "ReadyAttack";
         public override string Key => StateKey;
 
@@ -48,6 +51,11 @@ namespace MyAssets
         {
             base.DoUpdate(time);
             readyTimer.Update(time);
+        }
+        public override void DoFixedUpdate(float time)
+        {
+            base.DoFixedUpdate(time);
+            movement.Move(idleSpeed);
         }
     }
 }

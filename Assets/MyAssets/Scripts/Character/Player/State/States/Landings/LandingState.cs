@@ -14,6 +14,10 @@ namespace MyAssets
 
         private IPlayerAnimator animator;
 
+        private IGroundCheck groundCheck;
+
+        private IDamageContainer damageContainer;
+
         [SerializeField]
         private float moveSpeed;
 
@@ -36,6 +40,8 @@ namespace MyAssets
             movement = actor.Movement;
             velocity = actor.Velocity;
             animator = actor.PlayerAnimator;
+            groundCheck = actor.GroundCheck;
+            damageContainer = actor.DamageContainer;
         }
 
         public override void DoStart()
@@ -48,6 +54,15 @@ namespace MyAssets
             velocity.Rigidbody.velocity = Vector3.zero;
 
             animator.Animator.SetInteger(animator.LandName, 0);
+
+            LandingDamageChack();
+        }
+
+        private void LandingDamageChack()
+        {
+            if(groundCheck.FallCount < 1) { return; }
+            float damage = groundCheck.FallCount * 10f;
+            damageContainer.SetAttackerData((int)damage, AttackType.None, null);
         }
 
         public override void DoUpdate(float time)

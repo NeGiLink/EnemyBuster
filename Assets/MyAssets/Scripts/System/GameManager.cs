@@ -12,6 +12,11 @@ namespace MyAssets
 
         private PlayerInput                 playerInput;
         private MainCameraController        mainCameraController;
+
+
+        [SerializeField]
+        private bool debug = false;
+        public bool Debug => debug;
         //ƒƒCƒ“‚ÌƒQ[ƒ€‚Ì‘€ì‚ğ–³Œø‚É‚·‚é‚©—LŒø‚É‚·‚é‚©‚ÌŠÖ”
         public void ActivatePlayerInput(bool a) 
         {

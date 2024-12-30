@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c88ab5fec26e36d49bdc29662194ccd7, type: 3}
+  m_Name: EnemyLedger
+  m_EditorClassIdentifier: 
+  values:
+  - {fileID: 784908613298810580, guid: 1dd962ff70b294946bd7a746f2ce00ee, type: 3}
+  - {fileID: 784908613298810580, guid: 6c10fef6097335c4b8d7bc6d5ec0d1dd, type: 3}
+  - {fileID: 338109807091923986, guid: 5a08c44918ad2eb479774980e6aef8bd, type: 3}
