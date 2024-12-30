@@ -6,7 +6,7 @@ namespace MyAssets
 {
     public interface IAllPlayerCamera
     {
-        void Setup(PlayerUsesCamera controller);
+        void Setup(InputControllCamera controller);
 
         void Start();
         void CameraUpdate();

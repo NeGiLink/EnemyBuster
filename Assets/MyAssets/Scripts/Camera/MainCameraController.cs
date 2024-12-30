@@ -9,17 +9,27 @@ namespace MyAssets
         List<CinemachineVirtualCamera> VirtualCameras {  get; }
 
         GameObject MainCamera { get; }
+
+        Transform TargetTransform { get; }
     }
     public class MainCameraController : MonoBehaviour, IMainCameraProvider
     {
         [SerializeField]
         private GameObject mainCamera;
         public GameObject MainCamera => mainCamera;
+
         [SerializeField]
         private List<CinemachineVirtualCamera> virtualCameras = new List<CinemachineVirtualCamera>();
         public List<CinemachineVirtualCamera> VirtualCameras => virtualCameras;
 
         private List<int> virtualCameraPrioritys = new List<int>();
+
+        [SerializeField]
+        private Transform targetTransform;
+        public Transform TargetTransform => targetTransform;
+
+        [SerializeField]
+        private InputControllCamera inputControllCamera;
 
         public void ActivateAllCamera(bool a)
         {
@@ -39,14 +49,6 @@ namespace MyAssets
             }
         }
 
-        [SerializeField]
-        private Transform cameraUseTransform;
-
-        [SerializeField]
-        private LayerMask layerMask;
-
-        [SerializeField]
-        private PlayerUsesCamera playerUsesCamera;
 
         private void Awake()
         {
@@ -62,14 +64,14 @@ namespace MyAssets
 
             if(player != null)
             {
-                cameraUseTransform = player.transform;
+                targetTransform = player.transform;
             }
             else
             {
                 Debug.LogError("cameraUseTransformÇ™éÊìæèoóàÇ‹ÇπÇÒÇ≈ÇµÇΩÅB");
             }
 
-            playerUsesCamera.Setup(player,this);
+            inputControllCamera.Setup(player,this);
         }
         // Start is called before the first frame update
         void Start()
@@ -79,13 +81,13 @@ namespace MyAssets
                 virtualCameraPrioritys.Add(cam.Priority);
             }
 
-            playerUsesCamera.DoStart();
+            inputControllCamera.DoStart();
         }
 
         // Update is called once per frame
         void Update()
         {
-            playerUsesCamera.DoUpdate();
+            inputControllCamera.DoUpdate();
         }
     }
 

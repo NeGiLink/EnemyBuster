@@ -10,5 +10,7 @@ namespace MyAssets
         void FallTimeUpdate();
 
         bool IsFalling { get;}
+
+        float FallCount {  get;}
     }
 }
