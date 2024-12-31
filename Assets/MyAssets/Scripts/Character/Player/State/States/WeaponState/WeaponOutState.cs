@@ -65,7 +65,7 @@ namespace MyAssets
             base.DoTriggerEnter(thisObject,collider);
             AttackObject data = collider.GetComponent<AttackObject>();
             if (data == null) { return; }
-            damageContainer.SetAttackerData(data.Power, data.Type, collider.transform);
+            damageContainer.GiveYouDamage(data.Power, data.Type, collider.transform);
         }
     }
 }

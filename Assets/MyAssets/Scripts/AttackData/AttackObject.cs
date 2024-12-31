@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace MyAssets
 {
-    public enum AttackType
+    public enum DamageType
     {
         None = -1,
         Small,
@@ -19,7 +19,7 @@ namespace MyAssets
 
         public int Power => data.AttackDataInfo[attackTypeCount].power;
 
-        public AttackType Type => data.AttackDataInfo[attackTypeCount].attackType;
+        public DamageType Type => data.AttackDataInfo[attackTypeCount].attackType;
 
         [SerializeField]
         private AttackData data;

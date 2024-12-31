@@ -48,7 +48,7 @@ namespace MyAssets
             damageCoolDownTimer.Update(Time.deltaTime);
             if (!damageCoolDownTimer.IsEnd()) 
             {
-                damageContainer.SetAttackerData(0, AttackType.None, null);
+                damageContainer.GiveYouDamage(0, DamageType.None, null);
                 return; 
             }
             DamageUI();
@@ -56,10 +56,10 @@ namespace MyAssets
 
         private void DamageUI()
         {
-            if(damageContainer.AttackType == AttackType.None) { return; }
+            if(damageContainer.AttackType == DamageType.None) { return; }
             damageCoolDownTimer.Start(0.25f);
             GameManager.Instance.DamageTextCreator.Crate(transform, damageContainer.Data);
-            damageContainer.SetAttackerData(0, AttackType.None, null);
+            damageContainer.GiveYouDamage(0, DamageType.None, null);
         }
     }
 }

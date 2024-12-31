@@ -44,6 +44,12 @@ namespace MyAssets
             sword = player.Equipment.HaveWeapon?.GetComponent<SwordController>();
         }
 
+        public override void DoStart()
+        {
+            base.DoStart();
+            sword.SetAttackType(AttackType.Succession);
+        }
+
         public override void DoUpdate(float time)
         {
             sword.EnabledCollider(0, 0, true);
@@ -68,7 +74,7 @@ namespace MyAssets
             base.DoTriggerEnter(thisObject,collider);
             AttackObject data = collider.GetComponent<AttackObject>();
             if (data == null) { return; }
-            damageContainer.SetAttackerData(data.Power, AttackType.Small, collider.transform);
+            damageContainer.GiveYouDamage(data.Power, DamageType.Small, collider.transform);
         }
 
     }

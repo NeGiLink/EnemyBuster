@@ -157,7 +157,7 @@ namespace MyAssets
             {
                 return;
             }
-            damageContainer.SetAttackerData(data.Power, data.Type, collider.transform);
+            damageContainer.GiveYouDamage(data.Power, data.Type, collider.transform);
         }
     }
 }

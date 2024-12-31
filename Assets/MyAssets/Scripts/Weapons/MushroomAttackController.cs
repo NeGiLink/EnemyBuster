@@ -11,7 +11,7 @@ namespace MyAssets
         private AttackObject attackObject;
 
         [SerializeField]
-        private ISlimeAnimator animator;
+        private IMushroomAnimator animator;
 
         [SerializeField]
         private LayerMask hitLayer;
@@ -28,11 +28,11 @@ namespace MyAssets
         {
             attackObject = GetComponent<AttackObject>();
 
-            SlimeController controller = GetComponentInParent<SlimeController>();
+            MushroomController controller = GetComponentInParent<MushroomController>();
 
             if (controller != null)
             {
-                animator = controller.SlimeAnimator;
+                animator = controller.MushroomAnimator;
             }
 
             collider = GetComponent<Collider>();
@@ -48,36 +48,17 @@ namespace MyAssets
             if (all)
             {
                 collider.enabled = true;
-                /*
-                Ray ray = new Ray(transform.position, transform.up);
-                RaycastHit hit;
-                if (Physics.SphereCast(ray, radius, out hit, dis, hitLayer))
-                {
-                    ICharacterSetup characterSetup = hit.collider.GetComponent<ICharacterSetup>();
-                    if (characterSetup == null) { return; }
-                    IDamageContainer damageContainer = characterSetup.DamageContainer;
-                    if (damageContainer == null) { return; }
-                    damageContainer.SetAttackType(attackObject.Type);
-                    damageContainer.SetData(attackObject.Power);
-                    damageContainer.SetAttacker(transform);
-                }
-                 */
             }
             else
             {
                 AnimatorStateInfo animInfo = animator.Animator.GetCurrentAnimatorStateInfo(0);
                 if (animInfo.normalizedTime >= start && animInfo.normalizedTime <= end)
                 {
-                    Ray ray = new Ray(transform.position, transform.up);
-                    RaycastHit hit;
-                    if (Physics.SphereCast(ray, radius, out hit, dis, hitLayer))
-                    {
-                        ICharacterSetup characterSetup = hit.collider.GetComponent<ICharacterSetup>();
-                        if (characterSetup == null) { return; }
-                        IDamageContainer damageContainer = characterSetup.DamageContainer;
-                        if (damageContainer == null) { return; }
-                        damageContainer.SetAttackerData(attackObject.Power, attackObject.Type, transform);
-                    }
+                    collider.enabled = true;
+                }
+                else
+                {
+                    collider.enabled = false;
                 }
             }
         }

@@ -55,7 +55,7 @@ MonoBehaviour:
     currentVelocity: {x: 0, y: 0, z: 0}
     inheritRigidbodyVelocity: 1
   damageContainer:
-    damageCoolDownCount: 0.15
+    damageCoolDownCount: 0.1
     data: 0
   groundCheck:
     groundCheckRadius: 0.4
@@ -95,6 +95,7 @@ MonoBehaviour:
     minChaseDistance: 2.5
   readyAttackState:
     readyCount: 1.5
+    idleSpeed: 0
   attackState:
     movePower: 0.6
   damageState:
