@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace MyAssets
@@ -23,6 +24,11 @@ namespace MyAssets
 
         [SerializeField]
         private new Collider collider;
+
+        private List<IDamageContainer> damagers = new List<IDamageContainer>();
+
+        private AttackType attackType = AttackType.Single;
+        public void SetAttackType(AttackType type) {  attackType = type; }
 
         private void Awake()
         {
@@ -80,30 +86,49 @@ namespace MyAssets
                     }
                      */
                 }
+                else
+                {
+                    collider.enabled = false;
+                }
             }
         }
         public void NotEnabledCollider()
         {
             collider.enabled = false;
         }
-
-        //球状のRayを可視化
-        /*
-        void OnDrawGizmos()
-        {
-            Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(transform.position + transform.up * dis, radius);
-        }
-
-         */
         private void OnTriggerEnter(Collider other)
         {
+            if(attackType == AttackType.Succession) { return; }
             if(other.gameObject.layer != 8) { return; }
             ICharacterSetup characterSetup = other.GetComponent<ICharacterSetup>();
             if (characterSetup == null) { return; }
             IDamageContainer damageContainer = characterSetup.DamageContainer;
             if (damageContainer == null) { return; }
-            damageContainer.SetAttackerData(attackObject.Power, attackObject.Type, transform);
+            //すでに当たった相手かチェック
+            for (int i = 0; i < damagers.Count; i++)
+            {
+                if (damagers[i] == damageContainer) { return; }
+            }
+
+            damageContainer.GiveYouDamage(attackObject.Power, attackObject.Type, transform);
+            damagers.Add(damageContainer);
+        }
+
+        private void OnTriggerStay(Collider other)
+        {
+            if (attackType == AttackType.Single) { return; }
+            if (other.gameObject.layer != 8) { return; }
+            ICharacterSetup characterSetup = other.GetComponent<ICharacterSetup>();
+            if (characterSetup == null) { return; }
+            IDamageContainer damageContainer = characterSetup.DamageContainer;
+            if (damageContainer == null) { return; }
+            damageContainer.GiveYouDamage(attackObject.Power, attackObject.Type, transform);
+            damagers.Add(damageContainer);
+        }
+
+        public void DamagerReset()
+        {
+            damagers.Clear();
         }
 
     }

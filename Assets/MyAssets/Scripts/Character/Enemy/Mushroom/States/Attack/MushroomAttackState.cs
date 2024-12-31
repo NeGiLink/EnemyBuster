@@ -46,7 +46,7 @@ namespace MyAssets
 
         public override void DoUpdate(float time)
         {
-            attackObject.EnabledCollider(0f, 0f, true);
+            attackObject.EnabledCollider(0.5f, 0.8f, false);
             base.DoUpdate(time);
         }
 

@@ -66,22 +66,22 @@ namespace MyAssets
             base.DoStart();
             velocity.Rigidbody.velocity = Vector3.zero;
 
-            AttackType type = damageContainer.AttackType;
+            DamageType type = damageContainer.AttackType;
             int damageType = -1;
             if (groundCheck.Landing)
             {
                 switch (type)
                 {
-                    case AttackType.Small:
+                    case DamageType.Small:
                         damageType = -1;
                         Debug.Log("è¨É_ÉÅÅ[ÉWí Ç¡ÇΩ");
                         break;
-                    case AttackType.Middle:
+                    case DamageType.Middle:
                         damageType = 0;
                         damageMove.AddForceMove(thisTransform.position, damageContainer.Attacker.position, knockBack * 1.5f);
                         damageTimer.Start(1.0f);
                         break;
-                    case AttackType.Big:
+                    case DamageType.Big:
                         damageType = 1;
                         damageMove.AddForceMove(thisTransform.position, damageContainer.Attacker.position, knockBack * 4.0f);
                         damageTimer.Start(1.5f);
@@ -115,7 +115,7 @@ namespace MyAssets
         public override void DoExit()
         {
             base.DoExit();
-            damageContainer.SetAttackerData(0, AttackType.None, null);
+            damageContainer.GiveYouDamage(0, DamageType.None, null);
             animator.Animator.SetInteger("Impact", -1);
             stauts.ClearStoredDamage();
         }

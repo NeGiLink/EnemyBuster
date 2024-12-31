@@ -13,9 +13,9 @@ namespace MyAssets
         public void SetData(int d) { data = d; }
         public int Data => data;
 
-        private AttackType attackType = AttackType.None;
-        public void SetAttackType(AttackType type) { attackType = type; }
-        public AttackType AttackType => attackType;
+        private DamageType attackType = DamageType.None;
+        public void SetAttackType(DamageType type) { attackType = type; }
+        public DamageType AttackType => attackType;
 
         private Transform attacker;
         public void SetAttacker(Transform t) { attacker = t; }
@@ -31,15 +31,12 @@ namespace MyAssets
             thisTransform = chara.gameObject.transform;
         }
 
-        public void SetAttackerData(int power, AttackType type, Transform transform)
+        public void GiveYouDamage(int power, DamageType type, Transform transform)
         {
             if(baseStauts.HP <= 0) { return; }
             if (!baseStauts.InvincibilityTimer.IsEnd()) { return; }
             baseStauts.DecreaseAndDeathCheck(power);
-            if (power > 0)
-            {
-                GameManager.Instance.DamageTextCreator.Crate(thisTransform, power);
-            }
+            DamageTextOutput(power);
             if (baseStauts.IsMaxStoredDamage(power))
             {
                 data = power;
@@ -49,7 +46,15 @@ namespace MyAssets
             baseStauts.InvincibilityTimer.Start(damageCoolDownCount);
         }
 
-        public void Recoil(AttackType type, Transform t)
+        public void DamageTextOutput(int power)
+        {
+            if (power > 0)
+            {
+                GameManager.Instance.DamageTextCreator.Crate(thisTransform, power);
+            }
+        }
+
+        public void Recoil(DamageType type, Transform t)
         {
             attackType = type;
             attacker = t;

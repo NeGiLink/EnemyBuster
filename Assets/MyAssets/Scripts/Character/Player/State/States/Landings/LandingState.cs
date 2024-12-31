@@ -62,7 +62,7 @@ namespace MyAssets
         {
             if(groundCheck.FallCount < 1) { return; }
             float damage = groundCheck.FallCount * 10f;
-            damageContainer.SetAttackerData((int)damage, AttackType.None, null);
+            damageContainer.GiveYouDamage((int)damage, DamageType.None, null);
         }
 
         public override void DoUpdate(float time)

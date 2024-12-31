@@ -75,7 +75,7 @@ namespace MyAssets
                         if (characterSetup == null) { return; }
                         IDamageContainer damageContainer = characterSetup.DamageContainer;
                         if (damageContainer == null) { return; }
-                        damageContainer.SetAttackerData(attackObject.Power, attackObject.Type, transform);
+                        damageContainer.GiveYouDamage(attackObject.Power, attackObject.Type, transform);
                     }
                 }
             }

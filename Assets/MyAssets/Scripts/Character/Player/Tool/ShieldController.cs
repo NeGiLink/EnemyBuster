@@ -54,7 +54,7 @@ namespace MyAssets
                     IDamageContainer damageContainer = characterSetup.DamageContainer;
                     if (damageContainer != null) 
                     {
-                        damageContainer.Recoil( AttackType.Middle, transform);
+                        damageContainer.Recoil( DamageType.Middle, transform);
                     }
                 }
                 return true;

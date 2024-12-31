@@ -83,6 +83,7 @@ namespace MyAssets
         public override void DoStart()
         {
             base.DoStart();
+            sword.SetAttackType(AttackType.Single);
             animator.Animator.SetInteger(animator.AttacksName, (int)NormalAttackState.First);
             velocity.Rigidbody.velocity = Vector3.zero;
             baseTransform = transform.position;
@@ -113,6 +114,7 @@ namespace MyAssets
             base.DoExit();
             animator.Animator.SetInteger(animator.AttacksName, (int)NormalAttackState.None);
             sword.NotEnabledCollider();
+            sword.DamagerReset();
         }
 
         public override void DoTriggerEnter(GameObject thisObject,Collider collider)
@@ -121,7 +123,7 @@ namespace MyAssets
             AttackObject data = collider.GetComponent<AttackObject>();
             if (data == null) { return; }
             //TODO : 状態を変更せずにダメージを与える処理を追加
-            damageContainer.SetAttackerData(data.Power, AttackType.Small, collider.transform);
+            damageContainer.GiveYouDamage(data.Power, DamageType.Small, collider.transform);
         }
     }
     [System.Serializable]
@@ -182,6 +184,7 @@ namespace MyAssets
         public override void DoStart()
         {
             base.DoStart();
+            sword.SetAttackType(AttackType.Single);
             animator.Animator.SetInteger(animator.AttacksName, (int)NormalAttackState.Second);
             velocity.Rigidbody.velocity = Vector3.zero;
             baseTransform = transform.position;
@@ -211,6 +214,7 @@ namespace MyAssets
             base.DoExit();
             animator.Animator.SetInteger(animator.AttacksName, (int)NormalAttackState.None);
             sword.NotEnabledCollider();
+            sword.DamagerReset();
         }
 
         public override void DoTriggerEnter(GameObject thisObject,Collider collider)
@@ -218,7 +222,7 @@ namespace MyAssets
             base.DoTriggerEnter(thisObject,collider);
             AttackObject data = collider.GetComponent<AttackObject>();
             if (data == null) { return; }
-            damageContainer.SetAttackerData(data.Power, AttackType.Small, collider.transform);
+            damageContainer.GiveYouDamage(data.Power, DamageType.Small, collider.transform);
         }
     }
 
@@ -288,6 +292,7 @@ namespace MyAssets
         public override void DoStart()
         {
             base.DoStart();
+            sword.SetAttackType(AttackType.Single);
             animator.Animator.SetInteger(animator.AttacksName, (int)NormalAttackState.SecondDer);
             velocity.Rigidbody.velocity = Vector3.zero;
             baseTransform = transform.position;
@@ -322,6 +327,7 @@ namespace MyAssets
             base.DoExit();
             animator.Animator.SetInteger(animator.AttacksName, (int)NormalAttackState.None);
             sword.NotEnabledCollider();
+            sword.DamagerReset();
         }
 
         public override void DoTriggerEnter(GameObject thisObject, Collider collider)
@@ -329,7 +335,7 @@ namespace MyAssets
             base.DoTriggerEnter(thisObject, collider);
             AttackObject data = collider.GetComponent<AttackObject>();
             if (data == null) { return; }
-            damageContainer.SetAttackerData(data.Power, AttackType.Small, collider.transform);
+            damageContainer.GiveYouDamage(data.Power, DamageType.Small, collider.transform);
         }
     }
 
@@ -385,6 +391,7 @@ namespace MyAssets
         public override void DoStart()
         {
             base.DoStart();
+            sword.SetAttackType(AttackType.Single);
             animator.Animator.SetInteger(animator.AttacksName, (int)NormalAttackState.Third);
             velocity.Rigidbody.velocity = Vector3.zero;
             baseTransform = transform.position;
@@ -415,13 +422,14 @@ namespace MyAssets
             base.DoExit();
             animator.Animator.SetInteger(animator.AttacksName, (int)NormalAttackState.None);
             sword.NotEnabledCollider();
+            sword.DamagerReset();
         }
         public override void DoTriggerEnter(GameObject thisObject,Collider collider)
         {
             base.DoTriggerEnter(thisObject,collider);
             AttackObject data = collider.GetComponent<AttackObject>();
             if (data == null) { return; }
-            damageContainer.SetAttackerData(data.Power, AttackType.Small, collider.transform);
+            damageContainer.GiveYouDamage(data.Power, DamageType.Small, collider.transform);
         }
 
     }

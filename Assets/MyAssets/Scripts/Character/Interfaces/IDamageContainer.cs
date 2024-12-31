@@ -8,14 +8,14 @@ namespace MyAssets
 
         void SetData(int d);
 
-        AttackType AttackType { get; }
-        void SetAttackType(AttackType attackType);
+        DamageType AttackType { get; }
+        void SetAttackType(DamageType attackType);
 
         Transform Attacker { get; }
         void SetAttacker(Transform t);
 
-        void SetAttackerData(int power, AttackType type, Transform transform);
+        void GiveYouDamage(int power, DamageType type, Transform transform);
 
-        void Recoil(AttackType type, Transform t);
+        void Recoil(DamageType type, Transform t);
     }
 }

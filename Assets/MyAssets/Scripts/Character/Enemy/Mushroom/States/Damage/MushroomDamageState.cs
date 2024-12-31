@@ -65,7 +65,7 @@ namespace MyAssets
 
             velocity.Rigidbody.velocity = Vector3.zero;
 
-            AttackType type = damageContainer.AttackType;
+            DamageType type = damageContainer.AttackType;
             int damageType = 0;
             damageMove.AddForceMove(thisTransform.position, damageContainer.Attacker.position, knockBack * 1.0f);
             damageTimer.Start(damageIdleCount);
@@ -99,7 +99,7 @@ namespace MyAssets
         {
             base.DoExit();
             fieldOfView.SetAllSearch(false);
-            damageContainer.SetAttackerData(0, AttackType.None, null);
+            damageContainer.GiveYouDamage(0, DamageType.None, null);
             animator.Animator.SetInteger("Impact", -1);
             stauts.ClearStoredDamage();
         }

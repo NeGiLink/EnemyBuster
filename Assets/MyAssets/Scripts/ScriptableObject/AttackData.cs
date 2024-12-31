@@ -8,7 +8,7 @@ namespace MyAssets
     {
         public int power;
 
-        public AttackType attackType;
+        public DamageType attackType;
     }
 
     [CreateAssetMenu(fileName = "AttackData", menuName = "ScriptableObjects/AttackData", order = 1)]
