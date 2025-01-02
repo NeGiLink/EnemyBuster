@@ -93,7 +93,7 @@ namespace MyAssets
 
             animator.UpdateWeight();
 
-            if (fieldOfView.TargetObject != null)
+            if (fieldOfView.FindTarget)
             {
                 animator.Animator.SetFloat(animator.AlertLevelName, 1.0f,0.1f,Time.deltaTime);
             }
@@ -124,14 +124,6 @@ namespace MyAssets
         {
             base.DoAnimatorIKUpdate();
             ik.DoFootIKUpdate();
-        }
-
-        public override void DoTriggerEnter(GameObject thisObject,Collider collider)
-        {
-            base.DoTriggerEnter(thisObject,collider);
-            AttackObject data = collider.GetComponent<AttackObject>();
-            if(data == null) { return; }
-            damageContainer.GiveYouDamage(data.Power, data.Type, collider.transform);
         }
     }
 }

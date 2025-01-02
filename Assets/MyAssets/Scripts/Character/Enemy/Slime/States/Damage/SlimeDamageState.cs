@@ -67,6 +67,11 @@ namespace MyAssets
             damageMove.AddForceMove(thisTransform.position, damageContainer.Attacker.position, knockBack * 1.0f);
             damageTimer.Start(damageIdleCount);
             animator.Animator.SetInteger("Impact", damageType);
+            if(damageContainer.Data > 0)
+            {
+                float scale = (float)stauts.HP / stauts.MaxHP;
+                thisTransform.localScale *= scale;
+            }
         }
 
         private void FoundTarget()

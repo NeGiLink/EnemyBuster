@@ -134,12 +134,6 @@ namespace MyAssets
             base.DoLateUpdate(time);
             ik.DoHeadIKUpdate();
         }
-        public override void DoTriggerEnter(GameObject thisObject,Collider collider)
-        {
-            base.DoTriggerEnter(thisObject,collider);
-            AttackObject data = collider.GetComponent<AttackObject>();
-            if (data == null) { return; }
-            damageContainer.GiveYouDamage(data.Power, data.Type, collider.transform);
-        }
+
     }
 }

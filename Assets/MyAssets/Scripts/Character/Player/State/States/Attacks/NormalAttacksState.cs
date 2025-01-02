@@ -25,7 +25,10 @@ namespace MyAssets
         Third,
         JumpAttack,
     }
-
+    /// <summary>
+    /// プレイヤーの通常時の攻撃をまとめたクラス
+    /// 現在は三段攻撃
+    /// </summary>
     [System.Serializable]
     public class FirstAttackState : PlayerStateBase
     {
@@ -91,7 +94,7 @@ namespace MyAssets
 
         public override void DoUpdate(float time)
         {
-            sword.EnabledCollider(0.0f, 0.6f, false);
+            sword.EnabledCollider(0.1f, 0.6f, false);
             base.DoUpdate(time);
         }
 
@@ -114,16 +117,6 @@ namespace MyAssets
             base.DoExit();
             animator.Animator.SetInteger(animator.AttacksName, (int)NormalAttackState.None);
             sword.NotEnabledCollider();
-            sword.DamagerReset();
-        }
-
-        public override void DoTriggerEnter(GameObject thisObject,Collider collider)
-        {
-            base.DoTriggerEnter(thisObject,collider);
-            AttackObject data = collider.GetComponent<AttackObject>();
-            if (data == null) { return; }
-            //TODO : 状態を変更せずにダメージを与える処理を追加
-            damageContainer.GiveYouDamage(data.Power, DamageType.Small, collider.transform);
         }
     }
     [System.Serializable]
@@ -192,7 +185,7 @@ namespace MyAssets
 
         public override void DoUpdate(float time)
         {
-            sword.EnabledCollider(0.0f,0.5f, false);
+            sword.EnabledCollider(0.1f,0.6f, false);
             base.DoUpdate(time);
         }
 
@@ -214,16 +207,9 @@ namespace MyAssets
             base.DoExit();
             animator.Animator.SetInteger(animator.AttacksName, (int)NormalAttackState.None);
             sword.NotEnabledCollider();
-            sword.DamagerReset();
         }
 
-        public override void DoTriggerEnter(GameObject thisObject,Collider collider)
-        {
-            base.DoTriggerEnter(thisObject,collider);
-            AttackObject data = collider.GetComponent<AttackObject>();
-            if (data == null) { return; }
-            damageContainer.GiveYouDamage(data.Power, DamageType.Small, collider.transform);
-        }
+
     }
 
     [System.Serializable]
@@ -303,7 +289,7 @@ namespace MyAssets
 
         public override void DoUpdate(float time)
         {
-            sword.EnabledCollider(0.0f, 0.5f, false);
+            sword.EnabledCollider(0.1f, 0.5f, false);
             base.DoUpdate(time);
             jumpStartTimer.Update(time);
         }
@@ -327,16 +313,9 @@ namespace MyAssets
             base.DoExit();
             animator.Animator.SetInteger(animator.AttacksName, (int)NormalAttackState.None);
             sword.NotEnabledCollider();
-            sword.DamagerReset();
         }
 
-        public override void DoTriggerEnter(GameObject thisObject, Collider collider)
-        {
-            base.DoTriggerEnter(thisObject, collider);
-            AttackObject data = collider.GetComponent<AttackObject>();
-            if (data == null) { return; }
-            damageContainer.GiveYouDamage(data.Power, DamageType.Small, collider.transform);
-        }
+
     }
 
     [System.Serializable]
@@ -399,7 +378,7 @@ namespace MyAssets
 
         public override void DoUpdate(float time)
         {
-            sword.EnabledCollider(0.0f,1.0f,true);
+            sword.EnabledCollider(0.2f,0.6f,false);
             base.DoUpdate(time);
         }
 
@@ -422,15 +401,8 @@ namespace MyAssets
             base.DoExit();
             animator.Animator.SetInteger(animator.AttacksName, (int)NormalAttackState.None);
             sword.NotEnabledCollider();
-            sword.DamagerReset();
         }
-        public override void DoTriggerEnter(GameObject thisObject,Collider collider)
-        {
-            base.DoTriggerEnter(thisObject,collider);
-            AttackObject data = collider.GetComponent<AttackObject>();
-            if (data == null) { return; }
-            damageContainer.GiveYouDamage(data.Power, DamageType.Small, collider.transform);
-        }
+
 
     }
 }

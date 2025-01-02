@@ -6,6 +6,7 @@ namespace MyAssets
 {
     public enum AttackType
     {
+        Null,
         Single,
         Succession
     }

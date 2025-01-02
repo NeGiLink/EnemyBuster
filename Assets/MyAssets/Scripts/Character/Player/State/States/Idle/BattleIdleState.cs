@@ -108,7 +108,7 @@ namespace MyAssets
 
             animator.UpdateWeight();
 
-            if (fieldOfView.TargetObject != null)
+            if (fieldOfView.FindTarget)
             {
                 animator.Animator.SetFloat(animator.AlertLevelName, 1.0f, 0.1f, Time.deltaTime);
             }
@@ -147,17 +147,6 @@ namespace MyAssets
             animator.Animator.SetFloat(animator.BattleModeName, 0.0f);
             animator.SetWeight(false, 1);
             equipment.ShieldTool.ShieldClose();
-        }
-        public override void DoTriggerEnter(GameObject thisObject,Collider collider)
-        {
-            base.DoTriggerEnter(thisObject,collider);
-            AttackObject data = collider.GetComponent<AttackObject>();
-            if (data == null) { return; }
-            if (equipment.ShieldTool.IsGuarid(collider.transform,thisObject.transform))
-            {
-                return;
-            }
-            damageContainer.GiveYouDamage(data.Power, data.Type, collider.transform);
         }
     }
 }

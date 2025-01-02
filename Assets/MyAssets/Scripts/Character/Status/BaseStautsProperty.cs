@@ -54,6 +54,11 @@ namespace MyAssets
         private Timer invincibilityTimer = new Timer();
         public Timer InvincibilityTimer => invincibilityTimer;
 
+        public virtual void Setup()
+        {
+            hp = maxHP;
+        }
+
         public virtual void DoUpdate(float time)
         {
             invincibilityTimer.Update(time);

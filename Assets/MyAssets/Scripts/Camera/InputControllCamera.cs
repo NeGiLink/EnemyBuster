@@ -180,7 +180,7 @@ namespace MyAssets
         public void CameraUpdate()
         {
 
-            if(fieldOfView.TargetObject?.transform != null&& mainCameraProvider.VirtualCameras[(int)CameraTag.Target].LookAt == null)
+            if(fieldOfView.FindTarget && mainCameraProvider.VirtualCameras[(int)CameraTag.Target].LookAt == null)
             {
                 mainCameraProvider.VirtualCameras[(int)CameraTag.Target].LookAt = fieldOfView.TargetObject.transform;
             }

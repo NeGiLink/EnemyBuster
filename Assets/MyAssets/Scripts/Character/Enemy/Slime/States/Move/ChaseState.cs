@@ -16,9 +16,7 @@ namespace MyAssets
 
         private ISlimeAnimator animator;
 
-        Timer currentSearchinTimer = new Timer();
-        GameObject targetObject;
-        Vector3 targetLastPoint;
+        private ISlimeRotation rotation;
 
         [SerializeField]
         float moveSpeed = 4;
@@ -54,71 +52,52 @@ namespace MyAssets
             fieldOfView = enemy.gameObject.GetComponent<FieldOfView>();
             animator = enemy.SlimeAnimator;
             damageContainer = enemy.DamageContainer;
-        }
-
-        public override void DoStart()
-        {
-            if (fieldOfView.TryGetFirstObject(out targetObject))
-            {
-                targetLastPoint = targetObject.transform.position;
-            }
-            currentSearchinTimer.End();
-        }
-
-        void TargetUpdate()
-        {
-            //今追っかけてるオブジェクトが見える
-            if (fieldOfView.IsInside(targetObject))
-            {
-                targetLastPoint = targetObject.transform.position;
-                currentSearchinTimer.End();
-                return;
-            }
-
-            //見えないなら
-
-            //新しいオブジェクトが見えたらそちらを追いかけるように切り替える
-            if (fieldOfView.TryGetFirstObject(out var obj))
-            {
-                targetObject = obj;
-                targetLastPoint = targetObject.transform.position;
-                currentSearchinTimer.End();
-                return;
-            }
-
-            //新しいオブジェクトもいないなら,一定時間で終了するためタイマースタート
-            if (currentSearchinTimer.IsEnd())
-            {
-                currentSearchinTimer.Start(searchingTime);
-            }
+            rotation = enemy.SlimeRotation;
         }
 
         public override void DoFixedUpdate(float time)
         {
             base.DoFixedUpdate(time);
-            TargetUpdate();
-            currentSearchinTimer.Update(time);
 
-            Vector3 targetVec = targetLastPoint - thisTransform.position;
+            Vector3 targetVec = fieldOfView.TargetLastPoint - thisTransform.position;
             targetVec.y = 0.0f;
             float targetDistance = targetVec.magnitude;
             if (targetDistance < minChaseDistance)
             {
-                animator.Animator.SetInteger("Move", Define.Zero);
-                animator.Animator.SetInteger(animator.AttacksName, Define.Zero);
+                animator.Animator.SetInteger(animator.MoveName, Define.Zero);
+                if(TargetOnTheFrontCheck(fieldOfView.TargetObject.transform))
+                {
+                    animator.Animator.SetInteger(animator.AttacksName, Define.Zero);
+
+                }
+                else
+                {
+                    rotation.DoLookOnTarget(fieldOfView.TargetObject.transform);
+                }
                 movement.Move(0f);
             }
             else
             {
-                animator.Animator.SetInteger("Move", 1);
-                movement.MoveTo(targetLastPoint, moveSpeed, moveSpeedChangeRate, rotationSpeed, time);
+                animator.Animator.SetInteger(animator.MoveName, 1);
+                movement.MoveTo(fieldOfView.TargetLastPoint, moveSpeed, moveSpeedChangeRate, rotationSpeed, time);
             }
+        }
+
+        private bool TargetOnTheFrontCheck(Transform target)
+        {
+            Vector3 ev = thisTransform.position - target.position;
+            ev.Normalize();
+            Vector3 worldFrontDirection = target.transform.TransformDirection(Vector3.forward).normalized;
+
+            // 内積を計算
+            float dotFront = Vector3.Dot(worldFrontDirection, ev);
+            return dotFront > 0.25;
         }
 
         public override void DoExit()
         {
             base.DoExit();
-            animator.Animator.SetInteger("Move", Define.Zero);
+            animator.Animator.SetInteger(animator.MoveName, Define.Zero);
             movement.Move(0f);
         }
 

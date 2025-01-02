@@ -80,9 +80,8 @@ namespace MyAssets
             }
             else if (focusInput.Foucus > Define.Zero)
             {
-                if(fieldOfView.TargetObject != null)
+                if(fieldOfView.FindTarget)
                 {
-                    if (fieldOfView.TargetObject == null) { return; }
                     DoLookOnTarget(fieldOfView.TargetObject.transform.position);
                 }
                 else
@@ -133,12 +132,6 @@ namespace MyAssets
             }
 
             thisTransform.rotation = Quaternion.RotateTowards(thisTransform.rotation, targetRotation, rotationSpeed);
-        }
-
-        public void DoTargetLookOnMode()
-        {
-            if (fieldOfView.TargetObject == null) { return; }
-            DoLookOnTarget(fieldOfView.TargetObject.transform.position);
         }
 
         public void OverTheShoulder()
