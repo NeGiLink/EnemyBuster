@@ -44,7 +44,7 @@ namespace MyAssets
 
         private void DoUpdate()
         {
-            if (GameController.Instance.IsEnd) { return; }
+            if (AllEnemyKillController.Instance.IsEnd) { return; }
             Spawn();
         }
 
@@ -69,7 +69,7 @@ namespace MyAssets
 
         private void Spawn()
         {
-            if (SpawnCount.Count >= maxSpawnCount) { return; }
+            if (!AllEnemyKillController.Instance.WaveChange) { return; }
             int enemyIndex = Random.Range(0,(int)EnemyTag.Count);
             int spawnIndex = SelectSpawnPoint();
             CharacterBaseController enemy = Instantiate(enemyLedger[enemyIndex], spawnPoint[spawnIndex].transform.position, spawnPoint[spawnIndex].transform.rotation);

@@ -126,18 +126,5 @@ namespace MyAssets
             animator.SetWeight(false, 1);
             equipment.ShieldTool.ShieldClose();
         }
-
-        public override void DoTriggerEnter(GameObject thisObject,Collider collider)
-        {
-            base.DoTriggerEnter(thisObject,collider);
-            AttackObject data = collider.GetComponent<AttackObject>();
-            if (data == null) { return; }
-
-            if (equipment.ShieldTool.IsGuarid(collider.transform, thisObject.transform)){
-                return;
-            }
-            
-            damageContainer.GiveYouDamage(data.Power, data.Type, collider.transform);
-        }
     }
 }

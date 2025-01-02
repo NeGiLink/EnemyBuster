@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2582528216082656553}
-  - component: {fileID: 784908613298810580}
   - component: {fileID: 3480960216601941786}
   - component: {fileID: 7883722808006830120}
+  - component: {fileID: 784908613298810580}
   - component: {fileID: 16547692293928595}
   - component: {fileID: 8082204077832356556}
   - component: {fileID: 585580015033455806}
@@ -38,6 +38,56 @@ Transform:
   - {fileID: 2046474351848435221}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &3480960216601941786
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1119555509524472395}
+  m_Material: {fileID: 13400000, guid: 734cca61912ab3340ad445dc44018627, type: 2}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.79
+  m_Height: 1.58
+  m_Direction: 1
+  m_Center: {x: -0.008798003, y: 0.7602522, z: 0}
+--- !u!54 &7883722808006830120
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1119555509524472395}
+  serializedVersion: 4
+  m_Mass: 100
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 2
 --- !u!114 &784908613298810580
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -55,7 +105,7 @@ MonoBehaviour:
     currentVelocity: {x: 0, y: 0, z: 0}
     inheritRigidbodyVelocity: 1
   damageContainer:
-    damageCoolDownCount: 0.1
+    invincibilityCount: 0.1
     data: 0
   groundCheck:
     groundCheckRadius: 0.4
@@ -68,13 +118,14 @@ MonoBehaviour:
     fallCount: 0
     physicMaterialData: {fileID: 11400000, guid: 847aa92f1a8e8b044822fea7587ff168, type: 2}
   property:
-    maxHP: 0
+    maxHP: 100
     hp: 100
     maxStoredDamage: 50
     storedDamage: 0
   rotation:
     thisTransform: {fileID: 0}
     previousCameraRotation: {x: 0, y: 0, z: 0, w: 0}
+    rotationSpeed: 0
   animator:
     thisAnimator: {fileID: 0}
   attackObject: {fileID: 0}
@@ -105,56 +156,6 @@ MonoBehaviour:
     damageIdleCount: 0.5
   deathState:
     destroyCount: 2
---- !u!136 &3480960216601941786
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1119555509524472395}
-  m_Material: {fileID: 13400000, guid: 734cca61912ab3340ad445dc44018627, type: 2}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.81672823
-  m_Height: 1.6334565
-  m_Direction: 1
-  m_Center: {x: -0.008798003, y: 0.81000006, z: 0}
---- !u!54 &7883722808006830120
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1119555509524472395}
-  serializedVersion: 4
-  m_Mass: 100
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 112
-  m_CollisionDetection: 0
 --- !u!114 &16547692293928595
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -171,7 +172,7 @@ MonoBehaviour:
   targetLastPoint: {x: 0, y: 0, z: 0}
   refreshTime: 0.1
   range: 10
-  viewAngle: 45
+  viewAngle: 90
   targetObjectLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -266,12 +267,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4d1e02aa01e8b54dae550b477a8afa2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  thisTransform: {fileID: 2582528216082656553}
   attackObject: {fileID: 0}
   hitLayer:
     serializedVersion: 2
     m_Bits: 64
-  radius: 0.4
-  dis: 0
 --- !u!135 &2855782811782429529
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -373,6 +373,10 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 7dbf712a9d2f40a458037fb040a82387, type: 2}
+    - target: {fileID: 7407245801481390382, guid: b1082c4a8d508234885048c4b04fb50e, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8879528566716807029, guid: b1082c4a8d508234885048c4b04fb50e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: -89.98021

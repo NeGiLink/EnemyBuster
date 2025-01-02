@@ -11,6 +11,8 @@ namespace MyAssets
 
         public Animator Animator => thisAnimator;
 
+        public string MoveName => "Move";
+
         public string AttacksName => "AttackLevel";
 
         public void DoSetup(ISlimeSetup slime)

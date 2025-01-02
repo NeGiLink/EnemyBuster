@@ -10,9 +10,13 @@ namespace MyAssets
         [SerializeField]
         private GameObject targetObject;
         public GameObject TargetObject => targetObject;
+        //nullじゃないのならtrue、nullならfalse
+        public bool FindTarget => targetObject != null;
+
         public void SetTargetObject(GameObject t) {  targetObject = t; }
         [SerializeField]
         private Vector3 targetLastPoint;
+        public Vector3 TargetLastPoint => targetLastPoint;
 
 
         [SerializeField]
@@ -71,7 +75,7 @@ namespace MyAssets
 
             //新しいオブジェクトが見えたらそちらを追いかけるように切り替える
             if (TryGetFirstObject(out var obj))
-            {
+            {   
                 targetObject = obj;
                 targetLastPoint = targetObject.transform.position;
                 currentSearchinTimer.End();
@@ -83,6 +87,27 @@ namespace MyAssets
             {
                 currentSearchinTimer.Start(1.0f);
             }
+        }
+
+        private float SubDistance(GameObject obj)
+        {
+            if(obj == null)
+            {
+                return 0.0f;
+            }
+            return (transform.position - obj.transform.position).magnitude;
+        }
+
+        public void AllSearchStart()
+        {
+            if (allSearch) { return; }
+            allSearch = true;
+            StartCoroutine(EndAllSearch());
+        }
+        private System.Collections.IEnumerator EndAllSearch()
+        {
+            yield return new WaitForSecondsRealtime(1f); // 1フレーム待つ
+            allSearch = false;
         }
 
         IEnumerator UpdateRoutine()

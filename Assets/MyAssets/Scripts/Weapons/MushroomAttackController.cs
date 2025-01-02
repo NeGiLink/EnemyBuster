@@ -1,6 +1,3 @@
-using MyAssets;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace MyAssets
@@ -8,39 +5,59 @@ namespace MyAssets
     public class MushroomAttackController : MonoBehaviour
     {
         [SerializeField]
+        private Transform thisTransform;
+
+        [SerializeField]
         private AttackObject attackObject;
 
         [SerializeField]
         private IMushroomAnimator animator;
 
-        [SerializeField]
-        private LayerMask hitLayer;
+        private new SphereCollider collider;
 
-        [SerializeField]
-        private float radius = 0.5f;
+        //保存用のcenter・radius
+        private Vector3 center;
 
-        [SerializeField]
-        private float dis = 1.0f;
+        private float radius;
 
-        private new Collider collider;
+
+        private AttackType attackType = AttackType.Single;
+        public void SetAttackType(AttackType type) { attackType = type; }
+
+        private IMushroomSetup mushroom;
 
         private void Awake()
         {
             attackObject = GetComponent<AttackObject>();
 
-            MushroomController controller = GetComponentInParent<MushroomController>();
+            mushroom = GetComponentInParent<IMushroomSetup>();
 
-            if (controller != null)
+            if (mushroom != null)
             {
-                animator = controller.MushroomAnimator;
+                animator = mushroom.MushroomAnimator;
             }
 
-            collider = GetComponent<Collider>();
+            collider = GetComponent<SphereCollider>();
         }
 
         private void Start()
         {
             collider.enabled = false;
+
+            center = collider.center;
+            radius = collider.radius;
+        }
+
+        private void NoActivateCollider()
+        {
+            collider.center = Vector3.zero;
+            collider.radius = 0.0f;
+        }
+
+        private void ActivateCollider()
+        {
+            collider.center = center;
+            collider.radius = radius;
         }
 
         public void EnabledCollider(float start, float end, bool all)
@@ -48,6 +65,7 @@ namespace MyAssets
             if (all)
             {
                 collider.enabled = true;
+                ActivateCollider();
             }
             else
             {
@@ -55,9 +73,11 @@ namespace MyAssets
                 if (animInfo.normalizedTime >= start && animInfo.normalizedTime <= end)
                 {
                     collider.enabled = true;
+                    ActivateCollider();
                 }
                 else
                 {
+                    NoActivateCollider();
                     collider.enabled = false;
                 }
             }
@@ -65,14 +85,30 @@ namespace MyAssets
 
         public void NotEnabledCollider()
         {
+            NoActivateCollider();
             collider.enabled = false;
         }
 
-        //球状のRayを可視化
-        void OnDrawGizmos()
+        private void OnTriggerEnter(Collider other)
         {
-            Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(transform.position + transform.up * dis, radius);
+            //攻撃のタイプを調べる
+            if (attackType == AttackType.Succession) { return; }
+            //レイヤーチェック
+            if (other.gameObject.layer != 6) { return; }
+            ICharacterSetup characterSetup = other.GetComponentInChildren<ICharacterSetup>();
+            if (characterSetup == null) { return; }
+            IDamageContainer damageContainer = characterSetup.DamageContainer;
+            if (damageContainer == null) { return; }
+            ShieldController shield = other.GetComponentInChildren<ShieldController>();
+            if (shield != null)
+            {
+                if (shield.IsGuarid(other.transform, thisTransform)) 
+                {
+                    return; 
+                }
+            }
+            damageContainer.GiveYouDamage(attackObject.Power, attackObject.Type, transform);
         }
+
     }
 }

@@ -45,11 +45,13 @@ namespace MyAssets
             movement.Move(0);
 
             animator.Animator.SetInteger(animator.AttacksName, 1);
+
+            attackObject.SetAttackType(AttackType.Single);
         }
 
         public override void DoUpdate(float time)
         {
-            attackObject.EnabledCollider(0f, 0f, true);
+            attackObject.EnabledCollider(0.2f, 0.6f, false);
             base.DoUpdate(time);
         }
 

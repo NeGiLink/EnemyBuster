@@ -7,6 +7,9 @@ namespace MyAssets
     public class SlimeBodyAttackController : MonoBehaviour
     {
         [SerializeField]
+        private Transform thisTransform;
+
+        [SerializeField]
         private AttackObject attackObject;
 
         [SerializeField]
@@ -15,13 +18,15 @@ namespace MyAssets
         [SerializeField]
         private LayerMask hitLayer;
 
-        [SerializeField]
-        private float radius = 0.5f;
+        //保存用のcenter・radius
+        private Vector3 center;
 
-        [SerializeField]
-        private float dis = 1.0f;
+        private float radius;
 
-        private new Collider collider;
+        private new SphereCollider collider;
+
+        private AttackType attackType = AttackType.Single;
+        public void SetAttackType(AttackType type) { attackType = type; }
 
         private void Awake()
         {
@@ -34,63 +39,68 @@ namespace MyAssets
                 animator = controller.SlimeAnimator;
             }
 
-            collider = GetComponent<Collider>();
+            collider = GetComponent<SphereCollider>();
         }
-
         private void Start()
         {
             collider.enabled = false;
+
+            center = collider.center;
+            radius = collider.radius;
+        }
+        private void NoActivateCollider()
+        {
+            collider.center = Vector3.zero;
+            collider.radius = 0.0f;
+        }
+
+        private void ActivateCollider()
+        {
+            collider.center = center;
+            collider.radius = radius;
         }
 
         public void EnabledCollider(float start, float end, bool all)
         {
-            if (all)
+            AnimatorStateInfo animInfo = animator.Animator.GetCurrentAnimatorStateInfo(0);
+            if (animInfo.normalizedTime >= start && animInfo.normalizedTime <= end)
             {
                 collider.enabled = true;
-                /*
-                Ray ray = new Ray(transform.position, transform.up);
-                RaycastHit hit;
-                if (Physics.SphereCast(ray, radius, out hit, dis, hitLayer))
-                {
-                    ICharacterSetup characterSetup = hit.collider.GetComponent<ICharacterSetup>();
-                    if (characterSetup == null) { return; }
-                    IDamageContainer damageContainer = characterSetup.DamageContainer;
-                    if (damageContainer == null) { return; }
-                    damageContainer.SetAttackType(attackObject.Type);
-                    damageContainer.SetData(attackObject.Power);
-                    damageContainer.SetAttacker(transform);
-                }
-                 */
+                ActivateCollider();
             }
             else
             {
-                AnimatorStateInfo animInfo = animator.Animator.GetCurrentAnimatorStateInfo(0);
-                if (animInfo.normalizedTime >= start && animInfo.normalizedTime <= end)
-                {
-                    Ray ray = new Ray(transform.position, transform.up);
-                    RaycastHit hit;
-                    if (Physics.SphereCast(ray, radius, out hit, dis, hitLayer))
-                    {
-                        ICharacterSetup characterSetup = hit.collider.GetComponent<ICharacterSetup>();
-                        if (characterSetup == null) { return; }
-                        IDamageContainer damageContainer = characterSetup.DamageContainer;
-                        if (damageContainer == null) { return; }
-                        damageContainer.GiveYouDamage(attackObject.Power, attackObject.Type, transform);
-                    }
-                }
+                NoActivateCollider();
+                collider.enabled = false;
             }
         }
 
         public void NotEnabledCollider()
         {
+            NoActivateCollider();
             collider.enabled = false;
+            attackType = AttackType.Null;
         }
 
-        //球状のRayを可視化
-        void OnDrawGizmos()
+        private void OnTriggerEnter(Collider other)
         {
-            Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(transform.position + transform.up * dis, radius);
+            //攻撃のタイプを調べる
+            if (attackType == AttackType.Succession) { return; }
+            //レイヤーチェック
+            if (other.gameObject.layer != 6) { return; }
+            ICharacterSetup characterSetup = other.GetComponentInChildren<ICharacterSetup>();
+            if (characterSetup == null) { return; }
+            IDamageContainer damageContainer = characterSetup.DamageContainer;
+            if (damageContainer == null) { return; }
+            ShieldController shield = other.GetComponentInChildren<ShieldController>();
+            if (shield != null)
+            {
+                if (shield.IsGuarid(other.transform, thisTransform))
+                {
+                    return;
+                }
+            }
+            damageContainer.GiveYouDamage(attackObject.Power, attackObject.Type, transform);
         }
     }
 }

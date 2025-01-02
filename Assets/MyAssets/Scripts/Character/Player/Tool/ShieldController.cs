@@ -21,6 +21,8 @@ namespace MyAssets
         [Header("ガード方向 (ローカル座標)")]
         public Vector3 guardDirection = Vector3.forward;
 
+        private bool guard = false;
+
         private void Awake()
         {
             animator = GetComponent<Animator>();
@@ -29,18 +31,21 @@ namespace MyAssets
         public void ShieldOpen()
         {
             animator.SetInteger(stateName, 0);
+            guard = true;
         }
 
         public void ShieldClose()
         {
             animator.SetInteger(stateName, -1);
+            guard = false;
         }
 
-        public bool IsGuarid(Transform target,Transform transform)
+        public bool IsGuarid(Transform thistransform,Transform target)
         {
-            Vector3 ev = target.position - transform.position;
+            if (!guard) { return false; }
+            Vector3 ev = thistransform.position - target.position;
             ev.Normalize();
-            Vector3 worldGuardDirection = transform.transform.TransformDirection(guardDirection).normalized;
+            Vector3 worldGuardDirection = target.transform.TransformDirection(guardDirection).normalized;
 
             // 内積を計算
             float dotProduct = Vector3.Dot(worldGuardDirection, ev);
@@ -54,7 +59,7 @@ namespace MyAssets
                     IDamageContainer damageContainer = characterSetup.DamageContainer;
                     if (damageContainer != null) 
                     {
-                        damageContainer.Recoil( DamageType.Middle, transform);
+                        damageContainer.Recoil( DamageType.Middle, thistransform);
                     }
                 }
                 return true;

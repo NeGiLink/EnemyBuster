@@ -1,10 +1,9 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace MyAssets
 {
-
+    [RequireComponent(typeof(CapsuleCollider))]
     public class SwordController : MonoBehaviour
     {
         [SerializeField]
@@ -14,16 +13,14 @@ namespace MyAssets
         private IPlayerAnimator animator;
 
         [SerializeField]
-        private LayerMask hitLayer;
+        private new CapsuleCollider collider;
 
-        [SerializeField]
-        private float radius = 0.5f;
+        //保存用のcenter・radius・height
+        private Vector3 center;
 
-        [SerializeField]
-        private float dis = 1.0f;
+        private float radius;
 
-        [SerializeField]
-        private new Collider collider;
+        private float height;
 
         private List<IDamageContainer> damagers = new List<IDamageContainer>();
 
@@ -41,7 +38,25 @@ namespace MyAssets
                 animator = controller.PlayerAnimator;
             }
 
-            collider = GetComponent<Collider>();
+            collider = GetComponent<CapsuleCollider>();
+
+            center = collider.center;
+            radius = collider.radius;
+            height = collider.height;
+        }
+
+        private void NoActivateCollider()
+        {
+            collider.center = Vector3.zero;
+            collider.radius = 0.0f;
+            collider.height = 0.0f;
+        }
+
+        private void ActivateCollider()
+        {
+            collider.center = center;
+            collider.radius = radius;
+            collider.height = height;
         }
 
         private void Start()
@@ -54,18 +69,7 @@ namespace MyAssets
             if (all)
             {
                 collider.enabled = true;
-                /*
-                Ray ray = new Ray(transform.position, transform.up);
-                RaycastHit hit;
-                if (Physics.SphereCast(ray, radius, out hit, dis, hitLayer))
-                {
-                    ICharacterSetup characterSetup = hit.collider.GetComponent<ICharacterSetup>();
-                    if (characterSetup == null) { return; }
-                    IDamageContainer damageContainer = characterSetup.DamageContainer;
-                    if (damageContainer == null) { return; }
-                    damageContainer.SetAttackerData(attackObject.Power, attackObject.Type, transform);
-                }
-                 */
+                ActivateCollider();
             }
             else
             {
@@ -73,6 +77,7 @@ namespace MyAssets
                 if(animInfo.normalizedTime >= start &&animInfo.normalizedTime <= end)
                 {
                     collider.enabled = true;
+                    ActivateCollider();
                     /*
                     Ray ray = new Ray(transform.position, transform.up);
                     RaycastHit hit;
@@ -88,47 +93,36 @@ namespace MyAssets
                 }
                 else
                 {
-                    collider.enabled = false;
+                    NoActivateCollider();
                 }
             }
         }
         public void NotEnabledCollider()
         {
+            NoActivateCollider();
             collider.enabled = false;
         }
+
         private void OnTriggerEnter(Collider other)
         {
             if(attackType == AttackType.Succession) { return; }
-            if(other.gameObject.layer != 8) { return; }
-            ICharacterSetup characterSetup = other.GetComponent<ICharacterSetup>();
+            if (other.gameObject.layer != 8) { return; }
+            ICharacterSetup characterSetup = other.GetComponentInChildren<ICharacterSetup>();
             if (characterSetup == null) { return; }
             IDamageContainer damageContainer = characterSetup.DamageContainer;
             if (damageContainer == null) { return; }
-            //すでに当たった相手かチェック
-            for (int i = 0; i < damagers.Count; i++)
-            {
-                if (damagers[i] == damageContainer) { return; }
-            }
-
             damageContainer.GiveYouDamage(attackObject.Power, attackObject.Type, transform);
-            damagers.Add(damageContainer);
         }
 
         private void OnTriggerStay(Collider other)
         {
-            if (attackType == AttackType.Single) { return; }
+            if(attackType == AttackType.Single) { return; }
             if (other.gameObject.layer != 8) { return; }
-            ICharacterSetup characterSetup = other.GetComponent<ICharacterSetup>();
+            ICharacterSetup characterSetup = other.GetComponentInChildren<ICharacterSetup>();
             if (characterSetup == null) { return; }
             IDamageContainer damageContainer = characterSetup.DamageContainer;
             if (damageContainer == null) { return; }
             damageContainer.GiveYouDamage(attackObject.Power, attackObject.Type, transform);
-            damagers.Add(damageContainer);
-        }
-
-        public void DamagerReset()
-        {
-            damagers.Clear();
         }
 
     }

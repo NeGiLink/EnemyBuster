@@ -54,6 +54,8 @@ namespace MyAssets
         IGroundCheck GroundCheck { get; }
         SlimeBodyAttackController AttackObject { get; }
 
+        ISlimeRotation SlimeRotation { get; }
+
         void RunDestroy();
     }
     /// <summary>

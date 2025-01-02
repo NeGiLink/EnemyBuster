@@ -194,7 +194,7 @@ namespace MyAssets
         {
             if (headTransform != null)
             {
-                if (fieldOfView.TargetObject != null)
+                if (fieldOfView.FindTarget)
                 {
                     Vector3 ev = fieldOfView.TargetObject.transform.position - headTransform.position;
                     ev.Normalize();

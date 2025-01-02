@@ -32,6 +32,7 @@ namespace MyAssets
 
     public interface ISlimeAnimator : IEnemyAnimator
     {
+        string MoveName { get; }
         string AttacksName { get; }
     }
 

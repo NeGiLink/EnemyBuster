@@ -56,13 +56,5 @@ namespace MyAssets
             base.DoExit();
             velocity.Rigidbody.useGravity = true;
         }
-
-        public override void DoTriggerEnter(GameObject thisObject,Collider collider)
-        {
-            base.DoTriggerEnter(thisObject,collider);
-            AttackObject data = collider.GetComponent<AttackObject>();
-            if (data == null) { return; }
-            damageContainer.GiveYouDamage(data.Power, data.Type, collider.transform);
-        }
     }
 }

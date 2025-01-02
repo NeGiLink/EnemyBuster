@@ -68,14 +68,5 @@ namespace MyAssets
             base.DoExit();
             sword.NotEnabledCollider();
         }
-
-        public override void DoTriggerEnter(GameObject thisObject,Collider collider)
-        {
-            base.DoTriggerEnter(thisObject,collider);
-            AttackObject data = collider.GetComponent<AttackObject>();
-            if (data == null) { return; }
-            damageContainer.GiveYouDamage(data.Power, DamageType.Small, collider.transform);
-        }
-
     }
 }

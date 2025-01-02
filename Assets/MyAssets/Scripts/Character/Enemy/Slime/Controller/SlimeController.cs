@@ -18,6 +18,7 @@ namespace MyAssets
         [SerializeField]
         private SlimeRotation               rotation;
         public IRotation                    Rotation => rotation;
+        public ISlimeRotation               SlimeRotation => rotation;
 
         [SerializeField]
         private SlimeAnimator               animator;
@@ -25,7 +26,7 @@ namespace MyAssets
         public ISlimeAnimator               SlimeAnimator => animator;
 
         private FieldOfView                 fieldOfView;
-        public IFieldOfView FieldOfView => fieldOfView;
+        public IFieldOfView FieldOfView =>  fieldOfView;
 
         [SerializeField]
         private SlimeBodyAttackController   attackObject;
@@ -43,7 +44,7 @@ namespace MyAssets
 
 
         [SerializeField]
-        private SlimePatrolState                 patrolState;
+        private SlimePatrolState            patrolState;
 
         [SerializeField]
         private ChaseState                  chaseState;
@@ -72,6 +73,8 @@ namespace MyAssets
             rotation.DoSetup(this);
             damageContainer.DoSetup(this);
             damagement.DoSetup(this);
+
+            property.Setup();
 
             states = new ISlimeState<string>[]
             {
