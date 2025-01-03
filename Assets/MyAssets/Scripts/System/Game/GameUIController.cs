@@ -50,6 +50,7 @@ namespace MyAssets
 
         public void CreateResultUI()
         {
+            GameManager.Instance.SetFreeCursor();
             Transform parent = GameCanvas.Instance.UILayer[(int)UILayer.System].transform;
             Instantiate(resultUI, parent);
         }

@@ -1,0 +1,127 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+namespace MyAssets
+{
+    public class InputButtonController : MonoBehaviour
+    {
+        //選択してる場所が分かる画像を有効にするかしないかのフラグ
+        [SerializeField]
+        private bool activateSelect = true;
+        //ボタン操作が横方向か縦方向か設定するフラグ
+        [SerializeField]
+        private bool horizontal;
+        //ボタンが複数あるか1つしかないか判定する
+        private bool buttonIsArray = false;
+        //選択中の画像
+        [SerializeField]
+        private Image selectImage;
+        //選択してる要素数
+        private int selectIndex = 0;
+        //選択中の画像をボタン横のどれくらいの位置に設置するか
+        [SerializeField]
+        private float selectImageOffsetX;
+        //子オブジェクトにボタン
+        [SerializeField]
+        private Button[] buttons;
+        private ButtonHover[] hovers;
+        //SE再生用クラス
+        //private SEManager seManager;
+
+        private void Awake()
+        {
+            Button[] b = GetComponentsInChildren<Button>();
+            buttons = b;
+            ButtonHover[] h = GetComponentsInChildren<ButtonHover>();
+            hovers = h;
+            //seManager = GetComponent<SEManager>();
+        }
+
+        private void Start()
+        {
+            if (buttons.Length > 1)
+            {
+                buttonIsArray = true;
+            }
+            else
+            {
+                buttonIsArray = false;
+            }
+            selectIndex = 0;
+            SetSelectImagePosition(selectIndex);
+        }
+        private void SetSelectImagePosition(int index)
+        {
+            if (!activateSelect || selectImage == null) { return; }
+            Vector2 pos = hovers[index].RectTransform.anchoredPosition;
+            pos.x -= selectImageOffsetX;
+            selectImage.rectTransform.anchoredPosition = pos;
+        }
+        private void Update()
+        {
+            MouseInput();
+            KeyAndGamePadInput();
+        }
+
+        private void MouseInput()
+        {
+            for(int i = 0; i < hovers.Length; i++)
+            {
+                if (hovers[i].IsHovering)
+                {
+                    selectIndex = i;
+                    SetSelectImagePosition(selectIndex);
+                }
+            }
+        }
+
+        private void KeyAndGamePadInput()
+        {
+            float select;
+            if (horizontal)
+            {
+                select = InputUIAction.Instance.Select.x;
+            }
+            else
+            {
+                select = -InputUIAction.Instance.Select.y;
+            }
+            Input(select);
+        }
+
+        private void Input(float action)
+        {
+            if (buttonIsArray)
+            {
+                if (action < 0)
+                {
+                    selectIndex--;
+                    if (selectIndex < 0)
+                    {
+                        selectIndex = 0;
+                    }
+                    SetSelectImagePosition(selectIndex);
+                    //seManager.Play();
+                }
+                else if (action > 0)
+                {
+                    selectIndex++;
+                    if (selectIndex >= buttons.Length)
+                    {
+                        selectIndex = buttons.Length - 1;
+                    }
+                    SetSelectImagePosition(selectIndex);
+                    //seManager.Play();
+                }
+            }
+
+            if (InputUIAction.Instance.Decide)
+            {
+                buttons[selectIndex].onClick.Invoke();
+                //seManager.Play(1);
+            }
+        }
+    }
+}

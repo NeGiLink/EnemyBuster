@@ -200,7 +200,7 @@ MonoBehaviour:
     currentVelocity: {x: 0, y: 0, z: 0}
     inheritRigidbodyVelocity: 1
   damageContainer:
-    damageCoolDownCount: 0.15
+    invincibilityCount: 0.1
     data: 0
   groundCheck:
     groundCheckRadius: 0.2
@@ -217,7 +217,8 @@ MonoBehaviour:
     hp: 100
     maxStoredDamage: 50
     storedDamage: 0
-    sp: 0
+    maxSp: 1000
+    sp: 1000
   weaponController: {fileID: 0}
   changingState:
     battleMode: 0
@@ -289,7 +290,7 @@ MonoBehaviour:
   rollingState:
     rollingSpeed: 6
     rollingGravityMultiply: 2
-    direction: {x: 0, y: 0, z: 0}
+    rollingSp: 50
   fallState:
     moveSpeed: 4
     fallGravityMultiply: 2
@@ -297,7 +298,7 @@ MonoBehaviour:
     moveSpeed: 3.5
   firstAttackState:
     attacksGravityMultiply: 2
-    secondVer1ToTransitionTime: 0.15
+    secondVer1ToTransitionTime: 0.2
     secondVer2ToTransitionTime: 0.3
     maxNormalizedTime: 0.35
     forwardPower: 1
@@ -469,7 +470,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 1
   m_Constraints: 112
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!1001 &2796490727479481384
 PrefabInstance:
   m_ObjectHideFlags: 0

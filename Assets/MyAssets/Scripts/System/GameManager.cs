@@ -2,6 +2,12 @@ using UnityEngine;
 
 namespace MyAssets
 {
+    public enum SceneList
+    {
+        Title,
+        Select,
+        Game,
+    }
     public class GameManager : MonoBehaviour
     {
         private static GameManager          instance;
@@ -12,7 +18,16 @@ namespace MyAssets
 
         private PlayerInput                 playerInput;
         private MainCameraController        mainCameraController;
+        
+        [SerializeField]
+        private StageLedger stageLedger;
+        public StageLedger StageLedger => stageLedger;
 
+        private int stageCount = 0;
+        public int StageCount => stageCount;
+
+        private SceneList sceneList;
+        public void SetSceneList(SceneList scene) {  sceneList = scene; }
 
         [SerializeField]
         private bool debug = false;
@@ -39,10 +54,16 @@ namespace MyAssets
             mainCameraController = FindObjectOfType<MainCameraController>();
         }
 
-        private void Start()
+        public void SetLockCursor()
         {
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
+        }
+
+        public void SetFreeCursor()
+        {
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
         }
     }
 }
