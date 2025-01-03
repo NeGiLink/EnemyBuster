@@ -491,6 +491,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8895447177835871083, guid: ddb95ed53876a924694d8ce9c41edcab, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 53e8a96f53c30d64bab86a36a2e26ee7, type: 2}
     - target: {fileID: 9070388080329418799, guid: ddb95ed53876a924694d8ce9c41edcab, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: -0.42432153
@@ -638,7 +642,7 @@ MonoBehaviour:
     currentVelocity: {x: 0, y: 0, z: 0}
     inheritRigidbodyVelocity: 1
   damageContainer:
-    damageCoolDownCount: 0.1
+    invincibilityCount: 0.1
     data: 0
   groundCheck:
     groundCheckRadius: 0.4
@@ -658,6 +662,7 @@ MonoBehaviour:
   rotation:
     thisTransform: {fileID: 0}
     previousCameraRotation: {x: 0, y: 0, z: 0, w: 0}
+    rotationSpeed: 0
   animator:
     thisAnimator: {fileID: 0}
   attackObject: {fileID: 0}
