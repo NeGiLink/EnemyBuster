@@ -58,7 +58,7 @@ namespace MyAssets
         {
             if (power > 0)
             {
-                GameManager.Instance.DamageTextCreator.Crate(thisTransform, power);
+                GameUIController.Instance.DamageTextCreator.Crate(thisTransform, power);
             }
         }
 
