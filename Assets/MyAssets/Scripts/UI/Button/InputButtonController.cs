@@ -100,7 +100,7 @@ namespace MyAssets
                     selectIndex--;
                     if (selectIndex < 0)
                     {
-                        selectIndex = 0;
+                        selectIndex = buttons.Length - 1;
                     }
                     SetSelectImagePosition(selectIndex);
                     //seManager.Play();
@@ -110,7 +110,7 @@ namespace MyAssets
                     selectIndex++;
                     if (selectIndex >= buttons.Length)
                     {
-                        selectIndex = buttons.Length - 1;
+                        selectIndex = 0;
                     }
                     SetSelectImagePosition(selectIndex);
                     //seManager.Play();

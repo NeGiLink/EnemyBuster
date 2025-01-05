@@ -7,14 +7,12 @@ namespace MyAssets
         Title,
         Select,
         Game,
+        Result
     }
     public class GameManager : MonoBehaviour
     {
         private static GameManager          instance;
         public static GameManager           Instance => instance;
-
-        private DamageTextCreator           damageTextCreator;
-        public DamageTextCreator            DamageTextCreator => damageTextCreator;
 
         private PlayerInput                 playerInput;
         private MainCameraController        mainCameraController;
@@ -49,7 +47,6 @@ namespace MyAssets
             instance = this;
             DontDestroyOnLoad(gameObject);
 
-            damageTextCreator = GetComponent<DamageTextCreator>();
             playerInput = FindObjectOfType<PlayerInput>();
             mainCameraController = FindObjectOfType<MainCameraController>();
         }

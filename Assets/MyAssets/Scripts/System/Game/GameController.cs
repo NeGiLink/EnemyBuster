@@ -12,6 +12,11 @@ namespace MyAssets
             instance = this;
         }
 
+        private void Start()
+        {
+            GameManager.Instance.SetLockCursor();
+        }
+
 
         private void Update()
         {

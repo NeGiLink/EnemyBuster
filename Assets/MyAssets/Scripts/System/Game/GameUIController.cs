@@ -17,9 +17,15 @@ namespace MyAssets
         [SerializeField]
         private GameObject resultUI;
 
+
+        private DamageTextCreator damageTextCreator;
+        public DamageTextCreator DamageTextCreator => damageTextCreator;
+
         private void Awake()
         {
             instance = this;
+
+            damageTextCreator = GetComponent<DamageTextCreator>();
         }
 
         // Start is called before the first frame update

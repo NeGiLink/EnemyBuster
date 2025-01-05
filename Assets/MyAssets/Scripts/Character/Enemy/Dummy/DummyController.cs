@@ -58,7 +58,7 @@ namespace MyAssets
         {
             if(damageContainer.AttackType == DamageType.None) { return; }
             damageCoolDownTimer.Start(0.25f);
-            GameManager.Instance.DamageTextCreator.Crate(transform, damageContainer.Data);
+            GameUIController.Instance.DamageTextCreator.Crate(transform, damageContainer.Data);
             damageContainer.GiveYouDamage(0, DamageType.None, null);
         }
     }
