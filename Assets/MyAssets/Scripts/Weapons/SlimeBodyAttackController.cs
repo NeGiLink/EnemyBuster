@@ -15,6 +15,8 @@ namespace MyAssets
         [SerializeField]
         private ISlimeAnimator animator;
 
+        private ISlimeSetup slimeSetup;
+
         [SerializeField]
         private LayerMask hitLayer;
 
@@ -33,6 +35,7 @@ namespace MyAssets
             attackObject = GetComponent<AttackObject>();
 
             SlimeController controller = GetComponentInParent<SlimeController>();
+            slimeSetup = controller.GetComponent<ISlimeSetup>();
 
             if (controller != null)
             {
@@ -100,7 +103,7 @@ namespace MyAssets
                     return;
                 }
             }
-            damageContainer.GiveYouDamage(attackObject.Power, attackObject.Type, transform);
+            damageContainer.GiveYouDamage(attackObject.Power, attackObject.Type, transform,slimeSetup.CharaType);
         }
     }
 }

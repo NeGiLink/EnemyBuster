@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7020773777820790344}
   - component: {fileID: 7225106578580837724}
   - component: {fileID: 6476099307610123397}
+  - component: {fileID: 4965363295562038093}
   m_Layer: 0
   m_Name: LocalTitleManager
   m_TagString: Untagged
@@ -59,3 +60,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fadePanel: {fileID: 6961190978019224064, guid: 5c89d74797acbed4c8d0363690a0031d, type: 3}
   changeCount: 0.5
+--- !u!114 &4965363295562038093
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1538620719183027048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 743adbe8ebc58ce46b7b202619bb9211, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  select: {x: 0, y: 0}
+  decide: 0
+  pause: 0

@@ -57,13 +57,13 @@ namespace MyAssets
             base.DoFixedUpdate(time);
 
             AnimatorStateInfo animInfo = animator.Animator.GetCurrentAnimatorStateInfo(0);
-            if (animInfo.normalizedTime < 0.6f)
+            if (animInfo.normalizedTime > 0.4f&& animInfo.normalizedTime < 0.6f)
             {
                 movement.ForwardLerpMove(thisTransform.position, movePower);
             }
             else
             {
-                movement.Move(0);
+                movement.DecreaseMove(0.2f);
             }
         }
 

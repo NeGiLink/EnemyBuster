@@ -34,6 +34,10 @@ namespace MyAssets
     {
 
     }
+    public interface IBullTankStauts : IBaseStauts
+    {
+
+    }
     public interface INPCStauts : IBaseStauts
     {
 

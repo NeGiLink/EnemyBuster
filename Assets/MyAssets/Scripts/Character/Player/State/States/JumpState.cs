@@ -76,7 +76,7 @@ namespace MyAssets
             else
             {
                 animator.Animator.SetInteger(animator.JumpTypeName, 0);
-                p /= 2;
+                p /= 1.5f;
             }
 
             velocity.Rigidbody.AddForce(Vector3.up * p,ForceMode.Impulse);

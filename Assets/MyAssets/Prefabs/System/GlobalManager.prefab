@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8446309647813812016}
   - component: {fileID: 2848713922271739394}
-  - component: {fileID: 4680091844789842262}
   m_Layer: 0
   m_Name: GlobalManager
   m_TagString: Untagged
@@ -47,18 +46,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stageLedger: {fileID: 11400000, guid: 77c6e96eea22b5341a393fd895fd7311, type: 2}
   debug: 0
---- !u!114 &4680091844789842262
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5861252666215830296}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 743adbe8ebc58ce46b7b202619bb9211, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  select: {x: 0, y: 0}
-  decide: 0
-  pause: 0

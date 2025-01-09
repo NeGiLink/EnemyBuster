@@ -13,5 +13,7 @@ namespace MyAssets
         void StartClimbStep(Vector3 hitPoint);
 
         void MoveTo(Vector3 targetPoint, float targetMoveSpeed, float moveSpeedChangeRate, float rotationSpeed, float time);
+
+        void DecreaseMove(float ratio);
     }
 }

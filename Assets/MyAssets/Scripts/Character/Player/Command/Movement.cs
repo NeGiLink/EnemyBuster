@@ -77,5 +77,13 @@ namespace MyAssets
             velocity.CurrentVelocity = currentVelocity;
             velocity.Rigidbody.velocity = currentVelocity;
         }
+
+        public void DecreaseMove(float ratio)
+        {
+            var moveVelocity = velocity.CurrentVelocity;
+            moveVelocity = moveVelocity * ratio;
+            velocity.Rigidbody.velocity = new Vector3(moveVelocity.x, velocity.Rigidbody.velocity.y, moveVelocity.z);
+            keepVelocity = velocity.CurrentVelocity;
+        }
     }
 }

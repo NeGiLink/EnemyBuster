@@ -8,7 +8,8 @@ namespace MyAssets
     {
         SlimeLv1,
         SlimeLv2,
-        Mushroom,
+        MushroomLv1,
+        MushroomLv2,
 
         Count
     }

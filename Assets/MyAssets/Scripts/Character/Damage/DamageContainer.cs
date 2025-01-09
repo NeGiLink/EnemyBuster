@@ -2,28 +2,33 @@ using UnityEngine;
 
 namespace MyAssets
 {
+    /*
+     * ダメージ処理を行うクラス
+     * HP減少、蓄積ダメージ加算などのステータス変更
+     * ダメージ発生時のダメージテキストの出力など
+     */
     [System.Serializable]
     public class DamageContainer : IDamageContainer,ICharacterComponent<ICharacterSetup>
     {
         [SerializeField]
-        private float invincibilityCount = 0.1f;
+        private float       invincibilityCount = 0.1f;
 
         [SerializeField]
-        private int data = 0;
+        private int         data = 0;
         public void SetData(int d) { data = d; }
-        public int Data => data;
+        public int          Data => data;
 
-        private DamageType attackType = DamageType.None;
+        private DamageType  attackType = DamageType.None;
         public void SetAttackType(DamageType type) { attackType = type; }
-        public DamageType AttackType => attackType;
+        public DamageType   AttackType => attackType;
 
-        private Transform attacker;
+        private Transform   attacker;
         public void SetAttacker(Transform t) { attacker = t; }
-        public Transform Attacker => attacker;
+        public Transform    Attacker => attacker;
 
         private IBaseStauts baseStauts;
 
-        private Transform thisTransform;
+        private Transform   thisTransform;
 
         private FieldOfView fieldOfView;
 
@@ -34,14 +39,14 @@ namespace MyAssets
             fieldOfView = chara.gameObject.GetComponent<FieldOfView>();
         }
 
-        public void GiveYouDamage(int power, DamageType type, Transform transform)
+        public void GiveYouDamage(int power, DamageType type, Transform transform,CharacterType charaType)
         {
             if(baseStauts.HP <= 0) { return; }
             if (!baseStauts.InvincibilityTimer.IsEnd()) { return; }
             //ダメージを与える
             baseStauts.DecreaseAndDeathCheck(power);
             //GameManagerにダメージテキスト出力を依頼
-            DamageTextOutput(power);
+            DamageTextOutput(power,charaType);
             fieldOfView?.AllSearchStart();
             //蓄積ダメージ量がたまったか
             if (baseStauts.IsMaxStoredDamage(power))
@@ -54,12 +59,22 @@ namespace MyAssets
             baseStauts.InvincibilityTimer.Start(invincibilityCount);
         }
 
-        public void DamageTextOutput(int power)
+        public void DamageTextOutput(int power,CharacterType type)
         {
-            if (power > 0)
+            if (power <= 0) { return; }
+            //受け取ったタグ別にテキストの色を変更
+            Color color = Color.white;
+            switch (type)
             {
-                GameUIController.Instance.DamageTextCreator.Crate(thisTransform, power);
+                case CharacterType.Null:
+                    break;
+                case CharacterType.Player:
+                    break;
+                case CharacterType.Enemy:
+                    color = Color.red;
+                    break;
             }
+            GameUIController.Instance.DamageTextCreator.Crate(thisTransform, power,color);
         }
 
         public void Recoil(DamageType type, Transform t)

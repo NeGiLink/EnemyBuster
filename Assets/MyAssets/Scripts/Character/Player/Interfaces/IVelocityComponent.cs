@@ -8,5 +8,7 @@ namespace MyAssets
         float CurrentMoveSpeed {  get;}
         Vector3 CurrentVelocity { get; set; }
         Rigidbody Rigidbody { get; set; }
+
+        void DeathCollider();
     }
 }

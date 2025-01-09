@@ -6,30 +6,30 @@ namespace MyAssets
 {
     public interface IMainCameraProvider
     {
-        List<CinemachineVirtualCamera> VirtualCameras {  get; }
+        List<CinemachineVirtualCamera>  VirtualCameras {  get; }
 
-        GameObject MainCamera { get; }
+        GameObject                      MainCamera { get; }
 
-        Transform TargetTransform { get; }
+        Transform                       TargetTransform { get; }
     }
     public class MainCameraController : MonoBehaviour, IMainCameraProvider
     {
         [SerializeField]
-        private GameObject mainCamera;
-        public GameObject MainCamera => mainCamera;
+        private GameObject                      mainCamera;
+        public GameObject                       MainCamera => mainCamera;
 
         [SerializeField]
-        private List<CinemachineVirtualCamera> virtualCameras = new List<CinemachineVirtualCamera>();
-        public List<CinemachineVirtualCamera> VirtualCameras => virtualCameras;
+        private List<CinemachineVirtualCamera>  virtualCameras = new List<CinemachineVirtualCamera>();
+        public List<CinemachineVirtualCamera>   VirtualCameras => virtualCameras;
 
-        private List<int> virtualCameraPrioritys = new List<int>();
-
-        [SerializeField]
-        private Transform targetTransform;
-        public Transform TargetTransform => targetTransform;
+        private List<int>                       virtualCameraPrioritys = new List<int>();
 
         [SerializeField]
-        private InputControllCamera inputControllCamera;
+        private Transform                       targetTransform;
+        public Transform                        TargetTransform => targetTransform;
+
+        [SerializeField]
+        private InputControllCamera             inputControllCamera;
 
         public void ActivateAllCamera(bool a)
         {
@@ -73,8 +73,8 @@ namespace MyAssets
 
             inputControllCamera.Setup(player,this);
         }
-        // Start is called before the first frame update
-        void Start()
+
+        private void Start()
         {
             foreach(var cam in virtualCameras)
             {
@@ -84,8 +84,7 @@ namespace MyAssets
             inputControllCamera.DoStart();
         }
 
-        // Update is called once per frame
-        void Update()
+        private void Update()
         {
             inputControllCamera.DoUpdate();
         }

@@ -9,6 +9,8 @@ namespace MyAssets
         [SerializeField]
         private Rigidbody thisRigidbody;
         [SerializeField]
+        private Collider  collider;
+        [SerializeField]
         private Vector3 currentVelocity = Vector3.zero;
         private bool needUpdateVelocity = true;
 
@@ -37,20 +39,17 @@ namespace MyAssets
         public void DoSetup(ICharacterSetup chara)
         {
             thisRigidbody = chara.gameObject.GetComponent<Rigidbody>();
+            collider = chara.gameObject.GetComponent<Collider>();
             Assert.IsNotNull(thisRigidbody);
         }
-        /*
-        public void RefreshVelocity()
+
+        public void DeathCollider()
         {
-            if (needUpdateVelocity && inheritRigidbodyVelocity)
-            {
-                currentVelocity = thisRigidbody.velocity;
-            }
-            thisRigidbody.velocity = currentVelocity;
-            needUpdateVelocity = true;
+            thisRigidbody.useGravity = false;
+            collider.isTrigger = true;
         }
-        */
 
         public Rigidbody Rigidbody { get { return thisRigidbody; }set { thisRigidbody = value; } }
+        public Collider Collider { get { return collider; } set { collider = value; } }
     }
 }

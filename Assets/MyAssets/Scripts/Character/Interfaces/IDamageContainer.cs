@@ -14,7 +14,7 @@ namespace MyAssets
         Transform Attacker { get; }
         void SetAttacker(Transform t);
 
-        void GiveYouDamage(int power, DamageType type, Transform transform);
+        void GiveYouDamage(int power, DamageType type, Transform transform,CharacterType charaType);
 
         void Recoil(DamageType type, Transform t);
     }

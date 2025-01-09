@@ -18,6 +18,7 @@ namespace MyAssets
     public interface ISlimeState<TKey> : ICharacterState<TKey, ISlimeSetup> { }
 
     public interface IMushroomState<TKey> : ICharacterState<TKey, IMushroomSetup> { }
+    public interface IBullTankState<TKey> : ICharacterState<TKey, IBullTankSetup> { }
     public interface INPCState<TKey> : ICharacterState<TKey, INPCSetup> { }
 
     public interface ICharacterStateTransition<TKey>

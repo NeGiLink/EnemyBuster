@@ -29,8 +29,8 @@ namespace MyAssets
         public IChangingState           ChangingState => changingState;
 
         [SerializeField]
-        private IKController                  footIK;
-        public IAllIK                  FootIK => footIK;
+        private IKController            footIK;
+        public IAllIK                   FootIK => footIK;
 
 
         [SerializeField]
@@ -121,6 +121,7 @@ namespace MyAssets
 
         IPlayerState<string>[]          states;
 
+        public override CharacterType CharaType => CharacterType.Player;
         protected override void Awake()
         {
             base.Awake();
@@ -130,6 +131,7 @@ namespace MyAssets
             input = GetComponent<IControllerInput>();
             keyInput = input as PlayerInput;
             weaponController = GetComponent<WeaponController>();
+            property.Setup(this);
             animator.DoSetup(this);
             footIK.DoSetup(this);
             changingState.DoSetup(this);

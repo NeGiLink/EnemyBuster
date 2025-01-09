@@ -1257,7 +1257,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1338601535}
-  m_Father: {fileID: 1575922589}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &734123898 stripped
 Transform:
@@ -3884,7 +3884,6 @@ Transform:
   - {fileID: 1167796616}
   - {fileID: 42422150}
   - {fileID: 1339917537}
-  - {fileID: 713192685}
   - {fileID: 405429971}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4442,6 +4441,22 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1370099728889580871, guid: 755f88ed624d3684088c15ef36614a24, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5138244163388887020, guid: 755f88ed624d3684088c15ef36614a24, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6880905011740222578, guid: 755f88ed624d3684088c15ef36614a24, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8585639999586077409, guid: 755f88ed624d3684088c15ef36614a24, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4853,6 +4868,10 @@ PrefabInstance:
     - target: {fileID: 7862631369779060483, guid: 3fe11175b63fd4349be256880e22bbef, type: 3}
       propertyPath: m_Name
       value: Stage01
+      objectReference: {fileID: 0}
+    - target: {fileID: 7862631369779060483, guid: 3fe11175b63fd4349be256880e22bbef, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8460566934681765758, guid: 3fe11175b63fd4349be256880e22bbef, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5394,25 +5413,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3667963436937609142, guid: 39c6fce0edb1b684082725c825f5cdb5, type: 3}
-      propertyPath: property.sp
-      value: 1000
-      objectReference: {fileID: 0}
-    - target: {fileID: 3667963436937609142, guid: 39c6fce0edb1b684082725c825f5cdb5, type: 3}
-      propertyPath: property.maxSp
-      value: 1000
-      objectReference: {fileID: 0}
-    - target: {fileID: 3667963436937609142, guid: 39c6fce0edb1b684082725c825f5cdb5, type: 3}
-      propertyPath: rollingState.rollingSp
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 3667963436937609142, guid: 39c6fce0edb1b684082725c825f5cdb5, type: 3}
-      propertyPath: firstAttackState.secondVer1ToTransitionTime
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8070452729987547975, guid: 39c6fce0edb1b684082725c825f5cdb5, type: 3}
-      propertyPath: m_CollisionDetection
-      value: 2
+    - target: {fileID: 5265583041009197642, guid: 39c6fce0edb1b684082725c825f5cdb5, type: 3}
+      propertyPath: allSearch
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8732599098942333029, guid: 39c6fce0edb1b684082725c825f5cdb5, type: 3}
       propertyPath: m_Name
@@ -5939,7 +5942,8 @@ PrefabInstance:
       value: Canvas
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 528045633948611389, guid: 626c048ea99594346a65b928be41c9bc, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 626c048ea99594346a65b928be41c9bc, type: 3}
@@ -6256,6 +6260,7 @@ SceneRoots:
   - {fileID: 1478130019}
   - {fileID: 1930128400}
   - {fileID: 3502816935589134328}
+  - {fileID: 713192685}
   - {fileID: 1575922589}
   - {fileID: 1122662015}
   - {fileID: 1188138400}

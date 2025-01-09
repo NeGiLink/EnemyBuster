@@ -96,6 +96,16 @@ namespace MyAssets
             return new List<ICharacterStateTransition<string>>();
         }
     }
+    public abstract class BullTankStateBase : CharacterStateBase<string, IBullTankSetup>, IBullTankState<string>
+    {
+        public override abstract string Key { get; }
+
+        public override List<ICharacterStateTransition<string>> CreateTransitionList(IBullTankSetup actor)
+        {
+            // SlimeState専用のトランジションリスト作成処理を実装
+            return new List<ICharacterStateTransition<string>>();
+        }
+    }
 
     public abstract class NPCStateBase : CharacterStateBase<string, INPCSetup>, INPCState<string>
     {

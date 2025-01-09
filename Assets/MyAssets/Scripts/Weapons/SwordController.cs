@@ -12,6 +12,8 @@ namespace MyAssets
         [SerializeField]
         private IPlayerAnimator animator;
 
+        private IPlayerSetup    playerSetup;
+
         [SerializeField]
         private new CapsuleCollider collider;
 
@@ -27,6 +29,8 @@ namespace MyAssets
         private AttackType attackType = AttackType.Single;
         public void SetAttackType(AttackType type) {  attackType = type; }
 
+        private SwordEffectHandler swordEffectHandler;
+
         private void Awake()
         {
             attackObject = GetComponent<AttackObject>();
@@ -35,10 +39,13 @@ namespace MyAssets
 
             if(controller != null)
             {
+                playerSetup = controller.GetComponent<IPlayerSetup>();
                 animator = controller.PlayerAnimator;
             }
 
             collider = GetComponent<CapsuleCollider>();
+
+            swordEffectHandler = GetComponent<SwordEffectHandler>();
 
             center = collider.center;
             radius = collider.radius;
@@ -62,6 +69,7 @@ namespace MyAssets
         private void Start()
         {
             collider.enabled = false;
+            swordEffectHandler.ActivateSlachEffect(false);
         }
 
         public void EnabledCollider(float start,float end,bool all)
@@ -69,6 +77,7 @@ namespace MyAssets
             if (all)
             {
                 collider.enabled = true;
+                swordEffectHandler.ActivateSlachEffect(true);
                 ActivateCollider();
             }
             else
@@ -78,6 +87,7 @@ namespace MyAssets
                 {
                     collider.enabled = true;
                     ActivateCollider();
+                    swordEffectHandler.ActivateSlachEffect(true);
                     /*
                     Ray ray = new Ray(transform.position, transform.up);
                     RaycastHit hit;
@@ -94,12 +104,14 @@ namespace MyAssets
                 else
                 {
                     NoActivateCollider();
+                    swordEffectHandler.ActivateSlachEffect(false);
                 }
             }
         }
         public void NotEnabledCollider()
         {
             NoActivateCollider();
+            swordEffectHandler.ActivateSlachEffect(false);
             collider.enabled = false;
         }
 
@@ -111,7 +123,7 @@ namespace MyAssets
             if (characterSetup == null) { return; }
             IDamageContainer damageContainer = characterSetup.DamageContainer;
             if (damageContainer == null) { return; }
-            damageContainer.GiveYouDamage(attackObject.Power, attackObject.Type, transform);
+            damageContainer.GiveYouDamage(attackObject.Power, attackObject.Type, transform,playerSetup.CharaType);
         }
 
         private void OnTriggerStay(Collider other)
@@ -122,7 +134,7 @@ namespace MyAssets
             if (characterSetup == null) { return; }
             IDamageContainer damageContainer = characterSetup.DamageContainer;
             if (damageContainer == null) { return; }
-            damageContainer.GiveYouDamage(attackObject.Power, attackObject.Type, transform);
+            damageContainer.GiveYouDamage(attackObject.Power, attackObject.Type, transform, playerSetup.CharaType);
         }
 
     }

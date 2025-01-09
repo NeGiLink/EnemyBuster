@@ -23,7 +23,7 @@ namespace MyAssets
             AllEnemyKillController.Instance.WaveChangeEnd();
         }
 
-        private void OnDestroy()
+        private void OnDisable()
         {
             Count--;
             spawnPoint.SetUseFlag(false);
