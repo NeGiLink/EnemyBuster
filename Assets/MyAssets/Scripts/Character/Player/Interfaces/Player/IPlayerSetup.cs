@@ -19,6 +19,8 @@ namespace MyAssets
         IDamageContainer        DamageContainer { get; }
 
         IFieldOfView            FieldOfView { get; }
+
+        CharacterType           CharaType { get; }
     }
     /// <summary>
     /// プレイヤーで使うインタフェース
@@ -73,6 +75,17 @@ namespace MyAssets
         IMushroomAnimator MushroomAnimator { get; }
         IGroundCheck GroundCheck {  get; }
         MushroomAttackController AttackObject { get; }
+
+        void RunDestroy();
+    }
+    /// <summary>
+    /// ブルタンクに使うインタフェース
+    /// </summary>
+    public interface IBullTankSetup : IEnemySetup
+    {
+        IBullTankAnimator BullTankAnimator { get; }
+        IGroundCheck GroundCheck { get; }
+        //MushroomAttackController AttackObject { get; }
 
         void RunDestroy();
     }

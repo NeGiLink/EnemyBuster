@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace MyAssets
@@ -7,13 +5,13 @@ namespace MyAssets
     public class BaseStautsProperty
     {
         [SerializeField]
-        private int maxHP;
+        protected int maxHP;
         public int MaxHP => maxHP;
 
         [SerializeField]
-        private int hp;
+        protected int hp;
         public int HP => hp;
-        public void RecoveryHP(int h)
+        public virtual void RecoveryHP(int h)
         {
             hp += h;
             if (hp > maxHP)
@@ -22,15 +20,18 @@ namespace MyAssets
             }
         }
 
-        public bool DecreaseAndDeathCheck(int d)
+        public virtual bool DecreaseAndDeathCheck(int d)
         {
             hp -= d;
+            HPUIUpdate();
             if(hp <= 0)
             {
                 return true;
             }
             return false;
         }
+
+        protected virtual void HPUIUpdate() { }
 
         [SerializeField]
         private int maxStoredDamage;

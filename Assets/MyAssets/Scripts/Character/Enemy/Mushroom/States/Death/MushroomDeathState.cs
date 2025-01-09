@@ -12,6 +12,8 @@ namespace MyAssets
 
         private IMovement movement;
 
+        private IVelocityComponent velocity;
+
         private Timer destroyTimer = new Timer();
 
         [SerializeField]
@@ -26,18 +28,20 @@ namespace MyAssets
 
             return re;
         }
-        public override void DoSetup(IMushroomSetup slime)
+        public override void DoSetup(IMushroomSetup actor)
         {
-            base.DoSetup(slime);
-            thisTransform = slime.gameObject.transform;
-            animator = slime.MushroomAnimator;
-            movement = slime.Movement;
+            base.DoSetup(actor);
+            thisTransform = actor.gameObject.transform;
+            animator = actor.MushroomAnimator;
+            movement = actor.Movement;
+            velocity = actor.Velocity;
         }
 
         public override void DoStart()
         {
             base.DoStart();
             animator.Animator.SetBool("Death", true);
+            velocity.DeathCollider();
             destroyTimer.Start(destroyCount);
             destroyTimer.OnEnd += DestroyUpdate;
         }

@@ -246,6 +246,7 @@ GameObject:
   - component: {fileID: 4422125206608952100}
   - component: {fileID: 7760781244556982102}
   - component: {fileID: 5010527956576694153}
+  - component: {fileID: 273517769154466243}
   m_Layer: 5
   m_Name: 'RetrunButton (Legacy) '
   m_TagString: Untagged
@@ -354,7 +355,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4422125206608952100}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 273517769154466243}
+        m_TargetAssemblyTypeName: MyAssets.ChangeScene, Assembly-CSharp
+        m_MethodName: SetNextScene
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &5010527956576694153
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -367,6 +380,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a48e5f85196b56949842b36a6237a7fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &273517769154466243
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4573537574235583215}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c044a124c2781ba42a807c36d1e22ca4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextScene: 1
 --- !u!1 &4707949973545929527
 GameObject:
   m_ObjectHideFlags: 0
@@ -380,6 +406,7 @@ GameObject:
   - component: {fileID: 4464839576489390605}
   - component: {fileID: 7638852627165792393}
   - component: {fileID: 7346528317048420601}
+  - component: {fileID: 2942932532854073650}
   m_Layer: 5
   m_Name: ReStartButton (Legacy)
   m_TagString: Untagged
@@ -488,7 +515,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4464839576489390605}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2942932532854073650}
+        m_TargetAssemblyTypeName: MyAssets.ChangeScene, Assembly-CSharp
+        m_MethodName: SetNextScene
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &7346528317048420601
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -501,6 +540,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a48e5f85196b56949842b36a6237a7fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2942932532854073650
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4707949973545929527}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c044a124c2781ba42a807c36d1e22ca4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextScene: 2
 --- !u!1 &6581885751774396781
 GameObject:
   m_ObjectHideFlags: 0

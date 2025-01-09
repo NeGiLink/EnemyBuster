@@ -41,6 +41,11 @@ namespace MyAssets
         string AttacksName { get; }
     }
 
+    public interface IBullTankAnimator : IEnemyAnimator
+    {
+        string AttacksName { get; }
+    }
+
     public interface INPCAnimator
     {
         Animator Animator { get; }

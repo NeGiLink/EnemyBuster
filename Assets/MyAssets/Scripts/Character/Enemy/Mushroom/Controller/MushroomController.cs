@@ -58,6 +58,8 @@ namespace MyAssets
         private MushroomDeathState deathState;
 
         IMushroomState<string>[] states;
+
+        public override CharacterType CharaType => CharacterType.Enemy;
         protected override void Awake()
         {
             fieldOfView = GetComponent<FieldOfView>();

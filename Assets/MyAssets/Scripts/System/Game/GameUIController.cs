@@ -28,17 +28,6 @@ namespace MyAssets
             damageTextCreator = GetComponent<DamageTextCreator>();
         }
 
-        // Start is called before the first frame update
-        void Start()
-        {
-        
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-        
-        }
         public void CreateFadeResultTextUI()
         {
             Transform parent = GameCanvas.Instance.UILayer[(int)UILayer.System].transform;

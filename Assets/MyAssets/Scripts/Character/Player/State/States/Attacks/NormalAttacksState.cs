@@ -94,7 +94,7 @@ namespace MyAssets
 
         public override void DoUpdate(float time)
         {
-            sword.EnabledCollider(0.1f, 0.6f, false);
+            sword.EnabledCollider(0.15f, 0.6f, false);
             base.DoUpdate(time);
         }
 
@@ -185,7 +185,7 @@ namespace MyAssets
 
         public override void DoUpdate(float time)
         {
-            sword.EnabledCollider(0.1f,0.6f, false);
+            sword.EnabledCollider(0.15f,0.6f, false);
             base.DoUpdate(time);
         }
 
@@ -378,7 +378,7 @@ namespace MyAssets
 
         public override void DoUpdate(float time)
         {
-            sword.EnabledCollider(0.2f,0.6f,false);
+            sword.EnabledCollider(0.1f,0.6f,false);
             base.DoUpdate(time);
         }
 

@@ -2,6 +2,13 @@ using UnityEngine;
 
 namespace MyAssets
 {
+    public enum CharacterType
+    {
+        Null,
+        Player,
+        Enemy
+    }
+
     public class CharacterBaseController : MonoBehaviour
     {
         [SerializeField]
@@ -20,6 +27,8 @@ namespace MyAssets
         [SerializeField]
         protected GroundCheck groundCheck;
         public IGroundCheck GroundCheck => groundCheck;
+
+        public virtual CharacterType CharaType => CharacterType.Null;
 
         protected virtual void Awake()
         {

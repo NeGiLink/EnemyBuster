@@ -361,7 +361,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: ddb95ed53876a924694d8ce9c41edcab, type: 3}
       propertyPath: m_Name
-      value: Mushroom
+      value: MushroomLv2
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: ddb95ed53876a924694d8ce9c41edcab, type: 3}
       propertyPath: m_Layer
@@ -494,7 +494,7 @@ PrefabInstance:
     - target: {fileID: 8895447177835871083, guid: ddb95ed53876a924694d8ce9c41edcab, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 53e8a96f53c30d64bab86a36a2e26ee7, type: 2}
+      objectReference: {fileID: 2100000, guid: dab152654d185eb498121db746d25587, type: 2}
     - target: {fileID: 9070388080329418799, guid: ddb95ed53876a924694d8ce9c41edcab, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: -0.42432153
@@ -655,9 +655,9 @@ MonoBehaviour:
     fallCount: 0
     physicMaterialData: {fileID: 11400000, guid: 847aa92f1a8e8b044822fea7587ff168, type: 2}
   property:
-    maxHP: 0
-    hp: 100
-    maxStoredDamage: 50
+    maxHP: 200
+    hp: 200
+    maxStoredDamage: 75
     storedDamage: 0
   rotation:
     thisTransform: {fileID: 0}
@@ -676,13 +676,13 @@ MonoBehaviour:
     rotationSpeed: 8
     moveSpeedChangeRate: 8
   chaseState:
-    moveSpeed: 2
+    moveSpeed: 4
     rotationSpeed: 8
     moveSpeedChangeRate: 8
     searchingTime: 1
     minChaseDistance: 2.5
   attackState:
-    movePower: 0
+    movePower: 0.7
   damageState:
     knockBack: 5
     decreaseForce: 0.9

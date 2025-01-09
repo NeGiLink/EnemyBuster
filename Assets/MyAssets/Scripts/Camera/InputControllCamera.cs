@@ -108,8 +108,11 @@ namespace MyAssets
         private IMainCameraProvider mainCameraProvider;
         private InputControllCamera inputControllCamera;
 
-        private CinemachinePOV povComponent;
-        public CinemachinePOV PovComponent => povComponent;
+        private CinemachinePOV      povComponent;
+        public CinemachinePOV       PovComponent => povComponent;
+
+        private Vector3             inputEulerRotation;
+        public Vector3              InputEulerRotation => inputEulerRotation;
 
         public void Setup(InputControllCamera controller)
         {
@@ -126,8 +129,6 @@ namespace MyAssets
             mainCameraProvider.VirtualCameras[(int)CameraTag.Target].Priority = 1;
             mainCameraProvider.VirtualCameras[(int)CameraTag.OverTheShoulder].Priority = 1;
             mainCameraProvider.VirtualCameras[(int)CameraTag.Target].LookAt = null;
-            /*
-             */
             // Quaternionをオイラー角に変換し、POVコンポーネントの軸に反映
             Vector3 eulerRotation = inputControllCamera.FixedCamRotation.eulerAngles;
             povComponent.m_VerticalAxis.Value = eulerRotation.x;
@@ -136,7 +137,7 @@ namespace MyAssets
 
         public void Exit()
         {
-
+            inputEulerRotation = inputControllCamera.FixedCamRotation.eulerAngles;
         }
 
         public void CameraUpdate()
@@ -161,14 +162,15 @@ namespace MyAssets
             mainCameraProvider.VirtualCameras[(int)CameraTag.Target].Priority = 10;
             mainCameraProvider.VirtualCameras[(int)CameraTag.Free].Priority = 5;
             mainCameraProvider.VirtualCameras[(int)CameraTag.OverTheShoulder].Priority = 1;
-
             // POVカメラのPOVコンポーネントを取得
+            /*
             var povComponent = mainCameraProvider.VirtualCameras[(int)CameraTag.Free].GetCinemachineComponent<CinemachinePOV>();
 
             // Quaternionをオイラー角に変換し、POVコンポーネントの軸に反映
             Vector3 eulerRotation = playerUsesCamera.FixedCamRotation.eulerAngles;
             //povComponent.m_VerticalAxis.Value = eulerRotation.x;
             povComponent.m_HorizontalAxis.Value = eulerRotation.y;
+             */
         }
 
         public void Exit()
@@ -203,20 +205,20 @@ namespace MyAssets
             mainCameraProvider.VirtualCameras[(int)CameraTag.OverTheShoulder].Priority = 10;
             mainCameraProvider.VirtualCameras[(int)CameraTag.Free].Priority = 5;
             mainCameraProvider.VirtualCameras[(int)CameraTag.Target].Priority = 1;
-
-            // POVカメラのPOVコンポーネントを取得
-            var povComponent = mainCameraProvider.VirtualCameras[(int)CameraTag.Free].GetCinemachineComponent<CinemachinePOV>();
-
-            // Quaternionをオイラー角に変換し、POVコンポーネントの軸に反映
-            Vector3 eulerRotation = playerUsesCamera.FixedCamRotation.eulerAngles;
-            //povComponent.m_VerticalAxis.Value = eulerRotation.x;
-            povComponent.m_HorizontalAxis.Value = eulerRotation.y;
         }
 
         public void Exit()
         {
             GameObject camera = mainCameraProvider.MainCamera;
             playerUsesCamera.SetFixedCamRotation(camera.transform.rotation);
+
+            // POVカメラのPOVコンポーネントを取得
+            var povComponent = mainCameraProvider.VirtualCameras[(int)CameraTag.Free].GetCinemachineComponent<CinemachinePOV>();
+
+            // Quaternionをオイラー角に変換し、POVコンポーネントの軸に反映
+            Vector3 eulerRotation = mainCameraProvider.VirtualCameras[(int)CameraTag.OverTheShoulder].transform.rotation.eulerAngles;
+            povComponent.m_VerticalAxis.Value = eulerRotation.x;
+            povComponent.m_HorizontalAxis.Value = eulerRotation.y;
         }
 
         public void CameraUpdate()

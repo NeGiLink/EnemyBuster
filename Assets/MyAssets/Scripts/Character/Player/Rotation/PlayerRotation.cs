@@ -75,8 +75,6 @@ namespace MyAssets
                 }
 
                 thisTransform.rotation = Quaternion.RotateTowards(thisTransform.rotation, targetRotation, rotationSpeed);
-                // 切り替え前の回転量を適用
-                //targetRotation = previousCameraRotation * targetRotation;
             }
             else if (focusInput.Foucus > Define.Zero)
             {
@@ -88,7 +86,7 @@ namespace MyAssets
                 {
                     var horizontalRotation = Quaternion.AngleAxis(moveInput.AimHorizontal.Value,Vector3.up);
                     var verticalRotation = Quaternion.AngleAxis(moveInput.AimVertical.Value,Vector3.right);
-                    thisTransform.rotation = horizontalRotation;
+                    thisTransform.localRotation = horizontalRotation;
                     y_Focus.localRotation = verticalRotation;
 
                     // ここでカメラ切り替え前の回転量を適用
@@ -132,17 +130,6 @@ namespace MyAssets
             }
 
             thisTransform.rotation = Quaternion.RotateTowards(thisTransform.rotation, targetRotation, rotationSpeed);
-        }
-
-        public void OverTheShoulder()
-        {
-            var horizontalRotation = Quaternion.AngleAxis(moveInput.AimHorizontal.Value, Vector3.up);
-            var verticalRotation = Quaternion.AngleAxis(moveInput.AimVertical.Value, Vector3.right);
-            thisTransform.rotation = horizontalRotation;
-            y_Focus.localRotation = verticalRotation;
-
-            // ここでカメラ切り替え前の回転量を適用
-            targetRotation = horizontalRotation;
         }
     }
 }

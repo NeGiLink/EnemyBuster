@@ -62,6 +62,9 @@ namespace MyAssets
         private SlimeDeathState             deathState;
 
         ISlimeState<string>[]               states;
+
+
+        public override CharacterType CharaType => CharacterType.Enemy;
         protected override void Awake()
         {
             fieldOfView = GetComponent<FieldOfView>();

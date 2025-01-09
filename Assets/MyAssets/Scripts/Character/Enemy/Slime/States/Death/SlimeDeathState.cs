@@ -13,6 +13,8 @@ namespace MyAssets
 
         private IMovement movement;
 
+        private IVelocityComponent velocity;
+
         private Timer destroyTimer = new Timer();
 
         [SerializeField]
@@ -33,6 +35,7 @@ namespace MyAssets
             thisTransform = slime.gameObject.transform;
             animator = slime.SlimeAnimator;
             movement = slime.Movement;
+            velocity = slime.Velocity;
         }
 
         public override void DoStart()
@@ -41,6 +44,7 @@ namespace MyAssets
             animator.Animator.SetBool("Death", true);
             destroyTimer.Start(destroyCount);
             destroyTimer.OnEnd += DestroyUpdate;
+            velocity.DeathCollider();
         }
 
         public override void DoUpdate(float time)

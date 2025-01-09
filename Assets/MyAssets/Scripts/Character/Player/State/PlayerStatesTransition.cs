@@ -380,35 +380,30 @@ namespace MyAssets
     {
         private readonly IAttackInputProvider input;
         private readonly IChangingState changingState;
-        private readonly IGroundCheck groundCheck;
-        private readonly IPlayerAnimator animator;
 
         public IsWeaponOutTransition(IPlayerSetup actor, IStateChanger<string> stateChanger, string changeKey)
             : base(stateChanger, changeKey)
         {
             input = actor.gameObject.GetComponent<IAttackInputProvider>();
-            groundCheck = actor.GroundCheck;
             changingState = actor.ChangingState;
-            animator = actor.PlayerAnimator;
         }
         public override bool IsTransition() => input.Attack && !changingState.IsBattleMode;
     }
     public class IsWeaponInTransition : CharacterStateTransitionBase
     {
         private readonly IToolInputProvider input;
+        private readonly IFocusInputProvider focusInput;
         private readonly IChangingState changingState;
-        private readonly IGroundCheck groundCheck;
-        private readonly IPlayerAnimator animator;
 
         public IsWeaponInTransition(IPlayerSetup actor, IStateChanger<string> stateChanger, string changeKey)
             : base(stateChanger, changeKey)
         {
             input = actor.gameObject.GetComponent<IToolInputProvider>();
-            groundCheck = actor.GroundCheck;
+            focusInput = actor.gameObject.GetComponent <IFocusInputProvider>();
             changingState = actor.ChangingState;
-            animator = actor.PlayerAnimator;
         }
-        public override bool IsTransition() => (input.Receipt||input.Receipting > 0) && changingState.IsBattleMode;
+        public override bool IsTransition() => (input.Receipt||input.Receipting > 0) && changingState.IsBattleMode &&
+                                                focusInput.Foucus < 1.0f;
     }
 
     public class IsReadyJumpAttackTransition : CharacterStateTransitionBase

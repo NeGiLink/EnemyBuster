@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5461248342790469516}
   - component: {fileID: 6270988508263683688}
   - component: {fileID: 2327789286364246167}
+  - component: {fileID: 8961960310879753999}
   - component: {fileID: 3786209457901072342}
   m_Layer: 0
   m_Name: Sword
@@ -62,12 +63,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackObject: {fileID: 0}
-  hitLayer:
-    serializedVersion: 2
-    m_Bits: 256
-  radius: 0.25
-  dis: 1
   collider: {fileID: 0}
+--- !u!114 &8961960310879753999
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 135962694829592116}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2f4ec1eb324e624bb5cf686741f2f96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slachEffect: {fileID: 5793054773382839290, guid: 0db245b40499a8540b96ec9b9b4e57bf, type: 3}
+  slachEffectOffset: {x: 0, y: 0.5, z: 0}
 --- !u!136 &3786209457901072342
 CapsuleCollider:
   m_ObjectHideFlags: 0
