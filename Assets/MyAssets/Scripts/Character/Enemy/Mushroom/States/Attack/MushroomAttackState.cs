@@ -9,12 +9,16 @@ namespace MyAssets
     {
         private Transform thisTransform;
         private IMovement movement;
+        private IVelocityComponent velocity;
         private IMushroomAnimator animator;
 
         private MushroomAttackController attackObject;
 
         [SerializeField]
         private float movePower;
+
+        [SerializeField]
+        private float gravityMultiply;
 
         public static readonly string StateKey = "Attack";
         public override string Key => StateKey;
@@ -34,6 +38,7 @@ namespace MyAssets
             thisTransform = actor.gameObject.transform;
             animator = actor.MushroomAnimator;
             movement = actor.Movement;
+            velocity = actor.Velocity;
             attackObject = actor.AttackObject;
         }
 
@@ -65,6 +70,7 @@ namespace MyAssets
             {
                 movement.DecreaseMove(0.2f);
             }
+            velocity.Rigidbody.velocity += Physics.gravity * gravityMultiply * time;
         }
 
         public override void DoExit()

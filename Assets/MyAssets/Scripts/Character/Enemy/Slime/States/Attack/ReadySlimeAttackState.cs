@@ -7,6 +7,7 @@ namespace MyAssets
     public class ReadySlimeAttackState : SlimeStateBase
     {
         private IMovement movement;
+        private IVelocityComponent velocity;
         private ISlimeAnimator animator;
 
         private Timer readyTimer = new Timer();
@@ -16,6 +17,9 @@ namespace MyAssets
 
         [SerializeField]
         private float idleSpeed;
+
+        [SerializeField]
+        private float gravityMultiply;
 
         public static readonly string StateKey = "ReadyAttack";
         public override string Key => StateKey;
@@ -35,6 +39,7 @@ namespace MyAssets
             base.DoSetup(actor);
             animator = actor.SlimeAnimator;
             movement = actor.Movement;
+            velocity = actor.Velocity;
         }
 
         public override void DoStart()
@@ -55,6 +60,7 @@ namespace MyAssets
         {
             base.DoFixedUpdate(time);
             movement.Move(idleSpeed);
+            velocity.Rigidbody.velocity += Physics.gravity * gravityMultiply * time;
         }
     }
 }

@@ -14,18 +14,33 @@ namespace MyAssets
         private static GameManager          instance;
         public static GameManager           Instance => instance;
 
-        private PlayerInput                 playerInput;
+        private PlayerCharacterInput                 playerInput;
         private MainCameraController        mainCameraController;
         
         [SerializeField]
         private StageLedger stageLedger;
         public StageLedger StageLedger => stageLedger;
 
+        [SerializeField]
+        private GameModeLedger gameModeLedger;
+        public GameModeLedger GameModeLedger => gameModeLedger;
+
         private int stageCount = 0;
         public int StageCount => stageCount;
 
         private SceneList sceneList;
         public void SetSceneList(SceneList scene) {  sceneList = scene; }
+
+
+        [SerializeField]
+        private ModeTag modeTag = ModeTag.AllKillEnemy;
+        public ModeTag ModeTag => modeTag;
+        public void SetModeTag(ModeTag tag) {  modeTag = tag; }
+
+        [SerializeField]
+        private GameLevel gameLevel = GameLevel.Easy;
+        public GameLevel GameLevel => gameLevel;
+        public void SetGameLevel(GameLevel level) { gameLevel = level; }
 
         [SerializeField]
         private bool debug = false;
@@ -47,7 +62,7 @@ namespace MyAssets
             instance = this;
             DontDestroyOnLoad(gameObject);
 
-            playerInput = FindObjectOfType<PlayerInput>();
+            playerInput = FindObjectOfType<PlayerCharacterInput>();
             mainCameraController = FindObjectOfType<MainCameraController>();
         }
 

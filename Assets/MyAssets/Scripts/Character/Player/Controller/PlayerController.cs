@@ -16,7 +16,7 @@ namespace MyAssets
 
         private IControllerInput        input;
 
-        private PlayerInput             keyInput;
+        private PlayerCharacterInput             keyInput;
         public IMoveInputProvider       MoveInput => keyInput;
         public IAttackInputProvider     AttackInput => keyInput;
         public IToolInputProvider       ToolInput => keyInput;
@@ -129,7 +129,7 @@ namespace MyAssets
 
 
             input = GetComponent<IControllerInput>();
-            keyInput = input as PlayerInput;
+            keyInput = input as PlayerCharacterInput;
             weaponController = GetComponent<WeaponController>();
             property.Setup(this);
             animator.DoSetup(this);

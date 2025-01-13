@@ -8,6 +8,8 @@ namespace MyAssets
     {
         private IMovement movement;
 
+        private IVelocityComponent velocity;
+
         private Timer idleTimer = new Timer();
 
         private IDamageContainer damageContainer;
@@ -21,6 +23,9 @@ namespace MyAssets
         [SerializeField]
         private float idleCount;
 
+        [SerializeField]
+        private float gravityMultiply;
+
         public override List<ICharacterStateTransition<string>> CreateTransitionList(ISlimeSetup actor)
         {
             List<ICharacterStateTransition<string>> re = new List<ICharacterStateTransition<string>>();
@@ -30,11 +35,12 @@ namespace MyAssets
             if (StateChanger.IsContain(SlimeDeathState.StateKey)) { re.Add(new IsDeathTransition(actor, StateChanger, SlimeDeathState.StateKey)); }
             return re;
         }
-        public override void DoSetup(ISlimeSetup slime)
+        public override void DoSetup(ISlimeSetup actor)
         {
-            base.DoSetup(slime);
-            movement = slime.Movement;
-            damageContainer = slime.DamageContainer;
+            base.DoSetup(actor);
+            movement = actor.Movement;
+            velocity = actor.Velocity;
+            damageContainer = actor.DamageContainer;
         }
 
         public override void DoStart()
@@ -54,6 +60,7 @@ namespace MyAssets
         {
             base.DoFixedUpdate(time);
             movement.Move(moveSpeed);
+            velocity.Rigidbody.velocity += Physics.gravity * gravityMultiply * time;
         }
     }
 }

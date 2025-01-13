@@ -56,7 +56,7 @@ namespace MyAssets
             if(focusInput.Foucus < Define.PressNum)
             {
                 float rotationSpeed = Define.Zero;
-                switch (PlayerInput.GetDeviceInput())
+                switch (PlayerCharacterInput.GetDeviceInput())
                 {
                     case DeviceInput.Key:
                         rotationSpeed = 600 * Time.deltaTime;
@@ -111,7 +111,7 @@ namespace MyAssets
         public void DoFreeMode()
         {
             float rotationSpeed = Define.Zero;
-            switch (PlayerInput.GetDeviceInput())
+            switch (PlayerCharacterInput.GetDeviceInput())
             {
                 case DeviceInput.Key:
                     rotationSpeed = 600 * Time.deltaTime;

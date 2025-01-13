@@ -34,16 +34,16 @@ namespace MyAssets
             instance = this;
         }
 
-        public void SetQuestObject(QuestInformationTag tag)
+        public void SetQuestObject(ModeTag tag)
         {
             switch (tag)
             {
-                case QuestInformationTag.Subjugation:
+                case ModeTag.AllKillEnemy:
                     questObject = questType01;
                     break;
-                case QuestInformationTag.Transport:
+                case ModeTag.TimeAttack:
                     break;
-                case QuestInformationTag.Transaction:
+                case ModeTag.Endless:
                     break;
             }
         }

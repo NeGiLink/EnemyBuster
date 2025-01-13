@@ -45,4 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stageLedger: {fileID: 11400000, guid: 77c6e96eea22b5341a393fd895fd7311, type: 2}
+  gameModeLedger: {fileID: 11400000, guid: af43feacdd4f9cd47ba96f41f4cb628a, type: 2}
+  modeTag: 0
+  gameLevel: 0
   debug: 0

@@ -10,6 +10,8 @@ namespace MyAssets
     {
         private IMovement movement;
 
+        private IVelocityComponent velocity;
+
         private Timer idleTimer = new Timer();
 
         private IDamageContainer damageContainer;
@@ -22,6 +24,9 @@ namespace MyAssets
 
         [SerializeField]
         private float idleCount;
+
+        [SerializeField]
+        private float gravityMultiply;
 
         public override List<ICharacterStateTransition<string>> CreateTransitionList(IMushroomSetup actor)
         {
@@ -36,6 +41,7 @@ namespace MyAssets
         {
             base.DoSetup(actor);
             movement = actor.Movement;
+            velocity = actor.Velocity;
             damageContainer = actor.DamageContainer;
         }
 
@@ -56,6 +62,7 @@ namespace MyAssets
         {
             base.DoFixedUpdate(time);
             movement.Move(moveSpeed);
+            velocity.Rigidbody.velocity += Physics.gravity * gravityMultiply * time;
         }
     }
 }

@@ -9,6 +9,8 @@ namespace MyAssets
     public class ChaseState : SlimeStateBase
     {
         private IMovement movement;
+
+        private IVelocityComponent velocity;
         private Transform thisTransform;
         private FieldOfView fieldOfView;
 
@@ -24,6 +26,8 @@ namespace MyAssets
         float rotationSpeed = 8;
         [SerializeField]
         float moveSpeedChangeRate = 8;
+        [SerializeField]
+        private float gravityMultiply;
 
         [SerializeField]
         float searchingTime = 1.0f;
@@ -44,15 +48,16 @@ namespace MyAssets
             return re;
         }
 
-        public override void DoSetup(ISlimeSetup enemy)
+        public override void DoSetup(ISlimeSetup actor)
         {
-            base.DoSetup(enemy);
-            movement = enemy.Movement;
-            thisTransform = enemy.gameObject.transform;
-            fieldOfView = enemy.gameObject.GetComponent<FieldOfView>();
-            animator = enemy.SlimeAnimator;
-            damageContainer = enemy.DamageContainer;
-            rotation = enemy.SlimeRotation;
+            base.DoSetup(actor);
+            movement = actor.Movement;
+            velocity = actor.Velocity;
+            thisTransform = actor.gameObject.transform;
+            fieldOfView = actor.gameObject.GetComponent<FieldOfView>();
+            animator = actor.SlimeAnimator;
+            damageContainer = actor.DamageContainer;
+            rotation = actor.SlimeRotation;
         }
 
         public override void DoFixedUpdate(float time)
@@ -81,6 +86,8 @@ namespace MyAssets
                 animator.Animator.SetInteger(animator.MoveName, 1);
                 movement.MoveTo(fieldOfView.TargetLastPoint, moveSpeed, moveSpeedChangeRate, rotationSpeed, time);
             }
+
+            velocity.Rigidbody.velocity += Physics.gravity * gravityMultiply * time;
         }
 
         private bool TargetOnTheFrontCheck(Transform target)

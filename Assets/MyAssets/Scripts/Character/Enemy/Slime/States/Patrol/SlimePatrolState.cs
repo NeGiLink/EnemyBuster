@@ -9,6 +9,9 @@ namespace MyAssets
     public class SlimePatrolState : SlimeStateBase
     {
         private IMovement movement;
+
+        private IVelocityComponent velocity;
+
         private Transform thisTransform;
 
         private ISlimeAnimator animator;
@@ -24,6 +27,8 @@ namespace MyAssets
         float rotationSpeed = 8;
         [SerializeField]
         float moveSpeedChangeRate = 8;
+        [SerializeField]
+        private float gravityMultiply;
 
         public static readonly string StateKey = "Patrol";
         public override string Key => StateKey;
@@ -43,6 +48,7 @@ namespace MyAssets
             base.DoSetup(actor);
             thisTransform = actor.gameObject.transform;
             movement = actor.Movement;
+            velocity = actor.Velocity;
             animator = actor.SlimeAnimator;
             damageContainer = actor.DamageContainer;
             patrplPointContainer = actor.gameObject.GetComponent<PatrplPointContainer>();
@@ -69,6 +75,7 @@ namespace MyAssets
             {
                 NextPoint();
             }
+            velocity.Rigidbody.velocity += Physics.gravity * gravityMultiply * time;
         }
 
         void NextPoint()

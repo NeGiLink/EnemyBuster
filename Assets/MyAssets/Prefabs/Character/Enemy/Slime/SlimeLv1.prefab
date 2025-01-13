@@ -102,6 +102,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   velocity:
     thisRigidbody: {fileID: 0}
+    collider: {fileID: 0}
     currentVelocity: {x: 0, y: 0, z: 0}
     inheritRigidbodyVelocity: 1
   damageContainer:
@@ -133,22 +134,27 @@ MonoBehaviour:
   idleState:
     moveSpeed: 0
     idleCount: 3
+    gravityMultiply: 2
   patrolState:
     patrplPointContainer: {fileID: 0}
     moveSpeed: 2
     rotationSpeed: 8
     moveSpeedChangeRate: 8
+    gravityMultiply: 2
   chaseState:
     moveSpeed: 2
     rotationSpeed: 8
     moveSpeedChangeRate: 8
+    gravityMultiply: 0
     searchingTime: 1
     minChaseDistance: 2.5
   readyAttackState:
     readyCount: 1.5
     idleSpeed: 0
+    gravityMultiply: 2
   attackState:
     movePower: 0.6
+    gravityMultiply: 2
   damageState:
     knockBack: 5
     decreaseForce: 0.9
