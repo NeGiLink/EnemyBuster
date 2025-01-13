@@ -12,6 +12,13 @@ namespace MyAssets
 
         public float Current => current;
 
+        private bool up = false;
+
+        public void SetCountUp( bool u)
+        {
+            up = u;
+        }
+
         public void Start(float time)
         {
             current = time;
@@ -19,12 +26,19 @@ namespace MyAssets
 
         public void Update(float time)
         {
-            if (current <= 0) { return; }
-            current -= time;
-            if (current <= 0)
+            if (up)
             {
-                current = 0;
-                End();
+                current += time;
+            }
+            else
+            {
+                if (current <= 0) { return; }
+                current -= time;
+                if (current <= 0)
+                {
+                    current = 0;
+                    End();
+                }
             }
         }
 
@@ -36,5 +50,15 @@ namespace MyAssets
         }
 
         public bool IsEnd() { return current <= 0; }
+
+        public int GetMinutes()
+        {
+            return (int)current / 60;
+        }
+
+        public int GetSecond()
+        {
+            return (int)current % 60;
+        }
     }
 }

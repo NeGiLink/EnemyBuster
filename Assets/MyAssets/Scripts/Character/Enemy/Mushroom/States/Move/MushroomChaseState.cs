@@ -7,6 +7,7 @@ namespace MyAssets
     public class MushroomChaseState : MushroomStateBase
     {
         private IMovement movement;
+        private IVelocityComponent velocity;
         private Transform thisTransform;
         private FieldOfView fieldOfView;
 
@@ -31,6 +32,9 @@ namespace MyAssets
         [SerializeField]
         float minChaseDistance = 2.5f;
 
+        [SerializeField]
+        private float gravityMultiply;
+
         public static readonly string StateKey = "Chase";
         public override string Key => StateKey;
 
@@ -44,14 +48,15 @@ namespace MyAssets
             return re;
         }
 
-        public override void DoSetup(IMushroomSetup enemy)
+        public override void DoSetup(IMushroomSetup actor)
         {
-            base.DoSetup(enemy);
-            movement = enemy.Movement;
-            thisTransform = enemy.gameObject.transform;
-            fieldOfView = enemy.gameObject.GetComponent<FieldOfView>();
-            animator = enemy.MushroomAnimator;
-            damageContainer = enemy.DamageContainer;
+            base.DoSetup(actor);
+            movement = actor.Movement;
+            velocity = actor.Velocity;
+            thisTransform = actor.gameObject.transform;
+            fieldOfView = actor.gameObject.GetComponent<FieldOfView>();
+            animator = actor.MushroomAnimator;
+            damageContainer = actor.DamageContainer;
         }
 
         public override void DoStart()
@@ -111,6 +116,7 @@ namespace MyAssets
                 animator.Animator.SetInteger("Move", 1);
                 movement.MoveTo(targetLastPoint, moveSpeed, moveSpeedChangeRate, rotationSpeed, time);
             }
+            velocity.Rigidbody.velocity += Physics.gravity * gravityMultiply * time;
         }
 
         public override void DoExit()

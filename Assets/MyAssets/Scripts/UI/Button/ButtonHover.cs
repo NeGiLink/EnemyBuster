@@ -7,6 +7,7 @@ namespace MyAssets
     {
         private RectTransform rectTransform;
         public RectTransform RectTransform => rectTransform;
+        [SerializeField]
         private bool isHovering;
         public bool IsHovering => isHovering;
 
@@ -25,6 +26,11 @@ namespace MyAssets
         {
             isHovering = false;
             //Debug.Log("カーソルがボタンから離れました: " + gameObject.name);
+        }
+
+        public void SetHovering(bool h)
+        {
+            isHovering = h;
         }
         /*
         void Update()

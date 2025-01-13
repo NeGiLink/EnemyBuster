@@ -1,8 +1,17 @@
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace MyAssets
 {
+    public enum UITag
+    {
+        HP,
+        SP,
+        TimerCount,
+        EnemyCount
+    }
+
     /// <summary>
     /// Canvasへの追加・変更・削除を行うクラス
     /// </summary>
@@ -10,6 +19,9 @@ namespace MyAssets
     {
         private static GameUIController instance;
         public static GameUIController Instance => instance;
+
+        [SerializeField]
+        private UIData uiData;
 
         [SerializeField]
         private FadeInText fadeInText;
@@ -21,6 +33,12 @@ namespace MyAssets
         private DamageTextCreator damageTextCreator;
         public DamageTextCreator DamageTextCreator => damageTextCreator;
 
+        private TimerCountUI timerCountUI;
+        public TimerCountUI TimerCountUI => timerCountUI;
+
+        private EnemyKillCountUI enemyKillCountUI;
+        public EnemyKillCountUI EnemyKillCountUI => enemyKillCountUI;
+
         private void Awake()
         {
             instance = this;
@@ -28,12 +46,22 @@ namespace MyAssets
             damageTextCreator = GetComponent<DamageTextCreator>();
         }
 
+        private void Start()
+        {
+            Transform parent = GameCanvas.Instance.UILayer[(int)UILayer.System].transform;
+            timerCountUI = Instantiate(uiData[(int)UITag.TimerCount], parent).GetComponent<TimerCountUI>();
+            enemyKillCountUI = Instantiate(uiData[(int)UITag.EnemyCount], parent).GetComponent<EnemyKillCountUI>();
+            enemyKillCountUI.SetMaxCount(GameModeController.Instance.MaxEnemyCount);
+            int count = GameModeController.Instance.AbstractGameMode.CurrentEnemyKillCount;
+            enemyKillCountUI.CountRefresh(count);
+        }
+
         public void CreateFadeResultTextUI()
         {
             Transform parent = GameCanvas.Instance.UILayer[(int)UILayer.System].transform;
             FadeInText text = Instantiate(fadeInText, parent);
             text.gameObject.AddComponent<ResultCreater>();
-            if(AllEnemyKillController.Instance.CurrentEnemyKillCount >= AllEnemyKillController.Instance.MaxEnemyKillCount)
+            if(GameModeController.Instance.AbstractGameMode.CurrentEnemyKillCount >= GameModeController.Instance.AbstractGameMode.MaxEnemyKillCount)
             {
                 text.SetOutputText("ゲームクリア");
             }

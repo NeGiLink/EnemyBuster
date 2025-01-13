@@ -20,15 +20,17 @@ namespace MyAssets
         private void Start()
         {
             Count++;
-            AllEnemyKillController.Instance.WaveChangeEnd();
+
+            GameModeController.Instance.AbstractGameMode.WaveChangeEnd();
         }
 
         private void OnDisable()
         {
             Count--;
             spawnPoint.SetUseFlag(false);
-            AllEnemyKillController.Instance.CurrentEnemyKillCount++;
-            AllEnemyKillController.Instance.IsWaveChange();
+            GameModeController.Instance.AbstractGameMode.CurrentEnemyKillCount++;
+            GameUIController.Instance.EnemyKillCountUI.CountRefresh(GameModeController.Instance.AbstractGameMode.CurrentEnemyKillCount);
+            GameModeController.Instance.AbstractGameMode.IsWaveChangeOrEnd();
         }
     }
 }

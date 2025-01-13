@@ -61,6 +61,7 @@ namespace MyAssets
         /// <returns></returns>
         private void CheckGroundStatus()
         {
+            if(collider == null) { return; }
             if (!collider.enabled) { return; }
             bool land = false;
             land = Physics.SphereCast(transform.position + groundCheckOffsetY * Vector3.up,

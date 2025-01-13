@@ -10,12 +10,16 @@ namespace MyAssets
     {
         private Transform thisTransform;
         private IMovement movement;
+        private IVelocityComponent velocity;
         private ISlimeAnimator animator;
 
         private SlimeBodyAttackController attackObject;
 
         [SerializeField]
         private float movePower;
+
+        [SerializeField]
+        private float gravityMultiply;
 
         public static readonly string StateKey = "Attack";
         public override string Key => StateKey;
@@ -35,6 +39,7 @@ namespace MyAssets
             thisTransform = actor.gameObject.transform;
             animator = actor.SlimeAnimator;
             movement = actor.Movement;
+            velocity = actor.Velocity;
             attackObject = actor.AttackObject;
         }
 
@@ -68,6 +73,7 @@ namespace MyAssets
             {
                 movement.Move(0);
             }
+            velocity.Rigidbody.velocity += Physics.gravity * gravityMultiply * time;
         }
 
         public override void DoExit()

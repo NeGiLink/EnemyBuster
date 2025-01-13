@@ -198,6 +198,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   velocity:
     thisRigidbody: {fileID: 0}
+    collider: {fileID: 0}
     currentVelocity: {x: 0, y: 0, z: 0}
     inheritRigidbodyVelocity: 1
   damageContainer:

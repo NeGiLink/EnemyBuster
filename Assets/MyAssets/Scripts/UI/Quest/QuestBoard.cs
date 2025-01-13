@@ -1,58 +1,36 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace MyAssets
 {
-    public enum QuestInformationTag
+    public enum ModeTag
     {
         None = -1,
-        Subjugation,
-        Transport,
-        Transaction
+        AllKillEnemy,
+        TimeAttack,
+        Endless
     }
     public class QuestBoard : MonoBehaviour
     {
         [SerializeField]
-        private new QuestInformationTag tag;
+        private new ModeTag tag;
 
         public void SetInformation(string name)
         {
-            tag = QuestInformationTag.None;
+            tag = ModeTag.None;
             switch (name)
             {
-                case "Subjugation":
-                    tag = QuestInformationTag.Subjugation;
+                case "AllKillEnemy":
+                    tag = ModeTag.AllKillEnemy;
                     break;
-                case "Transport":
-                    tag = QuestInformationTag.Transport;
+                case "TimeAttack":
+                    tag = ModeTag.TimeAttack;
                     break;
-                case "Transaction":
-                    tag = QuestInformationTag.Transaction;
+                case "Endless":
+                    tag = ModeTag.Endless;
                     break;
             }
-            Quest.Instance.SetQuestObject(tag);
-        }
-
-        public void DesideQuest()
-        {
+            GameManager.Instance.SetModeTag(tag);
             Destroy(gameObject);
-            Quest.Instance.CreateQuest();
-            tag = QuestInformationTag.None;
-        }
-
-        private void OnEnable()
-        {
-            Cursor.visible = true;
-            Cursor.lockState = CursorLockMode.None;
-            GameManager.Instance.ActivatePlayerInput(false);
-        }
-
-        private void OnDestroy()
-        {
-            Cursor.visible = false;
-            Cursor.lockState = CursorLockMode.Locked;
-            GameManager.Instance.ActivatePlayerInput(true);
         }
     }
 }

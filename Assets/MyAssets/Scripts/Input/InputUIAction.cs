@@ -25,18 +25,30 @@ namespace MyAssets
         private bool pause;
         public bool Pause => pause;
 
+        private PlayerInput playerInput;
+
+        public bool IsInputKetBoardAndMouse => playerInput.currentControlScheme == "KeyBoard&Mouse";
+        public bool IsInputGamePad => playerInput.currentControlScheme == "GamePad";
+
         private void Awake()
         {
             instance = this;
 
             inputActions = new GenericInput();
+
+            playerInput = GetComponent<PlayerInput>();
         }
         private void Update()
         {
+            if (SelectAction.WasReleasedThisFrame())
+            {
+                select = Vector2.zero;
+            }
             if (SelectAction.IsPressed())
             {
                 select = Vector2.zero;
             }
+            select = Vector2.zero;
             if (SelectAction.WasPressedThisFrame())
             {
                 select = inputActions.UI.Select.ReadValue<Vector2>();

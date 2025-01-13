@@ -62,6 +62,7 @@ namespace MyAssets
         {
             base.DoFixedUpdate(time);
             movement.Move(0);
+            velocity.Rigidbody.velocity = Vector3.zero;
         }
     }
 }

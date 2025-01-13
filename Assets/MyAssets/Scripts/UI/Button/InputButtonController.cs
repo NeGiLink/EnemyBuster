@@ -1,7 +1,7 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Windows;
 
 namespace MyAssets
 {
@@ -59,6 +59,11 @@ namespace MyAssets
             pos.x -= selectImageOffsetX;
             selectImage.rectTransform.anchoredPosition = pos;
         }
+
+        private void SetActivateSelectImage(bool b)
+        {
+            selectImage.enabled = b;
+        }
         private void Update()
         {
             MouseInput();
@@ -67,12 +72,20 @@ namespace MyAssets
 
         private void MouseInput()
         {
+            //int index = 0;
             for(int i = 0; i < hovers.Length; i++)
             {
                 if (hovers[i].IsHovering)
                 {
                     selectIndex = i;
                     SetSelectImagePosition(selectIndex);
+                    SetActivateSelectImage(true);
+                    if (InputUIAction.Instance.Decide)
+                    {
+                        if(selectIndex < 0) { return; }
+                        buttons[selectIndex].onClick?.Invoke();
+                        //seManager.Play(1);
+                    }
                 }
             }
         }
@@ -88,10 +101,10 @@ namespace MyAssets
             {
                 select = -InputUIAction.Instance.Select.y;
             }
-            Input(select);
+            SelectInput(select);
         }
 
-        private void Input(float action)
+        private void SelectInput(float action)
         {
             if (buttonIsArray)
             {
@@ -116,12 +129,23 @@ namespace MyAssets
                     //seManager.Play();
                 }
             }
-
             if (InputUIAction.Instance.Decide)
             {
-                buttons[selectIndex].onClick.Invoke();
+                //if (!InputUIAction.Instance.IsInputGamePad) { return; }
+                buttons[selectIndex].onClick?.Invoke();
                 //seManager.Play(1);
             }
+        }
+
+        public void ActivateStart()
+        {
+            StartCoroutine(Activate());
+        }
+
+        private IEnumerator Activate()
+        {
+            yield return null;
+            this.enabled = true;
         }
     }
 }
