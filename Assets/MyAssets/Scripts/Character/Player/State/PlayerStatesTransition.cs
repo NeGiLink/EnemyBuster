@@ -550,4 +550,34 @@ namespace MyAssets
         }
         public override bool IsTransition() => stauts.HP <= 0;
     }
+
+    public class IsGuardTransition : CharacterStateTransitionBase
+    {
+
+        private readonly ShieldController shieldController;
+
+        public IsGuardTransition(IPlayerSetup chara, IStateChanger<string> stateChanger, string changeKey)
+            : base(stateChanger, changeKey)
+        {
+            shieldController = chara.Equipment.ShieldTool;
+        }
+        public override bool IsTransition() => shieldController.IsSuccess;
+    }
+    public class IsEndGuardTransition : CharacterStateTransitionBase
+    {
+
+        private readonly IPlayerAnimator animator;
+
+        private readonly ShieldController shieldController;
+
+        public IsEndGuardTransition(IPlayerSetup chara, IStateChanger<string> stateChanger, string changeKey)
+            : base(stateChanger, changeKey)
+        {
+            animator = chara.PlayerAnimator;
+            shieldController = chara.Equipment.ShieldTool;
+        }
+        public override bool IsTransition() => shieldController.IsSuccess && 
+                                               animator.Animator.GetCurrentAnimatorStateInfo(0).IsName("Shield Impact") &&
+                                               animator.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f;
+    }
 }

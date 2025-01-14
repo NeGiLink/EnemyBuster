@@ -139,7 +139,8 @@ namespace MyAssets
 
         public void ActivateStart()
         {
-            StartCoroutine(Activate());
+            this.enabled = true;
+            //StartCoroutine(Activate());
         }
 
         private IEnumerator Activate()

@@ -23,6 +23,11 @@ namespace MyAssets
 
         private bool guard = false;
 
+        private bool success = false;
+
+        public bool IsSuccess => success;
+        public void SetSuccess(bool s) {  success = s; }
+
         private void Awake()
         {
             animator = GetComponent<Animator>();
@@ -60,6 +65,7 @@ namespace MyAssets
                     if (damageContainer != null) 
                     {
                         damageContainer.Recoil( DamageType.Middle, thistransform);
+                        success = true;
                     }
                 }
                 return true;
