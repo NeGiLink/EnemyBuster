@@ -104,6 +104,8 @@ namespace MyAssets
         private JumpAttackState         jumpAttackState;
         [SerializeField]
         private JumpAttackLandingState  jumpAttackLandingState;
+        [SerializeField]
+        private GuardState              guardState;
 
         [SerializeField]
         private WeaponOutState          weaponOutState;
@@ -162,6 +164,7 @@ namespace MyAssets
                 readyJumpAttack,
                 jumpAttackState,
                 jumpAttackLandingState,
+                guardState,
                 weaponOutState,
                 weaponInState,
                 damageState,

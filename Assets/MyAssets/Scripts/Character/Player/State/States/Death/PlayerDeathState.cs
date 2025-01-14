@@ -32,6 +32,7 @@ namespace MyAssets
         {
             base.DoStart();
             animator.Animator.SetInteger("Impact", 2);
+            GameUIController.Instance.CreateFadeResultTextUI();
         }
 
         public override void DoFixedUpdate(float time)

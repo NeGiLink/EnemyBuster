@@ -51,6 +51,8 @@ namespace MyAssets
             if (StateChanger.IsContain(WeaponInState.StateKey)) { re.Add(new IsWeaponInTransition(actor, StateChanger, WeaponInState.StateKey)); }
             if (StateChanger.IsContain(PlayerDamageState.StateKey)) { re.Add(new IsDamageTransition(actor, StateChanger, PlayerDamageState.StateKey)); }
             if (StateChanger.IsContain(PlayerDeathState.StateKey)) { re.Add(new IsDeathTransition(actor, StateChanger, PlayerDeathState.StateKey)); }
+
+            if (StateChanger.IsContain(GuardState.StateKey)) { re.Add(new IsGuardTransition(actor, StateChanger, GuardState.StateKey)); }
             return re;
         }
 
