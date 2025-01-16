@@ -107,7 +107,7 @@ namespace MyAssets
                     return; 
                 }
             }
-            damageContainer.GiveYouDamage(attackObject.Power, attackObject.Type, transform,mushroom.CharaType);
+            damageContainer.GiveDamage(attackObject.Power, attackObject.Type, transform,mushroom.CharaType);
         }
 
     }

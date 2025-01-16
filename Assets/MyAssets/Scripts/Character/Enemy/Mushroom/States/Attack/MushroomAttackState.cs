@@ -46,7 +46,7 @@ namespace MyAssets
         {
             base.DoStart();
 
-            movement.Move(0);
+            movement.Stop();
 
             attackObject.SetAttackType(AttackType.Single);
         }
@@ -77,7 +77,7 @@ namespace MyAssets
         {
             base.DoExit();
             animator.Animator.SetInteger(animator.AttacksName, -1);
-            movement.Move(0);
+            movement.Stop();
             attackObject.NotEnabledCollider();
         }
     }

@@ -85,7 +85,8 @@ namespace MyAssets
     {
         IBullTankAnimator BullTankAnimator { get; }
         IGroundCheck GroundCheck { get; }
-        //MushroomAttackController AttackObject { get; }
+        AxeController AttackObject { get; }
+        BullTankHeadAttackController HeadAttackObject {  get; }
 
         void RunDestroy();
     }

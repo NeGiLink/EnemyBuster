@@ -12,6 +12,9 @@ namespace MyAssets
         [SerializeField]
         private Vector3         slachEffectOffset;
 
+        [SerializeField]
+        private Vector3         slachEffectRotation;
+
         private TrailRenderer   keepSlachEffect;
 
         // Start is called before the first frame update
@@ -22,6 +25,9 @@ namespace MyAssets
             Vector3 pos = slach.localPosition;
             pos += slachEffectOffset;
             slach.localPosition = pos;
+            Vector3 rot = slach.localRotation.eulerAngles;
+            rot += slachEffectRotation;
+            slach.eulerAngles = rot;
         }
 
         public void ActivateSlachEffect(bool activate)

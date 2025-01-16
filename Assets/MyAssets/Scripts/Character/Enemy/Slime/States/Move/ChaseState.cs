@@ -79,7 +79,7 @@ namespace MyAssets
                 {
                     rotation.DoLookOnTarget(fieldOfView.TargetObject.transform);
                 }
-                movement.Move(0f);
+                movement.Stop();
             }
             else
             {
@@ -105,7 +105,7 @@ namespace MyAssets
         {
             base.DoExit();
             animator.Animator.SetInteger(animator.MoveName, Define.Zero);
-            movement.Move(0f);
+            movement.Stop();
         }
 
     }

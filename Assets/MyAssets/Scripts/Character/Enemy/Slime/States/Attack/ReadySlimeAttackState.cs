@@ -47,7 +47,7 @@ namespace MyAssets
             base.DoStart();
             readyTimer.Start(readyCount);
 
-            movement.Move(0);
+            movement.Stop();
             animator.Animator.SetTrigger("AttackStart");
         }
 

@@ -25,9 +25,11 @@ namespace MyAssets
         public override List<ICharacterStateTransition<string>> CreateTransitionList(IBullTankSetup actor)
         {
             List<ICharacterStateTransition<string>> re = new List<ICharacterStateTransition<string>>();
+            if (StateChanger.IsContain(BullTankChaseState.StateKey)) { re.Add(new IsTargetInViewTransition(actor, StateChanger, BullTankChaseState.StateKey)); }
+            if (StateChanger.IsContain(BullTankDamageState.StateKey)) { re.Add(new IsEnemyDamageTransition(actor, StateChanger, BullTankDamageState.StateKey)); }
+            if (StateChanger.IsContain(BullTankDeathState.StateKey)) { re.Add(new IsDeathTransition(actor, StateChanger, BullTankDeathState.StateKey)); }
             /*
             if (StateChanger.IsContain(MushroomPatrolState.StateKey)) { re.Add(new IsPatrolTransition(actor, idleTimer, StateChanger, MushroomPatrolState.StateKey)); }
-            if (StateChanger.IsContain(MushroomChaseState.StateKey)) { re.Add(new IsTargetInViewTransition(actor, StateChanger, MushroomChaseState.StateKey)); }
             if (StateChanger.IsContain(MushroomDamageState.StateKey)) { re.Add(new IsEnemyDamageTransition(actor, StateChanger, MushroomDamageState.StateKey)); }
             if (StateChanger.IsContain(MushroomDeathState.StateKey)) { re.Add(new IsDeathTransition(actor, StateChanger, MushroomDeathState.StateKey)); }
              */

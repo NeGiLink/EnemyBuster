@@ -47,7 +47,7 @@ namespace MyAssets
         {
             base.DoStart();
 
-            movement.Move(0);
+            movement.Stop();
 
             animator.Animator.SetInteger(animator.AttacksName, 1);
 
@@ -71,7 +71,7 @@ namespace MyAssets
             }
             else
             {
-                movement.Move(0);
+                movement.Stop();
             }
             velocity.Rigidbody.velocity += Physics.gravity * gravityMultiply * time;
         }
@@ -80,7 +80,7 @@ namespace MyAssets
         {
             base.DoExit();
             animator.Animator.SetInteger(animator.AttacksName, -1);
-            movement.Move(0);
+            movement.Stop();
             attackObject.NotEnabledCollider();
         }
     }

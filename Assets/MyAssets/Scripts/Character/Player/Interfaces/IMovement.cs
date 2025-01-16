@@ -5,6 +5,7 @@ namespace MyAssets
 
     public interface IMovement
     {
+        void Stop();
         void Move(float maxSpeed);
         void ForwardMove(float maxSpeed);
 
@@ -13,6 +14,8 @@ namespace MyAssets
         void StartClimbStep(Vector3 hitPoint);
 
         void MoveTo(Vector3 targetPoint, float targetMoveSpeed, float moveSpeedChangeRate, float rotationSpeed, float time);
+
+        void SideMove(float dir, float speed, Vector3 targetPoint, float rotationSpeed, float time);
 
         void DecreaseMove(float ratio);
     }

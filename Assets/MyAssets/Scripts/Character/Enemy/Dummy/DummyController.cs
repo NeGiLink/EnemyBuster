@@ -50,7 +50,7 @@ namespace MyAssets
             damageCoolDownTimer.Update(Time.deltaTime);
             if (!damageCoolDownTimer.IsEnd()) 
             {
-                damageContainer.GiveYouDamage(0, DamageType.None, null,CharacterType.Null);
+                damageContainer.GiveDamage(0, DamageType.None, null,CharacterType.Null);
                 return; 
             }
             DamageUI();
@@ -61,7 +61,7 @@ namespace MyAssets
             if(damageContainer.AttackType == DamageType.None) { return; }
             damageCoolDownTimer.Start(0.25f);
             GameUIController.Instance.DamageTextCreator.Crate(transform, damageContainer.Data,Color.red);
-            damageContainer.GiveYouDamage(0, DamageType.None, null,CharacterType.Null);
+            damageContainer.GiveDamage(0, DamageType.None, null,CharacterType.Null);
         }
     }
 }

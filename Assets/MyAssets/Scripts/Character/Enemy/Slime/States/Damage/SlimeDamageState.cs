@@ -102,7 +102,7 @@ namespace MyAssets
         {
             base.DoExit();
             fieldOfView.SetAllSearch(false);
-            damageContainer.GiveYouDamage(0, DamageType.None, null,CharacterType.Null);
+            damageContainer.GiveDamage(0, DamageType.None, null,CharacterType.Null);
             animator.Animator.SetInteger("Impact", -1);
             stauts.ClearStoredDamage();
         }
