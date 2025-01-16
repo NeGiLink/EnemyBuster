@@ -8,13 +8,15 @@ namespace MyAssets
 
         void SetData(int d);
 
+        void SetActivateKnockback(bool k);
+
         DamageType AttackType { get; }
         void SetAttackType(DamageType attackType);
 
         Transform Attacker { get; }
         void SetAttacker(Transform t);
 
-        void GiveYouDamage(int power, DamageType type, Transform transform,CharacterType charaType);
+        void GiveDamage(int power, DamageType type, Transform transform,CharacterType charaType);
 
         void Recoil(DamageType type, Transform t);
     }

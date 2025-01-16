@@ -6,38 +6,48 @@ namespace MyAssets
 {
     public class FieldOfView : MonoBehaviour , IFieldOfView
     {
-        private Timer currentSearchinTimer = new Timer();
+        private Timer       currentSearchinTimer = new Timer();
+        public Timer        CurrentSearchinTimer => currentSearchinTimer;
         [SerializeField]
-        private GameObject targetObject;
-        public GameObject TargetObject => targetObject;
+        private GameObject  targetObject;
+        public GameObject   TargetObject => targetObject;
         //nullじゃないのならtrue、nullならfalse
-        public bool FindTarget => targetObject != null;
+        public bool         FindTarget => targetObject != null;
 
         public void SetTargetObject(GameObject t) {  targetObject = t; }
         [SerializeField]
-        private Vector3 targetLastPoint;
-        public Vector3 TargetLastPoint => targetLastPoint;
+        private Vector3     targetLastPoint;
+        public Vector3      TargetLastPoint => targetLastPoint;
 
 
         [SerializeField]
-        float refreshTime = 0.1f;
+        float               refreshTime = 0.1f;
 
         [SerializeField]
-        float range = 10.0f;
+        float               range = 10.0f;
 
         [SerializeField]
-        float viewAngle = 45.0f;
+        float               viewAngle = 45.0f;
 
         [SerializeField]
-        LayerMask targetObjectLayer = Physics.AllLayers;
+        LayerMask           targetObjectLayer = Physics.AllLayers;
 
         [SerializeField]
-        private bool allSearch = false;
+        private bool        allSearch = false;
+
 
         public void SetAllSearch(bool a) {  allSearch = a; }
+        [SerializeField]
+        private bool        find = false;
+
+        public bool         Find => find;
 
         // 視界範囲内のオブジェクトリスト
-        List<GameObject> insideObjects = new List<GameObject>();
+        List<GameObject>    insideObjects = new List<GameObject>();
+
+        public List<GameObject> InsideObjects => insideObjects;
+
+        public Vector3 GetSubDistance => targetLastPoint - transform.position;
 
         public bool IsInside(GameObject obj) => insideObjects.Contains(obj);
 
@@ -59,6 +69,7 @@ namespace MyAssets
             //今追っかけてるオブジェクトが見える
             if (IsInside(targetObject))
             {
+                find = true;
                 if(targetObject != null)
                 {
                     targetLastPoint = targetObject.transform.position;
@@ -78,6 +89,7 @@ namespace MyAssets
             {   
                 targetObject = obj;
                 targetLastPoint = targetObject.transform.position;
+                find = true;
                 currentSearchinTimer.End();
                 return;
             }
@@ -85,6 +97,7 @@ namespace MyAssets
             //新しいオブジェクトもいないなら,一定時間で終了するためタイマースタート
             if (currentSearchinTimer.IsEnd())
             {
+                find = false;
                 currentSearchinTimer.Start(1.0f);
             }
         }
@@ -121,7 +134,10 @@ namespace MyAssets
                 // 範囲内のコライダを取得し、重複を避けるために一時リストに格納
                 int hitCount = Physics.OverlapSphereNonAlloc(transform.position, range, colliders, targetObjectLayer);
 
-                insideObjects.Clear(); // 前の結果をクリア
+                if(hitCount == 0)
+                {
+                    insideObjects.Clear(); // 前の結果をクリア
+                }
                 for (int i = 0; i < hitCount; i++)
                 {
                     GameObject obj = colliders[i].gameObject;

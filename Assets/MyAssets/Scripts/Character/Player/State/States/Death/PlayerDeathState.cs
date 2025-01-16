@@ -38,7 +38,7 @@ namespace MyAssets
         public override void DoFixedUpdate(float time)
         {
             base.DoFixedUpdate(time);
-            movement.Move(0);
+            movement.Stop();
         }
     }
 }

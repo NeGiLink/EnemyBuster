@@ -9,8 +9,6 @@ namespace MyAssets
 
         private IVelocityComponent velocity;
 
-        private Vector3 keepVelocity;
-
         private IStepClimberJudgment stepClimber;
 
         public void DoSetup(ICharacterSetup chara)
@@ -20,19 +18,25 @@ namespace MyAssets
             stepClimber = chara.StepClimberJudgment;
         }
 
+        public void Stop()
+        {
+            velocity.CurrentVelocity = Vector3.zero;
+            velocity.Rigidbody.velocity = Vector3.zero;
+        }
+
         public void Move(float maxSpeed)
         {
             var moveVelocity = velocity.CurrentVelocity;
             moveVelocity = moveVelocity * maxSpeed;
             velocity.Rigidbody.velocity = new Vector3(moveVelocity.x, velocity.Rigidbody.velocity.y, moveVelocity.z);
-            keepVelocity = velocity.CurrentVelocity;
         }
         public void ForwardMove(float maxSpeed)
         {
-            var moveVelocity = velocity.CurrentVelocity;
-            moveVelocity = moveVelocity * maxSpeed;
-            velocity.Rigidbody.velocity = new Vector3(moveVelocity.x, velocity.Rigidbody.velocity.y, moveVelocity.z);
-            keepVelocity = velocity.CurrentVelocity;
+            Vector3 currentVelocity = velocity.CurrentVelocity;
+            currentVelocity.z = thisTransform.forward.z * maxSpeed;
+            currentVelocity.x = thisTransform.forward.x * maxSpeed;
+            velocity.CurrentVelocity = currentVelocity;
+            velocity.Rigidbody.velocity = currentVelocity;
         }
 
         public void ForwardLerpMove(Vector3 basePos, float dis)
@@ -78,12 +82,28 @@ namespace MyAssets
             velocity.Rigidbody.velocity = currentVelocity;
         }
 
+        public void SideMove(float dir,float speed, Vector3 targetPoint,float rotationSpeed, float time)
+        {
+            //現在の目標地点に向かうベクトルを求める
+            Vector3 targetVec = targetPoint - thisTransform.position;
+            //縦には移動しないようにする
+            targetVec.y = 0;
+            //ターゲット方向に向きを変えていく
+            var targetRotation = Quaternion.LookRotation(targetVec, Vector3.up);
+            thisTransform.rotation = Quaternion.Slerp(thisTransform.rotation, targetRotation, rotationSpeed * time);
+
+            Vector3 currentVelocity = velocity.CurrentVelocity;
+            currentVelocity.x = (thisTransform.right.x * dir) * speed;
+            currentVelocity.z = (thisTransform.right.z * dir) * speed;
+            velocity.CurrentVelocity = currentVelocity;
+            velocity.Rigidbody.velocity = currentVelocity;
+        }
+
         public void DecreaseMove(float ratio)
         {
             var moveVelocity = velocity.CurrentVelocity;
             moveVelocity = moveVelocity * ratio;
             velocity.Rigidbody.velocity = new Vector3(moveVelocity.x, velocity.Rigidbody.velocity.y, moveVelocity.z);
-            keepVelocity = velocity.CurrentVelocity;
         }
     }
 }

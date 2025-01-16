@@ -3,6 +3,7 @@ using UnityEngine.Assertions;
 
 namespace MyAssets
 {
+    [System.Serializable]
     public class BullTankAnimator : IBullTankAnimator, ICharacterComponent<IBullTankSetup>
     {
         [SerializeField]

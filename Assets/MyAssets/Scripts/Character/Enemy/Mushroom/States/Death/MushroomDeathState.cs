@@ -60,7 +60,7 @@ namespace MyAssets
         public override void DoFixedUpdate(float time)
         {
             base.DoFixedUpdate(time);
-            movement.Move(0);
+            movement.Stop();
             velocity.Rigidbody.velocity = Vector3.zero;
         }
     }

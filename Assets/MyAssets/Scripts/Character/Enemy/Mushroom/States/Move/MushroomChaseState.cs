@@ -109,7 +109,7 @@ namespace MyAssets
             {
                 animator.Animator.SetInteger("Move", Define.Zero);
                 animator.Animator.SetInteger(animator.AttacksName, 0);
-                movement.Move(0f);
+                movement.Stop();
             }
             else
             {
@@ -123,7 +123,7 @@ namespace MyAssets
         {
             base.DoExit();
             animator.Animator.SetInteger("Move", Define.Zero);
-            movement.Move(0f);
+            movement.Stop();
         }
     }
 }

@@ -13,6 +13,9 @@ namespace MyAssets
         [SerializeField]
         private float       invincibilityCount = 0.1f;
 
+        private bool        activateKnockback = false;
+        public void         SetActivateKnockback(bool k) { activateKnockback = k; }
+
         [SerializeField]
         private int         data = 0;
         public void SetData(int d) { data = d; }
@@ -39,7 +42,7 @@ namespace MyAssets
             fieldOfView = chara.gameObject.GetComponent<FieldOfView>();
         }
 
-        public void GiveYouDamage(int power, DamageType type, Transform transform,CharacterType charaType)
+        public void GiveDamage(int power, DamageType type, Transform transform,CharacterType charaType)
         {
             if(baseStauts.HP <= 0) { return; }
             if (!baseStauts.InvincibilityTimer.IsEnd()) { return; }
@@ -49,11 +52,12 @@ namespace MyAssets
             DamageTextOutput(power,charaType);
             fieldOfView?.AllSearchStart();
             //蓄積ダメージ量がたまったか
-            if (baseStauts.IsMaxStoredDamage(power))
+            if (baseStauts.IsMaxStoredDamage(power)|| activateKnockback )
             {
                 data = power;
                 attackType = type;
                 attacker = transform;
+                activateKnockback = false;
             }
             //無敵スタート
             baseStauts.InvincibilityTimer.Start(invincibilityCount);

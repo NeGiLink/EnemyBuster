@@ -7,7 +7,7 @@ namespace MyAssets
     public class BullTankController : CharacterBaseController, IBullTankSetup
     {
         [SerializeField]
-        private MushroomStatusProperty property;
+        private BullTankStatusProperty property;
         public IBaseStauts BaseStauts => property;
 
         [SerializeField]
@@ -27,11 +27,14 @@ namespace MyAssets
 
         private FieldOfView fieldOfView;
         public IFieldOfView FieldOfView => fieldOfView;
-        /*
+
         [SerializeField]
-        private MushroomAttackController attackObject;
-        public MushroomAttackController AttackObject => attackObject;
-         */
+        private AxeController attackObject;
+        public AxeController AttackObject => attackObject;
+
+        [SerializeField]
+        private BullTankHeadAttackController headAttackObject;
+        public BullTankHeadAttackController HeadAttackObject => headAttackObject;
 
         [SerializeField]
         private StateMachine<string> stateMachine;
@@ -43,21 +46,35 @@ namespace MyAssets
         [SerializeField]
         private BullTankIdleState idleState;
 
+        [SerializeField]
+        private BullTankChaseState moveState;
 
         [SerializeField]
-        private MushroomPatrolState patrolState;
+        private BullTankSideMoveState sideMoveState;
 
         [SerializeField]
-        private MushroomChaseState chaseState;
+        private BullTankNormalAttackState normalAttackState;
 
         [SerializeField]
-        private MushroomAttackState attackState;
+        private ReadyRushAttackStartState readyRushAttackStartState;
 
         [SerializeField]
-        private MushroomDamageState damageState;
+        private ReadyRushAttackLoopState readyRushAttackLoopState;
 
         [SerializeField]
-        private MushroomDeathState deathState;
+        private RushAttackStartState rushAttackStartState;
+
+        [SerializeField]
+        private RushAttackLoopState rushAttackLoopState;
+
+        [SerializeField]
+        private RushAttackEndState rushAttackEndState;
+
+        [SerializeField]
+        private BullTankDamageState damageState;
+
+        [SerializeField]
+        private BullTankDeathState deathState;
 
         IBullTankState<string>[] states;
 
@@ -66,7 +83,8 @@ namespace MyAssets
         protected override void Awake()
         {
             fieldOfView = GetComponent<FieldOfView>();
-            //attackObject = GetComponentInChildren<MushroomAttackController>();
+            attackObject = GetComponentInChildren<AxeController>();
+            headAttackObject = GetComponentInChildren<BullTankHeadAttackController>();
 
             animator.DoSetup(this);
             velocity.DoSetup(this);
@@ -75,9 +93,21 @@ namespace MyAssets
             damageContainer.DoSetup(this);
             damagement.DoSetup(this);
 
+            property.Setup();
+
             states = new IBullTankState<string>[]
             {
-                idleState
+                idleState,
+                moveState,
+                sideMoveState,
+                normalAttackState,
+                damageState,
+                deathState,
+                readyRushAttackStartState,
+                readyRushAttackLoopState,
+                rushAttackStartState,
+                rushAttackLoopState,
+                rushAttackEndState
             };
             stateMachine.DoSetup(states);
             foreach (var state in states)

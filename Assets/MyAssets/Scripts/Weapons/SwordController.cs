@@ -123,7 +123,7 @@ namespace MyAssets
             if (characterSetup == null) { return; }
             IDamageContainer damageContainer = characterSetup.DamageContainer;
             if (damageContainer == null) { return; }
-            damageContainer.GiveYouDamage(attackObject.Power, attackObject.Type, transform,playerSetup.CharaType);
+            damageContainer.GiveDamage(attackObject.Power, attackObject.Type, transform,playerSetup.CharaType);
         }
 
         private void OnTriggerStay(Collider other)
@@ -133,8 +133,8 @@ namespace MyAssets
             ICharacterSetup characterSetup = other.GetComponentInChildren<ICharacterSetup>();
             if (characterSetup == null) { return; }
             IDamageContainer damageContainer = characterSetup.DamageContainer;
-            if (damageContainer == null) { return; }
-            damageContainer.GiveYouDamage(attackObject.Power, attackObject.Type, transform, playerSetup.CharaType);
+            if (damageContainer == null){return;}
+            damageContainer.GiveDamage(attackObject.Power, attackObject.Type, transform, playerSetup.CharaType);
         }
 
     }
