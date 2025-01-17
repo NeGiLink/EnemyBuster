@@ -12,6 +12,10 @@ namespace MyAssets
         private GageUI spGage;
         public GageUI SpGage => spGage;
 
+        [SerializeField]
+        private LockOnUI lockOnUI;
+        public LockOnUI LockOnUI => lockOnUI;
+
         private void Awake()
         {
             StartCoroutine(Setup());
@@ -27,6 +31,8 @@ namespace MyAssets
             hpGage = gage;
             gage = Instantiate(spGage, gameCanvas.UILayer[(int)UILayer.Player].transform);
             spGage = gage;
+            LockOnUI lockOn = Instantiate(lockOnUI, gameCanvas.UILayer[(int)UILayer.Player].transform);
+            lockOnUI = lockOn;
         }
     }
 }

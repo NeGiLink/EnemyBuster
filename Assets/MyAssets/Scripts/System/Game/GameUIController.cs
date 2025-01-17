@@ -50,6 +50,7 @@ namespace MyAssets
         {
             Transform parent = GameCanvas.Instance.UILayer[(int)UILayer.System].transform;
             timerCountUI = Instantiate(uiData[(int)UITag.TimerCount], parent).GetComponent<TimerCountUI>();
+
             enemyKillCountUI = Instantiate(uiData[(int)UITag.EnemyCount], parent).GetComponent<EnemyKillCountUI>();
             enemyKillCountUI.SetMaxCount(GameModeController.Instance.MaxEnemyCount);
             int count = GameModeController.Instance.AbstractGameMode.CurrentEnemyKillCount;

@@ -33,7 +33,7 @@ public partial class @GenericInput: IInputActionCollection2, IDisposable
                     ""id"": ""ab073459-c833-4b3e-85f6-afb4f383fb0a"",
                     ""expectedControlType"": """",
                     ""processors"": """",
-                    ""interactions"": ""Press"",
+                    ""interactions"": """",
                     ""initialStateCheck"": true
                 },
                 {
@@ -51,7 +51,7 @@ public partial class @GenericInput: IInputActionCollection2, IDisposable
                     ""id"": ""a0cb54cc-7395-49d7-9ace-d0ad58ba0515"",
                     ""expectedControlType"": """",
                     ""processors"": """",
-                    ""interactions"": ""Press"",
+                    ""interactions"": """",
                     ""initialStateCheck"": true
                 },
                 {
@@ -153,7 +153,7 @@ public partial class @GenericInput: IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""d9d88987-3130-46a3-a637-cc4b396e50d9"",
                     ""path"": ""<Keyboard>/space"",
-                    ""interactions"": ""Press"",
+                    ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";KeyBoard&Mouse"",
                     ""action"": ""Jump"",

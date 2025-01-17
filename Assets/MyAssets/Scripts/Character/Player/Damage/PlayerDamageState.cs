@@ -26,9 +26,6 @@ namespace MyAssets
         private IPlayerStauts stauts;
 
         [SerializeField]
-        private float knockBack = 5.0f;
-
-        [SerializeField]
         private float decreaseForce = 0.9f;
 
         [SerializeField]
@@ -78,12 +75,12 @@ namespace MyAssets
                         break;
                     case DamageType.Middle:
                         damageType = 0;
-                        damageMove.AddForceMove(thisTransform.position, damageContainer.Attacker.position, knockBack * 1.5f);
+                        damageMove.AddForceMove(thisTransform.position, damageContainer.Attacker.position, damageContainer.KnockBack * 1.5f);
                         damageTimer.Start(1.0f);
                         break;
                     case DamageType.Big:
                         damageType = 1;
-                        damageMove.AddForceMove(thisTransform.position, damageContainer.Attacker.position, knockBack * 4.0f);
+                        damageMove.AddForceMove(thisTransform.position, damageContainer.Attacker.position, damageContainer.KnockBack * 4.0f);
                         damageTimer.Start(1.5f);
                         break;
                 }
@@ -91,7 +88,7 @@ namespace MyAssets
             else
             {
                 damageType = 1;
-                damageMove.AddForceMove(thisTransform.position, damageContainer.Attacker.position, knockBack * 2.0f);
+                damageMove.AddForceMove(thisTransform.position, damageContainer.Attacker.position, damageContainer.KnockBack * 2.0f);
                 damageTimer.Start(1.5f);
             }
             animator.Animator.SetInteger("Impact", damageType);
@@ -115,7 +112,7 @@ namespace MyAssets
         public override void DoExit()
         {
             base.DoExit();
-            damageContainer.GiveDamage(0, DamageType.None, null, CharacterType.Null);
+            damageContainer.ClearDamage();
             animator.Animator.SetInteger("Impact", -1);
             stauts.ClearStoredDamage();
         }

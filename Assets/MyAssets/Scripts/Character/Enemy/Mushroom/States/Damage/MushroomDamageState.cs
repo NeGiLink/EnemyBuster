@@ -23,8 +23,6 @@ namespace MyAssets
 
         private Timer damageTimer = new Timer();
 
-        [SerializeField]
-        private float knockBack = 5.0f;
 
         [SerializeField]
         private float decreaseForce = 0.9f;
@@ -67,7 +65,7 @@ namespace MyAssets
 
             DamageType type = damageContainer.AttackType;
             int damageType = 0;
-            damageMove.AddForceMove(thisTransform.position, damageContainer.Attacker.position, knockBack * 1.0f);
+            damageMove.AddForceMove(thisTransform.position, damageContainer.Attacker.position, damageContainer.KnockBack * 1.0f);
             damageTimer.Start(damageIdleCount);
             animator.Animator.SetInteger("Impact", damageType);
         }
@@ -99,7 +97,7 @@ namespace MyAssets
         {
             base.DoExit();
             fieldOfView.SetAllSearch(false);
-            damageContainer.GiveDamage(0, DamageType.None, null,CharacterType.Null);
+            damageContainer.ClearDamage();
             animator.Animator.SetInteger("Impact", -1);
             stauts.ClearStoredDamage();
         }

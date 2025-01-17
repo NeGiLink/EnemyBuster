@@ -190,7 +190,7 @@ namespace MyAssets
             groundCheck = player.GroundCheck;
             velocity = player.Velocity;
         }
-        public override bool IsTransition() => velocity.Rigidbody.velocity.y < -1.0f &&groundCheck.Landing;
+        public override bool IsTransition() => velocity.Rigidbody.velocity.y < -0.1f &&groundCheck.Landing;
     }
     public class IsNotGroundTransition : CharacterStateTransitionBase
     {

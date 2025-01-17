@@ -59,13 +59,11 @@ namespace MyAssets
         public float Foucus => foucus;
         private InputAction foucusAction;
 
-
         public void Setup()
         {
             if(genericInput == null)
             {
                 genericInput = new GenericInput();
-
             }
         }
 
@@ -164,6 +162,7 @@ namespace MyAssets
         }
         private void OnJump(InputAction.CallbackContext context)
         {
+            Debug.Log("ジャンプ");
             jump = true;
             // 一瞬だけtrueにして、次のフレームでfalseに戻す
             StartCoroutine(ResetJumpButtonPress());

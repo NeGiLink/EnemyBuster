@@ -119,7 +119,7 @@ namespace MyAssets
                     return;
                 }
             }
-            damageContainer.GiveDamage(attackObject.Power, attackObject.Type, transform, setup.CharaType);
+            damageContainer.GiveDamage(attackObject.Power, attackObject.KnockBack, attackObject.Type, transform, setup.CharaType);
         }
 
         private void OnTriggerStay(Collider other)
@@ -130,7 +130,7 @@ namespace MyAssets
             if (characterSetup == null) { return; }
             IDamageContainer damageContainer = characterSetup.DamageContainer;
             if (damageContainer == null) { return; }
-            damageContainer.GiveDamage(attackObject.Power, attackObject.Type, transform, setup.CharaType);
+            damageContainer.GiveDamage(attackObject.Power, attackObject.KnockBack, attackObject.Type, transform, setup.CharaType);
         }
     }
 }

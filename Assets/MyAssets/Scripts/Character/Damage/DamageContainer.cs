@@ -14,6 +14,7 @@ namespace MyAssets
         private float       invincibilityCount = 0.1f;
 
         private bool        activateKnockback = false;
+        public bool         ActivateKnockback => activateKnockback;
         public void         SetActivateKnockback(bool k) { activateKnockback = k; }
 
         [SerializeField]
@@ -29,6 +30,10 @@ namespace MyAssets
         public void SetAttacker(Transform t) { attacker = t; }
         public Transform    Attacker => attacker;
 
+        private float knockBack;
+        public float KnockBack => knockBack;
+        public void SetKnockBack(float k) {  knockBack = k; }
+
         private IBaseStauts baseStauts;
 
         private Transform   thisTransform;
@@ -42,7 +47,7 @@ namespace MyAssets
             fieldOfView = chara.gameObject.GetComponent<FieldOfView>();
         }
 
-        public void GiveDamage(int power, DamageType type, Transform transform,CharacterType charaType)
+        public void GiveDamage(int power,float k, DamageType type, Transform transform,CharacterType charaType)
         {
             if(baseStauts.HP <= 0) { return; }
             if (!baseStauts.InvincibilityTimer.IsEnd()) { return; }
@@ -51,16 +56,38 @@ namespace MyAssets
             //GameManagerにダメージテキスト出力を依頼
             DamageTextOutput(power,charaType);
             fieldOfView?.AllSearchStart();
-            //蓄積ダメージ量がたまったか
-            if (baseStauts.IsMaxStoredDamage(power)|| activateKnockback )
+            if (activateKnockback)
             {
+                baseStauts.AddMaxStoredDamage();
                 data = power;
                 attackType = type;
                 attacker = transform;
+                knockBack = k;
                 activateKnockback = false;
+            }
+            else
+            {
+                //蓄積ダメージ量がたまったか
+                if (baseStauts.IsMaxStoredDamage(power))
+                {
+                    data = power;
+                    attackType = type;
+                    attacker = transform;
+                    knockBack = k;
+                    activateKnockback = false;
+                }
             }
             //無敵スタート
             baseStauts.InvincibilityTimer.Start(invincibilityCount);
+        }
+
+        public void ClearDamage()
+        {
+            data = 0;
+            attackType = DamageType.None;
+            attacker = null;
+            knockBack = 0;
+            activateKnockback= false;
         }
 
         public void DamageTextOutput(int power,CharacterType type)
