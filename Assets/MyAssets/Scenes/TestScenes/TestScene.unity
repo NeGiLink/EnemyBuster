@@ -2296,8 +2296,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 493097bf89a381d44a952adb21204693, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackTypeCount: 0
   data: {fileID: 11400000, guid: 2b3be420202f8f148968b685cece5287, type: 2}
+  attackTypeCount: 0
 --- !u!136 &1046712309
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2949,8 +2949,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 493097bf89a381d44a952adb21204693, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackTypeCount: 0
   data: {fileID: 11400000, guid: f3d8871cf2100ca46a521c58363e7d21, type: 2}
+  attackTypeCount: 0
 --- !u!136 &1211480118
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -3698,8 +3698,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 493097bf89a381d44a952adb21204693, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackTypeCount: 0
   data: {fileID: 11400000, guid: 3fff77c21028bd14dae345a6274b7093, type: 2}
+  attackTypeCount: 0
 --- !u!136 &1569152811
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -4722,6 +4722,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7956965013664603460, guid: 3fe11175b63fd4349be256880e22bbef, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 8460566934681765758, guid: 3fe11175b63fd4349be256880e22bbef, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -5262,6 +5266,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3667963436937609142, guid: 39c6fce0edb1b684082725c825f5cdb5, type: 3}
+      propertyPath: groundCheck.groundCheckRadius
+      value: 0.3
+      objectReference: {fileID: 0}
     - target: {fileID: 5265583041009197642, guid: 39c6fce0edb1b684082725c825f5cdb5, type: 3}
       propertyPath: allSearch
       value: 0
@@ -5466,6 +5474,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BullTank
       objectReference: {fileID: 0}
+    - target: {fileID: 3488576627621377425, guid: 6fffc69bce3f7854db5fee44bc0acad4, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3760081675306430827, guid: 6fffc69bce3f7854db5fee44bc0acad4, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.03
@@ -5506,6 +5518,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9157787373948918939, guid: 6fffc69bce3f7854db5fee44bc0acad4, type: 3}
+      propertyPath: data
+      value: 
+      objectReference: {fileID: 11400000, guid: 0030f48e5b7ed934d82a817a2aceea32, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

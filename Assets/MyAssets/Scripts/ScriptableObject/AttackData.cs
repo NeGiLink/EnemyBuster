@@ -8,6 +8,8 @@ namespace MyAssets
     {
         public int power;
 
+        public float knockBack;
+
         public DamageType attackType;
     }
 

@@ -103,7 +103,7 @@ namespace MyAssets
                     return;
                 }
             }
-            damageContainer.GiveDamage(attackObject.Power, attackObject.Type, transform,slimeSetup.CharaType);
+            damageContainer.GiveDamage(attackObject.Power, attackObject.KnockBack, attackObject.Type, transform,slimeSetup.CharaType);
         }
     }
 }

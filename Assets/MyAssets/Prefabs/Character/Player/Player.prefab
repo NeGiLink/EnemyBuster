@@ -326,8 +326,10 @@ MonoBehaviour:
     moveSpeed: 1
   jumpAttackLandingState:
     LandingActionTime: 0.5
+  guardState:
+    guardSpeed: 0
+    idleGravityMultiply: 0
   damageState:
-    knockBack: 5
     decreaseForce: 0.9
     damageGravityMultiply: 2
 --- !u!114 &4469203551202287720
@@ -423,6 +425,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   allSearch: 0
+  find: 0
 --- !u!136 &8151497809072079399
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -487,6 +490,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hpGage: {fileID: 6141948305426966039, guid: 6225ecdd93374d3459f259784d5a34ce, type: 3}
   spGage: {fileID: 4950720750105366315, guid: 74f29081945821f48a409b14557a006b, type: 3}
+  lockOnUI: {fileID: 6979002613893622950, guid: aaecb724e3c4d0f4e99d52029f9dae74, type: 3}
 --- !u!1001 &2796490727479481384
 PrefabInstance:
   m_ObjectHideFlags: 0

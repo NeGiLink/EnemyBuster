@@ -12,8 +12,6 @@ namespace MyAssets
         private Transform thisTransform;
         private FieldOfView fieldOfView;
 
-        private IDamageContainer damageContainer;
-
         private IBullTankAnimator animator;
 
         [SerializeField]
@@ -74,7 +72,6 @@ namespace MyAssets
             thisTransform = actor.gameObject.transform;
             fieldOfView = actor.gameObject.GetComponent<FieldOfView>();
             animator = actor.BullTankAnimator;
-            damageContainer = actor.DamageContainer;
         }
 
         public override void DoStart()
@@ -101,10 +98,8 @@ namespace MyAssets
             }
             else if(targetDistance >= maxDistance)
             {
-                /*
-                 */
-                int r = Random.Range(0, 3);
-                if(r == 2)
+                float r = Random.Range(0, 1.0f);
+                if(r <= 0.05f)
                 {
                     rushTrigger.SetTrigger(true);
                 }

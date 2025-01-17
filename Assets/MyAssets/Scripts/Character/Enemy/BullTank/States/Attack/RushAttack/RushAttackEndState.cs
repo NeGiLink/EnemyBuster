@@ -54,8 +54,8 @@ namespace MyAssets
 
         public override void DoUpdate(float time)
         {
-            base.DoUpdate(time);
             headWeapon.EnabledCollider(0, 0, true);
+            base.DoUpdate(time);
         }
 
         public override void DoFixedUpdate(float time)

@@ -14,6 +14,9 @@ namespace MyAssets
         private FieldOfView             fieldOfView;
         public IFieldOfView             FieldOfView => fieldOfView;
 
+        private PlayerUIHandler         uIHandler;
+        public PlayerUIHandler          PlayerUIHandler => uIHandler;
+
         private IControllerInput        input;
 
         private PlayerCharacterInput             keyInput;
@@ -128,6 +131,7 @@ namespace MyAssets
         {
             base.Awake();
             fieldOfView = GetComponent<FieldOfView>();
+            uIHandler = GetComponent<PlayerUIHandler>();
 
 
             input = GetComponent<IControllerInput>();
@@ -197,6 +201,15 @@ namespace MyAssets
         protected override void Update()
         {
             float t = Time.deltaTime;
+            if(fieldOfView.TargetObject != null&&keyInput.Foucus > 0)
+            {
+                uIHandler.LockOnUI.gameObject.SetActive(true);
+                uIHandler.LockOnUI.LockUpdate();
+            }
+            else
+            {
+                uIHandler.LockOnUI.gameObject.SetActive(false);
+            }
             property.DoUpdate(t);
             input.DoUpdate();
             groundCheck.DoUpdate();

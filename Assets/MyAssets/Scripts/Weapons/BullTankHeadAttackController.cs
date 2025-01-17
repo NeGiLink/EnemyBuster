@@ -48,6 +48,7 @@ namespace MyAssets
 
             center = collider.center;
             radius = collider.radius;
+            NoActivateCollider();
         }
 
         private void NoActivateCollider()
@@ -111,7 +112,7 @@ namespace MyAssets
                 }
             }
             damageContainer.SetActivateKnockback(true);
-            damageContainer.GiveDamage(power, attackObject.Type, transform, mushroom.CharaType);
+            damageContainer.GiveDamage(power, attackObject.KnockBack, attackObject.Type, transform, mushroom.CharaType);
         }
     }
 }

@@ -48,6 +48,10 @@ namespace MyAssets
             }
             return false;
         }
+        public void AddMaxStoredDamage()
+        {
+            storedDamage = maxStoredDamage;
+        }
         public void ClearStoredDamage()
         {
             storedDamage = 0;

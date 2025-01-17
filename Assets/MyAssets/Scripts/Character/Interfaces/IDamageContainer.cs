@@ -5,18 +5,26 @@ namespace MyAssets
     public interface IDamageContainer
     {
         int Data { get; }
+        DamageType AttackType { get; }
+        Transform Attacker { get; }
+
+        float KnockBack {  get; }
+
+        bool ActivateKnockback {  get; }
 
         void SetData(int d);
 
         void SetActivateKnockback(bool k);
 
-        DamageType AttackType { get; }
         void SetAttackType(DamageType attackType);
 
-        Transform Attacker { get; }
         void SetAttacker(Transform t);
 
-        void GiveDamage(int power, DamageType type, Transform transform,CharacterType charaType);
+        void SetKnockBack(float k);
+
+        void GiveDamage(int power, float k, DamageType type, Transform transform, CharacterType charaType);
+
+        void ClearDamage();
 
         void Recoil(DamageType type, Transform t);
     }

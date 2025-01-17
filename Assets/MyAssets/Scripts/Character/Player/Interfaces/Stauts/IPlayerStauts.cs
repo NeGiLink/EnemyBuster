@@ -13,6 +13,7 @@ namespace MyAssets
         int MaxStoredDamage {  get; }
         int StoredDamage {  get; }
         bool IsMaxStoredDamage(int damage);
+        void AddMaxStoredDamage();
         void ClearStoredDamage();
 
         public Timer InvincibilityTimer {  get; }
