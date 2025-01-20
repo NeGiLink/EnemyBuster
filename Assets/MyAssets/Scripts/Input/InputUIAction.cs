@@ -62,15 +62,28 @@ namespace MyAssets
             {
                 decide = true;
             }
+
+            if (pauseAciton.WasReleasedThisFrame())
+            {
+                pause = false;
+            }
+            if (pauseAciton.IsPressed())
+            {
+                pause = false;
+            }
+            if (pauseAciton.WasPressedThisFrame())
+            {
+                pause = true;
+            }
         }
         private void OnPause(InputAction.CallbackContext context)
         {
-            pause = true;
             // 一瞬だけtrueにして、次のフレームでfalseに戻す
             StartCoroutine(PausePress());
         }
         private System.Collections.IEnumerator PausePress()
         {
+            pause = true;
             yield return null; // 1フレーム待つ
             pause = false;
         }
@@ -89,7 +102,7 @@ namespace MyAssets
 
             pauseAciton = inputActions.UI.Pause;
 
-            pauseAciton.performed += OnPause;
+           // pauseAciton.performed += OnPause;
 
             pauseAciton.Enable();
         }
@@ -101,7 +114,7 @@ namespace MyAssets
 
             decideAction.Disable();
 
-            pauseAciton.performed -= OnPause;
+            //pauseAciton.performed -= OnPause;
 
             pauseAciton.Disable();
 

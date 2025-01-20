@@ -1,19 +1,17 @@
-
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 namespace MyAssets
 {
     public class LockOnUI : MonoBehaviour
     {
         private FieldOfView playerFieldOfView;
-
+        [SerializeField]
         private new Camera camera;
-
+        [SerializeField]
         private Canvas canvas;
-
+        [SerializeField]
         private RectTransform canvasRectTransform;
-
+        [SerializeField]
         private RectTransform thisRectTransform;
 
         private void Awake()
@@ -22,8 +20,8 @@ namespace MyAssets
             canvas = FindObjectOfType<Canvas>();
             canvasRectTransform = canvas.GetComponent<RectTransform>();
             thisRectTransform = GetComponent<RectTransform>();
-
-            playerFieldOfView = FindObjectOfType<FieldOfView>();
+            PlayerController playerController = FindObjectOfType<PlayerController>();
+            playerFieldOfView = playerController.GetComponent<FieldOfView>();
         }
 
         public void LockUpdate()

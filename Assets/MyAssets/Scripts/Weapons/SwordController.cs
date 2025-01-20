@@ -88,18 +88,6 @@ namespace MyAssets
                     collider.enabled = true;
                     ActivateCollider();
                     swordEffectHandler.ActivateSlachEffect(true);
-                    /*
-                    Ray ray = new Ray(transform.position, transform.up);
-                    RaycastHit hit;
-                    if (Physics.SphereCast(ray, radius, out hit, dis, hitLayer))
-                    {
-                        ICharacterSetup characterSetup = hit.collider.GetComponent<ICharacterSetup>();
-                        if (characterSetup == null) { return; }
-                        IDamageContainer damageContainer = characterSetup.DamageContainer;
-                        if (damageContainer == null) { return; }
-                        damageContainer.SetAttackerData(attackObject.Power, attackObject.Type, transform);
-                    }
-                     */
                 }
                 else
                 {
@@ -123,7 +111,9 @@ namespace MyAssets
             if (characterSetup == null) { return; }
             IDamageContainer damageContainer = characterSetup.DamageContainer;
             if (damageContainer == null) { return; }
-            damageContainer.GiveDamage(attackObject.Power,attackObject.KnockBack, attackObject.Type, transform,playerSetup.CharaType);
+            //基礎ダメージと武器のダメージ分
+            int damage = attackObject.Power + (int)playerSetup.Stauts.BasePower;
+            damageContainer.GiveDamage(damage, attackObject.KnockBack, attackObject.Type, transform,playerSetup.CharaType);
         }
 
         private void OnTriggerStay(Collider other)
@@ -134,7 +124,8 @@ namespace MyAssets
             if (characterSetup == null) { return; }
             IDamageContainer damageContainer = characterSetup.DamageContainer;
             if (damageContainer == null){return;}
-            damageContainer.GiveDamage(attackObject.Power, attackObject.KnockBack, attackObject.Type, transform, playerSetup.CharaType);
+            int damage = attackObject.Power + (int)playerSetup.Stauts.BasePower;
+            damageContainer.GiveDamage(damage, attackObject.KnockBack, attackObject.Type, transform, playerSetup.CharaType);
         }
 
     }

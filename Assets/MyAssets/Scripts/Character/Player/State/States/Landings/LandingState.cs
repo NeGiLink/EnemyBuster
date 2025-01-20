@@ -6,6 +6,8 @@ namespace MyAssets
     [System.Serializable]
     public class LandingState : PlayerStateBase
     {
+        private IPlayerStauts stauts;
+
         private Timer playerTimer = new Timer();
 
         private IMovement movement;
@@ -19,7 +21,7 @@ namespace MyAssets
         private IDamageContainer damageContainer;
 
         [SerializeField]
-        private float moveSpeed;
+        private float moveSpeedRatio;
 
         public static readonly string StateKey = "Landing";
         public override string Key => StateKey;
@@ -37,6 +39,7 @@ namespace MyAssets
         public override void DoSetup(IPlayerSetup actor)
         {
             base.DoSetup(actor);
+            stauts = actor.Stauts;
             movement = actor.Movement;
             velocity = actor.Velocity;
             animator = actor.PlayerAnimator;
@@ -74,7 +77,7 @@ namespace MyAssets
         public override void DoFixedUpdate(float time)
         {
             base.DoFixedUpdate(time);
-            movement.Move(moveSpeed);
+            movement.Move(stauts.BaseSpeed * moveSpeedRatio);
         }
 
         public override void DoExit()

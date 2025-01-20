@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace MyAssets
@@ -11,6 +12,16 @@ namespace MyAssets
         [SerializeField]
         protected int hp;
         public int HP => hp;
+
+        [SerializeField]
+        protected float baseSpeed;
+        public float BaseSpeed => baseSpeed;
+        [SerializeField]
+        protected float basePower;
+        public float BasePower => basePower;
+        [SerializeField]
+        protected float baseDefense;
+        public float BaseDefense => baseDefense;
         public virtual void RecoveryHP(int h)
         {
             hp += h;
@@ -20,15 +31,12 @@ namespace MyAssets
             }
         }
 
-        public virtual bool DecreaseAndDeathCheck(int d)
+        public virtual int DecreaseAndDeathCheck(int d)
         {
-            hp -= d;
+            int damage = d - (int)baseDefense;
+            hp -= Math.Abs(damage);
             HPUIUpdate();
-            if(hp <= 0)
-            {
-                return true;
-            }
-            return false;
+            return damage;
         }
 
         protected virtual void HPUIUpdate() { }

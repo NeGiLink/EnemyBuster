@@ -52,6 +52,14 @@ namespace MyAssets
             timerCountUI = Instantiate(uiData[(int)UITag.TimerCount], parent).GetComponent<TimerCountUI>();
 
             enemyKillCountUI = Instantiate(uiData[(int)UITag.EnemyCount], parent).GetComponent<EnemyKillCountUI>();
+            if(GameManager.Instance.ModeTag == ModeTag.Endless)
+            {
+                enemyKillCountUI.SetInfinite(true);
+            }
+            else
+            {
+                enemyKillCountUI.SetInfinite(false);
+            }
             enemyKillCountUI.SetMaxCount(GameModeController.Instance.MaxEnemyCount);
             int count = GameModeController.Instance.AbstractGameMode.CurrentEnemyKillCount;
             enemyKillCountUI.CountRefresh(count);

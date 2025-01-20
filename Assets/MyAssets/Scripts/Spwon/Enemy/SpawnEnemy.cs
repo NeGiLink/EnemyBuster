@@ -71,8 +71,12 @@ namespace MyAssets
         {
             if (!GameModeController.Instance.AbstractGameMode.WaveChange) { return; }
             int enemyIndex = Random.Range(0,(int)EnemyTag.Count);
+            //スポーンポイントを設定
             int spawnIndex = SelectSpawnPoint();
-            CharacterBaseController enemy = Instantiate(enemyLedger[enemyIndex], spawnPoint[spawnIndex].transform.position, spawnPoint[spawnIndex].transform.rotation);
+            Vector3 pos = spawnPoint[spawnIndex].SpawnPositionOutput();
+            //スポーン
+            CharacterBaseController enemy = Instantiate(enemyLedger[enemyIndex], pos, spawnPoint[spawnIndex].transform.rotation);
+            //カウント
             SpawnCount count = enemy.gameObject.AddComponent<SpawnCount>();
             count.SetSpawnPoint(spawnPoint[spawnIndex]);
         }

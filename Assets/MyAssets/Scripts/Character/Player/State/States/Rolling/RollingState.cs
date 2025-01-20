@@ -21,7 +21,7 @@ namespace MyAssets
         private Timer timer = new Timer();
 
         [SerializeField]
-        private float rollingSpeed = 4.0f;
+        private float rollingSpeedRatio = 1.5f;
         [SerializeField]
         private float rollingGravityMultiply;
 
@@ -77,7 +77,7 @@ namespace MyAssets
         public override void DoFixedUpdate(float time)
         {
             base.DoFixedUpdate(time);
-            movement.Move(rollingSpeed);
+            movement.Move(stauts.BaseSpeed * rollingSpeedRatio);
             velocity.Rigidbody.velocity += Physics.gravity * rollingGravityMultiply * time;
             rotation.DoFixedUpdate();
         }
