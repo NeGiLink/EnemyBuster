@@ -6,6 +6,8 @@ namespace MyAssets
     [System.Serializable]
     public class JumpState : PlayerStateBase
     {
+        private IPlayerStauts status;
+
         private IMovement movement;
 
         private IMoveInputProvider moveInput;
@@ -26,8 +28,7 @@ namespace MyAssets
         private float power;
         [SerializeField]
         private float jumpGravityMultiply;
-        [SerializeField]
-        private float moveSpeed;
+
         [SerializeField]
         private float dashMagnification = 1.5f;
 
@@ -52,6 +53,7 @@ namespace MyAssets
         public override void DoSetup(IPlayerSetup player)
         {
             base.DoSetup(player);
+            status = player.Stauts;
             movement = player.Movement;
             moveInput = player.MoveInput;
             velocity = player.Velocity;
@@ -97,7 +99,7 @@ namespace MyAssets
             base.DoFixedUpdate(time);
             if (animator.Animator.GetInteger(animator.JumpTypeName) == 1)
             {
-                float speed = moveSpeed;
+                float speed = status.BaseSpeed;
                 if (moveInput.Dash > 0)
                 {
                     speed *= dashMagnification;

@@ -20,12 +20,14 @@ namespace MyAssets
 
         public override void IsWaveChangeOrEnd()
         {
+            /*
             if (currentEnemyKillCount >= maxEnemyKillCount)
             {
                 waveEnd = true;
                 GameUIController.Instance.CreateFadeResultTextUI();
                 return;
             }
+             */
 
             if (0 >= SpawnCount.Count)
             {

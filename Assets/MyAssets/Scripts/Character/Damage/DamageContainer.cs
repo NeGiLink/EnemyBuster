@@ -52,9 +52,9 @@ namespace MyAssets
             if(baseStauts.HP <= 0) { return; }
             if (!baseStauts.InvincibilityTimer.IsEnd()) { return; }
             //ダメージを与える
-            baseStauts.DecreaseAndDeathCheck(power);
+            int damage = baseStauts.DecreaseAndDeathCheck(power);
             //GameManagerにダメージテキスト出力を依頼
-            DamageTextOutput(power,charaType);
+            DamageTextOutput(damage,charaType);
             fieldOfView?.AllSearchStart();
             if (activateKnockback)
             {

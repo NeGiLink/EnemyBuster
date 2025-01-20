@@ -8,8 +8,11 @@ namespace MyAssets
     {
         int MaxHP { get; }
         int HP { get; }
+        float BaseSpeed { get; }
+        float BasePower { get; }
+        float BaseDefense { get; }
         void RecoveryHP(int h);
-        bool DecreaseAndDeathCheck(int d);
+        int DecreaseAndDeathCheck(int d);
         int MaxStoredDamage {  get; }
         int StoredDamage {  get; }
         bool IsMaxStoredDamage(int damage);

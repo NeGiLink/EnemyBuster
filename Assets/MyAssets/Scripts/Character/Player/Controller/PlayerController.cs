@@ -198,6 +198,11 @@ namespace MyAssets
             }
         }
 
+        protected override void Start()
+        {
+            property.Initilaize();
+        }
+
         protected override void Update()
         {
             float t = Time.deltaTime;

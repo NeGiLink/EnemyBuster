@@ -6,6 +6,8 @@ namespace MyAssets
     [System.Serializable]
     public class FallState : PlayerStateBase
     {
+        private IPlayerStauts stauts;
+
         private IMovement movement;
         private IVelocityComponent velocity;
         private IMoveInputProvider input;
@@ -15,8 +17,6 @@ namespace MyAssets
         private IGroundCheck groundCheck;
         private IDamageContainer damageContainer;
 
-        [SerializeField]
-        float moveSpeed;
         [SerializeField]
         float fallGravityMultiply;
 
@@ -38,6 +38,7 @@ namespace MyAssets
         public override void DoSetup(IPlayerSetup player)
         {
             base.DoSetup(player);
+            stauts = player.Stauts;
             movement = player.Movement;
             velocity = player.Velocity;
             rotation = player.Rotation;
@@ -63,7 +64,7 @@ namespace MyAssets
         public override void DoFixedUpdate(float time)
         {
             base.DoFixedUpdate(time);
-            movement.Move(moveSpeed);
+            movement.Move(stauts.BaseSpeed);
             velocity.Rigidbody.velocity += Physics.gravity * fallGravityMultiply * time;
             rotation.DoFixedUpdate();
         }

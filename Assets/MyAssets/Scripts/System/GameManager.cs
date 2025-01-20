@@ -36,11 +36,47 @@ namespace MyAssets
         private ModeTag modeTag = ModeTag.AllKillEnemy;
         public ModeTag ModeTag => modeTag;
         public void SetModeTag(ModeTag tag) {  modeTag = tag; }
+        //TODO : モードのテキスト出力
+        public string GetModeText()
+        {
+            string text = "";
+            switch (modeTag)
+            {
+                case ModeTag.AllKillEnemy:
+                    text = "殲滅";
+                    break;
+                case ModeTag.TimeAttack:
+                    text = "タイムアタック";
+                    break;
+                case ModeTag.Endless:
+                    text = "エンドレス";
+                    break;
+            }
+            return text;
+        }
 
         [SerializeField]
         private GameLevel gameLevel = GameLevel.Easy;
         public GameLevel GameLevel => gameLevel;
         public void SetGameLevel(GameLevel level) { gameLevel = level; }
+        //TODO : 難易度のテキスト出力
+        public string GetGameLevelText()
+        {
+            string text = "";
+            switch (gameLevel)
+            {
+                case GameLevel.Easy:
+                    text = "簡単";
+                    break;
+                case GameLevel.Normal:
+                    text = "普通";
+                    break;
+                case GameLevel.Hard:
+                    text = "難しい";
+                    break;
+            }
+            return text;
+        }
 
         [SerializeField]
         private bool debug = false;

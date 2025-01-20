@@ -31,8 +31,7 @@ namespace MyAssets
 
         private IAllIK ik;
 
-        [SerializeField]
-        private float moveSpeed = 4.0f;
+
         [SerializeField]
         private float moveGravityMultiply;
 
@@ -107,7 +106,7 @@ namespace MyAssets
         public override void DoFixedUpdate(float time)
         {
             base.DoFixedUpdate(time);
-            float speed = moveSpeed;
+            float speed = stauts.BaseSpeed;
 
             movement.Move(speed);
             velocity.Rigidbody.velocity += Physics.gravity * moveGravityMultiply * time;

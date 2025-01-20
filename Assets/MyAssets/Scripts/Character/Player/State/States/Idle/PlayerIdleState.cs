@@ -31,8 +31,6 @@ namespace MyAssets
         private IDamageContainer damageContainer;
 
         [SerializeField]
-        private float moveSpeed = 4.0f;
-        [SerializeField]
         private float idleGravityMultiply;
 
         public static readonly string StateKey = "Idle";
@@ -107,7 +105,7 @@ namespace MyAssets
         {
             base.DoFixedUpdate(time);
 
-            movement.Move(moveSpeed);
+            movement.Move(stauts.BaseSpeed);
             
             velocity.Rigidbody.velocity += Physics.gravity * idleGravityMultiply * time;
             
