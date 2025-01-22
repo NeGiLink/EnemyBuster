@@ -15,6 +15,8 @@ namespace MyAssets
 
         private IVelocityComponent velocity;
 
+        private BullTankEffectHandler effectHandler;
+
         private Timer destroyTimer = new Timer();
 
         [SerializeField]
@@ -33,6 +35,7 @@ namespace MyAssets
         {
             base.DoSetup(actor);
             thisTransform = actor.gameObject.transform;
+            effectHandler = actor.EffectHandler;
             animator = actor.BullTankAnimator;
             movement = actor.Movement;
             velocity = actor.Velocity;
@@ -55,6 +58,10 @@ namespace MyAssets
 
         private void DestroyUpdate()
         {
+            effectHandler.EffectLedger.SetPosAndRotCreate(
+                (int)BullTankEffectType.Death,
+                thisTransform.position,
+                effectHandler.EffectLedger[(int)BullTankEffectType.Death].transform.rotation);
             thisTransform.gameObject.AddComponent<DestroyCommand>();
         }
 

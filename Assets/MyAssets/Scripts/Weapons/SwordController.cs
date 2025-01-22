@@ -69,7 +69,6 @@ namespace MyAssets
         private void Start()
         {
             collider.enabled = false;
-            swordEffectHandler.ActivateSlachEffect(false);
         }
 
         public void EnabledCollider(float start,float end,bool all)
@@ -111,6 +110,7 @@ namespace MyAssets
             if (characterSetup == null) { return; }
             IDamageContainer damageContainer = characterSetup.DamageContainer;
             if (damageContainer == null) { return; }
+            swordEffectHandler.EffectLedger.SetPosAndRotCreate((int)SwordEffectType.Hit, other.ClosestPoint(transform.position), other.transform.rotation);
             //基礎ダメージと武器のダメージ分
             int damage = attackObject.Power + (int)playerSetup.Stauts.BasePower;
             damageContainer.GiveDamage(damage, attackObject.KnockBack, attackObject.Type, transform,playerSetup.CharaType);
@@ -124,6 +124,7 @@ namespace MyAssets
             if (characterSetup == null) { return; }
             IDamageContainer damageContainer = characterSetup.DamageContainer;
             if (damageContainer == null){return;}
+            swordEffectHandler.EffectLedger.SetPosAndRotCreate((int)SwordEffectType.Hit, other.ClosestPoint(transform.position),other.transform.rotation);
             int damage = attackObject.Power + (int)playerSetup.Stauts.BasePower;
             damageContainer.GiveDamage(damage, attackObject.KnockBack, attackObject.Type, transform, playerSetup.CharaType);
         }

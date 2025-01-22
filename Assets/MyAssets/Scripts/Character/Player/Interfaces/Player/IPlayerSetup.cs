@@ -56,6 +56,8 @@ namespace MyAssets
         IGroundCheck GroundCheck { get; }
         SlimeBodyAttackController AttackObject { get; }
 
+        SlimeEffectHandler EffectHandler { get; }
+
         ISlimeRotation SlimeRotation { get; }
 
         void RunDestroy();
@@ -76,6 +78,8 @@ namespace MyAssets
         IGroundCheck GroundCheck {  get; }
         MushroomAttackController AttackObject { get; }
 
+        MushroomEffectHandler EffectHandler { get; }
+
         void RunDestroy();
     }
     /// <summary>
@@ -87,6 +91,8 @@ namespace MyAssets
         IGroundCheck GroundCheck { get; }
         AxeController AttackObject { get; }
         BullTankHeadAttackController HeadAttackObject {  get; }
+
+        BullTankEffectHandler EffectHandler { get; }
 
         void RunDestroy();
     }

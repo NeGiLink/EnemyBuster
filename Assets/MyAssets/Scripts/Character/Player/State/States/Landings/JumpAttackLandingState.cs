@@ -15,6 +15,8 @@ namespace MyAssets
 
         private IPlayerAnimator animator;
 
+        private PlayerEffectController effectController;
+
         [SerializeField]
         private float LandingActionTime;
 
@@ -36,6 +38,7 @@ namespace MyAssets
             movement = actor.Movement;
             velocity = actor.Velocity;
             animator = actor.PlayerAnimator;
+            effectController = actor.gameObject.GetComponent<PlayerEffectController>();
         }
 
         public override void DoStart()
@@ -47,6 +50,8 @@ namespace MyAssets
             velocity.Rigidbody.velocity = Vector3.zero;
 
             animator.Animator.SetInteger(animator.LandName, 0);
+
+            effectController.Create(PlayerEffectType.GroundHit);
         }
 
         public override void DoUpdate(float time)

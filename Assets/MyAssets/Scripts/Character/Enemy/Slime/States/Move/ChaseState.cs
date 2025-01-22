@@ -70,15 +70,17 @@ namespace MyAssets
             if (targetDistance < minChaseDistance)
             {
                 animator.Animator.SetInteger(animator.MoveName, Define.Zero);
+                animator.Animator.SetInteger(animator.AttacksName, Define.Zero);
+                /*
                 if(TargetOnTheFrontCheck(fieldOfView.TargetObject.transform))
                 {
-                    animator.Animator.SetInteger(animator.AttacksName, Define.Zero);
 
                 }
                 else
                 {
                     rotation.DoLookOnTarget(fieldOfView.TargetObject.transform);
                 }
+                 */
                 movement.Stop();
             }
             else
@@ -92,6 +94,7 @@ namespace MyAssets
 
         private bool TargetOnTheFrontCheck(Transform target)
         {
+            if(target == null) { return true; }
             Vector3 ev = thisTransform.position - target.position;
             ev.Normalize();
             Vector3 worldFrontDirection = target.transform.TransformDirection(Vector3.forward).normalized;

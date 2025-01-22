@@ -4,6 +4,11 @@ using UnityEngine;
 
 namespace MyAssets
 {
+    public enum BullTankHeadAttackEffectType
+    {
+        Hit
+    }
+
     public class BullTankHeadAttackController : MonoBehaviour
     {
         [SerializeField]
@@ -14,6 +19,8 @@ namespace MyAssets
 
         [SerializeField]
         private IBullTankAnimator animator;
+
+        private SmallEnemyEffectHandller effectHandller;
 
         private new SphereCollider collider;
 
@@ -33,6 +40,8 @@ namespace MyAssets
             attackObject = GetComponent<AttackObject>();
 
             mushroom = GetComponentInParent<IBullTankSetup>();
+
+            effectHandller = GetComponent<SmallEnemyEffectHandller>();
 
             if (mushroom != null)
             {
@@ -111,6 +120,7 @@ namespace MyAssets
                     power = 0;
                 }
             }
+            effectHandller.EffectLedger.SetPosAndRotCreate((int)BullTankHeadAttackEffectType.Hit, other.ClosestPoint(transform.position), transform.rotation);
             damageContainer.SetActivateKnockback(true);
             damageContainer.GiveDamage(power, attackObject.KnockBack, attackObject.Type, transform, mushroom.CharaType);
         }

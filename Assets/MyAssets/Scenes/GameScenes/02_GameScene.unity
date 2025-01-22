@@ -1334,8 +1334,24 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3667963436937609142, guid: 39c6fce0edb1b684082725c825f5cdb5, type: 3}
-      propertyPath: groundCheck.groundCheckRadius
-      value: 0.3
+      propertyPath: readyJumpAttack.jumpAttackSP
+      value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 3667963436937609142, guid: 39c6fce0edb1b684082725c825f5cdb5, type: 3}
+      propertyPath: guardState.idleGravityMultiply
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3667963436937609142, guid: 39c6fce0edb1b684082725c825f5cdb5, type: 3}
+      propertyPath: counterAttackState.counterAttackSP
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 3667963436937609142, guid: 39c6fce0edb1b684082725c825f5cdb5, type: 3}
+      propertyPath: counterAttackState.gravityMultiply
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3667963436937609142, guid: 39c6fce0edb1b684082725c825f5cdb5, type: 3}
+      propertyPath: guardState.counterAttackTransitionCount
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 8732599098942333029, guid: 39c6fce0edb1b684082725c825f5cdb5, type: 3}
       propertyPath: m_Name

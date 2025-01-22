@@ -10,7 +10,7 @@ namespace MyAssets
         SlimeLv2,
         MushroomLv1,
         MushroomLv2,
-
+        BullTank,
         Count
     }
     [CreateAssetMenu(fileName = "EnemyLedger", menuName = "Ledger/EnemyLedger", order = 1)]

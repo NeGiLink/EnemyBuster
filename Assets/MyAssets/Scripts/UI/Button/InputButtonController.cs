@@ -67,7 +67,7 @@ namespace MyAssets
         private void Update()
         {
             MouseInput();
-            KeyAndGamePadInput();
+            GamePadInput();
         }
 
         private void MouseInput()
@@ -90,8 +90,9 @@ namespace MyAssets
             }
         }
 
-        private void KeyAndGamePadInput()
+        private void GamePadInput()
         {
+            if (UnityEngine.Input.anyKey) { return; }
             float select;
             if (horizontal)
             {

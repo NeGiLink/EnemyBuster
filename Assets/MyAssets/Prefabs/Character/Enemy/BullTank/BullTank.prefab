@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 217893592506879067}
   - component: {fileID: 9157787373948918939}
   - component: {fileID: 9002588031020286597}
+  - component: {fileID: 2264095149764301384}
   m_Layer: 8
   m_Name: HeadAttack
   m_TagString: Untagged
@@ -67,8 +68,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 493097bf89a381d44a952adb21204693, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackTypeCount: 0
   data: {fileID: 11400000, guid: 2b3be420202f8f148968b685cece5287, type: 2}
+  attackTypeCount: 0
 --- !u!114 &9002588031020286597
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -83,6 +84,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   thisTransform: {fileID: 3760081675306430827}
   attackObject: {fileID: 0}
+--- !u!114 &2264095149764301384
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1132203988602478426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 770144e36bc572a4087de642355ab15a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  effectLedger: {fileID: 11400000, guid: 2d10e0d823e0d9e49adca108614c792c, type: 2}
 --- !u!1 &3488576627621377425
 GameObject:
   m_ObjectHideFlags: 0
@@ -99,6 +113,7 @@ GameObject:
   - component: {fileID: 1412738027404655535}
   - component: {fileID: 7179116637953035842}
   - component: {fileID: 7347450472701756116}
+  - component: {fileID: -3201383392408715320}
   m_Layer: 8
   m_Name: BullTank
   m_TagString: Untagged
@@ -224,8 +239,11 @@ MonoBehaviour:
     fallCount: 0
     physicMaterialData: {fileID: 11400000, guid: 847aa92f1a8e8b044822fea7587ff168, type: 2}
   property:
-    maxHP: 150
+    maxHP: 550
     hp: 0
+    baseSpeed: 0
+    basePower: 0
+    baseDefense: 0
     maxStoredDamage: 75
     storedDamage: 0
   animator:
@@ -271,14 +289,13 @@ MonoBehaviour:
   rushAttackStartState:
     gravityMultiply: 2
   rushAttackLoopState:
-    moveSpeed: 6
+    moveSpeed: 10
     gravityMultiply: 2
-    count: 3
+    count: 1.5
   rushAttackEndState:
-    decreaseSpeed: 2
+    decreaseSpeed: 0.1
     gravityMultiply: 2
   damageState:
-    knockBack: 5
     decreaseForce: 0.9
     damageGravityMultiply: 2
     damageIdleCount: 0.5
@@ -336,6 +353,19 @@ MonoBehaviour:
   layer:
     serializedVersion: 2
     m_Bits: 0
+--- !u!114 &-3201383392408715320
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3488576627621377425}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bebcad2126d1f546be17d31d7355371, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  effectLedger: {fileID: 11400000, guid: 6fc2a19216beaac49b6c0288128908f1, type: 2}
 --- !u!1001 &4782816223462972755
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -512,6 +542,7 @@ MonoBehaviour:
   slachEffect: {fileID: 5793054773382839290, guid: 0db245b40499a8540b96ec9b9b4e57bf, type: 3}
   slachEffectOffset: {x: -0.57, y: -0.464, z: 0}
   slachEffectRotation: {x: 0, y: 0, z: 90}
+  effectLedger: {fileID: 11400000, guid: 2d10e0d823e0d9e49adca108614c792c, type: 2}
 --- !u!114 &2639900536494249941
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -524,8 +555,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 493097bf89a381d44a952adb21204693, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackTypeCount: 0
   data: {fileID: 11400000, guid: 9029285181a87c743a3cb30db35476db, type: 2}
+  attackTypeCount: 0
 --- !u!4 &5386948451963660772 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 620849207898420407, guid: 755f88ed624d3684088c15ef36614a24, type: 3}

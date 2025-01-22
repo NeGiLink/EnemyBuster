@@ -24,6 +24,7 @@ namespace MyAssets
         SecondDer,
         Third,
         JumpAttack,
+        Counter
     }
     /// <summary>
     /// プレイヤーの通常時の攻撃をまとめたクラス
@@ -37,7 +38,7 @@ namespace MyAssets
         private IPlayerAnimator animator;
         private Transform transform;
 
-        private IDamageContainer damageContainer;
+        private IFieldOfView fieldOfView;
 
         private SwordController sword;
 
@@ -80,7 +81,7 @@ namespace MyAssets
             movement = player.Movement;
             animator = player.PlayerAnimator;
             transform = player.gameObject.transform;
-            damageContainer = player.DamageContainer;
+            fieldOfView = player.FieldOfView;
             sword = player.Equipment.HaveWeapon.GetComponent<SwordController>();
         }
         public override void DoStart()
@@ -90,6 +91,13 @@ namespace MyAssets
             animator.Animator.SetInteger(animator.AttacksName, (int)NormalAttackState.First);
             velocity.Rigidbody.velocity = Vector3.zero;
             baseTransform = transform.position;
+
+            if (fieldOfView.TargetObject != null)
+            {
+                Vector3 target = fieldOfView.TargetObject.transform.position;
+                target.y = transform.position.y;
+                transform.LookAt(target);
+            }
         }
 
         public override void DoUpdate(float time)
@@ -126,11 +134,9 @@ namespace MyAssets
         private IMovement movement;
         private IPlayerAnimator animator;
 
-        private IAttackInputProvider inputTimer;
-
         private Transform transform;
 
-        private IDamageContainer damageContainer;
+        private IFieldOfView fieldOfView;
 
         private SwordController sword;
 
@@ -168,10 +174,9 @@ namespace MyAssets
             base.DoSetup(player);
             velocity = player.Velocity;
             animator = player.PlayerAnimator;
-            inputTimer = player.AttackInput;
             transform = player.gameObject.transform;
             movement = player.Movement;
-            damageContainer = player.DamageContainer;
+            fieldOfView = player.FieldOfView;
             sword = player.Equipment.HaveWeapon.GetComponent<SwordController>();
         }
         public override void DoStart()
@@ -181,6 +186,13 @@ namespace MyAssets
             animator.Animator.SetInteger(animator.AttacksName, (int)NormalAttackState.Second);
             velocity.Rigidbody.velocity = Vector3.zero;
             baseTransform = transform.position;
+
+            if (fieldOfView.TargetObject != null)
+            {
+                Vector3 target = fieldOfView.TargetObject.transform.position;
+                target.y = transform.position.y;
+                transform.LookAt(target);
+            }
         }
 
         public override void DoUpdate(float time)
@@ -219,11 +231,9 @@ namespace MyAssets
         private IMovement movement;
         private IPlayerAnimator animator;
 
-        private IAttackInputProvider inputTimer;
-
         private Transform transform;
 
-        private IDamageContainer damageContainer;
+        private IFieldOfView fieldOfView;
 
         private SwordController sword;
 
@@ -269,10 +279,9 @@ namespace MyAssets
             base.DoSetup(player);
             velocity = player.Velocity;
             animator = player.PlayerAnimator;
-            inputTimer = player.AttackInput;
             transform = player.gameObject.transform;
             movement = player.Movement;
-            damageContainer = player.DamageContainer;
+            fieldOfView = player.FieldOfView;
             sword = player.Equipment.HaveWeapon.GetComponent<SwordController>();
         }
         public override void DoStart()
@@ -285,6 +294,13 @@ namespace MyAssets
 
             jumpStartTimer.Start(jumpStartCount);
             velocity.Rigidbody.AddForce(Vector3.up * power, ForceMode.Impulse);
+
+            if (fieldOfView.TargetObject != null)
+            {
+                Vector3 target = fieldOfView.TargetObject.transform.position;
+                target.y = transform.position.y;
+                transform.LookAt(target);
+            }
         }
 
         public override void DoUpdate(float time)
@@ -325,7 +341,8 @@ namespace MyAssets
         private IMovement movement;
         private IPlayerAnimator animator;
         private Transform transform;
-        private IDamageContainer damageContainer;
+
+        private IFieldOfView fieldOfView;
 
         private SwordController sword;
 
@@ -364,7 +381,7 @@ namespace MyAssets
             animator = player.PlayerAnimator;
             movement = player.Movement;
             transform = player.gameObject.transform;
-            damageContainer = player.DamageContainer;
+            fieldOfView = player.FieldOfView;
             sword = player.Equipment.HaveWeapon.GetComponent<SwordController>();
         }
         public override void DoStart()
@@ -374,6 +391,13 @@ namespace MyAssets
             animator.Animator.SetInteger(animator.AttacksName, (int)NormalAttackState.Third);
             velocity.Rigidbody.velocity = Vector3.zero;
             baseTransform = transform.position;
+
+            if (fieldOfView.TargetObject != null)
+            {
+                Vector3 target = fieldOfView.TargetObject.transform.position;
+                target.y = transform.position.y;
+                transform.LookAt(target);
+            }
         }
 
         public override void DoUpdate(float time)

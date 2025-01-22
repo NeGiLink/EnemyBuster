@@ -21,13 +21,15 @@ namespace MyAssets
         private StatusType statusType;
 
         private StatusInfo statusInfo;
-        public void SetStatus(StatusInfo info)
+        public void SetStatus(StatusInfo info,SaveStatusData data)
         {
             choiceImage.sprite = info.sprite;
             statusType = info.Type;
             saveStatusData.type = info.Type;
             statusInfo = info;
             choice = true;
+
+            saveStatusData = data;
         }
 
         public void ChoiceAction()

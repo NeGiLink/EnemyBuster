@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5884575382131650274}
   - component: {fileID: 6552981311500124271}
   - component: {fileID: 1992339293066402735}
+  - component: {fileID: 7402679506188690491}
   m_Layer: 8
   m_Name: HeadAttack
   m_TagString: Untagged
@@ -46,8 +47,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 493097bf89a381d44a952adb21204693, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackTypeCount: 0
   data: {fileID: 11400000, guid: 1ff1974c68ae56149b7821b5c65e2142, type: 2}
+  attackTypeCount: 0
 --- !u!135 &6552981311500124271
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -83,6 +84,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   thisTransform: {fileID: 1553975526325262318}
   attackObject: {fileID: 0}
+--- !u!114 &7402679506188690491
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3012473765950672689}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 770144e36bc572a4087de642355ab15a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  effectLedger: {fileID: 11400000, guid: 2d10e0d823e0d9e49adca108614c792c, type: 2}
 --- !u!1001 &1304475986124468229
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -535,6 +549,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: ddb95ed53876a924694d8ce9c41edcab, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1350739917006312843}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: ddb95ed53876a924694d8ce9c41edcab, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -3083398776921090926}
     - targetCorrespondingSourceObject: {fileID: -5125128020334327105, guid: ddb95ed53876a924694d8ce9c41edcab, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7223300392141403411}
@@ -656,8 +673,11 @@ MonoBehaviour:
     fallCount: 0
     physicMaterialData: {fileID: 11400000, guid: 847aa92f1a8e8b044822fea7587ff168, type: 2}
   property:
-    maxHP: 100
-    hp: 100
+    maxHP: 150
+    hp: 150
+    baseSpeed: 0
+    basePower: 0
+    baseDefense: 0
     maxStoredDamage: 50
     storedDamage: 0
   rotation:
@@ -689,7 +709,6 @@ MonoBehaviour:
     movePower: 0.5
     gravityMultiply: 2
   damageState:
-    knockBack: 5
     decreaseForce: 0.9
     damageGravityMultiply: 2
     damageIdleCount: 0.5
@@ -716,6 +735,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   allSearch: 0
+  find: 0
 --- !u!114 &2556421152717388207
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -748,6 +768,19 @@ MonoBehaviour:
   layer:
     serializedVersion: 2
     m_Bits: 0
+--- !u!114 &-3083398776921090926
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2223375439319321940}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34f487e173af2dc4eb3d4a2ef706ca25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  effectLedger: {fileID: 11400000, guid: b4ac3c3438b0ca84b846371bccf43ebb, type: 2}
 --- !u!1 &3082026506653514426 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -5125128020334327105, guid: ddb95ed53876a924694d8ce9c41edcab, type: 3}
