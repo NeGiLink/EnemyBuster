@@ -69,7 +69,6 @@ namespace MyAssets
             //今追っかけてるオブジェクトが見える
             if (IsInside(targetObject))
             {
-                find = true;
                 if(targetObject != null)
                 {
                     targetLastPoint = targetObject.transform.position;
@@ -89,7 +88,6 @@ namespace MyAssets
             {   
                 targetObject = obj;
                 targetLastPoint = targetObject.transform.position;
-                find = true;
                 currentSearchinTimer.End();
                 return;
             }
@@ -97,7 +95,6 @@ namespace MyAssets
             //新しいオブジェクトもいないなら,一定時間で終了するためタイマースタート
             if (currentSearchinTimer.IsEnd())
             {
-                find = false;
                 currentSearchinTimer.Start(1.0f);
             }
         }
@@ -134,10 +131,7 @@ namespace MyAssets
                 // 範囲内のコライダを取得し、重複を避けるために一時リストに格納
                 int hitCount = Physics.OverlapSphereNonAlloc(transform.position, range, colliders, targetObjectLayer);
 
-                if(hitCount == 0)
-                {
-                    insideObjects.Clear(); // 前の結果をクリア
-                }
+                insideObjects.Clear(); // 前の結果をクリア
                 for (int i = 0; i < hitCount; i++)
                 {
                     GameObject obj = colliders[i].gameObject;
@@ -153,7 +147,12 @@ namespace MyAssets
                         {
                             if (hit.transform.gameObject == obj || hit.collider.gameObject.layer == 9)
                             {
+                                find = true;
                                 insideObjects.Add(obj); // オブジェクトを視界内リストに追加
+                            }
+                            else
+                            {
+                                find = false;
                             }
                         }
                     }
@@ -166,7 +165,12 @@ namespace MyAssets
                             {
                                 if (hit.transform.gameObject == obj||hit.collider.gameObject.layer == 9)
                                 {
+                                    find = true;
                                     insideObjects.Add(obj); // オブジェクトを視界内リストに追加
+                                }
+                                else
+                                {
+                                    find = false;
                                 }
                             }
                         }

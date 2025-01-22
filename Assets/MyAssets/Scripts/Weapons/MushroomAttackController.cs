@@ -2,6 +2,11 @@ using UnityEngine;
 
 namespace MyAssets
 {
+    public enum MushroomAttackEffectType
+    {
+        Hit
+    }
+
     public class MushroomAttackController : MonoBehaviour
     {
         [SerializeField]
@@ -12,6 +17,8 @@ namespace MyAssets
 
         [SerializeField]
         private IMushroomAnimator animator;
+
+        private SmallEnemyEffectHandller effectHandller;
 
         private new SphereCollider collider;
 
@@ -31,6 +38,7 @@ namespace MyAssets
             attackObject = GetComponent<AttackObject>();
 
             mushroom = GetComponentInParent<IMushroomSetup>();
+            effectHandller = GetComponent<SmallEnemyEffectHandller>();
 
             if (mushroom != null)
             {
@@ -107,6 +115,7 @@ namespace MyAssets
                     return; 
                 }
             }
+            effectHandller.EffectLedger.SetPosAndRotCreate((int)MushroomAttackEffectType.Hit, other.ClosestPoint(transform.position), transform.rotation);
             damageContainer.GiveDamage(attackObject.Power, attackObject.KnockBack, attackObject.Type, transform,mushroom.CharaType);
         }
 

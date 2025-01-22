@@ -28,6 +28,9 @@ namespace MyAssets
         private FieldOfView                 fieldOfView;
         public IFieldOfView FieldOfView =>  fieldOfView;
 
+        private SlimeEffectHandler          effectHandler;
+        public SlimeEffectHandler           EffectHandler => effectHandler;
+
         [SerializeField]
         private SlimeBodyAttackController   attackObject;
         public SlimeBodyAttackController    AttackObject => attackObject;
@@ -69,6 +72,8 @@ namespace MyAssets
         {
             fieldOfView = GetComponent<FieldOfView>();
             attackObject = GetComponentInChildren<SlimeBodyAttackController>();
+
+            effectHandler = GetComponent<SlimeEffectHandler>();
 
             animator.DoSetup(this);
             velocity.DoSetup(this);
@@ -145,6 +150,7 @@ namespace MyAssets
 
         public void RunDestroy()
         {
+            effectHandler.EffectLedger.SetPosAndRotCreate((int)SlimeEffectType.Death,transform.position,transform.rotation);
             Destroy(gameObject);
         }
     }

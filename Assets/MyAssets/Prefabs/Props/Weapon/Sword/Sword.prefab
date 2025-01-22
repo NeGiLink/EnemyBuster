@@ -48,8 +48,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 493097bf89a381d44a952adb21204693, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackTypeCount: 0
   data: {fileID: 11400000, guid: 28082e5e95d126d42bf7dc1c29a9026f, type: 2}
+  attackTypeCount: 0
 --- !u!114 &2327789286364246167
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -78,6 +78,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slachEffect: {fileID: 5793054773382839290, guid: 0db245b40499a8540b96ec9b9b4e57bf, type: 3}
   slachEffectOffset: {x: 0, y: 0.5, z: 0}
+  slachEffectRotation: {x: 0, y: 0, z: 0}
+  effectLedger: {fileID: 11400000, guid: 59e6becb071ded642852db418c14a206, type: 2}
 --- !u!136 &3786209457901072342
 CapsuleCollider:
   m_ObjectHideFlags: 0

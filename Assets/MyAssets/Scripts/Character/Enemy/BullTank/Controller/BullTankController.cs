@@ -28,6 +28,10 @@ namespace MyAssets
         private FieldOfView fieldOfView;
         public IFieldOfView FieldOfView => fieldOfView;
 
+        private BullTankEffectHandler effectHandler;
+
+        public BullTankEffectHandler EffectHandler => effectHandler;
+
         [SerializeField]
         private AxeController attackObject;
         public AxeController AttackObject => attackObject;
@@ -85,6 +89,8 @@ namespace MyAssets
             fieldOfView = GetComponent<FieldOfView>();
             attackObject = GetComponentInChildren<AxeController>();
             headAttackObject = GetComponentInChildren<BullTankHeadAttackController>();
+
+            effectHandler = GetComponent<BullTankEffectHandler>();
 
             animator.DoSetup(this);
             velocity.DoSetup(this);
@@ -165,6 +171,7 @@ namespace MyAssets
 
         public void RunDestroy()
         {
+            effectHandler.EffectLedger.SetPosAndRotCreate((int)BullTankEffectType.Death,transform.position,transform.rotation);
             Destroy(gameObject);
         }
     }

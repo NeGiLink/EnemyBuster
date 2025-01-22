@@ -47,7 +47,7 @@ namespace MyAssets
                 {
                     num = statusData.StatusInfos.Length - 1;
                 }
-                choiceStautsButton[i].SetStatus(statusData.StatusInfos[num]);
+                choiceStautsButton[i].SetStatus(statusData.StatusInfos[num], datas[i]);
             }
             for(int i = 0; i < selectStautsButton.Length; i++)
             {
@@ -69,8 +69,8 @@ namespace MyAssets
                 {
                     continue;
                 }
-                choiceStautsButton[i].SetStatus(info);
-                choiceStautsButton[i].SaveStatusData.ChangeData(data);
+                choiceStautsButton[i].SetStatus(info,data);
+                //choiceStautsButton[i].SaveStatusData.ChangeData(data);
                 break;
             }
             active = true;

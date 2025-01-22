@@ -67,7 +67,6 @@ namespace MyAssets
         private void Start()
         {
             collider.enabled = false;
-            swordEffectHandler.ActivateSlachEffect(false);
         }
 
         public void EnabledCollider(float start, float end, bool all)

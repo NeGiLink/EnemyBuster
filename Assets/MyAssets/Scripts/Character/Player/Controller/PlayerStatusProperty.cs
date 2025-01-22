@@ -31,6 +31,7 @@ namespace MyAssets
         {
             SetStatus();
             base.Setup();
+            sp = maxSp;
             saveManager.MyDestory();
         }
 
@@ -44,27 +45,27 @@ namespace MyAssets
                     case StatusType.HP:
                         float hp = maxHP;
                         hp *= datas[i].hpRatio;
-                        maxHP = (int)hp;
+                        maxHP += (int)hp;
                         break;
                     case StatusType.SP:
                         float sp = maxSp;
                         sp *= datas[i].spRatio;
-                        maxSp = (int)sp;
+                        maxSp += (int)sp;
                         break;
                     case StatusType.Speed:
                         float speed = baseSpeed;
                         speed *= datas[i].speedRatio;
-                        baseSpeed = speed;
+                        baseSpeed += speed;
                         break;
                     case StatusType.Power:
                         float power = basePower;
                         power *= datas[i].powerRatio;
-                        basePower = power;
+                        basePower += power;
                         break;
                     case StatusType.Defense:
                         float defense = baseDefense;
                         defense *= datas[i].defenseRatio;
-                        baseDefense = defense;
+                        baseDefense += defense;
                         break;
                 }
             }

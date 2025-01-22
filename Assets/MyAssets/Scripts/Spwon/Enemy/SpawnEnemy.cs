@@ -3,6 +3,11 @@ using UnityEngine;
 
 namespace MyAssets
 {
+    public enum SpawnEffectType
+    {
+        Spawn
+    }
+
     /// <summary>
     /// 敵を生成するだけのクラス
     /// </summary>
@@ -10,6 +15,9 @@ namespace MyAssets
     {
         [SerializeField]
         private EnemyLedger enemyLedger;
+
+        [SerializeField]
+        private EffectLedger effectLedger;
 
         [SerializeField]
         private int maxSpawnCount;
@@ -76,6 +84,7 @@ namespace MyAssets
             Vector3 pos = spawnPoint[spawnIndex].SpawnPositionOutput();
             //スポーン
             CharacterBaseController enemy = Instantiate(enemyLedger[enemyIndex], pos, spawnPoint[spawnIndex].transform.rotation);
+            Instantiate(effectLedger[(int)SpawnEffectType.Spawn], pos, spawnPoint[spawnIndex].transform.rotation);
             //カウント
             SpawnCount count = enemy.gameObject.AddComponent<SpawnCount>();
             count.SetSpawnPoint(spawnPoint[spawnIndex]);

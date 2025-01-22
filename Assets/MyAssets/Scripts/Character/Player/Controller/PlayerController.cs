@@ -27,6 +27,10 @@ namespace MyAssets
         private WeaponController        weaponController;
         public IEquipment               Equipment => weaponController;
 
+        private PlayerEffectController  effectController;
+
+        public PlayerEffectController EffectController => effectController;
+
         [SerializeField]
         private ChangingState           changingState;
         public IChangingState           ChangingState => changingState;
@@ -108,6 +112,8 @@ namespace MyAssets
         [SerializeField]
         private JumpAttackLandingState  jumpAttackLandingState;
         [SerializeField]
+        private CounterAttackState      counterAttackState;
+        [SerializeField]
         private GuardState              guardState;
 
         [SerializeField]
@@ -132,6 +138,7 @@ namespace MyAssets
             base.Awake();
             fieldOfView = GetComponent<FieldOfView>();
             uIHandler = GetComponent<PlayerUIHandler>();
+            effectController = GetComponent<PlayerEffectController>();
 
 
             input = GetComponent<IControllerInput>();
@@ -168,6 +175,7 @@ namespace MyAssets
                 readyJumpAttack,
                 jumpAttackState,
                 jumpAttackLandingState,
+                counterAttackState,
                 guardState,
                 weaponOutState,
                 weaponInState,

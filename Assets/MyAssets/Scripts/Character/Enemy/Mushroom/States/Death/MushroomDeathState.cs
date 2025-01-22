@@ -14,6 +14,8 @@ namespace MyAssets
 
         private IVelocityComponent velocity;
 
+        private MushroomEffectHandler effectHandler;
+
         private Timer destroyTimer = new Timer();
 
         [SerializeField]
@@ -32,6 +34,7 @@ namespace MyAssets
         {
             base.DoSetup(actor);
             thisTransform = actor.gameObject.transform;
+            effectHandler = actor.EffectHandler;
             animator = actor.MushroomAnimator;
             movement = actor.Movement;
             velocity = actor.Velocity;
@@ -54,6 +57,10 @@ namespace MyAssets
 
         private void DestroyUpdate()
         {
+            effectHandler.EffectLedger.SetPosAndRotCreate
+                ((int)MushroomEffectType.Death,
+                thisTransform.position,
+                effectHandler.EffectLedger[(int)MushroomEffectType.Death].transform.rotation);
             thisTransform.gameObject.AddComponent<DestroyCommand>();
         }
 

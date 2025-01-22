@@ -23,19 +23,19 @@ namespace MyAssets
         [SerializeField]
         private float idleGravityMultiply;
 
+        [SerializeField]
+        private float counterAttackTransitionCount;
+
         public static readonly string StateKey = "Guard";
         public override string Key => StateKey;
 
         public override List<ICharacterStateTransition<string>> CreateTransitionList(IPlayerSetup actor)
         {
             List<ICharacterStateTransition<string>> re = new List<ICharacterStateTransition<string>>();
-            //if (StateChanger.IsContain(MoveState.StateKey)) { re.Add(new IsEndGuardTransition(actor, StateChanger, MoveState.StateKey)); }
+            if (StateChanger.IsContain(CounterAttackState.StateKey)) { re.Add(new IsCounterAttackTransition(actor, "Shield Impact", StateChanger, CounterAttackState.StateKey)); }
             if (StateChanger.IsContain(BattleIdleState.StateKey)) { re.Add(new IsEndGuardTransition(actor, StateChanger, BattleIdleState.StateKey)); }
-            //if (StateChanger.IsContain(PlayerIdleState.StateKey)) { re.Add(new IsEndGuardTransition(actor, StateChanger, PlayerIdleState.StateKey)); }
-            
-            
             if (StateChanger.IsContain(PlayerDamageState.StateKey)) { re.Add(new IsDamageTransition(actor, StateChanger, PlayerDamageState.StateKey)); }
-            if (StateChanger.IsContain(PlayerDeathState.StateKey)) { re.Add(new IsDeathTransition(actor, StateChanger, PlayerDeathState.StateKey)); }
+            if (StateChanger.IsContain(PlayerDeathState.StateKey)) { re.Add(new IsDeathTransition(actor, StateChanger, PlayerDeathState.StateKey)); } 
             return re;
         }
         public override void DoSetup(IPlayerSetup player)

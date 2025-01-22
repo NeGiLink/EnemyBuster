@@ -15,6 +15,8 @@ namespace MyAssets
 
         private IVelocityComponent velocity;
 
+        private SlimeEffectHandler effectHandler;
+
         private Timer destroyTimer = new Timer();
 
         [SerializeField]
@@ -33,6 +35,7 @@ namespace MyAssets
         {
             base.DoSetup(slime);
             thisTransform = slime.gameObject.transform;
+            effectHandler = slime.EffectHandler;
             animator = slime.SlimeAnimator;
             movement = slime.Movement;
             velocity = slime.Velocity;
@@ -55,6 +58,10 @@ namespace MyAssets
 
         private void DestroyUpdate()
         {
+            effectHandler.EffectLedger.SetPosAndRotCreate(
+                (int)SlimeEffectType.Death,
+                thisTransform.position,
+                effectHandler.EffectLedger[(int)SlimeEffectType.Death].transform.rotation);
             thisTransform.gameObject.AddComponent<DestroyCommand>();
         }
 

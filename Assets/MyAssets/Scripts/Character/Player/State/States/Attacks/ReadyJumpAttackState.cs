@@ -7,6 +7,8 @@ namespace MyAssets
     [System.Serializable]
     public class ReadyJumpAttack : PlayerStateBase
     {
+        private IPlayerStauts stauts;
+
         private IVelocityComponent velocity;
 
         private IEquipment equipment;
@@ -16,6 +18,9 @@ namespace MyAssets
         private IPlayerAnimator animator;
 
         private IDamageContainer damageContainer;
+
+        [SerializeField]
+        private int jumpAttackSP;
 
         public static readonly string StateKey = "ReadyJumpAttack";
         public override string Key => StateKey;
@@ -36,6 +41,7 @@ namespace MyAssets
             animator = player.PlayerAnimator;
             changingState = player.ChangingState;
             damageContainer = player.DamageContainer;
+            stauts = player.Stauts;
         }
 
         public override void DoStart()
@@ -49,6 +55,8 @@ namespace MyAssets
 
             velocity.Rigidbody.velocity = Vector3.zero;
             velocity.Rigidbody.useGravity = false;
+
+            stauts.DecreaseSP(jumpAttackSP);
         }
 
         public override void DoExit()

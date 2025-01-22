@@ -12,6 +12,8 @@ namespace MyAssets
         private Animator animator;
         public Animator Animator => animator;
 
+        private ShieldEffectHandler effectHandler;
+
         private readonly string stateName = "State";
 
         [Header("ガードのしきい値 (1 に近いほど厳しい)")]
@@ -31,6 +33,7 @@ namespace MyAssets
         private void Awake()
         {
             animator = GetComponent<Animator>();
+            effectHandler = GetComponent<ShieldEffectHandler>();
         }
 
         public void ShieldOpen()
@@ -64,6 +67,7 @@ namespace MyAssets
                     IDamageContainer damageContainer = characterSetup.DamageContainer;
                     if (damageContainer != null) 
                     {
+                        effectHandler.EffectLedger.SetPosAndRotCreate((int)ShieldEffectType.Hit, transform.position, transform.rotation);
                         damageContainer.Recoil( DamageType.Middle, thistransform);
                         success = true;
                     }

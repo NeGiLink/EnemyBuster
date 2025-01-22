@@ -27,6 +27,9 @@ namespace MyAssets
         private FieldOfView fieldOfView;
         public IFieldOfView FieldOfView => fieldOfView;
 
+        private MushroomEffectHandler effectHandler;
+        public MushroomEffectHandler EffectHandler => effectHandler;
+
         [SerializeField]
         private MushroomAttackController attackObject;
         public MushroomAttackController AttackObject => attackObject;
@@ -64,6 +67,8 @@ namespace MyAssets
         {
             fieldOfView = GetComponent<FieldOfView>();
             attackObject = GetComponentInChildren<MushroomAttackController>();
+
+            effectHandler = GetComponent<MushroomEffectHandler>();
 
             animator.DoSetup(this);
             velocity.DoSetup(this);
@@ -137,6 +142,7 @@ namespace MyAssets
 
         public void RunDestroy()
         {
+            effectHandler.EffectLedger.SetPosAndRotCreate((int)MushroomEffectType.Death,transform.position,transform.rotation);
             Destroy(gameObject);
         }
     }

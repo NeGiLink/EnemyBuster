@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 784908613298810580}
   - component: {fileID: 16547692293928595}
   - component: {fileID: 8082204077832356556}
+  - component: {fileID: 3894533510034692661}
   - component: {fileID: 585580015033455806}
   m_Layer: 8
   m_Name: SlimeLv1
@@ -121,6 +122,9 @@ MonoBehaviour:
   property:
     maxHP: 100
     hp: 100
+    baseSpeed: 0
+    basePower: 0
+    baseDefense: 0
     maxStoredDamage: 50
     storedDamage: 0
   rotation:
@@ -156,7 +160,6 @@ MonoBehaviour:
     movePower: 0.6
     gravityMultiply: 2
   damageState:
-    knockBack: 5
     decreaseForce: 0.9
     damageGravityMultiply: 2
     damageIdleCount: 0.5
@@ -183,6 +186,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   allSearch: 0
+  find: 0
 --- !u!114 &8082204077832356556
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -198,6 +202,19 @@ MonoBehaviour:
   patrolPoints:
   - {x: 0, y: 0, z: 0}
   currentPoint: 0
+--- !u!114 &3894533510034692661
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1119555509524472395}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b83353fdf701a17409f668f2a9899b69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  effectLedger: {fileID: 11400000, guid: ed10aabb3b350e64c8602087b222a31c, type: 2}
 --- !u!114 &585580015033455806
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -224,6 +241,7 @@ GameObject:
   - component: {fileID: 8407751048529338720}
   - component: {fileID: 8296173010956755011}
   - component: {fileID: 523177827652557727}
+  - component: {fileID: 4504430674088531588}
   - component: {fileID: 2855782811782429529}
   m_Layer: 8
   m_Name: BodyAttack
@@ -259,8 +277,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 493097bf89a381d44a952adb21204693, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackTypeCount: 0
   data: {fileID: 11400000, guid: 65012909ed882904fabaf8d9487413ce, type: 2}
+  attackTypeCount: 0
 --- !u!114 &523177827652557727
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -278,6 +296,19 @@ MonoBehaviour:
   hitLayer:
     serializedVersion: 2
     m_Bits: 64
+--- !u!114 &4504430674088531588
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9171715797255571987}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 770144e36bc572a4087de642355ab15a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  effectLedger: {fileID: 11400000, guid: 2d10e0d823e0d9e49adca108614c792c, type: 2}
 --- !u!135 &2855782811782429529
 SphereCollider:
   m_ObjectHideFlags: 0

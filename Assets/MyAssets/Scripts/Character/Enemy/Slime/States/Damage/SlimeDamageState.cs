@@ -67,9 +67,30 @@ namespace MyAssets
             if(damageContainer.Data > 0)
             {
                 float scale = (float)stauts.HP / stauts.MaxHP;
-                scale += 0.1f;
-                thisTransform.localScale *= scale;
+                thisTransform.localScale *= SetScale(scale);
             }
+        }
+
+        private float SetScale(float scale)
+        {
+            float s = 1.0f;
+            if(scale < 0.8f&& scale > 0.6f)
+            {
+                s = 0.8f;
+            }
+            else if(scale < 0.6f&& scale > 0.4f)
+            {
+                s = 0.6f;
+            }
+            else if(scale < 0.4f&& scale > 0.2f)
+            {
+                s = 0.4f;
+            }
+            else if(scale < 0.2f)
+            {
+                s = 0.2f;
+            }
+            return s;
         }
 
         private void FoundTarget()

@@ -4,6 +4,11 @@ using UnityEngine;
 
 namespace MyAssets
 {
+    public enum SlimeBodyAttackEffectType
+    {
+        Hit
+    }
+
     public class SlimeBodyAttackController : MonoBehaviour
     {
         [SerializeField]
@@ -16,6 +21,8 @@ namespace MyAssets
         private ISlimeAnimator animator;
 
         private ISlimeSetup slimeSetup;
+
+        private SmallEnemyEffectHandller effectHandller;
 
         [SerializeField]
         private LayerMask hitLayer;
@@ -36,6 +43,7 @@ namespace MyAssets
 
             SlimeController controller = GetComponentInParent<SlimeController>();
             slimeSetup = controller.GetComponent<ISlimeSetup>();
+            effectHandller = GetComponent<SmallEnemyEffectHandller>();
 
             if (controller != null)
             {
@@ -103,6 +111,7 @@ namespace MyAssets
                     return;
                 }
             }
+            effectHandller.EffectLedger.SetPosAndRotCreate((int)SlimeBodyAttackEffectType.Hit, other.ClosestPoint(transform.position), transform.rotation);
             damageContainer.GiveDamage(attackObject.Power, attackObject.KnockBack, attackObject.Type, transform,slimeSetup.CharaType);
         }
     }

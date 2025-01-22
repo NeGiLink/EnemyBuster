@@ -1,9 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace MyAssets
 {
+    public enum SwordEffectType
+    {
+        Hit
+    }
     public class SwordEffectHandler : MonoBehaviour
     {
         [SerializeField]
@@ -14,6 +16,10 @@ namespace MyAssets
 
         [SerializeField]
         private Vector3         slachEffectRotation;
+
+        [SerializeField]
+        private EffectLedger effectLedger;
+        public  EffectLedger EffectLedger => effectLedger;
 
         private TrailRenderer   keepSlachEffect;
 
@@ -28,10 +34,13 @@ namespace MyAssets
             Vector3 rot = slach.localRotation.eulerAngles;
             rot += slachEffectRotation;
             slach.eulerAngles = rot;
+
+            ActivateSlachEffect(false);
         }
 
         public void ActivateSlachEffect(bool activate)
         {
+            if(keepSlachEffect == null) { return; }
             if (keepSlachEffect.enabled == activate) { return; }
             keepSlachEffect.enabled = activate;
         }

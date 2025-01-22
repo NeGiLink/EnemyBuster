@@ -307,7 +307,8 @@ namespace MyAssets
         {
             "FirstAttack",
             "SecondAttack",
-            "ThirdAttack"
+            "ThirdAttack",
+            "CounterAttack"
         };
         public IsNotAttackTransition(IPlayerSetup actor, IStateChanger<string> stateChanger, string changeKey)
             : base(stateChanger, changeKey)
@@ -444,6 +445,27 @@ namespace MyAssets
         }
         public override bool IsTransition() => input.Attack && animator.Animator.GetCurrentAnimatorStateInfo(0).IsName(motionName) &&
             !groundCheck.Landing;
+    }
+
+    public class IsCounterAttackTransition : CharacterStateTransitionBase
+    {
+        private readonly IAttackInputProvider input;
+        private readonly IPlayerAnimator animator;
+
+        private string motionName;
+
+        private readonly float maxNormalizedTime;
+
+        public IsCounterAttackTransition(IPlayerSetup actor, string name, IStateChanger<string> stateChanger, string changeKey)
+            : base(stateChanger, changeKey)
+        {
+            input = actor.gameObject.GetComponent<IAttackInputProvider>();
+            animator = actor.PlayerAnimator;
+            motionName = name;
+            //maxNormalizedTime = _t;
+        }
+        public override bool IsTransition() => input.Attack &&
+            animator.Animator.GetCurrentAnimatorStateInfo(0).IsName(motionName);
     }
 
     public class IsJumpAttackTransition : CharacterStateTransitionBase
