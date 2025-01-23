@@ -6,6 +6,7 @@ namespace MyAssets
     [System.Serializable ]
     public class Timer
     {
+        public event Action OnceEnd;
         public event Action OnEnd;
 
         private float current = 0;
@@ -46,7 +47,8 @@ namespace MyAssets
         {
             current = 0;
             OnEnd?.Invoke();
-            OnEnd = null;
+            OnceEnd?.Invoke();
+            OnceEnd = null;
         }
 
         public bool IsEnd() { return current <= 0; }

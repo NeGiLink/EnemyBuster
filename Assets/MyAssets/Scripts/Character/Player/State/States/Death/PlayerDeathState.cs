@@ -8,6 +8,8 @@ namespace MyAssets
     [System.Serializable]
     public class PlayerDeathState : PlayerStateBase
     {
+        private PlayerController playerController;
+
         private IPlayerAnimator animator;
 
         private IMovement movement;
@@ -24,6 +26,7 @@ namespace MyAssets
         public override void DoSetup(IPlayerSetup player)
         {
             base.DoSetup(player);
+            playerController = player.gameObject.GetComponent<PlayerController>();
             animator = player.PlayerAnimator;
             movement = player.Movement;
         }
@@ -32,6 +35,9 @@ namespace MyAssets
         {
             base.DoStart();
             animator.Animator.SetInteger("Impact", 2);
+
+            playerController.gameObject.layer = 0;
+            GameController.Instance.SetGameResultType(GameResultType.GameOver);
             GameUIController.Instance.CreateFadeResultTextUI();
         }
 

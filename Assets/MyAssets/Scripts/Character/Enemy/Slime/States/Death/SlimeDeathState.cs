@@ -46,7 +46,7 @@ namespace MyAssets
             base.DoStart();
             animator.Animator.SetBool("Death", true);
             destroyTimer.Start(destroyCount);
-            destroyTimer.OnEnd += DestroyUpdate;
+            destroyTimer.OnceEnd += DestroyUpdate;
             velocity.DeathCollider();
         }
 

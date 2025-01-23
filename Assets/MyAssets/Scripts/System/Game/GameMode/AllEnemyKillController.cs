@@ -20,6 +20,7 @@ namespace MyAssets
             if(currentEnemyKillCount >= maxEnemyKillCount)
             {
                 waveEnd = true;
+                GameController.Instance.SetGameResultType(GameResultType.GameClear);
                 GameUIController.Instance.CreateFadeResultTextUI();
                 return;
             }

@@ -45,6 +45,7 @@ namespace MyAssets
 
         private void Update()
         {
+            if(gameResultType != GameResultType.Null) { return; }
             timer.Update(Time.deltaTime);
             GameUIController.Instance.TimerCountUI?.CountRefresh();
         }

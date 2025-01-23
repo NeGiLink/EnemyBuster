@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &4675207513113912488
+--- !u!1 &8898224696228951963
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,24 +8,23 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2593228617754063841}
-  - component: {fileID: 8922804421483057582}
-  - component: {fileID: 9158557580036732843}
-  m_Layer: 0
-  m_Name: LocalUIManager
+  - component: {fileID: 580910258279726355}
+  - component: {fileID: 6901914595912770830}
+  - component: {fileID: 6995578395413829377}
+  m_Layer: 5
+  m_Name: OptionSystem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &2593228617754063841
-Transform:
+--- !u!224 &580910258279726355
+RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4675207513113912488}
-  serializedVersion: 2
+  m_GameObject: {fileID: 8898224696228951963}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -33,32 +32,34 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8922804421483057582
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &6901914595912770830
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4675207513113912488}
+  m_GameObject: {fileID: 8898224696228951963}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e42f06ff7b2c18a4ebeededc7d4016c6, type: 3}
+  m_Script: {fileID: 11500000, guid: 253f07f58fed33744b141d1840ab55f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uiData: {fileID: 11400000, guid: 5c67727e234d5234c8c45984871c1c5c, type: 2}
-  optionSystem: {fileID: 6995578395413829377, guid: a81442044d51f8e48819fc864db6e07b, type: 3}
-  fadeInText: {fileID: 8743944530628993239, guid: 4a385e0a49c060645a0343776e798233, type: 3}
-  resultSystem: {fileID: 2669853003333382453, guid: 33ae312b409aaa54785f6106560cc851, type: 3}
---- !u!114 &9158557580036732843
+  canvas: {fileID: 0}
+  menuPrefab: {fileID: 2451033626527509474, guid: a747cbbd6da1f7a44b4cb46a374fe7ba, type: 3}
+--- !u!114 &6995578395413829377
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4675207513113912488}
+  m_GameObject: {fileID: 8898224696228951963}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3be38556d3b28bf4aaddc1173142cd50, type: 3}
+  m_Script: {fileID: 11500000, guid: df956e0cec5281f48a5396e7c4469ac6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textMesh: {fileID: 2641850425179345610, guid: 5e947e04cf5906642b9bce093c2e46a2, type: 3}

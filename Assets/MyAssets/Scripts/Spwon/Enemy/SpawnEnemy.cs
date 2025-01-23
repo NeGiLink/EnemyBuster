@@ -31,12 +31,10 @@ namespace MyAssets
             spawnPoint = GetComponentsInChildren<SpawnPoint>();
         }
 
-        private void Start()
+        public void SetActive(bool a)
         {
-        
+            gameObject.SetActive(a);
         }
-
-
         private void Update()
         {
             if (!GameManager.Instance.Debug)

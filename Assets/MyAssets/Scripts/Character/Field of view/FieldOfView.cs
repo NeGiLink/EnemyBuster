@@ -163,7 +163,7 @@ namespace MyAssets
                             // Raycastで壁越しを除去
                             if (Physics.Raycast(transform.position, directionToObject, out RaycastHit hit, range, targetObjectLayer))
                             {
-                                if (hit.transform.gameObject == obj||hit.collider.gameObject.layer == 9)
+                                if (hit.transform.gameObject == obj || hit.collider.gameObject.layer == 9)
                                 {
                                     find = true;
                                     insideObjects.Add(obj); // オブジェクトを視界内リストに追加
@@ -175,6 +175,10 @@ namespace MyAssets
                             }
                         }
                     }
+                }
+                if(hitCount == 0)
+                {
+                    find = false;
                 }
             }
         }

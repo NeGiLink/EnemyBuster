@@ -69,7 +69,7 @@ namespace MyAssets
         private void Start()
         {
             waveChange = true;
-            GameController.Instance.Timer.OnEnd += OnGameOver;
+            GameController.Instance.Timer.OnceEnd += OnGameOver;
             TimerStart();
         }
 
