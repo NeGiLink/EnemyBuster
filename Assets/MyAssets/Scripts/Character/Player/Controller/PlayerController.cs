@@ -247,6 +247,11 @@ namespace MyAssets
             fieldOfView.DoUpdate();
         }
 
+        public void ThisDestroy()
+        {
+            Destroy(this);
+        }
+
         private void OnAnimatorIK()
         {
             stateMachine.DoAnimatorIKUpdate();

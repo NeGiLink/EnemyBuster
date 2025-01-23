@@ -41,7 +41,7 @@ namespace MyAssets
             yield return StartCoroutine(Fade(targetAlpha));
             /*
              */
-            if (SceneChanger.Instance.IsTransitioning)
+            if (SceneChanger.Instance != null&&SceneChanger.Instance.IsTransitioning)
             {
                 SceneChanger.Instance.OnChangeScene();
             }

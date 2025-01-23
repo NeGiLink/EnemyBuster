@@ -24,10 +24,13 @@ namespace MyAssets
         private UIData uiData;
 
         [SerializeField]
+        private OptionInput optionSystem;
+
+        [SerializeField]
         private FadeInText fadeInText;
 
         [SerializeField]
-        private GameObject resultUI;
+        private ResultSystem resultSystem;
 
 
         private DamageTextCreator damageTextCreator;
@@ -63,6 +66,8 @@ namespace MyAssets
             enemyKillCountUI.SetMaxCount(GameModeController.Instance.MaxEnemyCount);
             int count = GameModeController.Instance.AbstractGameMode.CurrentEnemyKillCount;
             enemyKillCountUI.CountRefresh(count);
+
+            Instantiate(optionSystem);
         }
 
         public void CreateFadeResultTextUI()
@@ -83,8 +88,7 @@ namespace MyAssets
         public void CreateResultUI()
         {
             GameManager.Instance.SetFreeCursor();
-            Transform parent = GameCanvas.Instance.UILayer[(int)UILayer.System].transform;
-            Instantiate(resultUI, parent);
+            Instantiate(resultSystem);
         }
     }
 }

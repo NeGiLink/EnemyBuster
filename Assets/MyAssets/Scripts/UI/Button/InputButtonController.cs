@@ -18,11 +18,15 @@ namespace MyAssets
         //選択中の画像
         [SerializeField]
         private Image selectImage;
+        [SerializeField]
+        private bool buttonAndSelectCommon;
         //選択してる要素数
         private int selectIndex = 0;
         //選択中の画像をボタン横のどれくらいの位置に設置するか
         [SerializeField]
         private float selectImageOffsetX;
+        [SerializeField]
+        private float selectImageOffsetY = 0;
         //子オブジェクトにボタン
         [SerializeField]
         private Button[] buttons;
@@ -55,9 +59,23 @@ namespace MyAssets
         private void SetSelectImagePosition(int index)
         {
             if (!activateSelect || selectImage == null) { return; }
-            Vector2 pos = hovers[index].RectTransform.anchoredPosition;
-            pos.x -= selectImageOffsetX;
-            selectImage.rectTransform.anchoredPosition = pos;
+            if (!buttonAndSelectCommon)
+            {
+                Vector2 pos = hovers[index].RectTransform.anchoredPosition;
+                pos.x -= selectImageOffsetX;
+                pos.y -= selectImageOffsetY;
+                selectImage.rectTransform.anchoredPosition = pos;
+            }
+            else 
+            {
+                Vector2 pos = hovers[index].RectTransform.anchoredPosition;
+                pos.x -= selectImageOffsetX;
+                pos.y -= selectImageOffsetY;
+                selectImage.rectTransform.anchoredPosition = pos;
+
+                Image buttonImage = hovers[index].GetComponentInChildren<Image>();
+                selectImage.rectTransform.sizeDelta = buttonImage.rectTransform.sizeDelta;
+            }
         }
 
         private void SetActivateSelectImage(bool b)

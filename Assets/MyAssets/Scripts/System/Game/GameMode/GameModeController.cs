@@ -51,8 +51,17 @@ namespace MyAssets
             abstractGameMode.Setup(maxEnemyCount, maxWaveChangeCount);
             abstractGameMode.TimerStart();
 
-            Instantiate(nextCreateManager);
+            SetActive(false);
         }
 
+        public void SetActive(bool a)
+        {
+            gameObject.SetActive(a);
+        }
+
+        public void CreateUIManager()
+        {
+            Instantiate(nextCreateManager);
+        }
     }
 }

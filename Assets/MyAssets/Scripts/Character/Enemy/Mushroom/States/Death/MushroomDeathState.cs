@@ -46,7 +46,7 @@ namespace MyAssets
             animator.Animator.SetBool("Death", true);
             velocity.DeathCollider();
             destroyTimer.Start(destroyCount);
-            destroyTimer.OnEnd += DestroyUpdate;
+            destroyTimer.OnceEnd += DestroyUpdate;
         }
 
         public override void DoUpdate(float time)
