@@ -1,11 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Net;
 using UnityEngine;
-using UnityEngine.InputSystem.HID;
 
 namespace MyAssets
 {
+    public enum ShieldSETag
+    {
+        Guard
+    }
+
     public class ShieldController : MonoBehaviour
     {
         [SerializeField]
@@ -13,6 +14,8 @@ namespace MyAssets
         public Animator Animator => animator;
 
         private ShieldEffectHandler effectHandler;
+
+        private SEHandler seHandler;
 
         private readonly string stateName = "State";
 
@@ -25,15 +28,22 @@ namespace MyAssets
 
         private bool guard = false;
 
-        private bool success = false;
+        private IGuardTrigger guardTrigger;
 
-        public bool IsSuccess => success;
-        public void SetSuccess(bool s) {  success = s; }
+        private ICharacterSetup characterSetup;
+        public void SetICharacterSetup(ICharacterSetup c) { characterSetup = c; }
 
         private void Awake()
         {
-            animator = GetComponent<Animator>();
+            animator = GetComponentInChildren<Animator>();
             effectHandler = GetComponent<ShieldEffectHandler>();
+            seHandler = GetComponent<SEHandler>();
+        }
+
+        public void Setup(ICharacterSetup actor)
+        {
+            characterSetup = actor;
+            guardTrigger = characterSetup.GuardTrigger;
         }
 
         public void ShieldOpen()
@@ -67,9 +77,10 @@ namespace MyAssets
                     IDamageContainer damageContainer = characterSetup.DamageContainer;
                     if (damageContainer != null) 
                     {
+                        guardTrigger.SetGuardFlag(true);
+                        seHandler.Play((int)ShieldSETag.Guard);
                         effectHandler.EffectLedger.SetPosAndRotCreate((int)ShieldEffectType.Hit, transform.position, transform.rotation);
                         damageContainer.Recoil( DamageType.Middle, thistransform);
-                        success = true;
                     }
                 }
                 return true;

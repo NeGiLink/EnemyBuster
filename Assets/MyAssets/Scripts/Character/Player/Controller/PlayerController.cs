@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace MyAssets
 {
+
     public class PlayerController : CharacterBaseController,IPlayerSetup
     {
         [SerializeField]
@@ -36,6 +37,10 @@ namespace MyAssets
         public IChangingState           ChangingState => changingState;
 
         [SerializeField]
+        private GuardTrigger guardTrigger;
+        public IGuardTrigger GuardTrigger => guardTrigger;
+
+        [SerializeField]
         private IKController            footIK;
         public IAllIK                   FootIK => footIK;
 
@@ -53,6 +58,9 @@ namespace MyAssets
         [SerializeField]
         private PlayerAnimator          animator;
         public IPlayerAnimator          PlayerAnimator => animator;
+
+        private SEHandler seHandler;
+        public SEHandler SEHandler => seHandler;
 
         [SerializeField]
         private StateMachine<string>    stateMachine;
@@ -139,6 +147,7 @@ namespace MyAssets
             fieldOfView = GetComponent<FieldOfView>();
             uIHandler = GetComponent<PlayerUIHandler>();
             effectController = GetComponent<PlayerEffectController>();
+            seHandler = GetComponent<SEHandler>();
 
 
             input = GetComponent<IControllerInput>();

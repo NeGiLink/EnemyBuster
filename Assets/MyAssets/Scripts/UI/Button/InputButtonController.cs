@@ -1,10 +1,14 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.Windows;
 
 namespace MyAssets
 {
+    public enum ButtonSETag
+    {
+        Select,
+        Decide
+    }
     public class InputButtonController : MonoBehaviour
     {
         //選択してる場所が分かる画像を有効にするかしないかのフラグ
@@ -32,7 +36,7 @@ namespace MyAssets
         private Button[] buttons;
         private ButtonHover[] hovers;
         //SE再生用クラス
-        //private SEManager seManager;
+        private SEHandler seHandler;
 
         private void Awake()
         {
@@ -40,7 +44,7 @@ namespace MyAssets
             buttons = b;
             ButtonHover[] h = GetComponentsInChildren<ButtonHover>();
             hovers = h;
-            //seManager = GetComponent<SEManager>();
+            seHandler = GetComponent<SEHandler>();
         }
 
         private void Start()
@@ -95,6 +99,10 @@ namespace MyAssets
             {
                 if (hovers[i].IsHovering)
                 {
+                    if(selectIndex != i)
+                    {
+                        seHandler.Play((int)ButtonSETag.Select);
+                    }
                     selectIndex = i;
                     SetSelectImagePosition(selectIndex);
                     SetActivateSelectImage(true);
@@ -102,7 +110,7 @@ namespace MyAssets
                     {
                         if(selectIndex < 0) { return; }
                         buttons[selectIndex].onClick?.Invoke();
-                        //seManager.Play(1);
+                        seHandler.Play((int)ButtonSETag.Decide);
                     }
                 }
             }
@@ -135,7 +143,7 @@ namespace MyAssets
                         selectIndex = buttons.Length - 1;
                     }
                     SetSelectImagePosition(selectIndex);
-                    //seManager.Play();
+                    seHandler.Play((int)ButtonSETag.Select);
                 }
                 else if (action > 0)
                 {
@@ -145,26 +153,18 @@ namespace MyAssets
                         selectIndex = 0;
                     }
                     SetSelectImagePosition(selectIndex);
-                    //seManager.Play();
+                    seHandler.Play((int)ButtonSETag.Select);
                 }
             }
             if (InputUIAction.Instance.Decide)
             {
-                //if (!InputUIAction.Instance.IsInputGamePad) { return; }
                 buttons[selectIndex].onClick?.Invoke();
-                //seManager.Play(1);
+                seHandler.Play((int)ButtonSETag.Decide);
             }
         }
 
         public void ActivateStart()
         {
-            this.enabled = true;
-            //StartCoroutine(Activate());
-        }
-
-        private IEnumerator Activate()
-        {
-            yield return null;
             this.enabled = true;
         }
     }

@@ -28,9 +28,10 @@ namespace MyAssets
         float moveSpeedChangeRate = 8;
         [SerializeField]
         private float gravityMultiply;
-
+        /*
         [SerializeField]
         float searchingTime = 1.0f;
+         */
 
         [SerializeField]
         float minChaseDistance = 2.5f;

@@ -10,11 +10,7 @@ namespace MyAssets
 
         private IPlayerStauts stauts;
 
-        private IMoveInputProvider input;
-
         private IVelocityComponent velocity;
-
-        private IMovement movement;
 
         private IRotation rotation;
 
@@ -57,11 +53,9 @@ namespace MyAssets
             base.DoSetup(player);
             transform = player.gameObject.transform;
             stauts = player.Stauts;
-            movement = player.Movement;
             velocity = player.Velocity;
             rotation = player.Rotation;
             changingState = player.ChangingState;
-            input = player.gameObject.GetComponent<IMoveInputProvider>();
             animator = player.PlayerAnimator;
             fieldOfView = player.FieldOfView;
             sword = player.Equipment.HaveWeapon.GetComponent<SwordController>();
@@ -77,6 +71,7 @@ namespace MyAssets
                 changingState.SetBattleMode(true);
                 animator.Animator.SetFloat(animator.ToolLevel, 1.0f);
             }
+            sword.Slash();
             sword.SetAttackType(AttackType.Single);
             animator.Animator.SetInteger(animator.AttacksName, (int)NormalAttackState.Counter);
 

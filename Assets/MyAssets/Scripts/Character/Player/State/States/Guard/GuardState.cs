@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -18,13 +17,14 @@ namespace MyAssets
 
         private IEquipment equipment;
 
+        private IGuardTrigger guardTrigger;
+
+        private PlayerEffectController effectController;
+
         [SerializeField]
         private float guardSpeed = 0.0f;
         [SerializeField]
         private float idleGravityMultiply;
-
-        [SerializeField]
-        private float counterAttackTransitionCount;
 
         public static readonly string StateKey = "Guard";
         public override string Key => StateKey;
@@ -46,19 +46,22 @@ namespace MyAssets
             rotation = player.Rotation;
             animator = player.PlayerAnimator;
             equipment = player.gameObject.GetComponent<IEquipment>();
+            effectController = player.gameObject.GetComponent<PlayerEffectController>();
+            guardTrigger = player.GuardTrigger;
         }
 
         public override void DoStart()
         {
             base.DoStart();
-            animator.Animator.SetInteger("SuccessGuard",0);
+            animator.Animator.SetInteger("SuccessGuard", 0);
             equipment.ShieldTool.ShieldOpen();
+            effectController.Create(PlayerEffectType.GroundHit);
         }
 
         public override void DoUpdate(float time)
         {
-            base.DoUpdate(time);
             rotation.DoUpdate();
+            base.DoUpdate(time);
         }
 
         public override void DoFixedUpdate(float time)
@@ -75,7 +78,7 @@ namespace MyAssets
         public override void DoExit()
         {
             base.DoExit();
-            equipment.ShieldTool.SetSuccess(false);
+            guardTrigger.SetGuardFlag(false);
             animator.Animator.SetInteger("SuccessGuard", -1);
         }
     }

@@ -16,6 +16,9 @@ namespace MyAssets
         private StepClimberJudgment stepClimberJudgment;
         public IStepClimberJudgment StepClimberJudgment => stepClimberJudgment;
 
+        private SEHandler seHandler;
+        public SEHandler SEHandler => seHandler;
+
         [SerializeField]
         private PlayerRotation rotation;
         public IRotation Rotation => rotation;
@@ -23,6 +26,10 @@ namespace MyAssets
         private Timer damageCoolDownTimer;
 
         public IFieldOfView FieldOfView => null;
+
+        [SerializeField]
+        private GuardTrigger guardTrigger;
+        public IGuardTrigger GuardTrigger => guardTrigger;
 
         public IStateMachine StateMachine => null;
 

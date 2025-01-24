@@ -38,6 +38,7 @@ namespace MyAssets
             }
             GameManager.Instance.SetModeTag(tag);
             modeInformation.SetModeText();
+            modeInformation.SetModeInfoText(tag);
         }
     }
 }

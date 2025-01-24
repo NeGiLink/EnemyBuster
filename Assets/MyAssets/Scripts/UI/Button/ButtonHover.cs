@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -19,13 +20,17 @@ namespace MyAssets
         public void OnPointerEnter(PointerEventData eventData)
         {
             isHovering = true;
-            //Debug.Log("カーソルがボタンに乗りました: " + gameObject.name);
+        }
+
+        private IEnumerator OnEnter()
+        {
+            yield return null;
+            isHovering = false;
         }
 
         public void OnPointerExit(PointerEventData eventData)
         {
             isHovering = false;
-            //Debug.Log("カーソルがボタンから離れました: " + gameObject.name);
         }
 
         public void SetHovering(bool h)
@@ -37,7 +42,7 @@ namespace MyAssets
         {
             if (isHovering)
             {
-                Debug.Log("カーソルがまだボタンの上にあります");
+                isHovering = false;
             }
         }
          */

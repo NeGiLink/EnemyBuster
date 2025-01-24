@@ -18,14 +18,11 @@ namespace MyAssets
         
         private IRotation rotation;
         
-        private IObstacleJudgment cliffJudgment;
+        //private IObstacleJudgment cliffJudgment;
         
         private IStepClimberJudgment stepClimberJudgment;
         
         private IPlayerAnimator animator;
-
-        private IEquipment equipment;
-        private IDamageContainer damageContainer;
 
         private IAllIK ik;
 
@@ -59,21 +56,19 @@ namespace MyAssets
             stauts = player.Stauts;
             movement = player.Movement;
             velocity = player.Velocity;
-            cliffJudgment = player.ObstacleJudgment;
+            //cliffJudgment = player.ObstacleJudgment;
             stepClimberJudgment = player.StepClimberJudgment;
             rotation = player.Rotation;
             input = player.gameObject.GetComponent<IMoveInputProvider>();
             focusInputProvider = player.gameObject.GetComponent<IFocusInputProvider>();
             animator = player.PlayerAnimator;
-            equipment = player.gameObject.GetComponent<IEquipment>();
-            damageContainer = player.DamageContainer;
             ik = player.FootIK;
         }
 
         public override void DoStart()
         {
             base.DoStart();
-            cliffJudgment.InitRay();
+            //cliffJudgment.InitRay();
 
             if(focusInputProvider.Foucus > 0)
             {
@@ -94,7 +89,7 @@ namespace MyAssets
 
             animator.UpdateWeight();
 
-            cliffJudgment.RayCheck();
+            //cliffJudgment.RayCheck();
             stepClimberJudgment.HandleStepClimbing();
             rotation.DoUpdate();
         }

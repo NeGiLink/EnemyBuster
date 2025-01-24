@@ -31,10 +31,11 @@ namespace MyAssets
                 }
             }
 
-            ShieldController s = GetComponentInChildren<ShieldController>();
-            if(s != null)
+            shieldTool = GetComponentInChildren<ShieldController>();
+            ICharacterSetup character = GetComponent<ICharacterSetup>();
+            if(character != null)
             {
-                shieldTool = s;
+                shieldTool.Setup(GetComponent<ICharacterSetup>());
             }
         }
 

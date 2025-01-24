@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,7 +10,6 @@ namespace MyAssets
 
         private IMoveInputProvider input;
 
-        private IFocusInputProvider focusInputProvider;
 
         private IVelocityComponent velocity;
 
@@ -19,15 +17,9 @@ namespace MyAssets
 
         private IRotation rotation;
 
-        private IObstacleJudgment cliffJudgment;
-
-        private IStepClimberJudgment stepClimberJudgment;
-
         private IPlayerAnimator animator;
 
         private IEquipment equipment;
-
-        private IDamageContainer damageContainer;
 
         private IAllIK ik;
 
@@ -61,14 +53,10 @@ namespace MyAssets
             stauts = player.Stauts;
             movement = player.Movement;
             velocity = player.Velocity;
-            cliffJudgment = player.ObstacleJudgment;
-            stepClimberJudgment = player.StepClimberJudgment;
             rotation = player.Rotation;
             input = player.gameObject.GetComponent<IMoveInputProvider>();
-            focusInputProvider = player.gameObject.GetComponent<IFocusInputProvider>();
             animator = player.PlayerAnimator;
             equipment = player.gameObject.GetComponent<IEquipment>();
-            damageContainer = player.DamageContainer;
             ik = player.FootIK;
         }
 
@@ -85,7 +73,6 @@ namespace MyAssets
 
         public override void DoUpdate(float time)
         {
-            base.DoUpdate(time);
             animator.Animator.SetFloat(animator.VelocityX, input.Horizontal, 0.1f, Time.deltaTime);
             animator.Animator.SetFloat(animator.VelocityZ, input.Vertical, 0.1f, Time.deltaTime);
 
@@ -101,6 +88,7 @@ namespace MyAssets
             }
 
             rotation.DoUpdate();
+            base.DoUpdate(time);
         }
 
         public override void DoFixedUpdate(float time)

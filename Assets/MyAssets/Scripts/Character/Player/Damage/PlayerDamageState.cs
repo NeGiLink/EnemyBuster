@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,8 +10,6 @@ namespace MyAssets
 
         private IVelocityComponent velocity;
 
-        private IMovement movement;
-
         private IPlayerAnimator  animator;
 
         private IDamageContainer damageContainer;
@@ -20,6 +17,8 @@ namespace MyAssets
         private IDamagement damageMove;
 
         private IGroundCheck groundCheck;
+
+        private SEHandler seHandler;
 
         private Timer damageTimer = new Timer();
 
@@ -50,17 +49,20 @@ namespace MyAssets
             base.DoSetup(player);
             thisTransform = player.gameObject.transform;
             velocity = player.Velocity;
-            movement = player.Movement;
             animator = player.PlayerAnimator;
             groundCheck = player.GroundCheck;
             damageContainer = player.DamageContainer;
             damageMove = player.Damagement;
+            seHandler = player.SEHandler;
             stauts = player.Stauts;
         }
 
         public override void DoStart()
         {
             base.DoStart();
+
+            seHandler.Play((int)PlayerSETag.Damage);
+
             velocity.Rigidbody.velocity = Vector3.zero;
 
             DamageType type = damageContainer.AttackType;

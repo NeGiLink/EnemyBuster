@@ -1,7 +1,5 @@
-using System.Collections;
+
 using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.SocialPlatforms.Impl;
 
 namespace MyAssets
 {
@@ -14,6 +12,8 @@ namespace MyAssets
 
         private IMovement movement;
 
+        private SEHandler seHandler;
+
         public static readonly string StateKey = "Death";
         public override string Key => StateKey;
 
@@ -23,17 +23,19 @@ namespace MyAssets
             
             return re;
         }
-        public override void DoSetup(IPlayerSetup player)
+        public override void DoSetup(IPlayerSetup actor)
         {
-            base.DoSetup(player);
-            playerController = player.gameObject.GetComponent<PlayerController>();
-            animator = player.PlayerAnimator;
-            movement = player.Movement;
+            base.DoSetup(actor);
+            playerController = actor.gameObject.GetComponent<PlayerController>();
+            animator = actor.PlayerAnimator;
+            movement = actor.Movement;
+            seHandler = actor.SEHandler;
         }
 
         public override void DoStart()
         {
             base.DoStart();
+            seHandler.Play((int)PlayerSETag.Damage);
             animator.Animator.SetInteger("Impact", 2);
 
             playerController.gameObject.layer = 0;

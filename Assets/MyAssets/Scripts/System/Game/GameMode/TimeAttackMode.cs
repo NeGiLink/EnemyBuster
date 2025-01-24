@@ -12,8 +12,6 @@ namespace MyAssets
         [SerializeField]
         private float hardTime = 90.0f;
 
-        private bool waveEnd = false;
-
         public override void Setup(int maxEnemy, int maxWaveEnemy)
         {
             maxEnemyKillCount = maxEnemy;
@@ -44,7 +42,6 @@ namespace MyAssets
             if (GameController.Instance.GameResultType != GameResultType.Null) { return; }
             if (currentEnemyKillCount >= maxEnemyKillCount)
             {
-                waveEnd = true;
                 GameController.Instance.SetGameResultType(GameResultType.GameClear);
                 GameUIController.Instance.CreateFadeResultTextUI();
                 return;
@@ -63,8 +60,6 @@ namespace MyAssets
                 waveChange = false;
             }
         }
-
-        private bool end = false;
 
         private void Start()
         {

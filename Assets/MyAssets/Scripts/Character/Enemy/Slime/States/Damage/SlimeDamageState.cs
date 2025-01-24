@@ -20,6 +20,8 @@ namespace MyAssets
 
         private FieldOfView fieldOfView;
 
+        private SEHandler seHandler;
+
         private Timer damageTimer = new Timer();
 
         [SerializeField]
@@ -52,12 +54,14 @@ namespace MyAssets
             damageContainer = enemy.DamageContainer;
             damageMove = enemy.Damagement;
             fieldOfView = enemy.gameObject.GetComponent<FieldOfView>();
+            seHandler = enemy.SEHandler;
         }
 
         public override void DoStart()
         {
             base.DoStart();
             FoundTarget();
+            seHandler.Play((int)SlimeSETag.Damage);
             velocity.Rigidbody.velocity = Vector3.zero;
             DamageType type = damageContainer.AttackType;
             int damageType = 0;
@@ -80,15 +84,15 @@ namespace MyAssets
             }
             else if(scale < 0.6f&& scale > 0.4f)
             {
-                s = 0.6f;
+                s = 0.7f;
             }
             else if(scale < 0.4f&& scale > 0.2f)
             {
-                s = 0.4f;
+                s = 0.6f;
             }
             else if(scale < 0.2f)
             {
-                s = 0.2f;
+                s = 0.5f;
             }
             return s;
         }

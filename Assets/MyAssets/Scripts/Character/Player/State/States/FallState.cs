@@ -10,12 +10,10 @@ namespace MyAssets
 
         private IMovement movement;
         private IVelocityComponent velocity;
-        private IMoveInputProvider input;
         private IRotation rotation;
         private IObstacleJudgment cliffJudgment;
         private IPlayerAnimator animator;
         private IGroundCheck groundCheck;
-        private IDamageContainer damageContainer;
 
         [SerializeField]
         float fallGravityMultiply;
@@ -45,7 +43,6 @@ namespace MyAssets
             cliffJudgment = player.ObstacleJudgment;
             animator = player.PlayerAnimator;
             groundCheck = player.GroundCheck;
-            damageContainer = player.DamageContainer;
         }
         public override void DoStart()
         {

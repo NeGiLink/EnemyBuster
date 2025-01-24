@@ -16,8 +16,6 @@ namespace MyAssets
         [SerializeField]
         private LayerMask groundMask;
 
-        private IVelocityComponent velocity;
-
         private Transform thisTransform;
 
         private Vector3 stepGolePosition;
@@ -37,7 +35,6 @@ namespace MyAssets
 
         public void DoSetup(IPlayerSetup player)
         {
-            velocity = player.Velocity;
             thisTransform = player.gameObject.transform;
         }
 

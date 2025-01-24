@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,8 +9,6 @@ namespace MyAssets
         private IChangingState changingState;
         private IEquipment equipment;
         private IPlayerAnimator animator;
-
-        private IDamageContainer damageContainer;
 
         public static readonly string StateKey = "WeaponOut";
 
@@ -32,7 +29,6 @@ namespace MyAssets
             changingState = player.ChangingState;
             equipment = player.Equipment;
             animator = player.PlayerAnimator;
-            damageContainer = player.DamageContainer;
         }
 
         public override void DoStart()
@@ -42,16 +38,6 @@ namespace MyAssets
             equipment.SetOutWeapon();
             animator.Animator.SetInteger(animator.Weapon_In_OutName, 0);
             animator.Animator.SetFloat(animator.ToolLevel, 1.0f);
-        }
-
-        public override void DoUpdate(float time)
-        {
-            base.DoUpdate(time);
-            AnimatorStateInfo animInfo = animator.Animator.GetCurrentAnimatorStateInfo(0);
-            if(animInfo.normalizedTime > 0.5f && animInfo.normalizedTime < 0.55f)
-            {
-                //equipment.SetOutWeapon();
-            }
         }
 
         public override void DoExit()

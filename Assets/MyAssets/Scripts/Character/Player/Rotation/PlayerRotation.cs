@@ -21,12 +21,6 @@ namespace MyAssets
 
         private FieldOfView fieldOfView;
 
-        private IPlayerAnimator animator;
-
-        // ’Ç‰Á: Ø‚è‘Ö‚¦‘O‚Ì‰ñ“]‚ğ•Û‚·‚é•Ï”
-        [SerializeField]
-        private Quaternion previousCameraRotation;
-
         public void DoSetup(IPlayerSetup player)
         {
             thisTransform = player.gameObject.transform;
@@ -35,7 +29,6 @@ namespace MyAssets
             moveInput = player.MoveInput;
             focusInput = player.gameObject.GetComponent<IFocusInputProvider>();
             fieldOfView = player.gameObject.GetComponent<FieldOfView>();
-            animator = player.PlayerAnimator;
         }
 
         public void DoUpdate()
@@ -53,7 +46,7 @@ namespace MyAssets
 
         public void DoFixedUpdate()
         {
-            if(focusInput.Foucus < Define.PressNum)
+            if(focusInput.Foucus < 1.0f)
             {
                 float rotationSpeed = Define.Zero;
                 switch (PlayerCharacterInput.GetDeviceInput())
@@ -76,7 +69,7 @@ namespace MyAssets
 
                 thisTransform.rotation = Quaternion.RotateTowards(thisTransform.rotation, targetRotation, rotationSpeed);
             }
-            else if (focusInput.Foucus > Define.Zero)
+            else if (focusInput.Foucus > 0)
             {
                 if(fieldOfView.FindTarget)
                 {

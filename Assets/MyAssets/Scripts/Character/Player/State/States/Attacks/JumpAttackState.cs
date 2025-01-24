@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,10 +9,6 @@ namespace MyAssets
         private IVelocityComponent velocity;
 
         private IMovement movement;
-
-        private IPlayerAnimator animator;
-
-        private IDamageContainer damageContainer;
 
         private SwordController sword;
 
@@ -39,8 +34,6 @@ namespace MyAssets
             base.DoSetup(player);
             velocity = player.Velocity;
             movement = player.Movement;
-            animator = player.PlayerAnimator;
-            damageContainer = player.DamageContainer;
             sword = player.Equipment.HaveWeapon?.GetComponent<SwordController>();
         }
 
@@ -53,6 +46,7 @@ namespace MyAssets
         public override void DoUpdate(float time)
         {
             sword.EnabledCollider(0, 0, true);
+            sword.SpinSlash();
             base.DoUpdate(time);
         }
 

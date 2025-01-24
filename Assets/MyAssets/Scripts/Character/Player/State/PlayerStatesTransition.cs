@@ -1,5 +1,6 @@
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Scripting;
 
 namespace MyAssets
 {
@@ -576,29 +577,29 @@ namespace MyAssets
     public class IsGuardTransition : CharacterStateTransitionBase
     {
 
-        private readonly ShieldController shieldController;
+        private readonly IGuardTrigger guardTrigger;
 
         public IsGuardTransition(IPlayerSetup chara, IStateChanger<string> stateChanger, string changeKey)
             : base(stateChanger, changeKey)
         {
-            shieldController = chara.Equipment.ShieldTool;
+            guardTrigger = chara.GuardTrigger;
         }
-        public override bool IsTransition() => shieldController.IsSuccess;
+        public override bool IsTransition() => guardTrigger.IsGuard;
     }
     public class IsEndGuardTransition : CharacterStateTransitionBase
     {
 
         private readonly IPlayerAnimator animator;
 
-        private readonly ShieldController shieldController;
+        private readonly IGuardTrigger guardTrigger;
 
         public IsEndGuardTransition(IPlayerSetup chara, IStateChanger<string> stateChanger, string changeKey)
             : base(stateChanger, changeKey)
         {
             animator = chara.PlayerAnimator;
-            shieldController = chara.Equipment.ShieldTool;
+            guardTrigger = chara.GuardTrigger;
         }
-        public override bool IsTransition() => shieldController.IsSuccess && 
+        public override bool IsTransition() => guardTrigger.IsGuard && 
                                                animator.Animator.GetCurrentAnimatorStateInfo(0).IsName("Shield Impact") &&
                                                animator.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f;
     }

@@ -25,6 +25,13 @@ namespace MyAssets
         
         public IFieldOfView FieldOfView => null;
 
+        private SEHandler seHandler;
+        public SEHandler SEHandler => seHandler;
+
+        [SerializeField]
+        private GuardTrigger guardTrigger;
+        public IGuardTrigger GuardTrigger => guardTrigger;
+
         [SerializeField]
         private StateMachine<string> stateMachine;
         public IStateMachine StateMachine => stateMachine;
