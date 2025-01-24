@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,8 +7,6 @@ namespace MyAssets
     public class JumpAttackLandingState : PlayerStateBase
     {
         private Timer playerTimer = new Timer();
-
-        private IMovement movement;
 
         private IVelocityComponent velocity;
 
@@ -35,7 +32,6 @@ namespace MyAssets
         public override void DoSetup(IPlayerSetup actor)
         {
             base.DoSetup(actor);
-            movement = actor.Movement;
             velocity = actor.Velocity;
             animator = actor.PlayerAnimator;
             effectController = actor.gameObject.GetComponent<PlayerEffectController>();

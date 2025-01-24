@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -16,8 +15,6 @@ namespace MyAssets
         private IChangingState changingState;
 
         private IPlayerAnimator animator;
-
-        private IDamageContainer damageContainer;
 
         [SerializeField]
         private int jumpAttackSP;
@@ -40,7 +37,6 @@ namespace MyAssets
             equipment = player.Equipment;
             animator = player.PlayerAnimator;
             changingState = player.ChangingState;
-            damageContainer = player.DamageContainer;
             stauts = player.Stauts;
         }
 

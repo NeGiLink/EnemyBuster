@@ -1,9 +1,15 @@
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace MyAssets
 {
+    public enum PlayerSETag
+    {
+        Jump,
+        Avoid,
+        Damage
+    }
+
     [System.Serializable]
     public class PlayerStatusProperty : BaseStautsProperty,IPlayerStauts
     {

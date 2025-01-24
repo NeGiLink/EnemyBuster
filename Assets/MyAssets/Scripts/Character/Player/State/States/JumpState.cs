@@ -22,7 +22,7 @@ namespace MyAssets
 
         private IObstacleJudgment cliffJudgment;
 
-        private IDamageContainer damageContainer;
+        private SEHandler seHandler;
 
         [SerializeField]
         private float power;
@@ -61,7 +61,7 @@ namespace MyAssets
             animator = player.PlayerAnimator;
             groundCheck = player.GroundCheck;
             cliffJudgment = player.ObstacleJudgment;
-            damageContainer = player.DamageContainer;
+            seHandler = player.SEHandler;
         }
 
         public override void DoStart()
@@ -69,6 +69,8 @@ namespace MyAssets
             base.DoStart();
 
             jumpStartTimer.Start(jumpStartCount);
+
+            seHandler.Play((int)PlayerSETag.Jump);
 
             float p = power;
             if (moveInput.IsMove)

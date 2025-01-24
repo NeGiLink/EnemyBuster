@@ -30,6 +30,11 @@ namespace MyAssets
             moveVelocity = moveVelocity * maxSpeed;
             velocity.Rigidbody.velocity = new Vector3(moveVelocity.x, velocity.Rigidbody.velocity.y, moveVelocity.z);
         }
+
+        public void RollingMove(float maxSpeed)
+        {
+
+        }
         public void ForwardMove(float maxSpeed)
         {
             Vector3 currentVelocity = velocity.CurrentVelocity;

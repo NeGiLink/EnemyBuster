@@ -7,6 +7,8 @@ namespace MyAssets
     {
         void Stop();
         void Move(float maxSpeed);
+
+        void RollingMove(float maxSpeed);
         void ForwardMove(float maxSpeed);
 
         void ForwardLerpMove(Vector3 basePos,float dis);

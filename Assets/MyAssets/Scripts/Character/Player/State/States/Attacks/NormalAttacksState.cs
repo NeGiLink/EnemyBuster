@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -87,6 +86,7 @@ namespace MyAssets
         public override void DoStart()
         {
             base.DoStart();
+            sword.Slash();
             sword.SetAttackType(AttackType.Single);
             animator.Animator.SetInteger(animator.AttacksName, (int)NormalAttackState.First);
             velocity.Rigidbody.velocity = Vector3.zero;
@@ -182,6 +182,7 @@ namespace MyAssets
         public override void DoStart()
         {
             base.DoStart();
+            sword.Slash();
             sword.SetAttackType(AttackType.Single);
             animator.Animator.SetInteger(animator.AttacksName, (int)NormalAttackState.Second);
             velocity.Rigidbody.velocity = Vector3.zero;
@@ -237,6 +238,8 @@ namespace MyAssets
 
         private SwordController sword;
 
+        private SEHandler seHandler;
+
         [SerializeField]
         private float attacksGravityMultiply;
 
@@ -261,7 +264,6 @@ namespace MyAssets
         public static readonly string StateKey = "SecondDerivationAttack2";
         public override string Key => StateKey;
 
-        private readonly string currentMotionName = "SecondDerivationAttack2";
         private readonly string currentMotionName2 = "SecondDerivationAttack2End";
         public override List<ICharacterStateTransition<string>> CreateTransitionList(IPlayerSetup actor)
         {
@@ -283,10 +285,14 @@ namespace MyAssets
             movement = player.Movement;
             fieldOfView = player.FieldOfView;
             sword = player.Equipment.HaveWeapon.GetComponent<SwordController>();
+            seHandler = player.SEHandler;
         }
         public override void DoStart()
         {
             base.DoStart();
+
+            seHandler.Play((int)PlayerSETag.Jump);
+            sword.Slash();
             sword.SetAttackType(AttackType.Single);
             animator.Animator.SetInteger(animator.AttacksName, (int)NormalAttackState.SecondDer);
             velocity.Rigidbody.velocity = Vector3.zero;
@@ -387,6 +393,7 @@ namespace MyAssets
         public override void DoStart()
         {
             base.DoStart();
+            sword.Slash();
             sword.SetAttackType(AttackType.Single);
             animator.Animator.SetInteger(animator.AttacksName, (int)NormalAttackState.Third);
             velocity.Rigidbody.velocity = Vector3.zero;

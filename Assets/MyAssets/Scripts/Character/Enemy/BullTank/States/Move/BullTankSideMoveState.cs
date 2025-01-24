@@ -19,11 +19,12 @@ namespace MyAssets
         [SerializeField]
         private float moveSpeed;
 
-        [SerializeField]
-        private float highMoveSpeed;
 
         [SerializeField]
         private float rotationSpeed = 8;
+        /*
+        [SerializeField]
+        private float highMoveSpeed;
         [SerializeField]
         private float moveSpeedChangeRate = 8;
 
@@ -32,6 +33,7 @@ namespace MyAssets
 
         [SerializeField]
         private float maxDistance = 5f;
+         */
 
         [SerializeField]
         private float gravityMultiply;

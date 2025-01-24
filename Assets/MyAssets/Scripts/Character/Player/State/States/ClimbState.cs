@@ -9,8 +9,6 @@ namespace MyAssets
 
         private IPlayerAnimator animator;
 
-        private IMoveInputProvider moveInput;
-
         private IClimb climb;
 
         public static readonly string StateKey = "Climb";
@@ -31,7 +29,6 @@ namespace MyAssets
             base.DoSetup(player);
             animator = player.PlayerAnimator;
             climb = player.Climb;
-            moveInput = player.MoveInput;
         }
 
         public override void DoStart()

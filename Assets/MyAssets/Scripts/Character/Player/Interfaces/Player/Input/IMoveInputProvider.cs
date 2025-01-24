@@ -1,6 +1,5 @@
 using UnityEngine;
 using Cinemachine;
-using UnityEngine.InputSystem;
 
 namespace MyAssets
 {

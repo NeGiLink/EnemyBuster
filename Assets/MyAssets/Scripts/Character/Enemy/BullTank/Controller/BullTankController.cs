@@ -27,10 +27,16 @@ namespace MyAssets
 
         private FieldOfView fieldOfView;
         public IFieldOfView FieldOfView => fieldOfView;
+        [SerializeField]
+        private GuardTrigger guardTrigger;
+        public IGuardTrigger GuardTrigger => guardTrigger;
 
         private BullTankEffectHandler effectHandler;
 
         public BullTankEffectHandler EffectHandler => effectHandler;
+
+        private SEHandler seHandler;
+        public SEHandler SEHandler => seHandler;
 
         [SerializeField]
         private AxeController attackObject;

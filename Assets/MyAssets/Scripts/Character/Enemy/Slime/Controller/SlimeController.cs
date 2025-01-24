@@ -28,8 +28,15 @@ namespace MyAssets
         private FieldOfView                 fieldOfView;
         public IFieldOfView FieldOfView =>  fieldOfView;
 
+        [SerializeField]
+        private GuardTrigger guardTrigger;
+        public IGuardTrigger GuardTrigger => guardTrigger;
+
         private SlimeEffectHandler          effectHandler;
         public SlimeEffectHandler           EffectHandler => effectHandler;
+
+        private SEHandler seHandler;
+        public SEHandler SEHandler => seHandler;
 
         [SerializeField]
         private SlimeBodyAttackController   attackObject;
@@ -74,6 +81,7 @@ namespace MyAssets
             attackObject = GetComponentInChildren<SlimeBodyAttackController>();
 
             effectHandler = GetComponent<SlimeEffectHandler>();
+            seHandler = GetComponent<SEHandler>();
 
             animator.DoSetup(this);
             velocity.DoSetup(this);

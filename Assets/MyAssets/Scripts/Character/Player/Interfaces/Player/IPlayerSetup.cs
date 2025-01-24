@@ -20,7 +20,11 @@ namespace MyAssets
 
         IFieldOfView            FieldOfView { get; }
 
+        IGuardTrigger           GuardTrigger { get; }
+
         CharacterType           CharaType { get; }
+
+        SEHandler SEHandler { get; }
     }
     /// <summary>
     /// プレイヤーで使うインタフェース

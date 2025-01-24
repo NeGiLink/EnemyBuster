@@ -27,8 +27,15 @@ namespace MyAssets
         private FieldOfView fieldOfView;
         public IFieldOfView FieldOfView => fieldOfView;
 
+        [SerializeField]
+        private GuardTrigger guardTrigger;
+        public IGuardTrigger GuardTrigger => guardTrigger;
+
         private MushroomEffectHandler effectHandler;
         public MushroomEffectHandler EffectHandler => effectHandler;
+
+        private SEHandler seHandler;
+        public SEHandler SEHandler => seHandler;
 
         [SerializeField]
         private MushroomAttackController attackObject;

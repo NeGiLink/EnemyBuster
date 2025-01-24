@@ -17,6 +17,9 @@ namespace MyAssets
         [SerializeField]
         private new CapsuleCollider collider;
 
+        [SerializeField]
+        private SEHandler seHandler;
+
         //保存用のcenter・radius・height
         private Vector3 center;
 
@@ -34,6 +37,8 @@ namespace MyAssets
         private void Awake()
         {
             attackObject = GetComponent<AttackObject>();
+
+            seHandler = GetComponent<SEHandler>();
 
             PlayerController controller = GetComponentInParent<PlayerController>();
 
@@ -64,6 +69,16 @@ namespace MyAssets
             collider.center = center;
             collider.radius = radius;
             collider.height = height;
+        }
+
+        public void Slash()
+        {
+            seHandler.Play(0);
+        }
+
+        public void SpinSlash()
+        {
+            seHandler.OnPlay(1);
         }
 
         private void Start()
@@ -111,6 +126,7 @@ namespace MyAssets
             IDamageContainer damageContainer = characterSetup.DamageContainer;
             if (damageContainer == null) { return; }
             swordEffectHandler.EffectLedger.SetPosAndRotCreate((int)SwordEffectType.Hit, other.ClosestPoint(transform.position), other.transform.rotation);
+            seHandler.Play(2);
             //基礎ダメージと武器のダメージ分
             int damage = attackObject.Power + (int)playerSetup.Stauts.BasePower;
             damageContainer.GiveDamage(damage, attackObject.KnockBack, attackObject.Type, transform,playerSetup.CharaType);
@@ -125,6 +141,7 @@ namespace MyAssets
             IDamageContainer damageContainer = characterSetup.DamageContainer;
             if (damageContainer == null){return;}
             swordEffectHandler.EffectLedger.SetPosAndRotCreate((int)SwordEffectType.Hit, other.ClosestPoint(transform.position),other.transform.rotation);
+            seHandler.Play(2);
             int damage = attackObject.Power + (int)playerSetup.Stauts.BasePower;
             damageContainer.GiveDamage(damage, attackObject.KnockBack, attackObject.Type, transform, playerSetup.CharaType);
         }

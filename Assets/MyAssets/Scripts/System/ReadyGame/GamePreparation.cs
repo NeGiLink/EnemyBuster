@@ -49,6 +49,7 @@ namespace MyAssets
             gameModeController.SetActive(true);
             gameModeController.CreateUIManager();
             spawnEnemy.SetActive(true);
+            BGMHandler.Instance.SetPlayer(true, false, 0, true);
         }
     }
 }

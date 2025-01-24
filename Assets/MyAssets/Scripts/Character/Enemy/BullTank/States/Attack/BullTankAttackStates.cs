@@ -1,4 +1,4 @@
-using System.Collections;
+
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,9 +10,6 @@ namespace MyAssets
         private IMovement movement;
         private IVelocityComponent velocity;
         private Transform thisTransform;
-        private FieldOfView fieldOfView;
-
-        private IDamageContainer damageContainer;
 
         private IBullTankAnimator animator;
 
@@ -20,7 +17,7 @@ namespace MyAssets
 
         [SerializeField]
         private float moveSpeed;
-
+        /*
         [SerializeField]
         private float highMoveSpeed;
 
@@ -34,6 +31,7 @@ namespace MyAssets
 
         [SerializeField]
         private float maxDistance = 5f;
+         */
 
         [SerializeField]
         private float gravityMultiply;
@@ -56,9 +54,7 @@ namespace MyAssets
             movement = actor.Movement;
             velocity = actor.Velocity;
             thisTransform = actor.gameObject.transform;
-            fieldOfView = actor.gameObject.GetComponent<FieldOfView>();
             animator = actor.BullTankAnimator;
-            damageContainer = actor.DamageContainer;
             weapon = actor.AttackObject;
         }
 

@@ -43,7 +43,6 @@ namespace MyAssets
             }
         }
 
-        private bool waveEnd = false;
         private void Start()
         {
             waveChange = true;

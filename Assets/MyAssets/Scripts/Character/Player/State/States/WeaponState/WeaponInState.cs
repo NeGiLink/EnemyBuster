@@ -10,8 +10,6 @@ namespace MyAssets
         private IEquipment equipment;
         private IPlayerAnimator animator;
 
-        private IDamageContainer damageContainer;
-
         public static readonly string StateKey = "WeaponIn";
 
         public override string Key => StateKey;
@@ -31,7 +29,6 @@ namespace MyAssets
             changingState = player.ChangingState;
             equipment = player.Equipment;
             animator = player.PlayerAnimator;
-            damageContainer = player.DamageContainer;
         }
 
         public override void DoStart()
@@ -41,16 +38,6 @@ namespace MyAssets
             equipment.SetInWeapon();
             animator.Animator.SetInteger(animator.Weapon_In_OutName, 1);
             animator.Animator.SetFloat(animator.ToolLevel, 0.0f);
-        }
-
-        public override void DoUpdate(float time)
-        {
-            base.DoUpdate(time);
-            AnimatorStateInfo animInfo = animator.Animator.GetCurrentAnimatorStateInfo(0);
-            if (animInfo.normalizedTime > 0.5f && animInfo.normalizedTime < 0.55f)
-            {
-                //equipment.SetInWeapon();
-            }
         }
 
         public override void DoExit()

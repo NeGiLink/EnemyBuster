@@ -18,6 +18,8 @@ namespace MyAssets
 
         private IPlayerAnimator animator;
 
+        private SEHandler seHandler;
+
         private Timer timer = new Timer();
 
         [SerializeField]
@@ -49,12 +51,16 @@ namespace MyAssets
             movement = player.Movement;
             rotation = player.Rotation;
             animator = player.PlayerAnimator;
+            seHandler = player.SEHandler;
         }
 
 
         public override void DoStart()
         {
             base.DoStart();
+
+            seHandler.Play((int)PlayerSETag.Avoid);
+
             animator.Animator.SetInteger("Rolling", 0);
 
             stauts.DecreaseSP(rollingSp);
@@ -65,13 +71,15 @@ namespace MyAssets
             velocity.CurrentVelocity = Vector3.zero;
 
             timer.Start(0.2f);
+
+            rotation.DoUpdate();
         }
 
         public override void DoUpdate(float time)
         {
-            base.DoUpdate(time);
             timer.Update(time);
             rotation.DoFixedUpdate();
+            base.DoUpdate(time);
         }
 
         public override void DoFixedUpdate(float time)
