@@ -833,7 +833,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 400, y: 370}
-  m_SizeDelta: {x: 386, y: 138}
+  m_SizeDelta: {x: 1073, y: 316}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5236122236644410983
 CanvasRenderer:
@@ -863,7 +863,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 2e80a03f271a1a34ba7012b44e022f0c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3c72e53f5ad74104f82bc6b059731f61, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1389,8 +1389,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   activateSelect: 1
   horizontal: 0
+  selectsImage: 1
+  selectImageChangeCount: 3
   selectImage: {fileID: 9164400907893354714}
-  buttonAndSelectCommon: 0
+  selectSprites:
+  - {fileID: 21300000, guid: 3c72e53f5ad74104f82bc6b059731f61, type: 3}
+  - {fileID: 21300000, guid: 2e80a03f271a1a34ba7012b44e022f0c, type: 3}
   selectImageOffsetX: 0
   selectImageOffsetY: 0
   buttons: []
@@ -1515,6 +1519,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   seLedger: {fileID: 11400000, guid: fbecf4e4af241dc4b99b34063e98533e, type: 2}
+  footStepSELedger: {fileID: 0}
 --- !u!1 &4471820022267200858
 GameObject:
   m_ObjectHideFlags: 0

@@ -52,7 +52,7 @@ namespace MyAssets
         public override List<ICharacterStateTransition<string>> CreateTransitionList(IBullTankSetup actor)
         {
             List<ICharacterStateTransition<string>> re = new List<ICharacterStateTransition<string>>();
-            if (StateChanger.IsContain(BullTankChaseState.StateKey)) { re.Add(new IsTimerTransition(actor,sideMoveTimer, StateChanger, BullTankChaseState.StateKey)); }
+            if (StateChanger.IsContain(BullTankActionDecisionState.StateKey)) { re.Add(new IsTimerTransition(actor,sideMoveTimer, StateChanger, BullTankActionDecisionState.StateKey)); }
             if (StateChanger.IsContain(BullTankDamageState.StateKey)) { re.Add(new IsEnemyDamageTransition(actor, StateChanger, BullTankDamageState.StateKey)); }
             if (StateChanger.IsContain(BullTankDeathState.StateKey)) { re.Add(new IsDeathTransition(actor, StateChanger, BullTankDeathState.StateKey)); }
             return re;

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace MyAssets
@@ -57,6 +55,9 @@ namespace MyAssets
         private BullTankIdleState idleState;
 
         [SerializeField]
+        private BullTankActionDecisionState actionDecisionState;
+
+        [SerializeField]
         private BullTankChaseState moveState;
 
         [SerializeField]
@@ -110,6 +111,7 @@ namespace MyAssets
             states = new IBullTankState<string>[]
             {
                 idleState,
+                actionDecisionState,
                 moveState,
                 sideMoveState,
                 normalAttackState,

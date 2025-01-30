@@ -23,6 +23,9 @@ namespace MyAssets
         [SerializeField]
         private float moveSpeedRatio;
 
+        [SerializeField]
+        private float LandingActionTime = 0.1f;
+
         public static readonly string StateKey = "Landing";
         public override string Key => StateKey;
 
@@ -30,7 +33,6 @@ namespace MyAssets
         {
             List<ICharacterStateTransition<string>> re = new List<ICharacterStateTransition<string>>();
             if (StateChanger.IsContain(MoveState.StateKey)) { re.Add(new IsTimerAndMoveTransition(player, playerTimer, StateChanger, MoveState.StateKey)); }
-            else if (StateChanger.IsContain(PlayerIdleState.StateKey)) { re.Add(new IsTimerAndMoveTransition(player, playerTimer, StateChanger, PlayerIdleState.StateKey)); }
             if (StateChanger.IsContain(PlayerIdleState.StateKey)) { re.Add(new IsTimerAndNotMoveTransition(player, playerTimer, StateChanger, PlayerIdleState.StateKey)); }
             if (StateChanger.IsContain(PlayerDamageState.StateKey)) { re.Add(new IsDamageTransition(player, StateChanger, PlayerDamageState.StateKey)); }
             if (StateChanger.IsContain(PlayerDeathState.StateKey)) { re.Add(new IsDeathTransition(player, StateChanger, PlayerDeathState.StateKey)); }
@@ -51,7 +53,6 @@ namespace MyAssets
         {
             base.DoStart();
 
-            const float LandingActionTime = 0.1f;
             playerTimer.Start(LandingActionTime);
 
             velocity.Rigidbody.velocity = Vector3.zero;

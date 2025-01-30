@@ -23,6 +23,20 @@ namespace MyAssets
         public override bool IsTransition() => !fieldOfView.Find;
     }
 
+    public class IsMinDistanceTransition : CharacterStateTransitionBase
+    {
+        readonly FieldOfView fieldOfView;
+
+        readonly float distance;
+        public IsMinDistanceTransition(ICharacterSetup actor,float dis, IStateChanger<string> stateChanger, string changeKey)
+            : base(stateChanger, changeKey)
+        {
+            fieldOfView = actor.gameObject.GetComponent<FieldOfView>();
+            distance = dis;
+        }
+        public override bool IsTransition() => fieldOfView.GetSubDistance.magnitude < distance;
+    }
+
     public class IsTimerTargetInViewTransition : CharacterStateTransitionBase
     {
         readonly FieldOfView fieldOfView;

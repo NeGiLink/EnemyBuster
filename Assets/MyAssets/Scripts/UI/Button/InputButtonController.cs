@@ -19,11 +19,16 @@ namespace MyAssets
         private bool horizontal;
         //ボタンが複数あるか1つしかないか判定する
         private bool buttonIsArray = false;
+        [SerializeField]
+        private bool selectsImage;
+        [SerializeField]
+        [Range(0,100)]
+        private int selectImageChangeCount = 0;
         //選択中の画像
         [SerializeField]
         private Image selectImage;
         [SerializeField]
-        private bool buttonAndSelectCommon;
+        private Sprite[] selectSprites;
         //選択してる要素数
         private int selectIndex = 0;
         //選択中の画像をボタン横のどれくらいの位置に設置するか
@@ -38,6 +43,7 @@ namespace MyAssets
         //SE再生用クラス
         private SEHandler seHandler;
 
+        private bool decideFlag;
         private void Awake()
         {
             Button[] b = GetComponentsInChildren<Button>();
@@ -57,13 +63,14 @@ namespace MyAssets
             {
                 buttonIsArray = false;
             }
+            decideFlag = false;
             selectIndex = 0;
             SetSelectImagePosition(selectIndex);
         }
         private void SetSelectImagePosition(int index)
         {
             if (!activateSelect || selectImage == null) { return; }
-            if (!buttonAndSelectCommon)
+            if (!selectsImage)
             {
                 Vector2 pos = hovers[index].RectTransform.anchoredPosition;
                 pos.x -= selectImageOffsetX;
@@ -76,9 +83,16 @@ namespace MyAssets
                 pos.x -= selectImageOffsetX;
                 pos.y -= selectImageOffsetY;
                 selectImage.rectTransform.anchoredPosition = pos;
-
-                Image buttonImage = hovers[index].GetComponentInChildren<Image>();
-                selectImage.rectTransform.sizeDelta = buttonImage.rectTransform.sizeDelta;
+                if(index < selectImageChangeCount)
+                {
+                    selectImage.sprite = selectSprites[0];
+                    selectImage.SetNativeSize();
+                }
+                else
+                {
+                    selectImage.sprite = selectSprites[1];
+                    selectImage.SetNativeSize();
+                }
             }
         }
 
@@ -109,8 +123,8 @@ namespace MyAssets
                     if (InputUIAction.Instance.Decide)
                     {
                         if(selectIndex < 0) { return; }
-                        buttons[selectIndex].onClick?.Invoke();
                         seHandler.Play((int)ButtonSETag.Decide);
+                        EnumeratorDecide();
                     }
                 }
             }
@@ -142,8 +156,8 @@ namespace MyAssets
                     {
                         selectIndex = buttons.Length - 1;
                     }
-                    SetSelectImagePosition(selectIndex);
                     seHandler.Play((int)ButtonSETag.Select);
+                    SetSelectImagePosition(selectIndex);
                 }
                 else if (action > 0)
                 {
@@ -158,9 +172,22 @@ namespace MyAssets
             }
             if (InputUIAction.Instance.Decide)
             {
-                buttons[selectIndex].onClick?.Invoke();
+                EnumeratorDecide();
                 seHandler.Play((int)ButtonSETag.Decide);
             }
+        }
+
+        private void EnumeratorDecide()
+        {
+            if (decideFlag) { return; }
+            StartCoroutine(DecideUpdate());
+        }
+
+        private IEnumerator DecideUpdate()
+        {
+            decideFlag = true;
+            yield return new WaitForSecondsRealtime(1.0f);
+            buttons[selectIndex].onClick?.Invoke();
         }
 
         public void ActivateStart()

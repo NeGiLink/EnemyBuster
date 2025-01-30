@@ -107,6 +107,17 @@ namespace MyAssets
         }
     }
 
+    public abstract class GolemStateBase : CharacterStateBase<string, IGolemSetup>, IGolemState<string>
+    {
+        public override abstract string Key { get; }
+
+        public override List<ICharacterStateTransition<string>> CreateTransitionList(IGolemSetup actor)
+        {
+            // SlimeState専用のトランジションリスト作成処理を実装
+            return new List<ICharacterStateTransition<string>>();
+        }
+    }
+
     public abstract class NPCStateBase : CharacterStateBase<string, INPCSetup>, INPCState<string>
     {
         public override abstract string Key { get; }

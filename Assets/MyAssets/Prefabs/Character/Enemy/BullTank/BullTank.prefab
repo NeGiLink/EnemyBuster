@@ -248,12 +248,18 @@ MonoBehaviour:
     storedDamage: 0
   animator:
     thisAnimator: {fileID: 0}
+  guardTrigger:
+    guard: 0
   attackObject: {fileID: 0}
   headAttackObject: {fileID: 0}
   defaultStateKey: Idle
   idleState:
     moveSpeed: 0
     idleCount: 0
+  actionDecisionState:
+    maxDistance: 5
+    gravityMultiply: 2
+    targetDistance: 0
   moveState:
     moveSpeed: 4
     highMoveSpeed: 4
@@ -266,20 +272,11 @@ MonoBehaviour:
     targetDistance: 0
   sideMoveState:
     moveSpeed: 2
-    highMoveSpeed: 0
     rotationSpeed: 8
-    moveSpeedChangeRate: 8
-    minChaseDistance: 2.5
-    maxDistance: 5
     gravityMultiply: 2
     count: 2
   normalAttackState:
     moveSpeed: 0
-    highMoveSpeed: 0
-    rotationSpeed: 8
-    moveSpeedChangeRate: 8
-    minChaseDistance: 2.5
-    maxDistance: 5
     gravityMultiply: 2
   readyRushAttackStartState:
     gravityMultiply: 2
@@ -316,12 +313,12 @@ MonoBehaviour:
   targetObject: {fileID: 0}
   targetLastPoint: {x: 0, y: 0, z: 0}
   refreshTime: 0.1
-  range: 10
+  range: 25
   viewAngle: 90
   targetObjectLayer:
     serializedVersion: 2
     m_Bits: 64
-  allSearch: 0
+  allSearch: 1
   find: 0
 --- !u!114 &7179116637953035842
 MonoBehaviour:

@@ -180,4 +180,30 @@ namespace MyAssets
         }
         public override bool IsTransition() => AttackMotionEndChecker();
     }
+
+    public class IsNotGolemAttackTransition : CharacterStateTransitionBase
+    {
+
+        private readonly IGolemAnimator animator;
+
+        private readonly string motionName;
+
+        public IsNotGolemAttackTransition(IGolemSetup actor, string name, IStateChanger<string> stateChanger, string changeKey)
+            : base(stateChanger, changeKey)
+        {
+            animator = actor.GolemAnimator;
+            motionName = name;
+        }
+
+        private bool AttackMotionEndChecker()
+        {
+            AnimatorStateInfo animInfo = animator.Animator.GetCurrentAnimatorStateInfo(0);
+            if (animInfo.IsName(motionName) && animInfo.normalizedTime >= 1.0f)
+            {
+                return true;
+            }
+            return false;
+        }
+        public override bool IsTransition() => AttackMotionEndChecker();
+    }
 }
