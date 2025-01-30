@@ -195,6 +195,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   seLedger: {fileID: 11400000, guid: c79aa932ea2275c4f959bf9000935a1b, type: 2}
+  footStepSELedger: {fileID: 0}
 --- !u!1 &1415066587640075402
 GameObject:
   m_ObjectHideFlags: 0
@@ -476,6 +477,8 @@ MonoBehaviour:
   weaponController: {fileID: 0}
   changingState:
     battleMode: 0
+  guardTrigger:
+    guard: 0
   footIK:
     footIK:
       ikEnabled: 0
@@ -543,6 +546,7 @@ MonoBehaviour:
     fallGravityMultiply: 2
   landingState:
     moveSpeedRatio: 0.2
+    LandingActionTime: 0.15
   firstAttackState:
     attacksGravityMultiply: 2
     secondVer1ToTransitionTime: 0.2
@@ -730,6 +734,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   seLedger: {fileID: 11400000, guid: aa660442b336c5c4091dfe0cb9203c34, type: 2}
+  footStepSELedger: {fileID: 11400000, guid: 799739a933be9664988745f1c2a94779, type: 2}
 --- !u!82 &5861824368343092205
 AudioSource:
   m_ObjectHideFlags: 0

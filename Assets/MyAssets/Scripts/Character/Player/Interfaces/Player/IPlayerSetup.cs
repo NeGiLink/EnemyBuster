@@ -100,6 +100,15 @@ namespace MyAssets
 
         void RunDestroy();
     }
+    public interface IGolemSetup : IEnemySetup
+    {
+        IGolemAnimator GolemAnimator { get; }
+        IGroundCheck GroundCheck { get; }
+        GolemEffectHandler EffectHandler { get; }
+
+        GolemFistController FistController {  get; }
+        void RunDestroy();
+    }
     /// <summary>
     /// NPCに使うインタフェース
     /// </summary>

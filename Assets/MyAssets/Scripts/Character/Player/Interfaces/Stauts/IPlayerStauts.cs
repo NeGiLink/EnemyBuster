@@ -40,6 +40,10 @@ namespace MyAssets
     {
 
     }
+    public interface IGolemStauts : IBaseStauts
+    {
+
+    }
     public interface INPCStauts : IBaseStauts
     {
 

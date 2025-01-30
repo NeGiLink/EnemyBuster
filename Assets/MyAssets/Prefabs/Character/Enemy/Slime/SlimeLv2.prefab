@@ -183,7 +183,7 @@ MonoBehaviour:
   targetObject: {fileID: 0}
   targetLastPoint: {x: 0, y: 0, z: 0}
   refreshTime: 0.1
-  range: 10
+  range: 25
   viewAngle: 90
   targetObjectLayer:
     serializedVersion: 2

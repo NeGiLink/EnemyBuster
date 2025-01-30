@@ -31,7 +31,7 @@ namespace MyAssets
             {
                 panel.color = new Color(0, 0, 0, 1);
             }
-            //GlobalManager.Instance.SetGameStop(true);
+
             StartCoroutine(FadeStart());
         }
 
@@ -39,17 +39,16 @@ namespace MyAssets
         {
             // フェードイン
             yield return StartCoroutine(Fade(targetAlpha));
-            /*
-             */
+
             if (SceneChanger.Instance != null&&SceneChanger.Instance.IsTransitioning)
             {
                 SceneChanger.Instance.OnChangeScene();
+                SceneChanger.Instance.SetTransitioning(false);
             }
             else
             {
                 Destroy(gameObject);
             }
-            //GlobalManager.Instance.SetGameStop(false);
         }
 
 

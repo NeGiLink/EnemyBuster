@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace MyAssets
@@ -11,6 +9,12 @@ namespace MyAssets
 
         private void Awake()
         {
+            if(instance != null)
+            {
+                Destroy(gameObject);
+                Debug.LogWarning(string.Format("{0}ÇÕÇ∑Ç≈Ç…ë∂ç›Ç∑ÇÈÇΩÇﬂçÌèúÇ≥ÇÍÇ‹ÇµÇΩÅB", gameObject.name), gameObject);
+                return;
+            }
             instance = this;
         }
 

@@ -41,12 +41,6 @@ namespace MyAssets
         [SerializeField]
         private float targetDistance;
 
-        private Trigger attackTrigger = new Trigger();
-
-        private Trigger rushTrigger = new Trigger();
-
-        private Trigger sideMoveTrigger = new Trigger();
-
         public static readonly string StateKey = "Chase";
         public override string Key => StateKey;
 
@@ -56,9 +50,7 @@ namespace MyAssets
         {
             List<ICharacterStateTransition<string>> re = new List<ICharacterStateTransition<string>>();
             if (StateChanger.IsContain(BullTankIdleState.StateKey)) { re.Add(new IsNoTargetInViewTransition(actor, StateChanger, BullTankIdleState.StateKey)); }
-            if (StateChanger.IsContain(BullTankSideMoveState.StateKey)) { re.Add(new IsTriggerTransition(actor,sideMoveTrigger, StateChanger, BullTankSideMoveState.StateKey)); }
-            if (StateChanger.IsContain(BullTankNormalAttackState.StateKey)) { re.Add(new IsTriggerTransition(actor,attackTrigger, StateChanger, BullTankNormalAttackState.StateKey)); }
-            if (StateChanger.IsContain(ReadyRushAttackStartState.StateKey)) { re.Add(new IsTriggerTransition(actor,rushTrigger, StateChanger, ReadyRushAttackStartState.StateKey)); }
+            if (StateChanger.IsContain(BullTankActionDecisionState.StateKey)) { re.Add(new IsMinDistanceTransition(actor, minChaseDistance, StateChanger, BullTankActionDecisionState.StateKey)); }
             if (StateChanger.IsContain(BullTankDamageState.StateKey)) { re.Add(new IsEnemyDamageTransition(actor, StateChanger, BullTankDamageState.StateKey)); }
             if (StateChanger.IsContain(BullTankDeathState.StateKey)) { re.Add(new IsDeathTransition(actor, StateChanger, BullTankDeathState.StateKey)); }
             return re;
@@ -78,32 +70,6 @@ namespace MyAssets
         {
             base.DoStart();
             targetDistance = fieldOfView.GetSubDistance.magnitude;
-        }
-
-        public override void DoUpdate(float time)
-        {
-            base.DoUpdate(time);
-            if (targetDistance <= 2.5f)
-            {
-                int r = Random.Range(0, 3);
-                switch (r)
-                {
-                    case 0:
-                        sideMoveTrigger.SetTrigger(true);
-                        break;
-                    case 1:
-                        attackTrigger.SetTrigger(true);
-                        break;
-                }
-            }
-            else if(targetDistance >= maxDistance)
-            {
-                float r = Random.Range(0, 1.0f);
-                if(r <= 0.05f)
-                {
-                    rushTrigger.SetTrigger(true);
-                }
-            }
         }
 
         public override void DoFixedUpdate(float time)
@@ -150,10 +116,6 @@ namespace MyAssets
             moveInput = 0f;
             animator.Animator.SetFloat(MoveAnimationID, moveInput);
             movement.Stop();
-
-            sideMoveTrigger.SetTrigger(false);
-            attackTrigger.SetTrigger(false);
-            rushTrigger.SetTrigger(false);
         }
     }
 }

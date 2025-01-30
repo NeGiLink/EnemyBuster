@@ -32,7 +32,13 @@ namespace MyAssets
 
         private void Awake()
         {
+            if (instance != null)
+            {
+                Destroy(gameObject);
+                return;
+            }
             instance = this;
+            DontDestroyOnLoad(gameObject);
 
             inputActions = new GenericInput();
 
@@ -90,6 +96,7 @@ namespace MyAssets
 
         private void OnEnable()
         {
+            if (inputActions == null) { return; }
             inputActions.Enable();
 
             SelectAction = inputActions.UI.Select;
@@ -109,7 +116,7 @@ namespace MyAssets
 
         private void OnDisable()
         {
-
+            if(inputActions == null) { return; }
             SelectAction.Disable();
 
             decideAction.Disable();
@@ -123,6 +130,7 @@ namespace MyAssets
 
         private void OnDestroy()
         {
+            if (inputActions == null) { return; }
             inputActions.Dispose();
         }
     }

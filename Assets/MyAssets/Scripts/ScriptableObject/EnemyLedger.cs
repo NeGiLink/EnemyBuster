@@ -1,5 +1,3 @@
-
-
 using UnityEngine;
 
 namespace MyAssets
@@ -10,6 +8,7 @@ namespace MyAssets
         SlimeLv2,
         MushroomLv1,
         MushroomLv2,
+        Golem,
         BullTank,
         Count
     }

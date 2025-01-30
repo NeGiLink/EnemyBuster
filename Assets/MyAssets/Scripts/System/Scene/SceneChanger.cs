@@ -10,6 +10,7 @@ namespace MyAssets
 
         private bool isTransitioning = false;
         public bool IsTransitioning => isTransitioning;
+        public void SetTransitioning(bool t) {  isTransitioning = t; }
 
         private SceneList nextScene;
 
@@ -55,7 +56,13 @@ namespace MyAssets
 
         private void Awake()
         {
+            if (instance != null)
+            {
+                Destroy(gameObject);
+                return;
+            }
             instance = this;
+            DontDestroyOnLoad(gameObject);
         }
         /*
          * ここで各シーンの名前をリスト別に取得
@@ -93,7 +100,6 @@ namespace MyAssets
         {
             if (instance == null) { return; }
             StartCoroutine(ChangeStart());
-            //isTransitioning = false;
         }
         //指定したcount後にシーンを遷移するメソッド
         private System.Collections.IEnumerator ChangeStart()
