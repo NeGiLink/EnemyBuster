@@ -6,6 +6,7 @@ namespace MyAssets
 {
     public enum GolemEffectType
     {
+        GroundImpact,
         Death
     }
     public class GolemEffectHandler : MonoBehaviour

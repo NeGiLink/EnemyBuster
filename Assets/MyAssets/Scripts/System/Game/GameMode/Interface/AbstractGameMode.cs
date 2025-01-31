@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace MyAssets
@@ -26,6 +24,11 @@ namespace MyAssets
 
         private EnemyKillCountUI enemyKillCountUI;
         public EnemyKillCountUI EnemyKillCountUI => enemyKillCountUI;
+
+        public virtual ModeTag ModeTag => ModeTag.None;
+
+        protected bool spawnLimit = false;
+        public bool SpawnLimit => spawnLimit;
 
         public abstract void Setup(int maxEnemy,int maxWaveEnemy);
 

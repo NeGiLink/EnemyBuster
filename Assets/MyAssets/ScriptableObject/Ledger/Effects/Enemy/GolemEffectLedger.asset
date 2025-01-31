@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: GolemEffectLedger
   m_EditorClassIdentifier: 
   values:
+  - {fileID: 4271093393614929224, guid: d296ef1443afd524ebc17e00b2908910, type: 3}
   - {fileID: 7226888052703040407, guid: 7ec363c8df426644ea85f8d6d570561c, type: 3}

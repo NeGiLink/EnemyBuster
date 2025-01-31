@@ -1,7 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.CullingGroup;
 
 namespace MyAssets
 {
@@ -66,7 +64,7 @@ namespace MyAssets
             int damageType = 0;
             damageMove.AddForceMove(thisTransform.position, damageContainer.Attacker.position, damageContainer.KnockBack * 1.0f);
             damageTimer.Start(damageIdleCount);
-            animator.Animator.SetInteger("Impact", damageType);
+            animator.Animator.SetInteger(animator.ImpactAnimationID, damageType);
         }
 
         private void FoundTarget()
@@ -97,7 +95,7 @@ namespace MyAssets
             base.DoExit();
             fieldOfView.SetAllSearch(false);
             damageContainer.ClearDamage();
-            animator.Animator.SetInteger("Impact", -1);
+            animator.Animator.SetInteger(animator.ImpactAnimationID, -1);
             stauts.ClearStoredDamage();
         }
     }

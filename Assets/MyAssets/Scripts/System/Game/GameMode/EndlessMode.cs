@@ -7,10 +7,12 @@ namespace MyAssets
 {
     public class EndlessMode : AbstractGameMode
     {
+        public override ModeTag ModeTag => ModeTag.Endless;
         public override void Setup(int maxEnemy, int maxWaveEnemy)
         {
             maxEnemyKillCount = maxEnemy;
             maxWaveChangeCount = maxWaveEnemy;
+            spawnLimit = true;
         }
 
         public override void TimerStart()

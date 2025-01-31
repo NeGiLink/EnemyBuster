@@ -1,6 +1,4 @@
 using Cinemachine;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace MyAssets
@@ -10,6 +8,8 @@ namespace MyAssets
         Free,
         Target,
         OverTheShoulder,
+        Option,
+        Result,
         Count
     }
 
@@ -51,6 +51,7 @@ namespace MyAssets
                 new FreeCamera(),
                 new TargetCamera(),
                 new OverTheShoulderCamera(),
+                new OptionCamera(),
             };
 
             foreach (var camera in allPlayerCamera)
@@ -70,20 +71,27 @@ namespace MyAssets
 
         public void DoUpdate()
         {
-            if(focusInput.Foucus > 0)
+            if(Time.timeScale > 0)
             {
-                if(foucusTarget.TargetObject != null)
+                if(focusInput.Foucus > 0)
                 {
-                    cameraTag = CameraTag.Target;
+                    if(foucusTarget.TargetObject != null)
+                    {
+                        cameraTag = CameraTag.Target;
+                    }
+                    else
+                    {
+                        cameraTag = CameraTag.OverTheShoulder;
+                    }
                 }
-                else
+                else if(focusInput.Foucus <= 0)
                 {
-                    cameraTag = CameraTag.OverTheShoulder;
+                    cameraTag = CameraTag.Free;
                 }
             }
-            else if(focusInput.Foucus <= 0)
+            else
             {
-                cameraTag = CameraTag.Free;
+                cameraTag = CameraTag.Option;
             }
 
 
@@ -219,6 +227,45 @@ namespace MyAssets
             Vector3 eulerRotation = mainCameraProvider.VirtualCameras[(int)CameraTag.OverTheShoulder].transform.rotation.eulerAngles;
             povComponent.m_VerticalAxis.Value = eulerRotation.x;
             povComponent.m_HorizontalAxis.Value = eulerRotation.y;
+        }
+
+        public void CameraUpdate()
+        {
+        }
+    }
+
+    public class OptionCamera : IAllPlayerCamera
+    {
+        private IMainCameraProvider mainCameraProvider;
+        private InputControllCamera inputControllCamera;
+
+        private CinemachinePOV povComponent;
+        public CinemachinePOV PovComponent => povComponent;
+
+        private Vector3 inputEulerRotation;
+        public Vector3 InputEulerRotation => inputEulerRotation;
+
+        public void Setup(InputControllCamera controller)
+        {
+            inputControllCamera = controller;
+            mainCameraProvider = controller.MainCameraController;
+            // POVカメラのPOVコンポーネントを取得
+            povComponent = mainCameraProvider.VirtualCameras[(int)CameraTag.Free].GetCinemachineComponent<CinemachinePOV>();
+
+            inputControllCamera.SetFixedCamRotation(mainCameraProvider.TargetTransform.rotation);
+        }
+        public void Start()
+        {
+            mainCameraProvider.VirtualCameras[(int)CameraTag.Option].Priority = 10;
+            mainCameraProvider.VirtualCameras[(int)CameraTag.Free].Priority = 1;
+            mainCameraProvider.VirtualCameras[(int)CameraTag.Target].Priority = 1;
+            mainCameraProvider.VirtualCameras[(int)CameraTag.OverTheShoulder].Priority = 1;
+            mainCameraProvider.VirtualCameras[(int)CameraTag.Result].Priority = 1;
+        }
+
+        public void Exit()
+        {
+            inputEulerRotation = inputControllCamera.FixedCamRotation.eulerAngles;
         }
 
         public void CameraUpdate()

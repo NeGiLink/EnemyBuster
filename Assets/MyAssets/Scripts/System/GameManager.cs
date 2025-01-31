@@ -43,10 +43,10 @@ namespace MyAssets
             switch (modeTag)
             {
                 case ModeTag.AllKillEnemy:
-                    text = "殲滅";
+                    text = "タイムアタック";
                     break;
                 case ModeTag.TimeAttack:
-                    text = "タイムアタック";
+                    text = "エスケープ";
                     break;
                 case ModeTag.Endless:
                     text = "エンドレス";

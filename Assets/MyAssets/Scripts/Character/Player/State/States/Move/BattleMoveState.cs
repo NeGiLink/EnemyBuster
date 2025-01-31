@@ -49,8 +49,8 @@ namespace MyAssets
 
         public override void DoSetup(IPlayerSetup player)
         {
-            base.DoSetup(player);
             stauts = player.Stauts;
+            base.DoSetup(player);
             movement = player.Movement;
             velocity = player.Velocity;
             rotation = player.Rotation;

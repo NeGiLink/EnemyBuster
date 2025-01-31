@@ -15,22 +15,8 @@ namespace MyAssets
         private GolemFistController fist;
 
         [SerializeField]
-        private float moveSpeed;
-        /*
-        [SerializeField]
-        private float highMoveSpeed;
+        private float attackMoveSpeed;
 
-        [SerializeField]
-        private float rotationSpeed = 8;
-        [SerializeField]
-        private float moveSpeedChangeRate = 8;
-
-        [SerializeField]
-        private float minChaseDistance = 2.5f;
-
-        [SerializeField]
-        private float maxDistance = 5f;
-         */
         [SerializeField]
         private float attackStartCount;
         [SerializeField]
@@ -79,9 +65,9 @@ namespace MyAssets
         {
             base.DoFixedUpdate(time);
             AnimatorStateInfo animInfo = animator.Animator.GetCurrentAnimatorStateInfo(0);
-            if (animInfo.normalizedTime < 0.6f)
+            if (animInfo.normalizedTime > 0.5f&& animInfo.normalizedTime < 0.6f)
             {
-                movement.ForwardLerpMove(thisTransform.position, moveSpeed);
+                movement.ForwardLerpMove(thisTransform.position, attackMoveSpeed);
             }
             else
             {

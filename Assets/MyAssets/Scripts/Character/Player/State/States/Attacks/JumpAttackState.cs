@@ -15,9 +15,6 @@ namespace MyAssets
         [SerializeField]
         private float jumpAttackGravityMultiply = 1.5f;
 
-        [SerializeField]
-        private float moveSpeed;
-
         public static readonly string StateKey = "JumpAttack";
         public override string Key => StateKey;
 
@@ -53,7 +50,7 @@ namespace MyAssets
         public override void DoFixedUpdate(float time)
         {
             base.DoFixedUpdate(time);
-            movement.Move(moveSpeed);
+            //movement.Move(moveSpeed);
             velocity.Rigidbody.velocity += Physics.gravity * jumpAttackGravityMultiply * time;
         }
 

@@ -22,18 +22,6 @@ namespace MyAssets
 
         [SerializeField]
         private float rotationSpeed = 8;
-        /*
-        [SerializeField]
-        private float highMoveSpeed;
-        [SerializeField]
-        private float moveSpeedChangeRate = 8;
-
-        [SerializeField]
-        private float minChaseDistance = 2.5f;
-
-        [SerializeField]
-        private float maxDistance = 5f;
-         */
 
         [SerializeField]
         private float gravityMultiply;
@@ -46,8 +34,6 @@ namespace MyAssets
 
         public static readonly string StateKey = "SideMove";
         public override string Key => StateKey;
-
-        public static readonly int MoveAnimationID = Animator.StringToHash("Move");
 
         public override List<ICharacterStateTransition<string>> CreateTransitionList(IBullTankSetup actor)
         {
@@ -83,7 +69,7 @@ namespace MyAssets
             {
                 right = -1;
             }
-            animator.Animator.SetFloat("SideMove", right);
+            animator.Animator.SetFloat(animator.SideMoveAnimationID, right);
         }
 
         public override void DoUpdate(float time)
@@ -104,7 +90,7 @@ namespace MyAssets
         public override void DoExit()
         {
             base.DoExit();
-            animator.Animator.SetFloat("SideMove", 0);
+            animator.Animator.SetFloat(animator.SideMoveAnimationID, 0);
             movement.Stop();
         }
     }

@@ -1,4 +1,5 @@
 using Cinemachine;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -82,11 +83,19 @@ namespace MyAssets
             }
 
             inputControllCamera.DoStart();
+
+            StartCoroutine(CameraUpdate());
         }
 
-        private void Update()
+        private IEnumerator CameraUpdate()
         {
-            inputControllCamera.DoUpdate();
+            while (true)
+            {
+                yield return null;
+
+                inputControllCamera.DoUpdate();
+
+            }
         }
     }
 

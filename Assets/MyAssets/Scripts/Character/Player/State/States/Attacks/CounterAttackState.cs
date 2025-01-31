@@ -50,9 +50,9 @@ namespace MyAssets
 
         public override void DoSetup(IPlayerSetup player)
         {
+            stauts = player.Stauts;
             base.DoSetup(player);
             transform = player.gameObject.transform;
-            stauts = player.Stauts;
             velocity = player.Velocity;
             rotation = player.Rotation;
             changingState = player.ChangingState;
@@ -75,7 +75,7 @@ namespace MyAssets
             sword.SetAttackType(AttackType.Single);
             animator.Animator.SetInteger(animator.AttacksName, (int)NormalAttackState.Counter);
 
-            stauts.DecreaseSP(counterAttackSP);
+            stauts.DecreaseSP(stauts.CounterAttackUseSP);
 
             if (fieldOfView.TargetObject != null)
             {

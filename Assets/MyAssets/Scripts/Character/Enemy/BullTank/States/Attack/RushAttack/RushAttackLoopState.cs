@@ -54,7 +54,7 @@ namespace MyAssets
         public override void DoStart()
         {
             base.DoStart();
-            animator.Animator.SetInteger("Attack", -1);
+            animator.Animator.SetInteger(animator.AttackAnimationID, -1);
             timer.Start(count);
         }
 
@@ -76,7 +76,7 @@ namespace MyAssets
         {
             base.DoExit();
             movement.Stop();
-            animator.Animator.SetInteger("Attack", 2);
+            animator.Animator.SetInteger(animator.AttackAnimationID, 2);
         }
     }
 }

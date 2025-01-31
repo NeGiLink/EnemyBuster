@@ -20,6 +20,22 @@ namespace MyAssets
         private int sp;
         public int SP => sp;
 
+        [SerializeField]
+        private int spinAttackUseSP;
+        public int SpinAttackUseSP => spinAttackUseSP;
+
+        [SerializeField]
+        private int guardUseSP;
+        public int GuardUseSP => guardUseSP;
+
+        [SerializeField]
+        private int counterAttackUseSP;
+        public int CounterAttackUseSP => counterAttackUseSP;
+
+
+
+
+
         private Timer spRecoveryCoolDown = new Timer();
 
         //canvasにプレイヤーのステータス(HP、SP)のUIを表示するための宣言

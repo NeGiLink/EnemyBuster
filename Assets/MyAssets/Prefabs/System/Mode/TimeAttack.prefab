@@ -44,7 +44,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c935df1f4620c3a4eaa209d329bf9b18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  count: 0
   maxEnemyKillCount: 0
   currentEnemyKillCount: 0
   maxWaveChangeCount: 2
-  count: 0
+  easyTime: 90
+  normalTime: 180
+  hardTime: 360
+  easyCoolDown: 9
+  normalCoolDown: 6
+  hardCoolDown: 3

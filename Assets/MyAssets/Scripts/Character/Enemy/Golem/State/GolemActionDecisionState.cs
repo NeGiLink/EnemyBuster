@@ -10,9 +10,6 @@ namespace MyAssets
         private FieldOfView fieldOfView;
 
         [SerializeField]
-        private float maxDistance = 5f;
-
-        [SerializeField]
         private float gravityMultiply;
 
 

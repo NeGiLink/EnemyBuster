@@ -9,6 +9,13 @@ namespace MyAssets
         GameClear
     }
 
+    public class SystemManager
+    {
+        private static bool pause;
+        public static bool IsPause => pause;
+        public static void SetPause(bool p) { pause = p; }
+    }
+
     public class GameController : MonoBehaviour
     {
         private static GameController instance;

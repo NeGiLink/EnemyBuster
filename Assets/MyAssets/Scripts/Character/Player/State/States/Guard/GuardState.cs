@@ -19,6 +19,8 @@ namespace MyAssets
 
         private IGuardTrigger guardTrigger;
 
+        private IPlayerStauts stauts;
+
         private PlayerEffectController effectController;
 
         [SerializeField]
@@ -32,7 +34,7 @@ namespace MyAssets
         public override List<ICharacterStateTransition<string>> CreateTransitionList(IPlayerSetup actor)
         {
             List<ICharacterStateTransition<string>> re = new List<ICharacterStateTransition<string>>();
-            if (StateChanger.IsContain(CounterAttackState.StateKey)) { re.Add(new IsCounterAttackTransition(actor, "Shield Impact", StateChanger, CounterAttackState.StateKey)); }
+            if (StateChanger.IsContain(CounterAttackState.StateKey)) { re.Add(new IsCounterAttackTransition(actor,stauts.CounterAttackUseSP, "Shield Impact", StateChanger, CounterAttackState.StateKey)); }
             if (StateChanger.IsContain(BattleIdleState.StateKey)) { re.Add(new IsEndGuardTransition(actor, StateChanger, BattleIdleState.StateKey)); }
             if (StateChanger.IsContain(PlayerDamageState.StateKey)) { re.Add(new IsDamageTransition(actor, StateChanger, PlayerDamageState.StateKey)); }
             if (StateChanger.IsContain(PlayerDeathState.StateKey)) { re.Add(new IsDeathTransition(actor, StateChanger, PlayerDeathState.StateKey)); } 
@@ -40,6 +42,7 @@ namespace MyAssets
         }
         public override void DoSetup(IPlayerSetup player)
         {
+            stauts = player.Stauts;
             base.DoSetup(player);
             velocity = player.Velocity;
             movement = player.Movement;
@@ -54,7 +57,11 @@ namespace MyAssets
         {
             base.DoStart();
             animator.Animator.SetInteger("SuccessGuard", 0);
+
             equipment.ShieldTool.ShieldOpen();
+
+            stauts.DecreaseSP(stauts.GuardUseSP);
+            
             effectController.Create(PlayerEffectType.GroundHit);
         }
 

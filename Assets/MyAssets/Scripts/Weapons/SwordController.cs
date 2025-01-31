@@ -116,6 +116,11 @@ namespace MyAssets
             swordEffectHandler.ActivateSlachEffect(false);
             collider.enabled = false;
         }
+        //基礎ダメージと武器のダメージ分
+        private int GetPower()
+        {
+            return attackObject.Power + (int)playerSetup.Stauts.BasePower;
+        }
 
         private void OnTriggerEnter(Collider other)
         {
@@ -125,11 +130,10 @@ namespace MyAssets
             if (characterSetup == null) { return; }
             IDamageContainer damageContainer = characterSetup.DamageContainer;
             if (damageContainer == null) { return; }
+            if (damageContainer.IsDeath) { return; }
             swordEffectHandler.EffectLedger.SetPosAndRotCreate((int)SwordEffectType.Hit, other.ClosestPoint(transform.position), other.transform.rotation);
             seHandler.Play(2);
-            //基礎ダメージと武器のダメージ分
-            int damage = attackObject.Power + (int)playerSetup.Stauts.BasePower;
-            damageContainer.GiveDamage(damage, attackObject.KnockBack, attackObject.Type, transform,playerSetup.CharaType);
+            damageContainer.GiveDamage(GetPower(), attackObject.KnockBack, attackObject.Type, transform,playerSetup.CharaType);
         }
 
         private void OnTriggerStay(Collider other)
@@ -140,10 +144,10 @@ namespace MyAssets
             if (characterSetup == null) { return; }
             IDamageContainer damageContainer = characterSetup.DamageContainer;
             if (damageContainer == null){return;}
+            if (damageContainer.IsDeath) { return; }
             swordEffectHandler.EffectLedger.SetPosAndRotCreate((int)SwordEffectType.Hit, other.ClosestPoint(transform.position),other.transform.rotation);
             seHandler.Play(2);
-            int damage = attackObject.Power + (int)playerSetup.Stauts.BasePower;
-            damageContainer.GiveDamage(damage, attackObject.KnockBack, attackObject.Type, transform, playerSetup.CharaType);
+            damageContainer.GiveDamage(GetPower(), attackObject.KnockBack, attackObject.Type, transform, playerSetup.CharaType);
         }
 
     }

@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,8 +9,6 @@ namespace MyAssets
         private IMovement movement;
 
         private Timer idleTimer = new Timer();
-
-        private IDamageContainer damageContainer;
 
         public static readonly string StateKey = "Idle";
         public override string Key => StateKey;
@@ -28,18 +25,12 @@ namespace MyAssets
             if (StateChanger.IsContain(BullTankActionDecisionState.StateKey)) { re.Add(new IsTargetInViewTransition(actor, StateChanger, BullTankActionDecisionState.StateKey)); }
             if (StateChanger.IsContain(BullTankDamageState.StateKey)) { re.Add(new IsEnemyDamageTransition(actor, StateChanger, BullTankDamageState.StateKey)); }
             if (StateChanger.IsContain(BullTankDeathState.StateKey)) { re.Add(new IsDeathTransition(actor, StateChanger, BullTankDeathState.StateKey)); }
-            /*
-            if (StateChanger.IsContain(MushroomPatrolState.StateKey)) { re.Add(new IsPatrolTransition(actor, idleTimer, StateChanger, MushroomPatrolState.StateKey)); }
-            if (StateChanger.IsContain(MushroomDamageState.StateKey)) { re.Add(new IsEnemyDamageTransition(actor, StateChanger, MushroomDamageState.StateKey)); }
-            if (StateChanger.IsContain(MushroomDeathState.StateKey)) { re.Add(new IsDeathTransition(actor, StateChanger, MushroomDeathState.StateKey)); }
-             */
             return re;
         }
         public override void DoSetup(IBullTankSetup actor)
         {
             base.DoSetup(actor);
             movement = actor.Movement;
-            damageContainer = actor.DamageContainer;
         }
 
         public override void DoStart()

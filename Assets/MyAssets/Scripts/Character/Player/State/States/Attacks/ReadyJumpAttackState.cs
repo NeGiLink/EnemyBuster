@@ -32,12 +32,12 @@ namespace MyAssets
         }
         public override void DoSetup(IPlayerSetup player)
         {
+            stauts = player.Stauts;
             base.DoSetup(player);
             velocity = player.Velocity;
             equipment = player.Equipment;
             animator = player.PlayerAnimator;
             changingState = player.ChangingState;
-            stauts = player.Stauts;
         }
 
         public override void DoStart()
@@ -52,7 +52,7 @@ namespace MyAssets
             velocity.Rigidbody.velocity = Vector3.zero;
             velocity.Rigidbody.useGravity = false;
 
-            stauts.DecreaseSP(jumpAttackSP);
+            stauts.DecreaseSP(stauts.SpinAttackUseSP);
         }
 
         public override void DoExit()

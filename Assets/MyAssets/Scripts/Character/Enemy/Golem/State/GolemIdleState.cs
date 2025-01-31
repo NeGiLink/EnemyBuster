@@ -12,11 +12,13 @@ namespace MyAssets
 
         private IDamageContainer damageContainer;
 
+        private IBaseStauts stauts;
+
         public static readonly string StateKey = "Idle";
         public override string Key => StateKey;
 
         [SerializeField]
-        private float moveSpeed;
+        private float idleSpeed;
 
         [SerializeField]
         private float idleCount;
@@ -34,6 +36,7 @@ namespace MyAssets
             base.DoSetup(actor);
             movement = actor.Movement;
             damageContainer = actor.DamageContainer;
+            stauts = actor.BaseStauts;
         }
 
         public override void DoStart()
@@ -52,7 +55,7 @@ namespace MyAssets
         public override void DoFixedUpdate(float time)
         {
             base.DoFixedUpdate(time);
-            movement.Move(moveSpeed);
+            movement.Move(idleSpeed);
         }
     }
 }

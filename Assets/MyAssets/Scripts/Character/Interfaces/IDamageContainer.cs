@@ -12,6 +12,8 @@ namespace MyAssets
 
         bool ActivateKnockback {  get; }
 
+        bool IsDeath {  get; }
+
         void SetData(int d);
 
         void SetActivateKnockback(bool k);

@@ -1,5 +1,7 @@
 
 
+using UnityEngine;
+
 namespace MyAssets
 {
     public interface IBaseStauts
@@ -25,6 +27,12 @@ namespace MyAssets
     {
         int MaxSP { get; }
         int SP {  get; }
+
+        int SpinAttackUseSP {  get; }
+
+        int GuardUseSP {  get; }
+
+        int CounterAttackUseSP { get; }
         void DecreaseSP(int s);
         void RecoverySP(int s);
     }

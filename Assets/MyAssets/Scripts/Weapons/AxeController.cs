@@ -100,6 +100,12 @@ namespace MyAssets
             collider.enabled = false;
         }
 
+        //武器ダメとキャラダメを+した値を出力
+        private int GetPower()
+        {
+            return attackObject.Power + (int)setup.BaseStauts.BasePower;
+        }
+
         private void OnTriggerEnter(Collider other)
         {
             //攻撃のタイプを調べる
@@ -118,7 +124,7 @@ namespace MyAssets
                     return;
                 }
             }
-            damageContainer.GiveDamage(attackObject.Power, attackObject.KnockBack, attackObject.Type, transform, setup.CharaType);
+            damageContainer.GiveDamage(GetPower(), attackObject.KnockBack, attackObject.Type, transform, setup.CharaType);
         }
 
         private void OnTriggerStay(Collider other)
@@ -129,7 +135,7 @@ namespace MyAssets
             if (characterSetup == null) { return; }
             IDamageContainer damageContainer = characterSetup.DamageContainer;
             if (damageContainer == null) { return; }
-            damageContainer.GiveDamage(attackObject.Power, attackObject.KnockBack, attackObject.Type, transform, setup.CharaType);
+            damageContainer.GiveDamage(GetPower(), attackObject.KnockBack, attackObject.Type, transform, setup.CharaType);
         }
     }
 }
