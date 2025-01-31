@@ -4,10 +4,13 @@ namespace MyAssets
 {
     public class AllEnemyKillController : AbstractGameMode
     {
+        public override ModeTag ModeTag => ModeTag.AllKillEnemy;
+
         public override void Setup(int maxEnemy, int maxWaveEnemy)
         {
             maxEnemyKillCount = maxEnemy;
             maxWaveChangeCount = maxWaveEnemy;
+            spawnLimit = true;
         }
 
         public override void TimerStart()

@@ -86,14 +86,15 @@ namespace MyAssets
                 if(index < selectImageChangeCount)
                 {
                     selectImage.sprite = selectSprites[0];
-                    selectImage.SetNativeSize();
                 }
                 else
                 {
                     selectImage.sprite = selectSprites[1];
-                    selectImage.SetNativeSize();
                 }
             }
+            selectImage.rectTransform.localScale = hovers[index].RectTransform.localScale;
+            selectImage.rectTransform.sizeDelta = hovers[index].RectTransform.sizeDelta;
+            selectImage.SetNativeSize();
         }
 
         private void SetActivateSelectImage(bool b)

@@ -124,9 +124,9 @@ MonoBehaviour:
   property:
     maxHP: 100
     hp: 100
-    baseSpeed: 0
-    basePower: 0
-    baseDefense: 0
+    baseSpeed: 2
+    basePower: 2
+    baseDefense: 3
     maxStoredDamage: 50
     storedDamage: 0
   rotation:

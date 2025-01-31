@@ -44,7 +44,7 @@ namespace MyAssets
         public override void DoStart()
         {
             base.DoStart();
-            animator.Animator.SetInteger("ReadyAttack", 0);
+            animator.Animator.SetInteger(animator.ReadyAttackAnimationID, 0);
         }
 
         public override void DoFixedUpdate(float time)
@@ -57,7 +57,7 @@ namespace MyAssets
         public override void DoExit()
         {
             base.DoExit();
-            animator.Animator.SetInteger("ReadyAttack", -1);
+            animator.Animator.SetInteger(animator.ReadyAttackAnimationID, -1);
             movement.Stop();
         }
     }

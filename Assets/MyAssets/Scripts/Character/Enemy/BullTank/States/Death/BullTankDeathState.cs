@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,22 +6,22 @@ namespace MyAssets
     [System.Serializable]
     public class BullTankDeathState : BullTankStateBase
     {
-        private Transform thisTransform;
+        private Transform               thisTransform;
 
-        private IBullTankAnimator animator;
+        private IBullTankAnimator       animator;
 
-        private IMovement movement;
+        private IMovement               movement;
 
-        private IVelocityComponent velocity;
+        private IVelocityComponent      velocity;
 
-        private BullTankEffectHandler effectHandler;
+        private BullTankEffectHandler   effectHandler;
 
-        private Timer destroyTimer = new Timer();
+        private Timer                   destroyTimer = new Timer();
 
         [SerializeField]
-        private float destroyCount;
+        private float                   destroyCount;
 
-        public static readonly string StateKey = "Death";
+        public static readonly string   StateKey = "Death";
         public override string Key => StateKey;
 
         public override List<ICharacterStateTransition<string>> CreateTransitionList(IBullTankSetup actor)
@@ -44,7 +43,7 @@ namespace MyAssets
         public override void DoStart()
         {
             base.DoStart();
-            animator.Animator.SetTrigger("Death");
+            animator.Animator.SetTrigger(animator.DeathAnimationID);
             destroyTimer.Start(destroyCount);
             destroyTimer.OnceEnd += DestroyUpdate;
             velocity.DeathCollider();

@@ -31,18 +31,18 @@ namespace MyAssets
         private AttackType attackType = AttackType.Single;
         public void SetAttackType(AttackType type) { attackType = type; }
 
-        private IMushroomSetup mushroom;
+        private IMushroomSetup setup;
 
         private void Awake()
         {
             attackObject = GetComponent<AttackObject>();
 
-            mushroom = GetComponentInParent<IMushroomSetup>();
+            setup = GetComponentInParent<IMushroomSetup>();
             effectHandller = GetComponent<SmallEnemyEffectHandller>();
 
-            if (mushroom != null)
+            if (setup != null)
             {
-                animator = mushroom.MushroomAnimator;
+                animator = setup.MushroomAnimator;
             }
 
             collider = GetComponent<SphereCollider>();
@@ -97,6 +97,11 @@ namespace MyAssets
             collider.enabled = false;
         }
 
+        private int GetPower()
+        {
+            return attackObject.Power + (int)setup.BaseStauts.BasePower;
+        }
+
         private void OnTriggerEnter(Collider other)
         {
             //çUåÇÇÃÉ^ÉCÉvÇí≤Ç◊ÇÈ
@@ -116,7 +121,7 @@ namespace MyAssets
                 }
             }
             effectHandller.EffectLedger.SetPosAndRotCreate((int)MushroomAttackEffectType.Hit, other.ClosestPoint(transform.position), transform.rotation);
-            damageContainer.GiveDamage(attackObject.Power, attackObject.KnockBack, attackObject.Type, transform,mushroom.CharaType);
+            damageContainer.GiveDamage(GetPower(), attackObject.KnockBack, attackObject.Type, transform, setup.CharaType);
         }
 
     }

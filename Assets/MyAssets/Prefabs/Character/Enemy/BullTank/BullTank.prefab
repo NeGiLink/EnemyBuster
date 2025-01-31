@@ -241,9 +241,9 @@ MonoBehaviour:
   property:
     maxHP: 550
     hp: 0
-    baseSpeed: 0
-    basePower: 0
-    baseDefense: 0
+    baseSpeed: 4
+    basePower: 5
+    baseDefense: 6
     maxStoredDamage: 75
     storedDamage: 0
   animator:
@@ -262,7 +262,7 @@ MonoBehaviour:
     targetDistance: 0
   moveState:
     moveSpeed: 4
-    highMoveSpeed: 4
+    highMoveSpeed: 1
     rotationSpeed: 8
     moveSpeedChangeRate: 8
     minChaseDistance: 2

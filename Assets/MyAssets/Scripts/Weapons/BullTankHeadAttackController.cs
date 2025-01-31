@@ -33,19 +33,19 @@ namespace MyAssets
         private AttackType attackType = AttackType.Single;
         public void SetAttackType(AttackType type) { attackType = type; }
 
-        private IBullTankSetup mushroom;
+        private IBullTankSetup setup;
 
         private void Awake()
         {
             attackObject = GetComponent<AttackObject>();
 
-            mushroom = GetComponentInParent<IBullTankSetup>();
+            setup = GetComponentInParent<IBullTankSetup>();
 
             effectHandller = GetComponent<SmallEnemyEffectHandller>();
 
-            if (mushroom != null)
+            if (setup != null)
             {
-                animator = mushroom.BullTankAnimator;
+                animator = setup.BullTankAnimator;
             }
 
             collider = GetComponent<SphereCollider>();
@@ -101,6 +101,11 @@ namespace MyAssets
             collider.enabled = false;
         }
 
+        private int GetPower()
+        {
+            return attackObject.Power + (int)setup.BaseStauts.BasePower;
+        }
+
         private void OnTriggerEnter(Collider other)
         {
             //çUåÇÇÃÉ^ÉCÉvÇí≤Ç◊ÇÈ
@@ -111,7 +116,7 @@ namespace MyAssets
             if (characterSetup == null) { return; }
             IDamageContainer damageContainer = characterSetup.DamageContainer;
             if (damageContainer == null) { return; }
-            int power = attackObject.Power;
+            int power = GetPower();
             ShieldController shield = other.GetComponentInChildren<ShieldController>();
             if (shield != null)
             {
@@ -122,7 +127,7 @@ namespace MyAssets
             }
             effectHandller.EffectLedger.SetPosAndRotCreate((int)BullTankHeadAttackEffectType.Hit, other.ClosestPoint(transform.position), transform.rotation);
             damageContainer.SetActivateKnockback(true);
-            damageContainer.GiveDamage(power, attackObject.KnockBack, attackObject.Type, transform, mushroom.CharaType);
+            damageContainer.GiveDamage(power, attackObject.KnockBack, attackObject.Type, transform, setup.CharaType);
         }
     }
 }

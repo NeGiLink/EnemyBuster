@@ -47,7 +47,7 @@ namespace MyAssets
         {
             base.DoStart();
             movement.Stop();
-            animator.Animator.SetInteger("Attack", 1);
+            animator.Animator.SetInteger(animator.AttackAnimationID, 1);
             headWeapon.EnabledCollider(0,0,true);
         }
 
@@ -60,7 +60,7 @@ namespace MyAssets
         public override void DoExit()
         {
             base.DoExit();
-            animator.Animator.SetInteger("Attack", -1);
+            animator.Animator.SetInteger(animator.AttackAnimationID, -1);
             movement.Stop();
         }
     }

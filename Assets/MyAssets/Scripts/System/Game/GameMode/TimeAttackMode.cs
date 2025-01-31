@@ -4,6 +4,10 @@ namespace MyAssets
 {
     public class TimeAttackMode : AbstractGameMode
     {
+        public override ModeTag ModeTag => ModeTag.TimeAttack;
+
+        private Timer enemySpawnCoolDown = new Timer();
+
 
         [SerializeField]
         private float easyTime = 360.0f;
@@ -12,10 +16,20 @@ namespace MyAssets
         [SerializeField]
         private float hardTime = 90.0f;
 
+        [SerializeField]
+        private float easyCoolDown = 5.0f;
+        [SerializeField]
+        private float normalCoolDown = 2.5f;
+        [SerializeField]
+        private float hardCoolDown = 1.0f;
+
+        private float coolDown = 0;
+
         public override void Setup(int maxEnemy, int maxWaveEnemy)
         {
             maxEnemyKillCount = maxEnemy;
             maxWaveChangeCount = maxWaveEnemy;
+            spawnLimit = false;
             SetTimerCount();
         }
 
@@ -26,12 +40,15 @@ namespace MyAssets
             {
                 case GameLevel.Easy:
                     count = easyTime;
+                    coolDown = easyCoolDown;
                     break;
                 case GameLevel.Normal:
                     count = normalTime;
+                    coolDown = normalCoolDown;
                     break;
                 case GameLevel.Hard:
                     count = hardTime;
+                    coolDown = hardCoolDown;
                     break;
             }
         }
@@ -46,19 +63,17 @@ namespace MyAssets
                 GameUIController.Instance.CreateFadeResultTextUI();
                 return;
             }
-
-            if (0 >= SpawnCount.Count)
-            {
-                waveChange = true;
-            }
         }
 
         public override void WaveChangeEnd()
         {
-            if (SpawnCount.Count >= maxWaveChangeCount)
-            {
-                waveChange = false;
-            }
+            enemySpawnCoolDown.Start(coolDown);
+            waveChange = false;
+        }
+
+        private void ActivateSpawn()
+        {
+            waveChange = true;
         }
 
         private void Start()
@@ -67,10 +82,16 @@ namespace MyAssets
             GameController.Instance.Timer.OnceEnd += OnGameOver;
             TimerStart();
         }
+        private void Update()
+        {
+            enemySpawnCoolDown.Update(Time.deltaTime);
+        }
 
         public override void TimerStart()
         {
             GameController.Instance.TimerStart(count, false);
+
+            enemySpawnCoolDown.OnEnd += ActivateSpawn;
         }
 
         private void OnGameOver()

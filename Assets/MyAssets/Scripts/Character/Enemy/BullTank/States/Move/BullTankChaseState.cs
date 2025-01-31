@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,44 +6,42 @@ namespace MyAssets
     [System.Serializable]
     public class BullTankChaseState : BullTankStateBase
     {
-        private IMovement movement;
-        private IVelocityComponent velocity;
-        private Transform thisTransform;
-        private FieldOfView fieldOfView;
+        private IMovement               movement;
 
-        private IBullTankAnimator animator;
+        private IVelocityComponent      velocity;
+        
+        private FieldOfView             fieldOfView;
 
-        [SerializeField]
-        private float moveSpeed;
+        private IBullTankAnimator       animator;
 
-        [SerializeField]
-        private float highMoveSpeed;
+        private IBaseStauts             stauts;
 
         [SerializeField]
-        private float rotationSpeed = 8;
-        [SerializeField]
-        private float moveSpeedChangeRate = 8;
+        private float                   highMoveSpeed;
 
         [SerializeField]
-        private float minChaseDistance = 2.5f;
+        private float                   rotationSpeed = 8;
+        [SerializeField]
+        private float                   moveSpeedChangeRate = 8;
 
         [SerializeField]
-        private float maxDistance = 5f;
+        private float                   minChaseDistance = 2.5f;
 
         [SerializeField]
-        private float gravityMultiply;
+        private float                   maxDistance = 5f;
+
+        [SerializeField]
+        private float                   gravityMultiply;
 
         [SerializeField]
         [Range(0f, 1f)]
-        private float moveInput = 0f;
+        private float                   moveInput = 0f;
 
         [SerializeField]
-        private float targetDistance;
+        private float                   targetDistance;
 
-        public static readonly string StateKey = "Chase";
+        public static readonly string   StateKey = "Chase";
         public override string Key => StateKey;
-
-        public static readonly int MoveAnimationID = Animator.StringToHash("Move");
 
         public override List<ICharacterStateTransition<string>> CreateTransitionList(IBullTankSetup actor)
         {
@@ -61,9 +58,9 @@ namespace MyAssets
             base.DoSetup(actor);
             movement = actor.Movement;
             velocity = actor.Velocity;
-            thisTransform = actor.gameObject.transform;
             fieldOfView = actor.gameObject.GetComponent<FieldOfView>();
             animator = actor.BullTankAnimator;
+            stauts = actor.BaseStauts;
         }
 
         public override void DoStart()
@@ -76,7 +73,7 @@ namespace MyAssets
         {
             base.DoFixedUpdate(time);
             moveInput = Move(time);
-            animator.Animator.SetFloat(MoveAnimationID, moveInput);
+            animator.Animator.SetFloat(animator.MoveAnimationID, moveInput);
             //èdóÕÇâ¡éZ
             velocity.Rigidbody.velocity += Physics.gravity * gravityMultiply * time;
         }
@@ -90,7 +87,7 @@ namespace MyAssets
             if (targetDistance < minChaseDistance)
             {
                 input -= Time.deltaTime;
-                animator.Animator.SetFloat(MoveAnimationID, Define.Zero);
+                animator.Animator.SetFloat(animator.MoveAnimationID, Define.Zero);
                 movement.Stop();
             }
             else if (minChaseDistance < targetDistance && targetDistance < maxDistance)
@@ -100,12 +97,12 @@ namespace MyAssets
                 {
                     input = 0.5f;
                 }
-                movement.MoveTo(fieldOfView.TargetLastPoint, moveSpeed, moveSpeedChangeRate, rotationSpeed, time);
+                movement.MoveTo(fieldOfView.TargetLastPoint, stauts.BaseSpeed, moveSpeedChangeRate, rotationSpeed, time);
             }
             else if (targetDistance > maxDistance)
             {
                 input += Time.deltaTime;
-                movement.MoveTo(fieldOfView.TargetLastPoint, highMoveSpeed, moveSpeedChangeRate, rotationSpeed, time);
+                movement.MoveTo(fieldOfView.TargetLastPoint, stauts.BaseSpeed + highMoveSpeed, moveSpeedChangeRate, rotationSpeed, time);
             }
             return input;
         }
@@ -114,7 +111,7 @@ namespace MyAssets
         {
             base.DoExit();
             moveInput = 0f;
-            animator.Animator.SetFloat(MoveAnimationID, moveInput);
+            animator.Animator.SetFloat(animator.MoveAnimationID, moveInput);
             movement.Stop();
         }
     }

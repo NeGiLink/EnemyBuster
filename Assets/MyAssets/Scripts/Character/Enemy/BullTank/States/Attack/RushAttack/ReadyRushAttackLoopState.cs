@@ -49,7 +49,7 @@ namespace MyAssets
         public override void DoStart()
         {
             base.DoStart();
-            animator.Animator.SetInteger("ReadyAttack", -1);
+            animator.Animator.SetInteger(animator.ReadyAttackAnimationID, -1);
             timer.Start(count);
         }
 

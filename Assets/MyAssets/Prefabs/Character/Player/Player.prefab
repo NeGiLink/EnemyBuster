@@ -474,6 +474,9 @@ MonoBehaviour:
     storedDamage: 0
     maxSp: 1000
     sp: 1000
+    spinAttackUseSP: 150
+    guardUseSP: 100
+    counterAttackUseSP: 50
   weaponController: {fileID: 0}
   changingState:
     battleMode: 0

@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,16 +8,12 @@ namespace MyAssets
     {
         private IMovement movement;
         private IVelocityComponent velocity;
-        private Transform thisTransform;
         private FieldOfView fieldOfView;
 
         private IGolemAnimator animator;
 
-        [SerializeField]
-        private float moveSpeed;
+        private IBaseStauts stauts;
 
-        [SerializeField]
-        private float highMoveSpeed;
 
         [SerializeField]
         private float rotationSpeed = 8;
@@ -29,17 +24,7 @@ namespace MyAssets
         private float minChaseDistance = 2.5f;
 
         [SerializeField]
-        private float maxDistance = 5f;
-
-        [SerializeField]
         private float gravityMultiply;
-
-        [SerializeField]
-        [Range(0f, 1f)]
-        private float moveInput = 0f;
-
-        [SerializeField]
-        private float targetDistance;
 
         public static readonly string StateKey = "Chase";
         public override string Key => StateKey;
@@ -61,15 +46,14 @@ namespace MyAssets
             base.DoSetup(actor);
             movement = actor.Movement;
             velocity = actor.Velocity;
-            thisTransform = actor.gameObject.transform;
             fieldOfView = actor.gameObject.GetComponent<FieldOfView>();
             animator = actor.GolemAnimator;
+            stauts = actor.BaseStauts;
         }
 
         public override void DoStart()
         {
             base.DoStart();
-            targetDistance = fieldOfView.GetSubDistance.magnitude;
 
             animator.Animator.SetInteger(MoveAnimationID, 1);
         }
@@ -77,7 +61,7 @@ namespace MyAssets
         public override void DoFixedUpdate(float time)
         {
             base.DoFixedUpdate(time);
-            movement.MoveTo(fieldOfView.TargetLastPoint, highMoveSpeed, moveSpeedChangeRate, rotationSpeed, time);
+            movement.MoveTo(fieldOfView.TargetLastPoint, stauts.BaseSpeed, moveSpeedChangeRate, rotationSpeed, time);
             //èdóÕÇâ¡éZ
             velocity.Rigidbody.velocity += Physics.gravity * gravityMultiply * time;
         }
@@ -85,7 +69,6 @@ namespace MyAssets
         public override void DoExit()
         {
             base.DoExit();
-            moveInput = 0f;
             animator.Animator.SetInteger(MoveAnimationID, 0);
             movement.Stop();
         }

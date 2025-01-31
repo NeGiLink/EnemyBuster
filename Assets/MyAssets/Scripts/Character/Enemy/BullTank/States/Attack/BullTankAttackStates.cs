@@ -17,21 +17,7 @@ namespace MyAssets
 
         [SerializeField]
         private float moveSpeed;
-        /*
-        [SerializeField]
-        private float highMoveSpeed;
 
-        [SerializeField]
-        private float rotationSpeed = 8;
-        [SerializeField]
-        private float moveSpeedChangeRate = 8;
-
-        [SerializeField]
-        private float minChaseDistance = 2.5f;
-
-        [SerializeField]
-        private float maxDistance = 5f;
-         */
 
         [SerializeField]
         private float gravityMultiply;
@@ -61,7 +47,7 @@ namespace MyAssets
         public override void DoStart()
         {
             base.DoStart();
-            animator.Animator.SetInteger("Attack", 0);
+            animator.Animator.SetInteger(animator.AttackAnimationID, 0);
 
             weapon.SetAttackType(AttackType.Single);
         }
@@ -90,7 +76,7 @@ namespace MyAssets
         public override void DoExit()
         {
             base.DoExit();
-            animator.Animator.SetInteger("Attack", -1);
+            animator.Animator.SetInteger(animator.AttackAnimationID, -1);
             movement.Stop();
             weapon.NotEnabledCollider();
         }

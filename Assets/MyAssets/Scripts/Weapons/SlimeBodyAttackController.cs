@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace MyAssets
@@ -20,7 +18,7 @@ namespace MyAssets
         [SerializeField]
         private ISlimeAnimator animator;
 
-        private ISlimeSetup slimeSetup;
+        private ISlimeSetup setup;
 
         private SmallEnemyEffectHandller effectHandller;
 
@@ -42,7 +40,7 @@ namespace MyAssets
             attackObject = GetComponent<AttackObject>();
 
             SlimeController controller = GetComponentInParent<SlimeController>();
-            slimeSetup = controller.GetComponent<ISlimeSetup>();
+            setup = controller.GetComponent<ISlimeSetup>();
             effectHandller = GetComponent<SmallEnemyEffectHandller>();
 
             if (controller != null)
@@ -93,6 +91,11 @@ namespace MyAssets
             attackType = AttackType.Null;
         }
 
+        private int GetPower()
+        {
+            return attackObject.Power + (int)setup.BaseStauts.BasePower;
+        }
+
         private void OnTriggerEnter(Collider other)
         {
             //çUåÇÇÃÉ^ÉCÉvÇí≤Ç◊ÇÈ
@@ -112,7 +115,7 @@ namespace MyAssets
                 }
             }
             effectHandller.EffectLedger.SetPosAndRotCreate((int)SlimeBodyAttackEffectType.Hit, other.ClosestPoint(transform.position), transform.rotation);
-            damageContainer.GiveDamage(attackObject.Power, attackObject.KnockBack, attackObject.Type, transform,slimeSetup.CharaType);
+            damageContainer.GiveDamage(GetPower(), attackObject.KnockBack, attackObject.Type, transform,setup.CharaType);
         }
     }
 }

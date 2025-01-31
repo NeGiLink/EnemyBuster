@@ -43,7 +43,12 @@ namespace MyAssets
 
     public interface IBullTankAnimator : IEnemyAnimator
     {
-        string AttacksName { get; }
+        int MoveAnimationID {  get; }
+        int SideMoveAnimationID { get; }
+        int AttackAnimationID { get; }
+        int ReadyAttackAnimationID { get; }
+        int ImpactAnimationID { get; }
+        int DeathAnimationID { get; }
     }
 
     public interface IGolemAnimator : IEnemyAnimator

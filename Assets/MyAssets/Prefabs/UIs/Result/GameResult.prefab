@@ -746,8 +746,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   activateSelect: 1
   horizontal: 1
+  selectsImage: 0
+  selectImageChangeCount: 0
   selectImage: {fileID: 4137002130187871343}
-  buttonAndSelectCommon: 0
+  selectSprites: []
   selectImageOffsetX: 0
   selectImageOffsetY: 0
   buttons: []
@@ -860,6 +862,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   seLedger: {fileID: 11400000, guid: fbecf4e4af241dc4b99b34063e98533e, type: 2}
+  footStepSELedger: {fileID: 0}
 --- !u!1 &8608122307246103447
 GameObject:
   m_ObjectHideFlags: 0

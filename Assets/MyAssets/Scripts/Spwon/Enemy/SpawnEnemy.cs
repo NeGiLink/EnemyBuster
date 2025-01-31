@@ -58,11 +58,21 @@ namespace MyAssets
         {
             // 値を格納するリストを作成
             List<int> numbers = new List<int>();
-
-            // 指定された範囲の数値をリストに追加
-            for (int i = 0; i < spawnPoint.Length; i++)
+            if (GameModeController.Instance.AbstractGameMode.SpawnLimit)
             {
-                if (!spawnPoint[i].IsUse) // 除外値をスキップ
+                // 指定された範囲の数値をリストに追加
+                for (int i = 0; i < spawnPoint.Length; i++)
+                {
+                    if (!spawnPoint[i].IsUse) // 除外値をスキップ
+                    {
+                        numbers.Add(i);
+                    }
+                }
+            }
+            else
+            {
+                // 指定された範囲の数値をリストに追加
+                for (int i = 0; i < spawnPoint.Length; i++)
                 {
                     numbers.Add(i);
                 }

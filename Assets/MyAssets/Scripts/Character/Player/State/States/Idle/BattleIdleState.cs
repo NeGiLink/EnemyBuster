@@ -45,8 +45,8 @@ namespace MyAssets
         }
         public override void DoSetup(IPlayerSetup player)
         {
-            base.DoSetup(player);
             stauts = player.Stauts;
+            base.DoSetup(player);
             input = player.gameObject.GetComponent<IMoveInputProvider>();
             velocity = player.Velocity;
             movement = player.Movement;

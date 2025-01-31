@@ -34,6 +34,10 @@ namespace MyAssets
         public float KnockBack => knockBack;
         public void SetKnockBack(float k) {  knockBack = k; }
 
+        private bool death = false;
+
+        public bool IsDeath => death;
+
         private IBaseStauts baseStauts;
 
         private Transform   thisTransform;
@@ -45,6 +49,8 @@ namespace MyAssets
             baseStauts = chara.BaseStauts;
             thisTransform = chara.gameObject.transform;
             fieldOfView = chara.gameObject.GetComponent<FieldOfView>();
+
+            death = false;
         }
 
         public void GiveDamage(int power,float k, DamageType type, Transform transform,CharacterType charaType)
@@ -79,6 +85,10 @@ namespace MyAssets
             }
             //無敵スタート
             baseStauts.InvincibilityTimer.Start(invincibilityCount);
+            if (baseStauts.HP <= 0)
+            {
+                death = true;
+            }
         }
 
         public void ClearDamage()
