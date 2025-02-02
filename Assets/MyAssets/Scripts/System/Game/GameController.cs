@@ -46,7 +46,8 @@ namespace MyAssets
 
         private void Start()
         {
-            GameManager.Instance.SetLockCursor();
+            GameManager.Instance.SetSceneList(SceneList.Game);
+            InputManager.SetLockCursor();
             SetGameResultType(GameResultType.Null);
         }
 

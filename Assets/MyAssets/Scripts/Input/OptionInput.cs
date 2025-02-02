@@ -25,12 +25,12 @@ namespace MyAssets
             if (open)
             {
                 caller.Call();
-                GameManager.Instance.SetFreeCursor();
+                InputManager.SetFreeCursor();
             }
             else
             {
                 caller.Close();
-                GameManager.Instance.SetLockCursor();
+                InputManager.SetLockCursor();
             }
         }
     }

@@ -74,6 +74,7 @@ namespace MyAssets
         }
         protected override void Update()
         {
+            if (SystemManager.IsPause) { return; }
             groundCheck.DoUpdate();
             stateMachine.DoUpdate(Time.deltaTime);
         }

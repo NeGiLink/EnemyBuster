@@ -110,6 +110,7 @@ namespace MyAssets
 
         protected override void Update()
         {
+            if (SystemManager.IsPause) { return; }
             float t = Time.deltaTime;
             property.DoUpdate(t);
             groundCheck.DoUpdate();

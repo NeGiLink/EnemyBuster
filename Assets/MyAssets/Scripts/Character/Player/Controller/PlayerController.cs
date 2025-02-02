@@ -222,6 +222,7 @@ namespace MyAssets
 
         protected override void Update()
         {
+            if (SystemManager.IsPause) { return; }
             float t = Time.deltaTime;
             if(fieldOfView.TargetObject != null&&keyInput.Foucus > 0)
             {

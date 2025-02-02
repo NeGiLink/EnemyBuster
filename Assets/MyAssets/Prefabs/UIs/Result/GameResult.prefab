@@ -221,7 +221,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 100
+    m_FontSize: 70
     m_FontStyle: 1
     m_BestFit: 0
     m_MinSize: 1
@@ -272,7 +272,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 400, y: -310}
-  m_SizeDelta: {x: 560, y: 151}
+  m_SizeDelta: {x: 386, y: 138}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5503809871102482243
 CanvasRenderer:
@@ -433,7 +433,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -400, y: -310}
-  m_SizeDelta: {x: 560, y: 151}
+  m_SizeDelta: {x: 386, y: 138}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4230831816481919245
 CanvasRenderer:
@@ -1009,10 +1009,10 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 100
+    m_FontSize: 70
     m_FontStyle: 1
     m_BestFit: 0
-    m_MinSize: 1
+    m_MinSize: 0
     m_MaxSize: 100
     m_Alignment: 4
     m_AlignByGeometry: 0
@@ -1060,6 +1060,18 @@ PrefabInstance:
     - target: {fileID: 2810353385684092849, guid: f812692f17bb8474ca3e804f7609eecd, type: 3}
       propertyPath: m_SizeDelta.y
       value: 138
+      objectReference: {fileID: 0}
+    - target: {fileID: 2810353385684092849, guid: f812692f17bb8474ca3e804f7609eecd, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2810353385684092849, guid: f812692f17bb8474ca3e804f7609eecd, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2810353385684092849, guid: f812692f17bb8474ca3e804f7609eecd, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2810353385684092849, guid: f812692f17bb8474ca3e804f7609eecd, type: 3}
       propertyPath: m_LocalPosition.x

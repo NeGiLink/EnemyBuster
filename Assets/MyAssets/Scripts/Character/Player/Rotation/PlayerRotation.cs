@@ -49,7 +49,7 @@ namespace MyAssets
             if(focusInput.Foucus < 1.0f)
             {
                 float rotationSpeed = Define.Zero;
-                switch (PlayerCharacterInput.GetDeviceInput())
+                switch (InputManager.GetDeviceInput())
                 {
                     case DeviceInput.Key:
                         rotationSpeed = 600 * Time.deltaTime;
@@ -71,19 +71,13 @@ namespace MyAssets
             }
             else if (focusInput.Foucus > 0)
             {
-                if(fieldOfView.FindTarget)
+                if(fieldOfView.TargetObject != null)
                 {
                     DoLookOnTarget(fieldOfView.TargetObject.transform.position);
                 }
                 else
                 {
-                    var horizontalRotation = Quaternion.AngleAxis(moveInput.AimHorizontal.Value,Vector3.up);
-                    var verticalRotation = Quaternion.AngleAxis(moveInput.AimVertical.Value,Vector3.right);
-                    thisTransform.localRotation = horizontalRotation;
-                    y_Focus.localRotation = verticalRotation;
-
-                    // ここでカメラ切り替え前の回転量を適用
-                    targetRotation = horizontalRotation;
+                    DoNoLookOnTarget(thisTransform.forward);
                 }
             }
         }
@@ -93,10 +87,18 @@ namespace MyAssets
         {
             // 敵の方向ベクトルを取得
             Vector3 targetObject = dir;
-            targetObject.y = thisTransform.transform.position.y;
-            Vector3 enemyDirection = (targetObject - thisTransform.transform.position).normalized;
+            targetObject.y = thisTransform.position.y;
+            Vector3 enemyDirection = targetObject - thisTransform.position;
             // プレイヤーが常に敵の方向を向く
             thisTransform.rotation = Quaternion.LookRotation(enemyDirection);
+            // ここでカメラ切り替え前の回転量を適用
+            targetRotation = thisTransform.rotation;
+        }
+
+        public void DoNoLookOnTarget(Vector3 dir)
+        {
+            // プレイヤーが常に同じ方向を向く
+            thisTransform.rotation = Quaternion.LookRotation(dir);
             // ここでカメラ切り替え前の回転量を適用
             targetRotation = thisTransform.rotation;
         }
@@ -104,7 +106,7 @@ namespace MyAssets
         public void DoFreeMode()
         {
             float rotationSpeed = Define.Zero;
-            switch (PlayerCharacterInput.GetDeviceInput())
+            switch (InputManager.GetDeviceInput())
             {
                 case DeviceInput.Key:
                     rotationSpeed = 600 * Time.deltaTime;

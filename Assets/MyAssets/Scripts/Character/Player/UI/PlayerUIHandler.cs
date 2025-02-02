@@ -16,14 +16,8 @@ namespace MyAssets
         private LockOnUI lockOnUI;
         public LockOnUI LockOnUI => lockOnUI;
 
-        private void Awake()
+        public void Create()
         {
-            StartCoroutine(Setup());
-        }
-
-        private IEnumerator Setup()
-        {
-            yield return new WaitForSecondsRealtime(0.1f);
 
             GameCanvas gameCanvas = FindObjectOfType<GameCanvas>();
 
@@ -33,6 +27,7 @@ namespace MyAssets
             spGage = gage;
             LockOnUI lockOn = Instantiate(lockOnUI, gameCanvas.UILayer[(int)UILayer.Player].transform);
             lockOnUI = lockOn;
+            Destroy(this);
         }
     }
 }

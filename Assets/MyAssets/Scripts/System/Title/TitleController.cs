@@ -21,7 +21,7 @@ namespace MyAssets
         private void Start()
         {
             GameManager.Instance.SetSceneList(SceneList.Title);
-            GameManager.Instance.SetFreeCursor();
+            InputManager.SetFreeCursor();
         }
     }
 }

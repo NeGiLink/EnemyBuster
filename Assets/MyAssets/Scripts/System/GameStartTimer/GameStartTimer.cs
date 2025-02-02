@@ -49,6 +49,7 @@ namespace MyAssets
             }
             else
             {
+                InputManager.SetInputStop(false);
                 gameStartTimerUI.CountEndUI();
                 gamePreparation.GameStart();
                 Destroy(gameStartTimerUI.gameObject, 2f);
