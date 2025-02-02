@@ -133,7 +133,7 @@ namespace MyAssets
 
         private void GamePadInput()
         {
-            if (UnityEngine.Input.anyKey) { return; }
+            if (InputManager.GetDeviceInput() == DeviceInput.Key) { return; }
             float select;
             if (horizontal)
             {
@@ -187,8 +187,9 @@ namespace MyAssets
         private IEnumerator DecideUpdate()
         {
             decideFlag = true;
-            yield return new WaitForSecondsRealtime(1.0f);
+            yield return null;
             buttons[selectIndex].onClick?.Invoke();
+            decideFlag = false;
         }
 
         public void ActivateStart()

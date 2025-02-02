@@ -35,7 +35,7 @@ namespace MyAssets
             //seHandler.Play((int)ButtonSETag.Select);
 
             //ポーズを有効化する。
-            //pause.Enable();
+            pause.Enable();
 
             SystemManager.SetPause(true);
         }

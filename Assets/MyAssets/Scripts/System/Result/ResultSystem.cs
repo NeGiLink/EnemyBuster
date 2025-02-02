@@ -19,6 +19,8 @@ namespace MyAssets
 
         private void Start()
         {
+            GameManager.Instance.SetSceneList(SceneList.Result);
+
             resultUI.EnemyTextOutput(gameMode.CurrentEnemyKillCount);
 
             resultUI.TimeTextOutput(GameUIController.Instance.TimerCountUI?.OutputTimeText());

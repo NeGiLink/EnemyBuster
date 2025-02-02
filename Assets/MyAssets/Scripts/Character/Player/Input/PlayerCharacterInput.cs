@@ -12,8 +12,6 @@ namespace MyAssets
 
     public class PlayerCharacterInput : MonoBehaviour,IMoveInputProvider, IJumpInputProvider, IControllerInput,IAttackInputProvider,IToolInputProvider,IFocusInputProvider
     {
-        private static DeviceInput deviceInput = DeviceInput.Key;
-        public static DeviceInput GetDeviceInput() { return deviceInput; }
 
         [Header("Aim")]
         [SerializeField]
@@ -69,54 +67,29 @@ namespace MyAssets
 
         public void DoUpdate()
         {
+            if (InputManager.InputStop) { return; }
             aimHorizontal.Update(Time.deltaTime);
             aimVertical.Update(Time.deltaTime);
 
-            CheckInput();
-            switch (deviceInput)
+
+            if(InputManager.GetDeviceInput() == DeviceInput.Key)
             {
-                case DeviceInput.Key:
-                    var value = genericInput.Player.Move.ReadValue<Vector2>();
-                    move.x = value.x;
-                    move.y = value.y;
-                    break;
-                case DeviceInput.Controller:
-                    move.x = Input.GetAxis("Horizontal");
-                    move.y = Input.GetAxis("Vertical");
-                    break;
+                var value = genericInput.Player.Move.ReadValue<Vector2>();
+                move.x = value.x;
+                move.y = value.y;
+            }
+            else
+            {
+                // ゲームパッド（デバイス取得）
+                var gamepad = Gamepad.current;
+                if (gamepad != null)
+                {
+                    move = gamepad.leftStick.ReadValue();
+                }
             }
             dash = genericInput.Player.Dash.ReadValue<float>();
             foucus = genericInput.Player.Foucus.ReadValue<float>();
             receipting = genericInput.Player.Receipt.ReadValue<float>();
-        }
-
-        public static void CheckInput()
-        {
-            if (Input.anyKey)
-            {
-                deviceInput = DeviceInput.Key;
-            }
-
-            // コントローラーボタンのチェック
-            for (int i = 0; i < 14; i++)
-            {
-                if (Input.GetKey("joystick button" + " " + i))
-                {
-                    deviceInput = DeviceInput.Controller;
-                    break;
-                }
-            }
-
-            // コントローラーの軸のチェック
-            if (!Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D) &&
-               !Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.S))
-            {
-                if ((Mathf.Abs(Input.GetAxis("Horizontal")) >= Define.PressNum) ||
-                    (Mathf.Abs(Input.GetAxis("Vertical")) >= Define.PressNum))
-                {
-                    deviceInput = DeviceInput.Controller;
-                }
-            }
         }
 
         private void OnEnable()

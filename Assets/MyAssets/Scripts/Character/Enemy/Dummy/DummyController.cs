@@ -49,6 +49,7 @@ namespace MyAssets
 
         protected override void Update()
         {
+            if (SystemManager.IsPause) { return; }
             property.RecoveryHP(1);
 
             property.DoUpdate(Time.deltaTime);

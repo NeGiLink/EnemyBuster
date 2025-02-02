@@ -42,11 +42,15 @@ namespace MyAssets
         private EnemyKillCountUI enemyKillCountUI;
         public EnemyKillCountUI EnemyKillCountUI => enemyKillCountUI;
 
+        private PlayerUIHandler playerUIHandler;
+
         private void Awake()
         {
             instance = this;
 
             damageTextCreator = GetComponent<DamageTextCreator>();
+
+            playerUIHandler = FindObjectOfType<PlayerUIHandler>();
         }
 
         private void Start()
@@ -68,6 +72,8 @@ namespace MyAssets
             enemyKillCountUI.CountRefresh(count);
 
             Instantiate(optionSystem);
+
+            playerUIHandler.Create();
         }
 
         public void CreateFadeResultTextUI()
@@ -87,7 +93,7 @@ namespace MyAssets
 
         public void CreateResultUI()
         {
-            GameManager.Instance.SetFreeCursor();
+            InputManager.SetFreeCursor();
             Instantiate(resultSystem);
         }
     }

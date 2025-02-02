@@ -29,6 +29,7 @@ namespace MyAssets
         public int StageCount => stageCount;
 
         private SceneList sceneList;
+        public SceneList SceneList => sceneList;
         public void SetSceneList(SceneList scene) {  sceneList = scene; }
 
 
@@ -102,16 +103,9 @@ namespace MyAssets
             mainCameraController = FindObjectOfType<MainCameraController>();
         }
 
-        public void SetLockCursor()
+        private void Start()
         {
-            Cursor.visible = false;
-            Cursor.lockState = CursorLockMode.Locked;
-        }
-
-        public void SetFreeCursor()
-        {
-            Cursor.visible = true;
-            Cursor.lockState = CursorLockMode.None;
+            InputManager.SetInputStop(true);
         }
     }
 }

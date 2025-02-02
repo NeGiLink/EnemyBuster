@@ -1,14 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+
 
 namespace MyAssets
 {
     public interface IAllPlayerCamera
     {
-        void Setup(InputControllCamera controller);
+        void Setup(AllCameraController controller);
 
         void Start();
+        void CameraTransition();
         void CameraUpdate();
         void Exit();
     }

@@ -45,7 +45,7 @@ namespace MyAssets
         //即座にポーズ状態を解除する。
         public void Disable()
         {
-            //Time.timeScale = 1.0f;
+            Time.timeScale = 1.0f;
             SystemManager.SetPause(false);
         }
 

@@ -1892,6 +1892,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -736507098417379155, guid: 606156186d730a74395c3f7fa3bf60a4, type: 3}
+      propertyPath: m_DefaultControlScheme
+      value: KeyBoardMouse
+      objectReference: {fileID: 0}
     - target: {fileID: 3612412923755806334, guid: 606156186d730a74395c3f7fa3bf60a4, type: 3}
       propertyPath: m_Name
       value: UIInputManager

@@ -15,22 +15,23 @@ namespace MyAssets
     }
     public class MainCameraController : MonoBehaviour, IMainCameraProvider
     {
+        //カメラ本体
         [SerializeField]
         private GameObject                      mainCamera;
         public GameObject                       MainCamera => mainCamera;
-
+        //全バーチャルカメラのリスト
         [SerializeField]
         private List<CinemachineVirtualCamera>  virtualCameras = new List<CinemachineVirtualCamera>();
         public List<CinemachineVirtualCamera>   VirtualCameras => virtualCameras;
 
         private List<int>                       virtualCameraPrioritys = new List<int>();
-
+        //カメラが注目するターゲット
         [SerializeField]
         private Transform                       targetTransform;
         public Transform                        TargetTransform => targetTransform;
-
+        //複数あるカメラを切り替えて処理するクラス
         [SerializeField]
-        private InputControllCamera             inputControllCamera;
+        private AllCameraController             inputControllCamera;
 
         public void ActivateAllCamera(bool a)
         {
