@@ -38,6 +38,12 @@ namespace MyAssets
 
         public bool IsDeath => death;
 
+        private bool invalid = false;
+        public void SetValid(bool v)
+        {
+            invalid = v;
+        }
+
         private IBaseStauts baseStauts;
 
         private Transform   thisTransform;
@@ -57,6 +63,7 @@ namespace MyAssets
         {
             if(baseStauts.HP <= 0) { return; }
             if (!baseStauts.InvincibilityTimer.IsEnd()) { return; }
+            if(invalid) { return; }
             //ダメージを与える
             int damage = baseStauts.DecreaseAndDeathCheck(power);
             //GameManagerにダメージテキスト出力を依頼

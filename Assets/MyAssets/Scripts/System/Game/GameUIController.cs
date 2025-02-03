@@ -1,6 +1,4 @@
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 namespace MyAssets
 {
@@ -8,6 +6,7 @@ namespace MyAssets
     {
         HP,
         SP,
+        Input,
         TimerCount,
         EnemyCount
     }
@@ -55,9 +54,12 @@ namespace MyAssets
 
         private void Start()
         {
+            //設定する親を取得
             Transform parent = GameCanvas.Instance.UILayer[(int)UILayer.System].transform;
+            //タイマーUIを生成
             timerCountUI = Instantiate(uiData[(int)UITag.TimerCount], parent).GetComponent<TimerCountUI>();
 
+            //敵撃破数UIの生成
             enemyKillCountUI = Instantiate(uiData[(int)UITag.EnemyCount], parent).GetComponent<EnemyKillCountUI>();
             if(GameManager.Instance.ModeTag == ModeTag.Endless)
             {
@@ -70,9 +72,13 @@ namespace MyAssets
             enemyKillCountUI.SetMaxCount(GameModeController.Instance.MaxEnemyCount);
             int count = GameModeController.Instance.AbstractGameMode.CurrentEnemyKillCount;
             enemyKillCountUI.CountRefresh(count);
-
+            //オプション機能生成
             Instantiate(optionSystem);
-
+            //親を再設定
+            parent = GameCanvas.Instance.UILayer[(int)UILayer.Player].transform;
+            //入力UI生成
+            Instantiate(uiData[(int)UITag.Input], parent);
+            //プレイヤーUI生成
             playerUIHandler.Create();
         }
 

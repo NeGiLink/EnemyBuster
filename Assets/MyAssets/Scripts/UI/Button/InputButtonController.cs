@@ -7,7 +7,8 @@ namespace MyAssets
     public enum ButtonSETag
     {
         Select,
-        Decide
+        Decide,
+        Decide2
     }
     public class InputButtonController : MonoBehaviour
     {
@@ -50,7 +51,13 @@ namespace MyAssets
             buttons = b;
             ButtonHover[] h = GetComponentsInChildren<ButtonHover>();
             hovers = h;
+
+
             seHandler = GetComponent<SEHandler>();
+            if(seHandler == null)
+            {
+                seHandler = GetComponentInParent<SEHandler>();
+            }
         }
 
         private void Start()
@@ -124,7 +131,6 @@ namespace MyAssets
                     if (InputUIAction.Instance.Decide)
                     {
                         if(selectIndex < 0) { return; }
-                        seHandler.Play((int)ButtonSETag.Decide);
                         EnumeratorDecide();
                     }
                 }
@@ -174,7 +180,6 @@ namespace MyAssets
             if (InputUIAction.Instance.Decide)
             {
                 EnumeratorDecide();
-                seHandler.Play((int)ButtonSETag.Decide);
             }
         }
 

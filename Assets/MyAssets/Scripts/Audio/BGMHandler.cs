@@ -14,11 +14,15 @@ namespace MyAssets
         private float volum = 1f;
         public void SetVolum(float v) {  volum = v; }
 
+        public void SetAudioVolume(float v) { keepBGMPlayer.SetAudioVolume(v); }
+
         [SerializeField]
         private AudioClip[] audioClips;
 
         [SerializeField]
         private BGMPlayer bgmPlayer;
+
+        private BGMPlayer keepBGMPlayer;
 
         [SerializeField]
         private bool noAwakePlay;
@@ -32,6 +36,8 @@ namespace MyAssets
         private bool waitPlay;
         [SerializeField]
         private float waitCount;
+
+        private bool volumeChange = false;
 
         public void SetLoop(bool b) { loop = b; }
         public void SetWaitPlay(bool w) { waitPlay = w; }
@@ -51,24 +57,24 @@ namespace MyAssets
 
         public void SetPlayer(bool loop,bool wait,float waitCount,bool random)
         {
-            BGMPlayer bgm = Instantiate(bgmPlayer);
-            bgm.SetVolum(volum);
+            keepBGMPlayer = Instantiate(bgmPlayer);
+            keepBGMPlayer.SetVolum(SystemManager.BGMVolume);
             if (random)
             {
-                bgm.SetAudioClip(audioClips[Random.Range(0, audioClips.Length)]);
+                keepBGMPlayer.SetAudioClip(audioClips[Random.Range(0, audioClips.Length)]);
             }
             else
             {
-                bgm.SetAudioClip(audioClips[0]);
+                keepBGMPlayer.SetAudioClip(audioClips[0]);
             }
             if (loop)
             {
-                bgm.SetLoop(loop);
+                keepBGMPlayer.SetLoop(loop);
             }
             if (wait)
             {
-                bgm.SetWaitPlay(wait);
-                bgm.SetWaitCount(waitCount);
+                keepBGMPlayer.SetWaitPlay(wait);
+                keepBGMPlayer.SetWaitCount(waitCount);
             }
             
         }

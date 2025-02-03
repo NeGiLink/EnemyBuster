@@ -44,6 +44,7 @@ namespace MyAssets
         private bool attack;
         public bool Attack => attack;
         private InputAction attackAction;
+        public InputAction AttackAction => attackAction;
         [SerializeField]
         private bool receipt;
         public bool Receipt => receipt;
@@ -56,6 +57,7 @@ namespace MyAssets
         private float foucus;
         public float Foucus => foucus;
         private InputAction foucusAction;
+        public InputAction FoucusAction => foucusAction;
 
         public void Setup()
         {
@@ -104,17 +106,17 @@ namespace MyAssets
             jumpAction = genericInput.FindAction("Player/Jump");
             attackAction = genericInput.FindAction("Player/Attack");
             receiptAction = genericInput.FindAction("Player/Receipt");
-            //foucusAction = genericInput.FindAction("Player/Foucus");
+            foucusAction = genericInput.FindAction("Player/Foucus");
 
             jumpAction.performed += OnJump;
             attackAction.performed += OnAttack;
-            receiptAction.performed += OnReceipt;
+            //receiptAction.performed += OnReceipt;
             //foucusAction.performed += OnFoucus;
 
             jumpAction.Enable();
             attackAction.Enable();
             receiptAction.Enable();
-            //foucusAction.Enable();
+            foucusAction.Enable();
         }
 
         private void OnDisable()
@@ -122,14 +124,14 @@ namespace MyAssets
 
             jumpAction.performed -= OnJump;
             attackAction.performed -= OnAttack;
-            receiptAction.performed -= OnReceipt;
+            //receiptAction.performed -= OnReceipt;
             //foucusAction.performed -= OnFoucus;
 
             // InputAction‚ð–³Œø‚É‚·‚é
             jumpAction.Disable();
             attackAction.Disable();
             receiptAction.Disable();
-            //foucusAction.Disable();
+            foucusAction.Disable();
 
             genericInput.Disable();
         }

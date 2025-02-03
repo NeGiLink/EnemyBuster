@@ -15,8 +15,8 @@ namespace MyAssets
         private Pause pause;
 
         //効果音再生用のコンポーネント
-        //[SerializeField]
-        //private SEHandler seHandler;
+        [SerializeField]
+        private SEHandler seHandler;
 
         private void Awake()
         {
@@ -25,14 +25,12 @@ namespace MyAssets
 
 
 
-            //seHandler = GetComponent<SEHandler>();
+            seHandler = GetComponent<SEHandler>();
             pause = GetComponent<Pause>();
         }
 
         private void Start()
         {
-            //開始時に音を鳴らす。
-            //seHandler.Play((int)ButtonSETag.Select);
 
             //ポーズを有効化する。
             pause.Enable();
@@ -55,9 +53,6 @@ namespace MyAssets
         //メニュー終了処理
         public void Close()
         {
-
-            //効果音の再生
-            //seHandler.Play((int)ButtonSETag.Select);
 
             //オブジェクトの破棄
             Destroy(gameObject);

@@ -38,13 +38,14 @@ namespace MyAssets
         {
             List<ICharacterStateTransition<string>> re = new List<ICharacterStateTransition<string>>();
             if (StateChanger.IsContain(PlayerIdleState.StateKey)) { re.Add(new IsNotMoveTransition(actor, StateChanger, PlayerIdleState.StateKey)); }
+            if (StateChanger.IsContain(BattleMoveState.StateKey)) { re.Add(new IsBattleModeMoveTransition(actor, StateChanger, BattleMoveState.StateKey)); }
+            if (StateChanger.IsContain(BattleIdleState.StateKey)) { re.Add(new IsBattleModeIdleTransition(actor, StateChanger, BattleIdleState.StateKey)); }
             if (StateChanger.IsContain(JumpState.StateKey)) { re.Add(new IsJumpPushTransition(actor, StateChanger, JumpState.StateKey)); }
             if (StateChanger.IsContain(FallState.StateKey)) { re.Add(new IsNotGroundTransition(actor, StateChanger, FallState.StateKey)); }
             if (StateChanger.IsContain(ClimbState.StateKey)) { re.Add(new IsClimbTransition(actor, StateChanger, ClimbState.StateKey)); }
             if (StateChanger.IsContain(FirstAttackState.StateKey)) { re.Add(new IsFirstAttackTransition(actor, StateChanger, FirstAttackState.StateKey)); }
             if (StateChanger.IsContain(WeaponOutState.StateKey)) { re.Add(new IsWeaponOutTransition(actor, StateChanger, WeaponOutState.StateKey)); }
             if (StateChanger.IsContain(WeaponInState.StateKey)) { re.Add(new IsWeaponInTransition(actor, StateChanger, WeaponInState.StateKey)); }
-            if (StateChanger.IsContain(BattleMoveState.StateKey)) { re.Add(new IsBattleModeTransition(actor, StateChanger, BattleMoveState.StateKey)); }
             if (StateChanger.IsContain(PlayerDamageState.StateKey)) { re.Add(new IsDamageTransition(actor, StateChanger, PlayerDamageState.StateKey)); }
             if (StateChanger.IsContain(PlayerDeathState.StateKey)) { re.Add(new IsDeathTransition(actor, StateChanger, PlayerDeathState.StateKey)); }
             return re;
@@ -68,9 +69,11 @@ namespace MyAssets
         public override void DoStart()
         {
             base.DoStart();
-            //cliffJudgment.InitRay();
+            animator.Animator.SetFloat(animator.VelocityX, 0f);
+            animator.Animator.SetFloat(animator.VelocityZ, 0f);
+            animator.Animator.SetFloat(animator.BattleModeName, 0.0f);
 
-            if(focusInputProvider.Foucus > 0)
+            if (focusInputProvider.Foucus > 0)
             {
                 animator.Animator.SetFloat(animator.BattleModeName, 1.0f);
             }

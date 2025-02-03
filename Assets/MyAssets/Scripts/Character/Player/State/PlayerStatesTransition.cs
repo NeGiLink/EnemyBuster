@@ -23,25 +23,53 @@ namespace MyAssets
         public override bool IsTransition() => !input.IsMove;
     }
 
-    public class IsBattleModeTransition : CharacterStateTransitionBase
+    public class IsBattleModeIdleTransition : CharacterStateTransitionBase
     {
         private IFocusInputProvider focusInput;
-        public IsBattleModeTransition(IPlayerSetup character, IStateChanger<string> stateChanger, string changeKey)
+        private readonly IMoveInputProvider input;
+        public IsBattleModeIdleTransition(IPlayerSetup character, IStateChanger<string> stateChanger, string changeKey)
             : base(stateChanger, changeKey)
         {
             focusInput = character.gameObject.GetComponent<IFocusInputProvider>();
+            input = character.MoveInput;
         }
-        public override bool IsTransition() => focusInput.Foucus > 0;
+        public override bool IsTransition() => focusInput.Foucus == 1 && !input.IsMove;
     }
-    public class IsNotBattleModeTransition : CharacterStateTransitionBase
+    public class IsBattleModeMoveTransition : CharacterStateTransitionBase
     {
         private IFocusInputProvider focusInput;
-        public IsNotBattleModeTransition(IPlayerSetup character, IStateChanger<string> stateChanger, string changeKey)
+        private readonly IMoveInputProvider input;
+        public IsBattleModeMoveTransition(IPlayerSetup character, IStateChanger<string> stateChanger, string changeKey)
             : base(stateChanger, changeKey)
         {
             focusInput = character.gameObject.GetComponent<IFocusInputProvider>();
+            input = character.MoveInput;
         }
-        public override bool IsTransition() => focusInput.Foucus < 1;
+        public override bool IsTransition() => focusInput.Foucus == 1 && input.IsMove;
+    }
+    public class IsNotBattleModeMoveTransition : CharacterStateTransitionBase
+    {
+        private IFocusInputProvider focusInput;
+        private readonly IMoveInputProvider input;
+        public IsNotBattleModeMoveTransition(IPlayerSetup character, IStateChanger<string> stateChanger, string changeKey)
+            : base(stateChanger, changeKey)
+        {
+            focusInput = character.gameObject.GetComponent<IFocusInputProvider>();
+            input = character.MoveInput;
+        }
+        public override bool IsTransition() => focusInput.Foucus == 0 && input.IsMove;
+    }
+    public class IsNotBattleModeIdleTransition : CharacterStateTransitionBase
+    {
+        private readonly IFocusInputProvider focusInput;
+        private readonly IMoveInputProvider input;
+        public IsNotBattleModeIdleTransition(IPlayerSetup character, IStateChanger<string> stateChanger, string changeKey)
+            : base(stateChanger, changeKey)
+        {
+            focusInput = character.gameObject.GetComponent<IFocusInputProvider>();
+            input = character.MoveInput;
+        }
+        public override bool IsTransition() => focusInput.Foucus < 1&&!input.IsMove;
     }
 
     /// <summary>
