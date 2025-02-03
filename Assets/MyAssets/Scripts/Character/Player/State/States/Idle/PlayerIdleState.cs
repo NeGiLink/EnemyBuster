@@ -40,7 +40,8 @@ namespace MyAssets
         {
             List<ICharacterStateTransition<string>> re = new List<ICharacterStateTransition<string>>();
             if (StateChanger.IsContain(MoveState.StateKey)) { re.Add(new IsMoveTransition(actor, StateChanger, MoveState.StateKey)); }
-            if (StateChanger.IsContain(BattleIdleState.StateKey)) { re.Add(new IsBattleModeTransition(actor, StateChanger, BattleIdleState.StateKey)); }
+            if (StateChanger.IsContain(BattleIdleState.StateKey)) { re.Add(new IsBattleModeIdleTransition(actor, StateChanger, BattleIdleState.StateKey)); }
+            if (StateChanger.IsContain(BattleMoveState.StateKey)) { re.Add(new IsBattleModeMoveTransition(actor, StateChanger, BattleMoveState.StateKey)); }
             if (StateChanger.IsContain(JumpState.StateKey)) { re.Add(new IsJumpPushTransition(actor, StateChanger, JumpState.StateKey)); }
             if (StateChanger.IsContain(FallState.StateKey)) { re.Add(new IsNotGroundTransition(actor, StateChanger, FallState.StateKey)); }
             if (StateChanger.IsContain(ClimbState.StateKey)) { re.Add(new IsClimbTransition(actor, StateChanger, ClimbState.StateKey)); }
@@ -66,6 +67,14 @@ namespace MyAssets
             fieldOfView = player.gameObject.GetComponent<FieldOfView>();
             equipment = player.gameObject.GetComponent<IEquipment>();
             damageContainer = player.DamageContainer;
+        }
+
+        public override void DoStart()
+        {
+            base.DoStart();
+            animator.Animator.SetFloat(animator.VelocityX, 0f);
+            animator.Animator.SetFloat(animator.VelocityZ, 0f);
+            animator.Animator.SetFloat(animator.BattleModeName, 0.0f);
         }
 
         public override void DoUpdate(float time)

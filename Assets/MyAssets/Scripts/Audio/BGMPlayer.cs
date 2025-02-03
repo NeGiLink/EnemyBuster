@@ -23,6 +23,7 @@ namespace MyAssets
 
         public void SetAudioClip(AudioClip c) { clip = c; }
         public void SetVolum(float v) {  volum = v; }
+        public void SetAudioVolume(float v) { audioSource.volume = v; }
         public void SetLoop(bool b) { loop = b; }
         public void SetWaitPlay(bool w) {  waitPlay = w; }
         public void SetWaitCount(float w) { waitCount = w; }

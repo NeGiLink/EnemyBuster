@@ -20,12 +20,14 @@ namespace MyAssets
 
         public void Play(int num)
         {
+            audioSource.volume = SystemManager.SEVolume;
             audioSource.PlayOneShot(seLedger[num]);
         }
 
         public void OnPlay(int num)
         {
             if (audioSource.isPlaying) { return; }
+            audioSource.volume = SystemManager.SEVolume;
             audioSource.PlayOneShot(seLedger[num]);
         }
 
@@ -37,6 +39,7 @@ namespace MyAssets
                 FootstepSurface surface = hit.collider.GetComponent<FootstepSurface>();
                 if (surface != null)
                 {
+                    audioSource.volume = SystemManager.SEVolume;
                     audioSource.PlayOneShot(footStepSELedger[(int)surface.SurfaceType]);
                 }
             }

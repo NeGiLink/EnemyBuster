@@ -18,6 +18,8 @@ namespace MyAssets
 
         private IPlayerAnimator animator;
 
+        private IDamageContainer damageContainer;
+
         private SEHandler seHandler;
 
         private Timer timer = new Timer();
@@ -51,6 +53,7 @@ namespace MyAssets
             movement = player.Movement;
             rotation = player.Rotation;
             animator = player.PlayerAnimator;
+            damageContainer = player.DamageContainer;
             seHandler = player.SEHandler;
         }
 
@@ -71,6 +74,8 @@ namespace MyAssets
             velocity.CurrentVelocity = Vector3.zero;
 
             timer.Start(0.2f);
+
+            damageContainer.SetValid(true);
 
             rotation.DoUpdate();
         }
@@ -95,6 +100,7 @@ namespace MyAssets
             base.DoExit();
             animator.Animator.SetInteger("Rolling", -1);
             velocity.CurrentVelocity = Vector3.zero;
+            damageContainer.SetValid(false);
         }
     }
 }
