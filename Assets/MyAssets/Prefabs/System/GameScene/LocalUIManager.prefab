@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2593228617754063841}
   - component: {fileID: 8922804421483057582}
-  - component: {fileID: 9158557580036732843}
   m_Layer: 0
   m_Name: LocalUIManager
   m_TagString: Untagged
@@ -49,16 +48,3 @@ MonoBehaviour:
   optionSystem: {fileID: 6995578395413829377, guid: a81442044d51f8e48819fc864db6e07b, type: 3}
   fadeInText: {fileID: 8743944530628993239, guid: 4a385e0a49c060645a0343776e798233, type: 3}
   resultSystem: {fileID: 2669853003333382453, guid: 33ae312b409aaa54785f6106560cc851, type: 3}
---- !u!114 &9158557580036732843
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4675207513113912488}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3be38556d3b28bf4aaddc1173142cd50, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  textMesh: {fileID: 2641850425179345610, guid: 5e947e04cf5906642b9bce093c2e46a2, type: 3}

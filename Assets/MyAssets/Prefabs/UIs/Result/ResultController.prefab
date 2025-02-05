@@ -45,3 +45,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   resultUI: {fileID: 3625592707111793983, guid: 5f2ea49f3e39498418730cc966da7d27, type: 3}
+  gameClearBGM: {fileID: 8300000, guid: 7d62b7c40b397ad41a8b97d53350f880, type: 3}
+  gameOverBGM: {fileID: 8300000, guid: 2490325bf31d1b0448991ea3d0e50bbb, type: 3}

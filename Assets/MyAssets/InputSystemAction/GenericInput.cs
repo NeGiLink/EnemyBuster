@@ -89,6 +89,15 @@ public partial class @GenericInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""ChargeAttack"",
+                    ""type"": ""Button"",
+                    ""id"": ""ee5901f1-e7fe-4673-a667-21717ab98a26"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -342,6 +351,28 @@ public partial class @GenericInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": "";GamePad"",
                     ""action"": ""Look"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c23426ac-583d-478d-a14d-304f97d8926b"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";KeyBoardMouse"",
+                    ""action"": ""ChargeAttack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ebf05eab-ed4b-44ba-a908-1172c0c4b10e"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";GamePad"",
+                    ""action"": ""ChargeAttack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -607,6 +638,7 @@ public partial class @GenericInput: IInputActionCollection2, IDisposable
         m_Player_Attack = m_Player.FindAction("Attack", throwIfNotFound: true);
         m_Player_Receipt = m_Player.FindAction("Receipt", throwIfNotFound: true);
         m_Player_Foucus = m_Player.FindAction("Foucus", throwIfNotFound: true);
+        m_Player_ChargeAttack = m_Player.FindAction("ChargeAttack", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Event = m_UI.FindAction("Event", throwIfNotFound: true);
@@ -687,6 +719,7 @@ public partial class @GenericInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Attack;
     private readonly InputAction m_Player_Receipt;
     private readonly InputAction m_Player_Foucus;
+    private readonly InputAction m_Player_ChargeAttack;
     public struct PlayerActions
     {
         private @GenericInput m_Wrapper;
@@ -698,6 +731,7 @@ public partial class @GenericInput: IInputActionCollection2, IDisposable
         public InputAction @Attack => m_Wrapper.m_Player_Attack;
         public InputAction @Receipt => m_Wrapper.m_Player_Receipt;
         public InputAction @Foucus => m_Wrapper.m_Player_Foucus;
+        public InputAction @ChargeAttack => m_Wrapper.m_Player_ChargeAttack;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -728,6 +762,9 @@ public partial class @GenericInput: IInputActionCollection2, IDisposable
             @Foucus.started += instance.OnFoucus;
             @Foucus.performed += instance.OnFoucus;
             @Foucus.canceled += instance.OnFoucus;
+            @ChargeAttack.started += instance.OnChargeAttack;
+            @ChargeAttack.performed += instance.OnChargeAttack;
+            @ChargeAttack.canceled += instance.OnChargeAttack;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -753,6 +790,9 @@ public partial class @GenericInput: IInputActionCollection2, IDisposable
             @Foucus.started -= instance.OnFoucus;
             @Foucus.performed -= instance.OnFoucus;
             @Foucus.canceled -= instance.OnFoucus;
+            @ChargeAttack.started -= instance.OnChargeAttack;
+            @ChargeAttack.performed -= instance.OnChargeAttack;
+            @ChargeAttack.canceled -= instance.OnChargeAttack;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -867,6 +907,7 @@ public partial class @GenericInput: IInputActionCollection2, IDisposable
         void OnAttack(InputAction.CallbackContext context);
         void OnReceipt(InputAction.CallbackContext context);
         void OnFoucus(InputAction.CallbackContext context);
+        void OnChargeAttack(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

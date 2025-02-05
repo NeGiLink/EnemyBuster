@@ -61,7 +61,7 @@ namespace MyAssets
 
         public void DoStart()
         {
-            cameraTag = CameraTag.Result;
+            cameraTag = mainCameraController.ChangeCameraType.CameraTag;
             usePlayerCamera = allPlayerCamera[(int)cameraTag];
             usePlayerCamera.Start();
         }
@@ -292,7 +292,7 @@ namespace MyAssets
 
             trackedDolly.m_PathPosition = 0;
 
-            mainCameraProvider.VirtualCameras[(int)CameraTag.Result].LookAt = GameObject.FindObjectOfType<StageController>().transform;
+            mainCameraProvider.VirtualCameras[(int)CameraTag.Result].LookAt = GameObject.FindObjectOfType<ResultCameraTarget>().transform;
         }
 
         public void Exit()

@@ -7,6 +7,8 @@ namespace MyAssets
         Title,
         Select,
         Game,
+        Credit,
+        Training,
         Result
     }
     public class GameManager : MonoBehaviour
@@ -14,29 +16,37 @@ namespace MyAssets
         private static GameManager          instance;
         public static GameManager           Instance => instance;
 
-        private PlayerCharacterInput                 playerInput;
+        private PlayerCharacterInput        playerInput;
         private MainCameraController        mainCameraController;
         
         [SerializeField]
-        private StageLedger stageLedger;
-        public StageLedger StageLedger => stageLedger;
+        private StageLedger                 stageLedger;
+        public StageLedger                  StageLedger => stageLedger;
 
         [SerializeField]
-        private GameModeLedger gameModeLedger;
-        public GameModeLedger GameModeLedger => gameModeLedger;
+        private GameModeLedger              gameModeLedger;
+        public GameModeLedger               GameModeLedger => gameModeLedger;
 
-        private int stageCount = 0;
-        public int StageCount => stageCount;
+        [SerializeField]
+        private ModeTag                     modeTag = ModeTag.AllKillEnemy;
+        public ModeTag                      ModeTag => modeTag;
 
-        private SceneList sceneList;
-        public SceneList SceneList => sceneList;
+        [SerializeField]
+        private GameLevel                   gameLevel = GameLevel.Easy;
+        public GameLevel                    GameLevel => gameLevel;
+
+        [SerializeField]
+        private bool                        debug = false;
+        public bool                         Debug => debug;
+
+        private SceneList                   sceneList;
+        public SceneList                    SceneList => sceneList;
+
+
         public void SetSceneList(SceneList scene) {  sceneList = scene; }
-
-
-        [SerializeField]
-        private ModeTag modeTag = ModeTag.AllKillEnemy;
-        public ModeTag ModeTag => modeTag;
         public void SetModeTag(ModeTag tag) {  modeTag = tag; }
+        public void SetGameLevel(GameLevel level) { gameLevel = level; }
+
         //TODO : モードのテキスト出力
         public string GetModeText()
         {
@@ -56,10 +66,6 @@ namespace MyAssets
             return text;
         }
 
-        [SerializeField]
-        private GameLevel gameLevel = GameLevel.Easy;
-        public GameLevel GameLevel => gameLevel;
-        public void SetGameLevel(GameLevel level) { gameLevel = level; }
         //TODO : 難易度のテキスト出力
         public string GetGameLevelText()
         {
@@ -79,9 +85,10 @@ namespace MyAssets
             return text;
         }
 
-        [SerializeField]
-        private bool debug = false;
-        public bool Debug => debug;
+        public void SetDebug(bool d)
+        {
+            debug = d;
+        }
         //メインのゲームの操作を無効にするか有効にするかの関数
         public void ActivatePlayerInput(bool a) 
         {
@@ -101,11 +108,6 @@ namespace MyAssets
 
             playerInput = FindObjectOfType<PlayerCharacterInput>();
             mainCameraController = FindObjectOfType<MainCameraController>();
-        }
-
-        private void Start()
-        {
-            InputManager.SetInputStop(true);
         }
     }
 }

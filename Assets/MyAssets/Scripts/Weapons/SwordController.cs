@@ -3,6 +3,14 @@ using UnityEngine;
 
 namespace MyAssets
 {
+    public enum SwordSEType
+    {
+        Slash1,
+        Slash2,
+        Succession,
+        Hit1,
+        Hit2
+    }
     [RequireComponent(typeof(CapsuleCollider))]
     public class SwordController : MonoBehaviour
     {
@@ -17,8 +25,6 @@ namespace MyAssets
         [SerializeField]
         private new CapsuleCollider collider;
 
-        [SerializeField]
-        private SEHandler seHandler;
 
         //保存用のcenter・radius・height
         private Vector3 center;
@@ -29,10 +35,31 @@ namespace MyAssets
 
         private List<IDamageContainer> damagers = new List<IDamageContainer>();
 
-        private AttackType attackType = AttackType.Single;
-        public void SetAttackType(AttackType type) {  attackType = type; }
+        private AttackType attackType = AttackType.Normal;
+        public void SetAttackType(AttackType type,SwordSEType seType)
+        {
+            attackType = type;
+            attackCount = (int)seType;
+            if(type == AttackType.Normal)
+            {
+                hitCount = (int)SwordSEType.Hit1;
+            }
+            else if(type == AttackType.Charge)
+            {
+                hitCount = (int)SwordSEType.Hit2;
+            }
+        }
+
+        private int attackCount;
+
+        private int hitCount;
 
         private SwordEffectHandler swordEffectHandler;
+
+        private SEHandler seHandler;
+
+        
+        private float ratioPower = 1.0f;
 
         private void Awake()
         {
@@ -73,12 +100,12 @@ namespace MyAssets
 
         public void Slash()
         {
-            seHandler.Play(0);
+            seHandler.Play(attackCount);
         }
 
         public void SpinSlash()
         {
-            seHandler.OnPlay(1);
+            seHandler.OnPlay((int)SwordSEType.Succession);
         }
 
         private void Start()
@@ -116,10 +143,20 @@ namespace MyAssets
             swordEffectHandler.ActivateSlachEffect(false);
             collider.enabled = false;
         }
-        //基礎ダメージと武器のダメージ分
-        private int GetPower()
+
+        public float GetRatioPower()
         {
-            return attackObject.Power + (int)playerSetup.Stauts.BasePower;
+            return ratioPower;
+        }
+        public void SetRatioPower(float r)
+        {
+            ratioPower = r;
+        }
+
+        //基礎ダメージと武器のダメージ分
+        private float GetPower()
+        {
+            return (attackObject.Power + playerSetup.Stauts.BasePower) * GetRatioPower();
         }
 
         private void OnTriggerEnter(Collider other)
@@ -132,13 +169,13 @@ namespace MyAssets
             if (damageContainer == null) { return; }
             if (damageContainer.IsDeath) { return; }
             swordEffectHandler.EffectLedger.SetPosAndRotCreate((int)SwordEffectType.Hit, other.ClosestPoint(transform.position), other.transform.rotation);
-            seHandler.Play(2);
-            damageContainer.GiveDamage(GetPower(), attackObject.KnockBack, attackObject.Type, transform,playerSetup.CharaType);
+            seHandler.Play(hitCount);
+            damageContainer.GiveDamage((int)GetPower(), attackObject.KnockBack, attackObject.Type, transform,playerSetup.CharaType);
         }
 
         private void OnTriggerStay(Collider other)
         {
-            if(attackType == AttackType.Single) { return; }
+            if(attackType != AttackType.Succession) { return; }
             if (other.gameObject.layer != 8) { return; }
             ICharacterSetup characterSetup = other.GetComponentInChildren<ICharacterSetup>();
             if (characterSetup == null) { return; }
@@ -146,8 +183,8 @@ namespace MyAssets
             if (damageContainer == null){return;}
             if (damageContainer.IsDeath) { return; }
             swordEffectHandler.EffectLedger.SetPosAndRotCreate((int)SwordEffectType.Hit, other.ClosestPoint(transform.position),other.transform.rotation);
-            seHandler.Play(2);
-            damageContainer.GiveDamage(GetPower(), attackObject.KnockBack, attackObject.Type, transform, playerSetup.CharaType);
+            seHandler.Play(hitCount);
+            damageContainer.GiveDamage((int)GetPower(), attackObject.KnockBack, attackObject.Type, transform, playerSetup.CharaType);
         }
 
     }

@@ -17,6 +17,8 @@ namespace MyAssets
 
         private SlimeEffectHandler effectHandler;
 
+        private SEHandler seHandler;
+
         private Timer destroyTimer = new Timer();
 
         [SerializeField]
@@ -39,6 +41,7 @@ namespace MyAssets
             animator = slime.SlimeAnimator;
             movement = slime.Movement;
             velocity = slime.Velocity;
+            seHandler = slime.SEHandler;
         }
 
         public override void DoStart()
@@ -48,6 +51,7 @@ namespace MyAssets
             destroyTimer.Start(destroyCount);
             destroyTimer.OnceEnd += DestroyUpdate;
             velocity.DeathCollider();
+            seHandler.Play((int)SlimeSETag.Death);
         }
 
         public override void DoUpdate(float time)

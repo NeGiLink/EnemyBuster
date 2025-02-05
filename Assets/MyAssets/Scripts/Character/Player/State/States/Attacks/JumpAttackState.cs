@@ -37,7 +37,8 @@ namespace MyAssets
         public override void DoStart()
         {
             base.DoStart();
-            sword.SetAttackType(AttackType.Succession);
+            sword.SetAttackType(AttackType.Succession,SwordSEType.Succession);
+            sword.SetRatioPower(0.75f);
         }
 
         public override void DoUpdate(float time)
@@ -50,7 +51,6 @@ namespace MyAssets
         public override void DoFixedUpdate(float time)
         {
             base.DoFixedUpdate(time);
-            //movement.Move(moveSpeed);
             velocity.Rigidbody.velocity += Physics.gravity * jumpAttackGravityMultiply * time;
         }
 
@@ -58,6 +58,7 @@ namespace MyAssets
         {
             base.DoExit();
             sword.NotEnabledCollider();
+            sword.SetRatioPower(1.0f);
         }
     }
 }

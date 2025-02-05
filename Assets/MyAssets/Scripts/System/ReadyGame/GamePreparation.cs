@@ -30,6 +30,7 @@ namespace MyAssets
         private void Start()
         {
             playerCharacterInput.enabled = false;
+            InputManager.SetInputStop(true);
         }
 
         private IEnumerator PreparationCreate()
@@ -37,10 +38,10 @@ namespace MyAssets
             yield return new WaitForSecondsRealtime(3f);
             GameController controller = Instantiate(gameController);
             gameModeController = controller.GetComponent<GameModeController>();
-            spawnEnemy = Instantiate(spawnEnemy);
-            spawnEnemy.SetActive(false);
             gameStartTimer = Instantiate(gameStartTimer);
             gameStartTimer.SetGamePreparation(this);
+            spawnEnemy = Instantiate(spawnEnemy);
+            spawnEnemy.SetActive(false);
         }
 
         public void GameStart()

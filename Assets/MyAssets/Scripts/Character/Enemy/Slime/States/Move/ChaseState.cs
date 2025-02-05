@@ -20,6 +20,8 @@ namespace MyAssets
 
         private ISlimeRotation rotation;
 
+        private SEHandler seHandler;
+
         [SerializeField]
         float moveSpeed = 4;
         [SerializeField]
@@ -59,8 +61,14 @@ namespace MyAssets
             animator = actor.SlimeAnimator;
             damageContainer = actor.DamageContainer;
             rotation = actor.SlimeRotation;
+            seHandler = actor.SEHandler;
         }
 
+        public override void DoUpdate(float time)
+        {
+            base.DoUpdate(time);
+            seHandler.PlayFootstepSound();
+        }
         public override void DoFixedUpdate(float time)
         {
             base.DoFixedUpdate(time);

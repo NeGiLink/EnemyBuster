@@ -12,7 +12,9 @@ namespace MyAssets
         GameObject                      MainCamera { get; }
 
         Transform                       TargetTransform { get; }
+        ChangeCameraType ChangeCameraType { get; }
     }
+    [RequireComponent(typeof(ChangeCameraType))]
     public class MainCameraController : MonoBehaviour, IMainCameraProvider
     {
         //カメラ本体
@@ -32,6 +34,10 @@ namespace MyAssets
         //複数あるカメラを切り替えて処理するクラス
         [SerializeField]
         private AllCameraController             inputControllCamera;
+
+
+        private ChangeCameraType changeCameraType;
+        public ChangeCameraType ChangeCameraType => changeCameraType;
 
         public void ActivateAllCamera(bool a)
         {
@@ -63,6 +69,7 @@ namespace MyAssets
 
             GameObject player = GameObject.FindGameObjectWithTag("Player");
 
+            changeCameraType = GetComponent<ChangeCameraType>();
 
             if(player != null)
             {

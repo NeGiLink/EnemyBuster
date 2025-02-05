@@ -16,7 +16,7 @@ namespace MyAssets
 
         private ISlimeAnimator animator;
 
-        private IDamageContainer damageContainer;
+        private SEHandler seHandler;
 
         [SerializeField]
         private PatrplPointContainer patrplPointContainer;
@@ -50,7 +50,7 @@ namespace MyAssets
             movement = actor.Movement;
             velocity = actor.Velocity;
             animator = actor.SlimeAnimator;
-            damageContainer = actor.DamageContainer;
+            seHandler = actor.SEHandler;
             patrplPointContainer = actor.gameObject.GetComponent<PatrplPointContainer>();
             patrplPointContainer.SetCurrentPoint(GetMinDistancePointIndex());
         }
@@ -60,6 +60,11 @@ namespace MyAssets
             
 
             animator.Animator.SetInteger("Move", 1);
+        }
+        public override void DoUpdate(float time)
+        {
+            base.DoUpdate(time);
+            seHandler.PlayFootstepSound();
         }
 
         public override void DoFixedUpdate(float time)

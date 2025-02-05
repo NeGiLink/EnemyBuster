@@ -98,6 +98,7 @@ namespace MyAssets
             headAttackObject = GetComponentInChildren<BullTankHeadAttackController>();
 
             effectHandler = GetComponent<BullTankEffectHandler>();
+            seHandler = GetComponent<SEHandler>();
 
             animator.DoSetup(this);
             velocity.DoSetup(this);

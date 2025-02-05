@@ -15,49 +15,58 @@ namespace MyAssets
 
         [Header("Aim")]
         [SerializeField]
-        AxisState aimVertical;
-        public AxisState AimVertical => aimVertical;
+        AxisState               aimVertical;
+        public AxisState        AimVertical => aimVertical;
         [SerializeField]
-        AxisState aimHorizontal;
-        public AxisState AimHorizontal => aimHorizontal;
+        AxisState               aimHorizontal;
+        public AxisState        AimHorizontal => aimHorizontal;
 
-        private GenericInput genericInput;
-
-        [SerializeField]
-        private Vector2 move;
-        public bool IsMove => Mathf.Abs(move.x) > 0.1f || Mathf.Abs(move.y) > 0.1f;
-
-        public Vector2 Move => move;
-        public float Horizontal => move.x;
-        public void SetHorizontal(float horizontalRatio) { move.x *= horizontalRatio; }
-        public float Vertical => move.y;
-        public void SetVertical(float verticalRatio) { move.y *= verticalRatio; }
-        [SerializeField]
-        private float dash;
-        public float Dash => dash;
+        private GenericInput    genericInput;
 
         [SerializeField]
-        private bool jump;
-        public bool Jump => jump;
-        private InputAction jumpAction;
+        private Vector2         move;
+        public bool             IsMove => Mathf.Abs(move.x) > 0.1f || Mathf.Abs(move.y) > 0.1f;
+
+        public Vector2          Move => move;
+        public float            Horizontal => move.x;
+        public void             SetHorizontal(float horizontalRatio) { move.x *= horizontalRatio; }
+        public float            Vertical => move.y;
+        public void             SetVertical(float verticalRatio) { move.y *= verticalRatio; }
         [SerializeField]
-        private bool attack;
-        public bool Attack => attack;
-        private InputAction attackAction;
-        public InputAction AttackAction => attackAction;
-        [SerializeField]
-        private bool receipt;
-        public bool Receipt => receipt;
-        private InputAction receiptAction;
-        [SerializeField]
-        private float receipting;
-        public float Receipting => receipting;
+        private float           dash;
+        public float            Dash => dash;
 
         [SerializeField]
-        private float foucus;
-        public float Foucus => foucus;
-        private InputAction foucusAction;
-        public InputAction FoucusAction => foucusAction;
+        private bool            jump;
+        public bool             Jump => jump;
+        private InputAction     jumpAction;
+
+        [SerializeField]
+        private bool            attack;
+        public bool             Attack => attack;
+        private InputAction     attackAction;
+        public InputAction      AttackAction => attackAction;
+
+        [SerializeField]
+        private bool            chargeAttack;
+        public bool             ChargeAttack => chargeAttack;
+        private InputAction     chargeAttackAction;
+        public InputAction      ChargeAttackAction => chargeAttackAction;
+
+
+        [SerializeField]
+        private bool            receipt;
+        public bool             Receipt => receipt;
+        private InputAction     receiptAction;
+        [SerializeField]
+        private float           receipting;
+        public float            Receipting => receipting;
+
+        [SerializeField]
+        private float           foucus;
+        public float            Foucus => foucus;
+        private InputAction     foucusAction;
+        public InputAction      FoucusAction => foucusAction;
 
         public void Setup()
         {
@@ -92,6 +101,15 @@ namespace MyAssets
             dash = genericInput.Player.Dash.ReadValue<float>();
             foucus = genericInput.Player.Foucus.ReadValue<float>();
             receipting = genericInput.Player.Receipt.ReadValue<float>();
+
+            if (chargeAttackAction.WasReleasedThisFrame())
+            {
+                chargeAttack = false;
+            }
+            if (chargeAttackAction.IsPressed())
+            {
+                chargeAttack = true;
+            }
         }
 
         private void OnEnable()
@@ -103,10 +121,11 @@ namespace MyAssets
             // InputAction‚ð—LŒø‚É‚·‚é
             genericInput.Enable();
 
-            jumpAction = genericInput.FindAction("Player/Jump");
-            attackAction = genericInput.FindAction("Player/Attack");
-            receiptAction = genericInput.FindAction("Player/Receipt");
-            foucusAction = genericInput.FindAction("Player/Foucus");
+            jumpAction = genericInput.Player.Jump;
+            attackAction = genericInput.Player.Attack;
+            chargeAttackAction = genericInput.Player.ChargeAttack;
+            receiptAction = genericInput.Player.Receipt;
+            foucusAction = genericInput.Player.Foucus;
 
             jumpAction.performed += OnJump;
             attackAction.performed += OnAttack;
@@ -115,6 +134,7 @@ namespace MyAssets
 
             jumpAction.Enable();
             attackAction.Enable();
+            chargeAttackAction.Enable();
             receiptAction.Enable();
             foucusAction.Enable();
         }
@@ -130,6 +150,7 @@ namespace MyAssets
             // InputAction‚ð–³Œø‚É‚·‚é
             jumpAction.Disable();
             attackAction.Disable();
+            chargeAttackAction.Disable();
             receiptAction.Disable();
             foucusAction.Disable();
 

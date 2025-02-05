@@ -155,7 +155,8 @@ namespace MyAssets
 
         public void RunDestroy()
         {
-
+            effectHandler.EffectLedger.SetPosAndRotCreate((int)MushroomEffectType.Death, transform.position, transform.rotation);
+            Destroy(gameObject);
         }
     }
 }

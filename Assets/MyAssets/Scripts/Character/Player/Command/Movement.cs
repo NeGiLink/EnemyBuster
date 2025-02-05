@@ -1,3 +1,4 @@
+using System.Net;
 using UnityEngine;
 
 namespace MyAssets
@@ -47,6 +48,11 @@ namespace MyAssets
         public void ForwardLerpMove(Vector3 basePos, float dis)
         {
             thisTransform.position = Vector3.Lerp(basePos, basePos + thisTransform.forward * dis, Time.deltaTime * 5.0f);
+        }
+
+        public void TargetLerpMove(Vector3 basePos, Vector3 targetPos, float power)
+        {
+            thisTransform.position = Vector3.Lerp(basePos, targetPos, Time.deltaTime * power);
         }
 
         public void StartClimbStep(Vector3 hitPoint)

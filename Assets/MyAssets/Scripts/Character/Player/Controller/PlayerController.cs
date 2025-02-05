@@ -122,6 +122,14 @@ namespace MyAssets
         [SerializeField]
         private CounterAttackState      counterAttackState;
         [SerializeField]
+        private PlayerChargeAttackStartState chargeAttackStartState;
+        [SerializeField]
+        private PlayerChargingAttackState chargingAttackState;
+        [SerializeField]
+        private PlayerChargeAttackState chargeAttackState;
+        [SerializeField]
+        private PlayerChargeAttackEndState chargeAttackEndState;
+        [SerializeField]
         private GuardState              guardState;
 
         [SerializeField]
@@ -148,12 +156,12 @@ namespace MyAssets
             uIHandler = GetComponent<PlayerUIHandler>();
             effectController = GetComponent<PlayerEffectController>();
             seHandler = GetComponent<SEHandler>();
-
-
             input = GetComponent<IControllerInput>();
             keyInput = input as PlayerCharacterInput;
             weaponController = GetComponent<WeaponController>();
-            property.Setup(this);
+
+
+            property.DoSetup(this);
             animator.DoSetup(this);
             footIK.DoSetup(this);
             changingState.DoSetup(this);
@@ -185,6 +193,10 @@ namespace MyAssets
                 jumpAttackState,
                 jumpAttackLandingState,
                 counterAttackState,
+                chargeAttackStartState,
+                chargingAttackState,
+                chargeAttackState,
+                chargeAttackEndState,
                 guardState,
                 weaponOutState,
                 weaponInState,

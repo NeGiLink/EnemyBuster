@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: SlimeFootStepSELedger
   m_EditorClassIdentifier: 
   values:
-  - {fileID: 8300000, guid: 581c5db9bb2b90f469bf37d3db4b015c, type: 3}
+  - {fileID: 8300000, guid: 3c1908d3fe73e594db7f1a3b194fc286, type: 3}
+  - {fileID: 8300000, guid: 3c1908d3fe73e594db7f1a3b194fc286, type: 3}

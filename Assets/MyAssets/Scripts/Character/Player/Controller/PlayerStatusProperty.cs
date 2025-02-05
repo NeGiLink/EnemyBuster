@@ -7,7 +7,8 @@ namespace MyAssets
     {
         Jump,
         Avoid,
-        Damage
+        Damage,
+        Recovery
     }
 
     [System.Serializable]
@@ -32,7 +33,9 @@ namespace MyAssets
         private int counterAttackUseSP;
         public int CounterAttackUseSP => counterAttackUseSP;
 
-
+        [SerializeField]
+        private int chargeAttackUseSP;
+        public int ChargeAttackUseSP => chargeAttackUseSP;
 
 
 
@@ -43,7 +46,7 @@ namespace MyAssets
 
         private SaveManager saveManager;
 
-        public void Setup(IPlayerSetup actor)
+        public void DoSetup(IPlayerSetup actor)
         {
             playerUIHandler = actor.gameObject.GetComponent<PlayerUIHandler>();
             saveManager = actor.gameObject.GetComponent<SaveManager>();

@@ -30,7 +30,7 @@ namespace MyAssets
         private float radius;
 
 
-        private AttackType attackType = AttackType.Single;
+        private AttackType attackType = AttackType.Normal;
         public void SetAttackType(AttackType type) { attackType = type; }
 
         private IBullTankSetup setup;

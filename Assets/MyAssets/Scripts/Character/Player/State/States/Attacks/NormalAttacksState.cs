@@ -23,7 +23,8 @@ namespace MyAssets
         SecondDer,
         Third,
         JumpAttack,
-        Counter
+        Counter,
+        ChargeAttack
     }
     /// <summary>
     /// プレイヤーの通常時の攻撃をまとめたクラス
@@ -86,8 +87,8 @@ namespace MyAssets
         public override void DoStart()
         {
             base.DoStart();
+            sword.SetAttackType(AttackType.Normal, SwordSEType.Slash1);
             sword.Slash();
-            sword.SetAttackType(AttackType.Single);
             animator.Animator.SetInteger(animator.AttacksName, (int)NormalAttackState.First);
             velocity.Rigidbody.velocity = Vector3.zero;
             baseTransform = transform.position;
@@ -182,8 +183,9 @@ namespace MyAssets
         public override void DoStart()
         {
             base.DoStart();
+            sword.SetAttackType(AttackType.Normal,SwordSEType.Slash1);
             sword.Slash();
-            sword.SetAttackType(AttackType.Single);
+            sword.SetRatioPower(1.2f);
             animator.Animator.SetInteger(animator.AttacksName, (int)NormalAttackState.Second);
             velocity.Rigidbody.velocity = Vector3.zero;
             baseTransform = transform.position;
@@ -220,6 +222,7 @@ namespace MyAssets
             base.DoExit();
             animator.Animator.SetInteger(animator.AttacksName, (int)NormalAttackState.None);
             sword.NotEnabledCollider();
+            sword.SetRatioPower(1.0f);
         }
 
 
@@ -292,8 +295,9 @@ namespace MyAssets
             base.DoStart();
 
             seHandler.Play((int)PlayerSETag.Jump);
+            sword.SetAttackType(AttackType.Normal, SwordSEType.Slash1);
             sword.Slash();
-            sword.SetAttackType(AttackType.Single);
+            sword.SetRatioPower(1.2f);
             animator.Animator.SetInteger(animator.AttacksName, (int)NormalAttackState.SecondDer);
             velocity.Rigidbody.velocity = Vector3.zero;
             baseTransform = transform.position;
@@ -335,6 +339,7 @@ namespace MyAssets
             base.DoExit();
             animator.Animator.SetInteger(animator.AttacksName, (int)NormalAttackState.None);
             sword.NotEnabledCollider();
+            sword.SetRatioPower(1.0f);
         }
 
 
@@ -393,8 +398,9 @@ namespace MyAssets
         public override void DoStart()
         {
             base.DoStart();
+            sword.SetAttackType(AttackType.Normal, SwordSEType.Slash1);
             sword.Slash();
-            sword.SetAttackType(AttackType.Single);
+            sword.SetRatioPower(1.4f);
             animator.Animator.SetInteger(animator.AttacksName, (int)NormalAttackState.Third);
             velocity.Rigidbody.velocity = Vector3.zero;
             baseTransform = transform.position;
@@ -432,6 +438,7 @@ namespace MyAssets
             base.DoExit();
             animator.Animator.SetInteger(animator.AttacksName, (int)NormalAttackState.None);
             sword.NotEnabledCollider();
+            sword.SetRatioPower(1.0f);
         }
 
 

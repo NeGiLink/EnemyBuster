@@ -20,6 +20,7 @@ namespace MyAssets
 
         public void Play(int num)
         {
+            if(audioSource == null) { return; }
             audioSource.volume = SystemManager.SEVolume;
             audioSource.PlayOneShot(seLedger[num]);
         }
@@ -31,6 +32,19 @@ namespace MyAssets
             audioSource.PlayOneShot(seLedger[num]);
         }
 
+        public void OneShotPlayFootstepSound()
+        {
+            RaycastHit hit;
+            if (Physics.Raycast(transform.position, Vector3.down, out hit, 1.0f))
+            {
+                FootstepSurface surface = hit.collider.GetComponent<FootstepSurface>();
+                if (surface != null)
+                {
+                    audioSource.volume = SystemManager.SEVolume;
+                    audioSource.PlayOneShot(footStepSELedger[(int)surface.SurfaceType]);
+                }
+            }
+        }
         public void PlayFootstepSound()
         {
             RaycastHit hit;
@@ -39,6 +53,7 @@ namespace MyAssets
                 FootstepSurface surface = hit.collider.GetComponent<FootstepSurface>();
                 if (surface != null)
                 {
+                    if (audioSource.isPlaying) { return; }
                     audioSource.volume = SystemManager.SEVolume;
                     audioSource.PlayOneShot(footStepSELedger[(int)surface.SurfaceType]);
                 }

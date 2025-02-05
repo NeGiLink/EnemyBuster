@@ -51,7 +51,10 @@ namespace MyAssets
 
             animator.Animator.SetInteger(animator.AttacksName, 1);
 
-            attackObject.SetAttackType(AttackType.Single);
+            attackObject.SetAttackType(AttackType.Normal);
+
+            attackObject.NormalAttackSE();
+
         }
 
         public override void DoUpdate(float time)

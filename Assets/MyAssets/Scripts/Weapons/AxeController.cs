@@ -3,6 +3,11 @@ using UnityEngine;
 
 namespace MyAssets
 {
+    public enum AxeSEType
+    {
+        Single,
+        Damage
+    }
     [RequireComponent(typeof(SphereCollider))]
     public class AxeController : MonoBehaviour
     {
@@ -27,11 +32,12 @@ namespace MyAssets
 
         private List<IDamageContainer> damagers = new List<IDamageContainer>();
 
-        private AttackType attackType = AttackType.Single;
+        private AttackType attackType = AttackType.Normal;
         public void SetAttackType(AttackType type) { attackType = type; }
 
         private SwordEffectHandler swordEffectHandler;
 
+        private SEHandler           seHandler;
         private void Awake()
         {
             attackObject = GetComponent<AttackObject>();
@@ -47,6 +53,8 @@ namespace MyAssets
             collider = GetComponent<SphereCollider>();
 
             swordEffectHandler = GetComponent<SwordEffectHandler>();
+            
+            seHandler = GetComponent<SEHandler>();
 
             center = collider.center;
             radius = collider.radius;
@@ -100,6 +108,11 @@ namespace MyAssets
             collider.enabled = false;
         }
 
+        public void SlashSE()
+        {
+            seHandler.Play((int)AxeSEType.Single);
+        }
+
         //武器ダメとキャラダメを+した値を出力
         private int GetPower()
         {
@@ -124,17 +137,21 @@ namespace MyAssets
                     return;
                 }
             }
+            swordEffectHandler.EffectLedger.SetPosAndRotCreate((int)SwordEffectType.Hit, other.ClosestPoint(transform.position), other.transform.rotation);
+            seHandler.Play((int)AxeSEType.Damage);
             damageContainer.GiveDamage(GetPower(), attackObject.KnockBack, attackObject.Type, transform, setup.CharaType);
         }
 
         private void OnTriggerStay(Collider other)
         {
-            if (attackType == AttackType.Single) { return; }
+            if (attackType == AttackType.Normal) { return; }
             if (other.gameObject.layer != 4) { return; }
             ICharacterSetup characterSetup = other.GetComponentInChildren<ICharacterSetup>();
             if (characterSetup == null) { return; }
             IDamageContainer damageContainer = characterSetup.DamageContainer;
             if (damageContainer == null) { return; }
+            swordEffectHandler.EffectLedger.SetPosAndRotCreate((int)SwordEffectType.Hit, other.ClosestPoint(transform.position), other.transform.rotation);
+            seHandler.Play((int)AxeSEType.Damage);
             damageContainer.GiveDamage(GetPower(), attackObject.KnockBack, attackObject.Type, transform, setup.CharaType);
         }
     }

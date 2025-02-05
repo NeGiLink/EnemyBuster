@@ -1,44 +1,40 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace MyAssets
 {
     public class BGMHandler : MonoBehaviour
     {
-        private static BGMHandler instance;
-        public static BGMHandler Instance => instance;
+        private static BGMHandler   instance;
+        public static BGMHandler    Instance => instance;
 
         [SerializeField]
         [Range(0f, 1f)]
-        private float volum = 1f;
+        private float               volum = 1f;
+
+        [SerializeField]
+        private AudioClip[]         audioClips;
+
+        [SerializeField]
+        private BGMPlayer           bgmPlayer;
+
+        private BGMPlayer           keepBGMPlayer;
+
+        [SerializeField]
+        private bool                noAwakePlay;
+
+        [SerializeField]
+        private bool                randomPlay;
+
+        [SerializeField]
+        private bool                loop;
+        [SerializeField]
+        private bool                waitPlay;
+        [SerializeField]
+        private float               waitCount;
+
         public void SetVolum(float v) {  volum = v; }
 
         public void SetAudioVolume(float v) { keepBGMPlayer.SetAudioVolume(v); }
-
-        [SerializeField]
-        private AudioClip[] audioClips;
-
-        [SerializeField]
-        private BGMPlayer bgmPlayer;
-
-        private BGMPlayer keepBGMPlayer;
-
-        [SerializeField]
-        private bool noAwakePlay;
-
-        [SerializeField]
-        private bool randomPlay;
-
-        [SerializeField]
-        private bool loop;
-        [SerializeField]
-        private bool waitPlay;
-        [SerializeField]
-        private float waitCount;
-
-        private bool volumeChange = false;
-
         public void SetLoop(bool b) { loop = b; }
         public void SetWaitPlay(bool w) { waitPlay = w; }
         public void SetWaitCount(float w) { waitCount = w; }
@@ -46,8 +42,8 @@ namespace MyAssets
         {
             instance = this;
         }
-        // Start is called before the first frame update
-        void Start()
+
+        private void Start()
         {
             if (!noAwakePlay)
             {
@@ -57,7 +53,10 @@ namespace MyAssets
 
         public void SetPlayer(bool loop,bool wait,float waitCount,bool random)
         {
-            keepBGMPlayer = Instantiate(bgmPlayer);
+            if(keepBGMPlayer == null)
+            {
+                keepBGMPlayer = Instantiate(bgmPlayer);
+            }
             keepBGMPlayer.SetVolum(SystemManager.BGMVolume);
             if (random)
             {
@@ -77,6 +76,10 @@ namespace MyAssets
                 keepBGMPlayer.SetWaitCount(waitCount);
             }
             
+        }
+        public void ChangeBGM(AudioClip clip)
+        {
+            keepBGMPlayer.Play(clip);
         }
     }
 }

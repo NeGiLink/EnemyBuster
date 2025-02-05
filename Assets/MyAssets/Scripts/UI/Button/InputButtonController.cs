@@ -14,37 +14,40 @@ namespace MyAssets
     {
         //選択してる場所が分かる画像を有効にするかしないかのフラグ
         [SerializeField]
-        private bool activateSelect = true;
+        private bool            activateSelect = true;
         //ボタン操作が横方向か縦方向か設定するフラグ
         [SerializeField]
-        private bool horizontal;
+        private bool            horizontal;
         //ボタンが複数あるか1つしかないか判定する
-        private bool buttonIsArray = false;
+        private bool            buttonIsArray = false;
+        //画像の大きさに設定するかボタンのサイズに合わせるかのフラグ
         [SerializeField]
-        private bool selectsImage;
+        private bool nativeSize = true;
+        [SerializeField]
+        private bool            selectsImage;
         [SerializeField]
         [Range(0,100)]
-        private int selectImageChangeCount = 0;
+        private int             selectImageChangeCount = 0;
         //選択中の画像
         [SerializeField]
-        private Image selectImage;
+        private Image           selectImage;
         [SerializeField]
-        private Sprite[] selectSprites;
+        private Sprite[]        selectSprites;
         //選択してる要素数
-        private int selectIndex = 0;
+        private int             selectIndex = 0;
         //選択中の画像をボタン横のどれくらいの位置に設置するか
         [SerializeField]
-        private float selectImageOffsetX;
+        private float           selectImageOffsetX;
         [SerializeField]
-        private float selectImageOffsetY = 0;
+        private float           selectImageOffsetY = 0;
         //子オブジェクトにボタン
         [SerializeField]
-        private Button[] buttons;
-        private ButtonHover[] hovers;
+        private Button[]        buttons;
+        private ButtonHover[]   hovers;
         //SE再生用クラス
-        private SEHandler seHandler;
+        private SEHandler       seHandler;
 
-        private bool decideFlag;
+        private bool            decideFlag;
         private void Awake()
         {
             Button[] b = GetComponentsInChildren<Button>();
@@ -99,9 +102,15 @@ namespace MyAssets
                     selectImage.sprite = selectSprites[1];
                 }
             }
+            if (nativeSize)
+            {
+                selectImage.SetNativeSize();
+            }
+            else
+            {
+                selectImage.rectTransform.sizeDelta = hovers[index].RectTransform.sizeDelta;
+            }
             selectImage.rectTransform.localScale = hovers[index].RectTransform.localScale;
-            selectImage.rectTransform.sizeDelta = hovers[index].RectTransform.sizeDelta;
-            selectImage.SetNativeSize();
         }
 
         private void SetActivateSelectImage(bool b)
@@ -110,13 +119,18 @@ namespace MyAssets
         }
         private void Update()
         {
-            MouseInput();
-            GamePadInput();
+            if(InputManager.GetDeviceInput() == DeviceInput.Key)
+            {
+                MouseInput();
+            }
+            else if(InputManager.GetDeviceInput() == DeviceInput.Controller)
+            {
+                GamePadInput();
+            }
         }
 
         private void MouseInput()
         {
-            //int index = 0;
             for(int i = 0; i < hovers.Length; i++)
             {
                 if (hovers[i].IsHovering)
@@ -128,18 +142,12 @@ namespace MyAssets
                     selectIndex = i;
                     SetSelectImagePosition(selectIndex);
                     SetActivateSelectImage(true);
-                    if (InputUIAction.Instance.Decide)
-                    {
-                        if(selectIndex < 0) { return; }
-                        EnumeratorDecide();
-                    }
                 }
             }
         }
 
         private void GamePadInput()
         {
-            if (InputManager.GetDeviceInput() == DeviceInput.Key) { return; }
             float select;
             if (horizontal)
             {

@@ -26,9 +26,13 @@ namespace MyAssets
         private SpawnPoint[] spawnPoint;
 
 
+
+        private ItemCreateMachine itemCreateMachine;
+
         private void Awake()
         {
             spawnPoint = GetComponentsInChildren<SpawnPoint>();
+            itemCreateMachine = FindObjectOfType<ItemCreateMachine>();
         }
 
         public void SetActive(bool a)
@@ -96,6 +100,21 @@ namespace MyAssets
             //ƒJƒEƒ“ƒg
             SpawnCount count = enemy.gameObject.AddComponent<SpawnCount>();
             count.SetSpawnPoint(spawnPoint[spawnIndex]);
+
+            if(itemCreateMachine != null)
+            {
+                count.SetItemCreateMachine(itemCreateMachine);
+            }
+        }
+
+        public void AllEnemyDestroy()
+        {
+            SpawnCount[] spawnEnemys = FindObjectsOfType<SpawnCount>();
+            for (int i = 0; i < spawnEnemys.Length; i++)
+            {
+                Destroy(spawnEnemys[i].gameObject);
+            }
+            Destroy(gameObject);
         }
 
         [SerializeField]
