@@ -61,9 +61,9 @@ namespace MyAssets
         public bool IsGuarid(Transform thistransform,Transform target)
         {
             if (!guard) { return false; }
-            Vector3 ev = thistransform.position - target.position;
-            ev.Normalize();
-            Vector3 worldGuardDirection = target.transform.TransformDirection(guardDirection).normalized;
+            Vector3 ev = (target.position - thistransform.position).normalized;
+
+            Vector3 worldGuardDirection = thistransform.TransformDirection(guardDirection).normalized;
 
             // 内積を計算
             float dotProduct = Vector3.Dot(worldGuardDirection, ev);

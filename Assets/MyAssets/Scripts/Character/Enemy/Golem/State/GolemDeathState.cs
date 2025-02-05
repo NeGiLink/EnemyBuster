@@ -59,7 +59,7 @@ namespace MyAssets
         private void DestroyUpdate()
         {
             effectHandler.EffectLedger.SetPosAndRotCreate(
-                (int)BullTankEffectType.Death,
+                (int)GolemEffectType.Death,
                 thisTransform.position,
                 effectHandler.EffectLedger[(int)BullTankEffectType.Death].transform.rotation);
             thisTransform.gameObject.AddComponent<DestroyCommand>();

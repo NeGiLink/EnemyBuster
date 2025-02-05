@@ -11,9 +11,16 @@ namespace MyAssets
         private int max;
 
         private bool infinite = false;
+
+        private bool noMax = false;
         public void SetInfinite(bool i)
         {
             infinite = i;
+        }
+
+        public void SetNoMax(bool m)
+        {
+            noMax = m;
         }
 
         private void Awake()
@@ -34,6 +41,10 @@ namespace MyAssets
             {
                 text.text = string.Format("{0:00}/Åá", current);
             }
+            else if (noMax)
+            {
+                text.text = "Åá";
+            }
             else
             {
                 text.text = string.Format("{0:00}/{1:00}", current,max);
@@ -42,7 +53,7 @@ namespace MyAssets
 
         public void InfiniteCount(int count)
         {
-
+            text.text = "Åá";
         }
 
         private void Update()

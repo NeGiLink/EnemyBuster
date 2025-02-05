@@ -71,8 +71,9 @@ namespace MyAssets
                 changingState.SetBattleMode(true);
                 animator.Animator.SetFloat(animator.ToolLevel, 1.0f);
             }
+            sword.SetAttackType(AttackType.Normal, SwordSEType.Slash1);
             sword.Slash();
-            sword.SetAttackType(AttackType.Single);
+            sword.SetRatioPower(2.0f);
             animator.Animator.SetInteger(animator.AttacksName, (int)NormalAttackState.Counter);
 
             stauts.DecreaseSP(stauts.CounterAttackUseSP);
@@ -96,21 +97,14 @@ namespace MyAssets
         public override void DoFixedUpdate(float time)
         {
             base.DoFixedUpdate(time);
-            //ForwardMove();
             velocity.Rigidbody.velocity += Physics.gravity * gravityMultiply * time;
         }
-
-        //private void ForwardMove()
-        //{
-        //    AnimatorStateInfo aniInfo = animator.Animator.GetCurrentAnimatorStateInfo(0);
-        //    if (aniInfo.normalizedTime > secondVer1ToTransitionTime) { return; }
-        //    movement.ForwardLerpMove(baseTransform, forwardPower);
-        //}
 
         public override void DoExit()
         {
             base.DoExit();
             sword.NotEnabledCollider();
+            sword.SetRatioPower(1.0f);
             animator.Animator.SetInteger(animator.AttacksName, -1);
         }
     }

@@ -23,6 +23,12 @@ namespace MyAssets
         [SerializeField]
         private int count = 3;
 
+        public void SetTimerCount(float i,int c)
+        {
+            interval = i;
+            count = c;
+        }
+
         private void Awake()
         {
             canvas = FindObjectOfType<Canvas>();

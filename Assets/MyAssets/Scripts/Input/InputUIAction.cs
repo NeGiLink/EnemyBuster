@@ -6,32 +6,32 @@ namespace MyAssets
 {
     public class InputUIAction : MonoBehaviour
     {
-        private static InputUIAction instance;
-        public static InputUIAction Instance => instance;
+        private static InputUIAction    instance;
+        public static InputUIAction     Instance => instance;
 
-        private GenericInput inputActions;
+        private GenericInput            inputActions;
+
         //*選択入力関係*//
-        private InputAction SelectAction;
+        private InputAction             SelectAction;
         [SerializeField]
-        private Vector2 select;
-        public Vector2 Select => select;
+        private Vector2                 select;
+        public Vector2                  Select => select;
+
         //*決定入力関係*//
-        private InputAction decideAction;
+        private InputAction             decideAction;
         [SerializeField]
-        private bool decide;
-        public bool Decide => decide;
+        private bool                    decide;
+        public bool                     Decide => decide;
+
         //*ポーズ入力関係*//
-        private InputAction pauseAciton;
+        private InputAction             pauseAciton;
         [SerializeField]
-        private bool pause;
-        public bool Pause => pause;
+        private bool                    pause;
+        public bool                     Pause => pause;
 
-        private PlayerInput playerInput;
+        private PlayerInput             playerInput;
 
-        public bool IsInputKetBoardAndMouse => playerInput.currentControlScheme == "KeyBoard&Mouse";
-        public bool IsInputGamePad => playerInput.currentControlScheme == "GamePad";
-
-        private string lastControlScheme = "";
+        private string                  lastControlScheme = "";
 
         private void Awake()
         {
@@ -58,8 +58,6 @@ namespace MyAssets
         }
         private void Update()
         {
-            //InputManager.CheckInput();
-
             if (SelectAction.WasReleasedThisFrame())
             {
                 select = Vector2.zero;
@@ -150,7 +148,6 @@ namespace MyAssets
                 if (playerInput.currentControlScheme == "KeyBoardMouse" && lastControlScheme != "KeyBoardMouse")
                 {
                     playerInput.SwitchCurrentControlScheme("KeyBoardMouse", Keyboard.current, Mouse.current);
-                    //playerInput.defaultControlScheme = "KeyBoardMouse";
                     lastControlScheme = "KeyBoardMouse";
                     InputManager.SetDeviceInput(DeviceInput.Key);
                     Debug.Log("キーボード＆マウスを有効化 / ゲームパッドを無効化");
@@ -163,7 +160,6 @@ namespace MyAssets
                 {
 
                     playerInput.SwitchCurrentControlScheme("GamePad", Gamepad.current);
-                    //playerInput.defaultControlScheme = "GamePad";
                     lastControlScheme = "GamePad";
                     InputManager.SetDeviceInput(DeviceInput.Controller);
                     Debug.Log("ゲームパッドを有効化 / キーボード＆マウスを無効化");
@@ -195,29 +191,5 @@ namespace MyAssets
             
         }
 
-    }
-
-    public class InputManager
-    {
-        private static bool inputStop = false;
-
-        public static bool InputStop => inputStop;
-        public static void SetInputStop(bool i) {  inputStop = i; }
-
-        private static DeviceInput deviceInput = DeviceInput.Key;
-        public static void SetDeviceInput(DeviceInput device) { deviceInput = device; }
-        public static DeviceInput GetDeviceInput() { return deviceInput; }
-
-        public static void SetLockCursor()
-        {
-            Cursor.visible = false;
-            Cursor.lockState = CursorLockMode.Locked;
-        }
-
-        public static void SetFreeCursor()
-        {
-            Cursor.visible = true;
-            Cursor.lockState = CursorLockMode.None;
-        }
     }
 }

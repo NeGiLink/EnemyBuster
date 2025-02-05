@@ -7,7 +7,8 @@ namespace MyAssets
     public enum AttackType
     {
         Null,
-        Single,
+        Normal,
+        Charge,
         Succession
     }
 

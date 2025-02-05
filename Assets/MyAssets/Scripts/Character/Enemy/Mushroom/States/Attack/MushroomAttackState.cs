@@ -48,7 +48,7 @@ namespace MyAssets
 
             movement.Stop();
 
-            attackObject.SetAttackType(AttackType.Single);
+            attackObject.SetAttackType(AttackType.Normal);
         }
 
         public override void DoUpdate(float time)

@@ -11,6 +11,9 @@ namespace MyAssets
         private Vector3 rotationRatio = Vector3.zero;
 
         [SerializeField]
+        private bool rect = true;
+
+        [SerializeField]
         private bool rotX;
         [SerializeField]
         private bool rotY;
@@ -22,7 +25,10 @@ namespace MyAssets
 
         private void Awake()
         {
-            rectTransform = GetComponent<RectTransform>();
+            if (rect)
+            {
+                rectTransform = GetComponent<RectTransform>();
+            }
         }
         // Start is called before the first frame update
         void Start()
@@ -44,7 +50,14 @@ namespace MyAssets
         // Update is called once per frame
         private void Update()
         {
-            rectTransform.Rotate(rotationRatio * speed * Time.deltaTime);
+            if (rect)
+            {
+                rectTransform.Rotate(rotationRatio * speed * Time.deltaTime);
+            }
+            else
+            {
+                transform.Rotate(rotationRatio * speed * Time.deltaTime);
+            }
         }
     }
 }

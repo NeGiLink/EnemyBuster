@@ -33,6 +33,7 @@ namespace MyAssets
         int GuardUseSP {  get; }
 
         int CounterAttackUseSP { get; }
+        int ChargeAttackUseSP { get; }
         void DecreaseSP(int s);
         void RecoverySP(int s);
     }

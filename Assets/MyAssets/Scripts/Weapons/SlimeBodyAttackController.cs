@@ -6,6 +6,11 @@ namespace MyAssets
     {
         Hit
     }
+    public enum SlimeBodyAttackSEType
+    {
+        Attack,
+        Hit
+    }
 
     public class SlimeBodyAttackController : MonoBehaviour
     {
@@ -22,6 +27,8 @@ namespace MyAssets
 
         private SmallEnemyEffectHandller effectHandller;
 
+        private SEHandler seHandler;
+
         [SerializeField]
         private LayerMask hitLayer;
 
@@ -32,7 +39,7 @@ namespace MyAssets
 
         private new SphereCollider collider;
 
-        private AttackType attackType = AttackType.Single;
+        private AttackType attackType = AttackType.Normal;
         public void SetAttackType(AttackType type) { attackType = type; }
 
         private void Awake()
@@ -42,6 +49,8 @@ namespace MyAssets
             SlimeController controller = GetComponentInParent<SlimeController>();
             setup = controller.GetComponent<ISlimeSetup>();
             effectHandller = GetComponent<SmallEnemyEffectHandller>();
+
+            seHandler = GetComponent<SEHandler>();
 
             if (controller != null)
             {
@@ -91,6 +100,11 @@ namespace MyAssets
             attackType = AttackType.Null;
         }
 
+        public void NormalAttackSE()
+        {
+            seHandler.Play((int)SlimeBodyAttackSEType.Attack);
+        }
+
         private int GetPower()
         {
             return attackObject.Power + (int)setup.BaseStauts.BasePower;
@@ -114,6 +128,7 @@ namespace MyAssets
                     return;
                 }
             }
+            seHandler.Play((int)SlimeBodyAttackSEType.Hit);
             effectHandller.EffectLedger.SetPosAndRotCreate((int)SlimeBodyAttackEffectType.Hit, other.ClosestPoint(transform.position), transform.rotation);
             damageContainer.GiveDamage(GetPower(), attackObject.KnockBack, attackObject.Type, transform,setup.CharaType);
         }

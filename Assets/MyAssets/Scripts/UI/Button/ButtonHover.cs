@@ -37,6 +37,11 @@ namespace MyAssets
         {
             isHovering = h;
         }
+
+        private void OnDisable()
+        {
+            isHovering = false;
+        }
         /*
         void Update()
         {

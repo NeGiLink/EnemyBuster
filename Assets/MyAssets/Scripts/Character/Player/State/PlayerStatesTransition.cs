@@ -504,6 +504,59 @@ namespace MyAssets
         public override bool IsTransition() => animator.Animator.GetCurrentAnimatorStateInfo(0).IsName(readyJumpAttackName)&&
             animator.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime  >= 1.0f;
     }
+    public class IsPlayerChargeStartTransition : CharacterStateTransitionBase
+    {
+        private readonly IAttackInputProvider attackInputProvider;
+
+
+        public IsPlayerChargeStartTransition(IPlayerSetup chara, IStateChanger<string> stateChanger, string changeKey)
+            : base(stateChanger, changeKey)
+        {
+            attackInputProvider = chara.AttackInput;
+        }
+
+        public override bool IsTransition() => attackInputProvider.ChargeAttack;
+    }
+    public class IsPlayerChargeAttackTransition : CharacterStateTransitionBase
+    {
+        private readonly IAttackInputProvider attackInputProvider;
+
+
+        public IsPlayerChargeAttackTransition(IPlayerSetup chara, IStateChanger<string> stateChanger, string changeKey)
+            : base(stateChanger, changeKey)
+        {
+            attackInputProvider = chara.AttackInput;
+        }
+
+        public override bool IsTransition() => !attackInputProvider.ChargeAttack;
+    }
+
+
+    public class IsPlayerEndMotionTransition : CharacterStateTransitionBase
+    {
+
+        private readonly IPlayerAnimator animator;
+
+        private readonly string motionName;
+
+        public IsPlayerEndMotionTransition(IPlayerSetup chara, string name, IStateChanger<string> stateChanger, string changeKey)
+            : base(stateChanger, changeKey)
+        {
+            animator = chara.PlayerAnimator;
+            motionName = name;
+        }
+
+        private bool AttackMotionEndChecker()
+        {
+            AnimatorStateInfo animInfo = animator.Animator.GetCurrentAnimatorStateInfo(0);
+            if (animInfo.IsName(motionName) && animInfo.normalizedTime >= 1.0f)
+            {
+                return true;
+            }
+            return false;
+        }
+        public override bool IsTransition() => AttackMotionEndChecker();
+    }
 
     public class IsDamageTransition : CharacterStateTransitionBase
     {

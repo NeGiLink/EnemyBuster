@@ -122,7 +122,7 @@ namespace MyAssets
                     color = Color.red;
                     break;
             }
-            GameUIController.Instance.DamageTextCreator.Crate(thisTransform, power,color);
+            DamageTextCreator.Instance.Crate(thisTransform, power,color);
         }
 
         public void Recoil(DamageType type, Transform t)

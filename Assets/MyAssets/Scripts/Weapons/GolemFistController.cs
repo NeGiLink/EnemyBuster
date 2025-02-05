@@ -3,6 +3,13 @@ using UnityEngine;
 
 namespace MyAssets
 {
+    public enum GolemFistSEType
+    {
+        Attack,
+        Stamp,
+        Hit
+    }
+
     [RequireComponent(typeof(SphereCollider))]
     public class GolemFistController : MonoBehaviour
     {
@@ -27,10 +34,12 @@ namespace MyAssets
 
         private List<IDamageContainer> damagers = new List<IDamageContainer>();
 
-        private AttackType attackType = AttackType.Single;
+        private AttackType attackType = AttackType.Normal;
         public void SetAttackType(AttackType type) { attackType = type; }
 
         private SwordEffectHandler swordEffectHandler;
+
+        private SEHandler seHandler;
 
         private void Awake()
         {
@@ -47,6 +56,8 @@ namespace MyAssets
             collider = GetComponent<SphereCollider>();
 
             swordEffectHandler = GetComponent<SwordEffectHandler>();
+
+            seHandler = GetComponent<SEHandler>();
 
             center = collider.center;
             radius = collider.radius;
@@ -100,6 +111,16 @@ namespace MyAssets
             collider.enabled = false;
         }
 
+        public void AttackSE()
+        {
+            seHandler.Play((int)GolemFistSEType.Attack);
+        }
+
+        public void StampSE()
+        {
+            seHandler.Play((int)GolemFistSEType.Stamp);
+        }
+
         private int GetPower()
         {
             return attackObject.Power + (int)setup.BaseStauts.BasePower;
@@ -123,17 +144,19 @@ namespace MyAssets
                     return;
                 }
             }
+            seHandler.Play((int)GolemFistSEType.Hit);
             damageContainer.GiveDamage(GetPower(), attackObject.KnockBack, attackObject.Type, transform, setup.CharaType);
         }
 
         private void OnTriggerStay(Collider other)
         {
-            if (attackType == AttackType.Single) { return; }
+            if (attackType == AttackType.Normal) { return; }
             if (other.gameObject.layer != 4) { return; }
             ICharacterSetup characterSetup = other.GetComponentInChildren<ICharacterSetup>();
             if (characterSetup == null) { return; }
             IDamageContainer damageContainer = characterSetup.DamageContainer;
             if (damageContainer == null) { return; }
+            seHandler.Play((int)GolemFistSEType.Hit);
             damageContainer.GiveDamage(GetPower(), attackObject.KnockBack, attackObject.Type, transform, setup.CharaType);
         }
     }

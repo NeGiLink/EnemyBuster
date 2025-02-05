@@ -31,7 +31,7 @@ namespace MyAssets
 
         [SerializeField]
         private float                   gravityMultiply;
-
+        [SerializeField]
         private float                   effectCount = 1.8f;
 
         public static readonly string   StateKey = "StampAttack";
@@ -62,13 +62,14 @@ namespace MyAssets
             base.DoStart();
             animator.Animator.SetInteger("Attack", 1);
 
-            fist.SetAttackType(AttackType.Single);
+            fist.SetAttackType(AttackType.Normal);
             timer.Start(effectCount);
             timer.OnEnd += ActivationEffect;
         }
 
         private void ActivationEffect()
         {
+            fist.StampSE();
             Vector3 pos = thisTransform.position;
             pos += thisTransform.forward * 2;
             effectHandler.EffectLedger.SetPosAndRotCreate((int)GolemEffectType.GroundImpact, pos, effectHandler.EffectLedger[(int)GolemEffectType.GroundImpact].transform.rotation);

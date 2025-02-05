@@ -25,6 +25,11 @@ namespace MyAssets
         [SerializeField]
         private float gravityMultiply;
 
+        [SerializeField]
+        private float count = 1.8f;
+
+        private Timer timer = new Timer();
+
         public static readonly string StateKey = "Attack";
         public override string Key => StateKey;
 
@@ -52,11 +57,20 @@ namespace MyAssets
             base.DoStart();
             animator.Animator.SetInteger("Attack", 0);
 
-            fist.SetAttackType(AttackType.Single);
+            fist.SetAttackType(AttackType.Normal);
+            timer.Start(count);
+            timer.OnEnd += ActivationSE;
+        }
+
+        private void ActivationSE()
+        {
+            fist.AttackSE();
+            
         }
 
         public override void DoUpdate(float time)
         {
+            timer.Update(time);
             fist.EnabledCollider(attackStartCount, attackEndCount, false);
             base.DoUpdate(time);
         }
@@ -82,6 +96,7 @@ namespace MyAssets
             animator.Animator.SetInteger("Attack", -1);
             movement.Stop();
             fist.NotEnabledCollider();
+            timer.OnEnd -= ActivationSE;
         }
     }
 }

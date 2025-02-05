@@ -3,26 +3,35 @@ using UnityEngine.Events;
 
 namespace MyAssets
 {
+    /*
+     * プレイヤーに指定したポーズを設定するクラス
+     */
     public class PosePlayer : MonoBehaviour
     {
 
-        private Animator animator;
+        private Animator            animator;
 
-        private WeaponController weaponController;
-
-        [SerializeField]
-        private bool battleIdle;
+        private WeaponController    weaponController;
 
         [SerializeField]
-        private bool sitting;
+        private bool                pose;
+
+        [SerializeField]
+        private bool                battleIdle;
+
+        [SerializeField]
+        private bool                idle;
+
+        [SerializeField]
+        private bool                sitting;
 
         // 内部で監視する値
         [SerializeField] 
-        private bool value; 
+        private bool                value; 
         // UnityEventを使用
-        public UnityEvent OnValueChangedToTrue; 
+        public UnityEvent           OnValueChangedToTrue; 
         // Actionを使用
-        public System.Action OnValueChangedToTrueAction; 
+        public System.Action        OnValueChangedToTrueAction; 
 
         public bool Value
         {
@@ -44,8 +53,12 @@ namespace MyAssets
             weaponController = GetComponent<WeaponController>();
         }
 
-        private void Update()
+        private void Start()
         {
+            if (pose)
+            {
+                SetPose();
+            }
             if (battleIdle)
             {
                 SetBattleIdlePose();
@@ -66,6 +79,14 @@ namespace MyAssets
         private void SetSittingPose()
         {
             animator.SetInteger("Pose", 0);
+            weaponController.ShieldTool.ShieldClose();
+            weaponController.SetInWeapon();
+            sitting = false;
+        }
+
+        private void SetPose()
+        {
+            animator.SetTrigger("IdleMotion");
             weaponController.ShieldTool.ShieldClose();
             weaponController.SetInWeapon();
             sitting = false;

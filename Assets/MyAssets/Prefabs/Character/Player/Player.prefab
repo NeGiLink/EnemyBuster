@@ -477,6 +477,7 @@ MonoBehaviour:
     spinAttackUseSP: 150
     guardUseSP: 100
     counterAttackUseSP: 50
+    chargeAttackUseSP: 60
   weaponController: {fileID: 0}
   changingState:
     battleMode: 0
@@ -502,7 +503,7 @@ MonoBehaviour:
     - 0.5
     - -0.1
     cliffDistances:
-    - 0.25
+    - 1
     - 0.25
     climbStart: 0
     targetLayer:
@@ -577,13 +578,28 @@ MonoBehaviour:
     jumpAttackSP: 150
   jumpAttackState:
     jumpAttackGravityMultiply: 1.5
-    moveSpeed: 1
   jumpAttackLandingState:
     LandingActionTime: 0.5
   counterAttackState:
     gravityMultiply: 2
     counterAttackSP: 100
     maxNormalizeCount: 0.5
+  chargeAttackStartState:
+    attacksGravityMultiply: 2
+  chargingAttackState:
+    attacksGravityMultiply: 2
+    count: 3
+  chargeAttackState:
+    attacksGravityMultiply: 2
+    moveTime: 0.6
+    forwardPower: 10
+  chargeAttackEndState:
+    attacksGravityMultiply: 2
+    secondVer1ToTransitionTime: 0
+    secondVer2ToTransitionTime: 0
+    maxNormalizedTime: 0
+    forwardPower: 0
+    moveCount: 0.5
   guardState:
     guardSpeed: 0
     idleGravityMultiply: 2
@@ -642,6 +658,7 @@ MonoBehaviour:
   dash: 0
   jump: 0
   attack: 0
+  chargeAttack: 0
   receipt: 0
   receipting: 0
   foucus: 0
@@ -678,7 +695,7 @@ MonoBehaviour:
   targetLastPoint: {x: 0, y: 0, z: 0}
   refreshTime: 0.1
   range: 10
-  viewAngle: 90
+  viewAngle: 100
   targetObjectLayer:
     serializedVersion: 2
     m_Bits: 512
@@ -1246,7 +1263,13 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2412161367050800168, guid: e8c789881220eea46956c40555ae8e0f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8816511976055286686}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: -1930578328450875381, guid: e8c789881220eea46956c40555ae8e0f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3183652647342998949}
+    - targetCorrespondingSourceObject: {fileID: -4501201811031430588, guid: e8c789881220eea46956c40555ae8e0f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4001476346637353551}
   m_SourcePrefab: {fileID: 100100000, guid: e8c789881220eea46956c40555ae8e0f, type: 3}
 --- !u!4 &456570608915960714 stripped
 Transform:
@@ -1268,6 +1291,28 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8884984920518210719, guid: e8c789881220eea46956c40555ae8e0f, type: 3}
   m_PrefabInstance: {fileID: 2823659621207121826}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &4763280403382689705 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -1930578328450875381, guid: e8c789881220eea46956c40555ae8e0f, type: 3}
+  m_PrefabInstance: {fileID: 2823659621207121826}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3183652647342998949
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4763280403382689705}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ce42747201eece4e8ffad1dc82615b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  raycastDistance: 0.2
+  wasGrounded: 0
 --- !u!4 &4838911823307938409 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7208261743932278219, guid: e8c789881220eea46956c40555ae8e0f, type: 3}
@@ -1278,6 +1323,28 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7829577706673091268, guid: e8c789881220eea46956c40555ae8e0f, type: 3}
   m_PrefabInstance: {fileID: 2823659621207121826}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &7396920195010950630 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -4501201811031430588, guid: e8c789881220eea46956c40555ae8e0f, type: 3}
+  m_PrefabInstance: {fileID: 2823659621207121826}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4001476346637353551
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7396920195010950630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ce42747201eece4e8ffad1dc82615b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  raycastDistance: 0.2
+  wasGrounded: 0
 --- !u!1001 &3912517165707734776
 PrefabInstance:
   m_ObjectHideFlags: 0

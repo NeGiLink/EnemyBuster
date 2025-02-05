@@ -37,6 +37,7 @@ namespace MyAssets
             if (StateChanger.IsContain(PlayerIdleState.StateKey)) { re.Add(new IsNotBattleModeIdleTransition(actor, StateChanger, PlayerIdleState.StateKey)); }
             if (StateChanger.IsContain(GuardState.StateKey)) { re.Add(new IsGuardTransition(actor, StateChanger, GuardState.StateKey)); }
             if (StateChanger.IsContain(FirstAttackState.StateKey)) { re.Add(new IsFirstAttackTransition(actor, StateChanger, FirstAttackState.StateKey)); }
+            if (StateChanger.IsContain(PlayerChargeAttackStartState.StateKey)) { re.Add(new IsPlayerChargeStartTransition(actor, StateChanger, PlayerChargeAttackStartState.StateKey)); }
             if (StateChanger.IsContain(FallState.StateKey)) { re.Add(new IsNotGroundTransition(actor, StateChanger, FallState.StateKey)); }
             if (StateChanger.IsContain(PlayerDamageState.StateKey)) { re.Add(new IsDamageTransition(actor, StateChanger, PlayerDamageState.StateKey)); }
             if (StateChanger.IsContain(PlayerDeathState.StateKey)) { re.Add(new IsDeathTransition(actor, StateChanger, PlayerDeathState.StateKey)); }

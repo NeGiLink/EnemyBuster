@@ -58,5 +58,12 @@ namespace MyAssets
             yield return new WaitForSecondsRealtime(waitCount);
             audioSource.Play();
         }
+
+        public void Play(AudioClip clip)
+        {
+            audioSource.Stop();
+            audioSource.clip = clip;
+            audioSource.Play();
+        }
     }
 }
