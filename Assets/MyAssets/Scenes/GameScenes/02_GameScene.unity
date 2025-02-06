@@ -801,6 +801,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3667963436937609142, guid: 39c6fce0edb1b684082725c825f5cdb5, type: 3}
+      propertyPath: property.rollingUseSP
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 3667963436937609142, guid: 39c6fce0edb1b684082725c825f5cdb5, type: 3}
       propertyPath: chargeAttackState.moveTime
       value: 0.6
       objectReference: {fileID: 0}
@@ -1184,35 +1188,35 @@ PrefabInstance:
       objectReference: {fileID: 2044187117}
     - target: {fileID: 6712745516688638234, guid: 3db2fee5efa4c0f4789696f43ea261e9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.5622651
+      value: -16.53
       objectReference: {fileID: 0}
     - target: {fileID: 6712745516688638234, guid: 3db2fee5efa4c0f4789696f43ea261e9, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.4409425
+      value: 14.56
       objectReference: {fileID: 0}
     - target: {fileID: 6712745516688638234, guid: 3db2fee5efa4c0f4789696f43ea261e9, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 15.700001
+      value: 19.13
       objectReference: {fileID: 0}
     - target: {fileID: 6712745516688638234, guid: 3db2fee5efa4c0f4789696f43ea261e9, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.38941795
       objectReference: {fileID: 0}
     - target: {fileID: 6712745516688638234, guid: 3db2fee5efa4c0f4789696f43ea261e9, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: 0.1344012
       objectReference: {fileID: 0}
     - target: {fileID: 6712745516688638234, guid: 3db2fee5efa4c0f4789696f43ea261e9, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: 0.864805
       objectReference: {fileID: 0}
     - target: {fileID: 6712745516688638234, guid: 3db2fee5efa4c0f4789696f43ea261e9, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0.28705812
       objectReference: {fileID: 0}
     - target: {fileID: 8133770276992622152, guid: 3db2fee5efa4c0f4789696f43ea261e9, type: 3}
       propertyPath: field of view
-      value: 60
+      value: 60.000004
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

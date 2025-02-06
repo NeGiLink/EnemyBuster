@@ -66,7 +66,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackObject: {fileID: 0}
   collider: {fileID: 0}
-  seHandler: {fileID: 0}
 --- !u!114 &8961960310879753999
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -103,9 +102,9 @@ CapsuleCollider:
   m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.2
-  m_Height: 1.2557484
+  m_Height: 2
   m_Direction: 1
-  m_Center: {x: -0.000006392598, y: 0.7402013, z: 0}
+  m_Center: {x: -0.000006392598, y: 0.77583283, z: 0}
 --- !u!82 &9207229305027721599
 AudioSource:
   m_ObjectHideFlags: 0
@@ -215,6 +214,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   seLedger: {fileID: 11400000, guid: a01bab18aa5f88f40a23337f632f0104, type: 2}
+  footStepSELedger: {fileID: 0}
 --- !u!1001 &2594814365462529328
 PrefabInstance:
   m_ObjectHideFlags: 0
