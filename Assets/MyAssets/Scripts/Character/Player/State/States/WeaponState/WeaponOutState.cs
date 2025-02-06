@@ -16,7 +16,8 @@ namespace MyAssets
         public override List<ICharacterStateTransition<string>> CreateTransitionList(IPlayerSetup actor)
         {
             List<ICharacterStateTransition<string>> re = new List<ICharacterStateTransition<string>>();
-            if (StateChanger.IsContain(FirstAttackState.StateKey)) { re.Add(new IsFirstAttackTransition(actor, StateChanger, FirstAttackState.StateKey)); }
+            //if (StateChanger.IsContain(PlayerIdleState.StateKey)) { re.Add(new IsPlayerEndMotionTransition(actor, StateChanger, PlayerIdleState.StateKey)); }
+            if (StateChanger.IsContain(FirstAttackState.StateKey)) { re.Add(new IsWeaponOutFirstAttackTransition(actor, StateChanger, FirstAttackState.StateKey)); }
             if (StateChanger.IsContain(PlayerDamageState.StateKey)) { re.Add(new IsDamageTransition(actor, StateChanger, PlayerDamageState.StateKey)); }
             if (StateChanger.IsContain(PlayerDamageState.StateKey)) { re.Add(new IsDamageTransition(actor, StateChanger, PlayerDamageState.StateKey)); }
             if (StateChanger.IsContain(PlayerDeathState.StateKey)) { re.Add(new IsDeathTransition(actor, StateChanger, PlayerDeathState.StateKey)); }

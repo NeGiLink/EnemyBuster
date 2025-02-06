@@ -25,8 +25,8 @@ namespace MyAssets
 
     public class IsBattleModeIdleTransition : CharacterStateTransitionBase
     {
-        private IFocusInputProvider focusInput;
-        private readonly IMoveInputProvider input;
+        private readonly IFocusInputProvider         focusInput;
+        private readonly IMoveInputProvider         input;
         public IsBattleModeIdleTransition(IPlayerSetup character, IStateChanger<string> stateChanger, string changeKey)
             : base(stateChanger, changeKey)
         {
@@ -37,8 +37,8 @@ namespace MyAssets
     }
     public class IsBattleModeMoveTransition : CharacterStateTransitionBase
     {
-        private IFocusInputProvider focusInput;
-        private readonly IMoveInputProvider input;
+        private readonly IFocusInputProvider         focusInput;
+        private readonly IMoveInputProvider         input;
         public IsBattleModeMoveTransition(IPlayerSetup character, IStateChanger<string> stateChanger, string changeKey)
             : base(stateChanger, changeKey)
         {
@@ -49,8 +49,8 @@ namespace MyAssets
     }
     public class IsNotBattleModeMoveTransition : CharacterStateTransitionBase
     {
-        private IFocusInputProvider focusInput;
-        private readonly IMoveInputProvider input;
+        private readonly IFocusInputProvider            focusInput;
+        private readonly IMoveInputProvider             input;
         public IsNotBattleModeMoveTransition(IPlayerSetup character, IStateChanger<string> stateChanger, string changeKey)
             : base(stateChanger, changeKey)
         {
@@ -61,8 +61,8 @@ namespace MyAssets
     }
     public class IsNotBattleModeIdleTransition : CharacterStateTransitionBase
     {
-        private readonly IFocusInputProvider focusInput;
-        private readonly IMoveInputProvider input;
+        private readonly IFocusInputProvider    focusInput;
+        private readonly IMoveInputProvider     input;
         public IsNotBattleModeIdleTransition(IPlayerSetup character, IStateChanger<string> stateChanger, string changeKey)
             : base(stateChanger, changeKey)
         {
@@ -77,7 +77,7 @@ namespace MyAssets
     /// </summary>
     public class IsTimerAndMoveTransition : CharacterStateTransitionBase
     {
-        private readonly Timer timer;
+        private readonly Timer              timer;
         private readonly IMoveInputProvider input;
         public IsTimerAndMoveTransition(IPlayerSetup actor, Timer _timer, IStateChanger<string> stateChanger, string changeKey)
             : base(stateChanger, changeKey)
@@ -89,7 +89,7 @@ namespace MyAssets
     }
     public class IsTimerAndNotMoveTransition : CharacterStateTransitionBase
     {
-        private readonly Timer timer;
+        private readonly Timer              timer;
         private readonly IMoveInputProvider input;
         public IsTimerAndNotMoveTransition(IPlayerSetup actor, Timer _timer, IStateChanger<string> stateChanger, string changeKey)
             : base(stateChanger, changeKey)
@@ -117,7 +117,7 @@ namespace MyAssets
     public class IsJumpPushTransition : CharacterStateTransitionBase
     {
         private readonly IJumpInputProvider input;
-        private readonly IPlayerAnimator animator;
+        private readonly IPlayerAnimator    animator;
         public IsJumpPushTransition(IPlayerSetup actor, IStateChanger<string> stateChanger, string changeKey)
             : base(stateChanger, changeKey)
         {
@@ -130,7 +130,7 @@ namespace MyAssets
     }
     public class IsNotJumpTransition : CharacterStateTransitionBase
     {
-        private readonly IGroundCheck groundCheck;
+        private readonly IGroundCheck       groundCheck;
 
         private readonly IVelocityComponent velocity;
 
@@ -147,8 +147,8 @@ namespace MyAssets
 
     public class IsJumpToFallTransition : CharacterStateTransitionBase
     {
-        private readonly IPlayerAnimator animator;
-        private readonly IGroundCheck groundCheck;
+        private readonly IPlayerAnimator    animator;
+        private readonly IGroundCheck       groundCheck;
         private readonly IVelocityComponent velocity;
         public IsJumpToFallTransition(IPlayerSetup actor, IStateChanger<string> stateChanger, string changeKey)
             : base(stateChanger, changeKey)
@@ -170,18 +170,21 @@ namespace MyAssets
     {
 
         private readonly IJumpInputProvider input;
+
+        private readonly IPlayerStauts      stauts;
         public IsRollingTransition(IPlayerSetup actor, IStateChanger<string> stateChanger, string changeKey)
             : base(stateChanger, changeKey)
         {
             input = actor.gameObject.GetComponent<IJumpInputProvider>();
+            stauts = actor.Stauts;
         }
-        public override bool IsTransition() => input.Jump;
+        public override bool IsTransition() => input.Jump&&stauts.SP > 0&&stauts.SP > stauts.RollingUseSP;
     }
     public class IsNotRollingTransition : CharacterStateTransitionBase
     {
         private readonly IPlayerAnimator animator;
 
-        private Timer timer;
+        private readonly Timer          timer;
 
         public IsNotRollingTransition(IPlayerSetup actor,Timer t, IStateChanger<string> stateChanger, string changeKey)
             : base(stateChanger, changeKey)
@@ -198,7 +201,7 @@ namespace MyAssets
     /// </summary>
     public class IsGroundTransition : CharacterStateTransitionBase
     {
-        private readonly IGroundCheck groundCheck;
+        private readonly IGroundCheck       groundCheck;
 
         private readonly IVelocityComponent velocity;
         public IsGroundTransition(IPlayerSetup player, IStateChanger<string> stateChanger, string changeKey)
@@ -211,7 +214,7 @@ namespace MyAssets
     }
     public class IsNotGroundTransition : CharacterStateTransitionBase
     {
-        private readonly IGroundCheck groundCheck;
+        private readonly IGroundCheck       groundCheck;
         private readonly IVelocityComponent velocity;
         public IsNotGroundTransition(IPlayerSetup player, IStateChanger<string> stateChanger, string changeKey)
             : base(stateChanger, changeKey)
@@ -227,7 +230,7 @@ namespace MyAssets
     /// </summary>
     public class IsFallVelocityTransition : CharacterStateTransitionBase
     {
-        readonly IVelocityComponent velocity;
+        private readonly IVelocityComponent velocity;
         public IsFallVelocityTransition(IPlayerSetup actor, IStateChanger<string> stateChanger, string changeKey)
             : base(stateChanger, changeKey)
         {
@@ -260,9 +263,9 @@ namespace MyAssets
 
     public class IsFirstAttackTransition : CharacterStateTransitionBase
     {
-        private readonly IAttackInputProvider input;
-        private readonly IChangingState changingState;
-        private readonly IGroundCheck groundCheck;
+        private readonly IAttackInputProvider   input;
+        private readonly IChangingState         changingState;
+        private readonly IGroundCheck           groundCheck;
         public IsFirstAttackTransition(IPlayerSetup actor, IStateChanger<string> stateChanger, string changeKey)
             : base(stateChanger, changeKey)
         {
@@ -272,13 +275,28 @@ namespace MyAssets
         }
         public override bool IsTransition() => input.Attack && changingState.IsBattleMode && groundCheck.Landing;
     }
-    public class IsLoopFirstAttackTransition : CharacterStateTransitionBase
+
+    public class IsWeaponOutFirstAttackTransition : CharacterStateTransitionBase
     {
         private readonly IAttackInputProvider input;
+        private readonly IChangingState changingState;
         private readonly IGroundCheck groundCheck;
-        private readonly IPlayerAnimator animator;
+        public IsWeaponOutFirstAttackTransition(IPlayerSetup actor, IStateChanger<string> stateChanger, string changeKey)
+            : base(stateChanger, changeKey)
+        {
+            input = actor.gameObject.GetComponent<IAttackInputProvider>();
+            changingState = actor.ChangingState;
+            groundCheck = actor.GroundCheck;
+        }
+        public override bool IsTransition() => changingState.IsBattleMode && groundCheck.Landing;
+    }
+    public class IsLoopFirstAttackTransition : CharacterStateTransitionBase
+    {
+        private readonly IAttackInputProvider   input;
+        private readonly IGroundCheck           groundCheck;
+        private readonly IPlayerAnimator        animator;
 
-        private readonly float maxNormalizedTime;
+        private readonly float                  maxNormalizedTime;
         public IsLoopFirstAttackTransition(float _t,IPlayerSetup actor, IStateChanger<string> stateChanger, string changeKey)
             : base(stateChanger, changeKey)
         {
@@ -293,13 +311,13 @@ namespace MyAssets
 
     public class IsBurstAttackTransition : CharacterStateTransitionBase
     {
-        private readonly IAttackInputProvider input;
-        private readonly IGroundCheck groundCheck;
-        private readonly IPlayerAnimator animator;
+        private readonly IAttackInputProvider   input;
+        private readonly IGroundCheck           groundCheck;
+        private readonly IPlayerAnimator        animator;
 
-        private readonly float maxNormalizedTime;
+        private readonly float                  maxNormalizedTime;
 
-        private readonly string motionName;
+        private readonly string                 motionName;
         public IsBurstAttackTransition(string _motionName,float _t, IPlayerSetup actor, IStateChanger<string> stateChanger, string changeKey)
             : base(stateChanger, changeKey)
         {
@@ -317,8 +335,8 @@ namespace MyAssets
 
     public class IsNotAttackTransition : CharacterStateTransitionBase
     {
-        private readonly IAttackInputProvider input;
-        private readonly IPlayerAnimator animator;
+        private readonly IAttackInputProvider   input;
+        private readonly IPlayerAnimator        animator;
 
         private readonly string[] attackMotionNames = new string[]
         {
@@ -354,9 +372,9 @@ namespace MyAssets
 
     public class IsNotAttackToMoveTransition : CharacterStateTransitionBase
     {
-        private readonly IMoveInputProvider moveinput;
-        private readonly IAttackInputProvider input;
-        private readonly IPlayerAnimator animator;
+        private readonly IMoveInputProvider     moveinput;
+        private readonly IAttackInputProvider   input;
+        private readonly IPlayerAnimator        animator;
 
         private readonly string[] attackMotionNames = new string[]
         {
@@ -365,7 +383,7 @@ namespace MyAssets
             "ThirdAttack"
         };
 
-        private readonly float maxNormalizedTime;
+        private readonly float                  maxNormalizedTime;
         public IsNotAttackToMoveTransition(float _t,IPlayerSetup actor, IStateChanger<string> stateChanger, string changeKey)
             : base(stateChanger, changeKey)
         {
@@ -396,8 +414,8 @@ namespace MyAssets
 
     public class IsWeaponOutTransition : CharacterStateTransitionBase
     {
-        private readonly IAttackInputProvider input;
-        private readonly IChangingState changingState;
+        private readonly IAttackInputProvider   input;
+        private readonly IChangingState         changingState;
 
         public IsWeaponOutTransition(IPlayerSetup actor, IStateChanger<string> stateChanger, string changeKey)
             : base(stateChanger, changeKey)
@@ -409,9 +427,9 @@ namespace MyAssets
     }
     public class IsWeaponInTransition : CharacterStateTransitionBase
     {
-        private readonly IToolInputProvider input;
-        private readonly IFocusInputProvider focusInput;
-        private readonly IChangingState changingState;
+        private readonly IToolInputProvider     input;
+        private readonly IFocusInputProvider    focusInput;
+        private readonly IChangingState         changingState;
 
         public IsWeaponInTransition(IPlayerSetup actor, IStateChanger<string> stateChanger, string changeKey)
             : base(stateChanger, changeKey)
@@ -426,10 +444,10 @@ namespace MyAssets
 
     public class IsReadyJumpAttackTransition : CharacterStateTransitionBase
     {
-        private readonly IAttackInputProvider input;
-        private readonly IMoveInputProvider moveInput;
-        private readonly IGroundCheck groundCheck;
-        private readonly IPlayerStauts stauts;
+        private readonly IAttackInputProvider   input;
+        private readonly IMoveInputProvider     moveInput;
+        private readonly IGroundCheck           groundCheck;
+        private readonly IPlayerStauts          stauts;
 
         private readonly int useSP;
 
@@ -447,11 +465,11 @@ namespace MyAssets
     }
     public class IsSecondAttackVer2ToReadyJumpAttackTransition : CharacterStateTransitionBase
     {
-        private readonly IAttackInputProvider input;
-        private readonly IGroundCheck groundCheck;
-        private readonly IPlayerAnimator animator;
+        private readonly IAttackInputProvider   input;
+        private readonly IGroundCheck           groundCheck;
+        private readonly IPlayerAnimator        animator;
 
-        private string motionName;
+        private readonly string                 motionName;
 
         public IsSecondAttackVer2ToReadyJumpAttackTransition(IPlayerSetup actor,string name, IStateChanger<string> stateChanger, string changeKey)
             : base(stateChanger, changeKey)
@@ -467,14 +485,14 @@ namespace MyAssets
 
     public class IsCounterAttackTransition : CharacterStateTransitionBase
     {
-        private readonly IAttackInputProvider input;
-        private readonly IPlayerAnimator animator;
+        private readonly IAttackInputProvider   input;
+        private readonly IPlayerAnimator        animator;
 
-        private readonly string motionName;
+        private readonly string                 motionName;
 
-        private readonly IPlayerStauts stauts;
+        private readonly IPlayerStauts          stauts;
 
-        private readonly int useSP;
+        private readonly int                    useSP;
 
         public IsCounterAttackTransition(IPlayerSetup actor,int usesp, string name, IStateChanger<string> stateChanger, string changeKey)
             : base(stateChanger, changeKey)
@@ -492,9 +510,9 @@ namespace MyAssets
 
     public class IsJumpAttackTransition : CharacterStateTransitionBase
     {
-        private readonly IPlayerAnimator animator;
+        private readonly IPlayerAnimator    animator;
 
-        private readonly string readyJumpAttackName = "JumpAttackPosture";
+        private readonly string             readyJumpAttackName = "JumpAttackPosture";
 
         public IsJumpAttackTransition(IPlayerSetup actor, IStateChanger<string> stateChanger, string changeKey)
             : base(stateChanger, changeKey)
@@ -506,16 +524,19 @@ namespace MyAssets
     }
     public class IsPlayerChargeStartTransition : CharacterStateTransitionBase
     {
-        private readonly IAttackInputProvider attackInputProvider;
+        private readonly IAttackInputProvider   attackInputProvider;
+
+        private readonly IPlayerStauts          stauts;
 
 
         public IsPlayerChargeStartTransition(IPlayerSetup chara, IStateChanger<string> stateChanger, string changeKey)
             : base(stateChanger, changeKey)
         {
             attackInputProvider = chara.AttackInput;
+            stauts = chara.Stauts;
         }
 
-        public override bool IsTransition() => attackInputProvider.ChargeAttack;
+        public override bool IsTransition() => attackInputProvider.ChargeAttack&&stauts.SP > 0&&stauts.SP > stauts.ChargeAttackUseSP;
     }
     public class IsPlayerChargeAttackTransition : CharacterStateTransitionBase
     {
@@ -535,9 +556,9 @@ namespace MyAssets
     public class IsPlayerEndMotionTransition : CharacterStateTransitionBase
     {
 
-        private readonly IPlayerAnimator animator;
+        private readonly IPlayerAnimator    animator;
 
-        private readonly string motionName;
+        private readonly string             motionName;
 
         public IsPlayerEndMotionTransition(IPlayerSetup chara, string name, IStateChanger<string> stateChanger, string changeKey)
             : base(stateChanger, changeKey)
@@ -573,9 +594,9 @@ namespace MyAssets
     public class IsPlayerDamageToGetUpTransition : CharacterStateTransitionBase
     {
 
-        private readonly Timer damageTimer;
+        private readonly Timer              damageTimer;
 
-        private readonly IPlayerAnimator animator;
+        private readonly IPlayerAnimator    animator;
 
         public IsPlayerDamageToGetUpTransition(IPlayerSetup player, Timer t, IStateChanger<string> stateChanger, string changeKey)
             : base(stateChanger, changeKey)
@@ -591,7 +612,7 @@ namespace MyAssets
 
         private readonly IChangingState changingState;
 
-        private readonly Timer damageTimer;
+        private readonly Timer          damageTimer;
 
         public IsNotPlayerDamageToBattleTransition(IPlayerSetup chara,Timer t, IStateChanger<string> stateChanger, string changeKey)
             : base(stateChanger, changeKey)
@@ -606,7 +627,7 @@ namespace MyAssets
 
         private readonly IChangingState changingState;
 
-        private readonly Timer damageTimer;
+        private readonly Timer          damageTimer;
 
         public IsNotPlayerDamageToTransition(IPlayerSetup chara, Timer t, IStateChanger<string> stateChanger, string changeKey)
             : base(stateChanger, changeKey)
@@ -635,13 +656,10 @@ namespace MyAssets
 
         private readonly IGuardTrigger guardTrigger;
 
-        private readonly IPlayerStauts stauts;
-
         public IsGuardTransition(IPlayerSetup chara, IStateChanger<string> stateChanger, string changeKey)
             : base(stateChanger, changeKey)
         {
             guardTrigger = chara.GuardTrigger;
-            stauts = chara.Stauts;
         }
         public override bool IsTransition() => guardTrigger.IsGuard;
     }
@@ -663,9 +681,9 @@ namespace MyAssets
     public class IsEndGuardTransition : CharacterStateTransitionBase
     {
 
-        private readonly IPlayerAnimator animator;
+        private readonly IPlayerAnimator    animator;
 
-        private readonly IGuardTrigger guardTrigger;
+        private readonly IGuardTrigger      guardTrigger;
 
         public IsEndGuardTransition(IPlayerSetup chara, IStateChanger<string> stateChanger, string changeKey)
             : base(stateChanger, changeKey)

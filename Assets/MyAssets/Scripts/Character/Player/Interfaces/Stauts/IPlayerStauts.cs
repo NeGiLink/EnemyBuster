@@ -28,6 +28,8 @@ namespace MyAssets
         int MaxSP { get; }
         int SP {  get; }
 
+        int RollingUseSP { get; }
+
         int SpinAttackUseSP {  get; }
 
         int GuardUseSP {  get; }

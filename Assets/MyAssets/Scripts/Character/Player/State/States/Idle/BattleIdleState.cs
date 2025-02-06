@@ -6,26 +6,26 @@ namespace MyAssets
     [System.Serializable]
     public class BattleIdleState : PlayerStateBase
     {
-        private IPlayerStauts stauts;
+        private IPlayerStauts       stauts;
 
-        private IMoveInputProvider input;
+        private IMoveInputProvider  input;
 
-        private IVelocityComponent velocity;
+        private IVelocityComponent  velocity;
 
-        private IMovement movement;
+        private IMovement           movement;
 
-        private IRotation rotation;
+        private IRotation           rotation;
 
-        private IPlayerAnimator animator;
+        private IPlayerAnimator     animator;
 
-        private IAllIK ik;
+        private IAllIK              ik;
 
-        private FieldOfView fieldOfView;
+        private FieldOfView         fieldOfView;
 
-        private IEquipment equipment;
+        private IEquipment          equipment;
 
         [SerializeField]
-        private float idleGravityMultiply;
+        private float               idleGravityMultiply;
 
         public static readonly string StateKey = "BattleIdle";
         public override string Key => StateKey;
@@ -37,6 +37,8 @@ namespace MyAssets
             if (StateChanger.IsContain(PlayerIdleState.StateKey)) { re.Add(new IsNotBattleModeIdleTransition(actor, StateChanger, PlayerIdleState.StateKey)); }
             if (StateChanger.IsContain(GuardState.StateKey)) { re.Add(new IsGuardTransition(actor, StateChanger, GuardState.StateKey)); }
             if (StateChanger.IsContain(FirstAttackState.StateKey)) { re.Add(new IsFirstAttackTransition(actor, StateChanger, FirstAttackState.StateKey)); }
+            if (StateChanger.IsContain(WeaponOutState.StateKey)) { re.Add(new IsWeaponOutTransition(actor, StateChanger, WeaponOutState.StateKey)); }
+            if (StateChanger.IsContain(WeaponInState.StateKey)) { re.Add(new IsWeaponInTransition(actor, StateChanger, WeaponInState.StateKey)); }
             if (StateChanger.IsContain(PlayerChargeAttackStartState.StateKey)) { re.Add(new IsPlayerChargeStartTransition(actor, StateChanger, PlayerChargeAttackStartState.StateKey)); }
             if (StateChanger.IsContain(FallState.StateKey)) { re.Add(new IsNotGroundTransition(actor, StateChanger, FallState.StateKey)); }
             if (StateChanger.IsContain(PlayerDamageState.StateKey)) { re.Add(new IsDamageTransition(actor, StateChanger, PlayerDamageState.StateKey)); }

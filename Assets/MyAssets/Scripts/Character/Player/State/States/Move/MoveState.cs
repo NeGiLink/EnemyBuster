@@ -91,7 +91,6 @@ namespace MyAssets
 
             animator.UpdateWeight();
 
-            //cliffJudgment.RayCheck();
             stepClimberJudgment.HandleStepClimbing();
             rotation.DoUpdate();
         }

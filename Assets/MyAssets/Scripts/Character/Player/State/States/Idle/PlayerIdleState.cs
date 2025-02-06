@@ -80,7 +80,6 @@ namespace MyAssets
 
         public override void DoUpdate(float time)
         {
-            base.DoUpdate(time);
             AnimationUpdate();
             cliffJudgment.RayCheck();
             rotation.DoUpdate();
@@ -93,6 +92,7 @@ namespace MyAssets
             {
                 stauts.RecoverySP(1);
             }
+            base.DoUpdate(time);
         }
 
         private void AnimationUpdate()

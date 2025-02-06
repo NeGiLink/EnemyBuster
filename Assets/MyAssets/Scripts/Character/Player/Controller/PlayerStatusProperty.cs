@@ -22,6 +22,10 @@ namespace MyAssets
         public int SP => sp;
 
         [SerializeField]
+        private int rollingUseSP;
+        public int RollingUseSP => rollingUseSP;
+
+        [SerializeField]
         private int spinAttackUseSP;
         public int SpinAttackUseSP => spinAttackUseSP;
 
