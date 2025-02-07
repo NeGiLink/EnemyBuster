@@ -1640,6 +1640,10 @@ PrefabInstance:
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 3667963436937609142, guid: 39c6fce0edb1b684082725c825f5cdb5, type: 3}
+      propertyPath: firstAttackState.maxNormalizedTime
+      value: 0.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 3667963436937609142, guid: 39c6fce0edb1b684082725c825f5cdb5, type: 3}
       propertyPath: chargeAttackState.attacksGravityMultiply
       value: 2
       objectReference: {fileID: 0}
@@ -2062,11 +2066,11 @@ PrefabInstance:
       objectReference: {fileID: 2044187117}
     - target: {fileID: 6712745516688638234, guid: 3db2fee5efa4c0f4789696f43ea261e9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.5622651
+      value: 0.062265098
       objectReference: {fileID: 0}
     - target: {fileID: 6712745516688638234, guid: 3db2fee5efa4c0f4789696f43ea261e9, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.4409425
+      value: 2.3909423
       objectReference: {fileID: 0}
     - target: {fileID: 6712745516688638234, guid: 3db2fee5efa4c0f4789696f43ea261e9, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2090,7 +2094,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8133770276992622152, guid: 3db2fee5efa4c0f4789696f43ea261e9, type: 3}
       propertyPath: field of view
-      value: 60
+      value: 60.000004
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

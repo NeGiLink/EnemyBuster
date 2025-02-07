@@ -332,6 +332,33 @@ namespace MyAssets
             animator.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= maxNormalizedTime&&
             animator.Animator.GetCurrentAnimatorStateInfo(0).IsName(motionName);
     }
+    public class IsSecondAttackTransition : CharacterStateTransitionBase
+    {
+        private readonly IAttackInputProvider input;
+        private readonly IGroundCheck groundCheck;
+        private readonly IPlayerAnimator animator;
+
+        private readonly float maxNormalizedTime;
+
+        private readonly float noNormalizedTime;
+
+        private readonly string motionName;
+        public IsSecondAttackTransition(string _motionName, float _t,float _noTime, IPlayerSetup actor, IStateChanger<string> stateChanger, string changeKey)
+            : base(stateChanger, changeKey)
+        {
+            input = actor.gameObject.GetComponent<IAttackInputProvider>();
+            groundCheck = actor.GroundCheck;
+            animator = actor.PlayerAnimator;
+            maxNormalizedTime = _t;
+            noNormalizedTime = _noTime;
+            motionName = _motionName;
+        }
+        public override bool IsTransition() =>
+            input.Attack && groundCheck.Landing &&
+            animator.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= maxNormalizedTime &&
+            animator.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime < noNormalizedTime &&
+            animator.Animator.GetCurrentAnimatorStateInfo(0).IsName(motionName);
+    }
 
     public class IsNotAttackTransition : CharacterStateTransitionBase
     {

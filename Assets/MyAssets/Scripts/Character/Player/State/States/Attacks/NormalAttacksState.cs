@@ -65,7 +65,7 @@ namespace MyAssets
         public override List<ICharacterStateTransition<string>> CreateTransitionList(IPlayerSetup actor)
         {
             List<ICharacterStateTransition<string>> re = new List<ICharacterStateTransition<string>>();
-            if (StateChanger.IsContain(SecondDerivationAttack2State.StateKey)) { re.Add(new IsBurstAttackTransition(currentMotionName, secondVer2ToTransitionTime, actor, StateChanger, SecondDerivationAttack2State.StateKey)); }
+            if (StateChanger.IsContain(SecondDerivationAttack2State.StateKey)) { re.Add(new IsSecondAttackTransition(currentMotionName, secondVer2ToTransitionTime,maxNormalizedTime, actor, StateChanger, SecondDerivationAttack2State.StateKey)); }
             if (StateChanger.IsContain(SecondAttackState.StateKey)) { re.Add(new IsBurstAttackTransition(currentMotionName, secondVer1ToTransitionTime, actor, StateChanger, SecondAttackState.StateKey)); }
             if (StateChanger.IsContain(PlayerIdleState.StateKey)) { re.Add(new IsNotAttackTransition(actor, StateChanger, PlayerIdleState.StateKey)); }
             if (StateChanger.IsContain(MoveState.StateKey)) { re.Add(new IsNotAttackToMoveTransition(maxNormalizedTime, actor, StateChanger, MoveState.StateKey)); }
@@ -378,8 +378,8 @@ namespace MyAssets
         {
             List<ICharacterStateTransition<string>> re = new List<ICharacterStateTransition<string>>();
             if (StateChanger.IsContain(PlayerIdleState.StateKey)) { re.Add(new IsNotAttackTransition(actor, StateChanger, PlayerIdleState.StateKey)); }
-            if (StateChanger.IsContain(MoveState.StateKey)) { re.Add(new IsNotAttackToMoveTransition(maxNormalizedTime, actor, StateChanger, MoveState.StateKey)); }
             if (StateChanger.IsContain(FirstAttackState.StateKey)) { re.Add(new IsLoopFirstAttackTransition(maxNormalizedTime,actor, StateChanger, FirstAttackState.StateKey)); }
+            if (StateChanger.IsContain(MoveState.StateKey)) { re.Add(new IsNotAttackToMoveTransition(maxNormalizedTime, actor, StateChanger, MoveState.StateKey)); }
             if (StateChanger.IsContain(PlayerDamageState.StateKey)) { re.Add(new IsDamageTransition(actor, StateChanger, PlayerDamageState.StateKey)); }
             if (StateChanger.IsContain(PlayerDeathState.StateKey)) { re.Add(new IsDeathTransition(actor, StateChanger, PlayerDeathState.StateKey)); }
             return re;
