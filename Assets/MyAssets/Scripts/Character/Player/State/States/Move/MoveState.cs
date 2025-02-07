@@ -84,6 +84,10 @@ namespace MyAssets
 
         public override void DoUpdate(float time)
         {
+            if (focusInputProvider.Foucus <= 0 && animator.Animator.GetFloat(animator.BattleModeName) > 0.0f)
+            {
+                animator.Animator.SetFloat(animator.BattleModeName, 0.0f);
+            }
             base.DoUpdate(time);
 
             DashUpdate();
@@ -97,6 +101,7 @@ namespace MyAssets
 
         private void DashUpdate()
         {
+            if(focusInputProvider.Foucus > 0) { return; }
             if(stauts.SP > 0 && input.Dash > 0)
             {
                 animator.Animator.SetFloat(animator.DashName, input.Dash, 0.1f, Time.deltaTime);

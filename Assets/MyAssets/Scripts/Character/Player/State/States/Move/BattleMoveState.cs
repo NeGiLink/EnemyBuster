@@ -65,6 +65,7 @@ namespace MyAssets
         public override void DoStart()
         {
             base.DoStart();
+
             animator.Animator.SetFloat(animator.DashName, 0);
 
             animator.Animator.SetFloat(animator.BattleModeName, Define.PressNum);
@@ -80,11 +81,7 @@ namespace MyAssets
 
             animator.UpdateWeight();
 
-            if (stauts.SP > 0 && input.Dash > 0)
-            {
-                stauts.DecreaseSP(1);
-            }
-            else
+            if(stauts.SP < stauts.MaxSP )
             {
                 stauts.RecoverySP(1);
             }
