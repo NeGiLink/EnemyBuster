@@ -50,19 +50,19 @@ namespace MyAssets
             return re;
         }
 
-        public override void DoSetup(IPlayerSetup player)
+        public override void DoSetup(IPlayerSetup actor)
         {
-            base.DoSetup(player);
-            stauts = player.Stauts;
-            movement = player.Movement;
-            velocity = player.Velocity;
+            base.DoSetup(actor);
+            stauts = actor.Stauts;
+            movement = actor.Movement;
+            velocity = actor.Velocity;
             //cliffJudgment = player.ObstacleJudgment;
-            stepClimberJudgment = player.StepClimberJudgment;
-            rotation = player.Rotation;
-            input = player.gameObject.GetComponent<IMoveInputProvider>();
-            focusInputProvider = player.gameObject.GetComponent<IFocusInputProvider>();
-            animator = player.PlayerAnimator;
-            ik = player.FootIK;
+            stepClimberJudgment = actor.StepClimberJudgment;
+            rotation = actor.Rotation;
+            input = actor.gameObject.GetComponent<IMoveInputProvider>();
+            focusInputProvider = actor.gameObject.GetComponent<IFocusInputProvider>();
+            animator = actor.PlayerAnimator;
+            ik = actor.IkController;
         }
 
         public override void DoStart()

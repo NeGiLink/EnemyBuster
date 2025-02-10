@@ -11,7 +11,7 @@ namespace MyAssets
 
         private IPlayerAnimator animator;
 
-        private IChangingState changingState;
+        private IBattleFlagger battleFlagger;
 
         private IEquipment equipment;
 
@@ -33,22 +33,22 @@ namespace MyAssets
             return re;
         }
 
-        public override void DoSetup(IPlayerSetup player)
+        public override void DoSetup(IPlayerSetup actor)
         {
-            base.DoSetup(player);
-            velocity = player.Velocity;
-            rotation = player.Rotation;
-            animator = player.PlayerAnimator;
-            changingState = player.ChangingState;
-            equipment = player.Equipment;
+            base.DoSetup(actor);
+            velocity = actor.Velocity;
+            rotation = actor.Rotation;
+            animator = actor.PlayerAnimator;
+            battleFlagger = actor.BattleFlagger;
+            equipment = actor.Equipment;
         }
         public override void DoStart()
         {
             base.DoStart();
-            if (!changingState.IsBattleMode)
+            if (!battleFlagger.IsBattleMode)
             {
                 equipment.SetOutWeapon();
-                changingState.SetBattleMode(true);
+                battleFlagger.SetBattleMode(true);
                 animator.Animator.SetFloat(animator.ToolLevel, 1.0f);
             }
             animator.Animator.SetInteger("ChargeAttack",0);

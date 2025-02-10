@@ -24,11 +24,11 @@ namespace MyAssets
             return re;
         }
 
-        public override void DoSetup(IPlayerSetup player)
+        public override void DoSetup(IPlayerSetup actor)
         {
-            base.DoSetup(player);
-            animator = player.PlayerAnimator;
-            climb = player.Climb;
+            base.DoSetup(actor);
+            animator = actor.PlayerAnimator;
+            climb = actor.Climb;
         }
 
         public override void DoStart()

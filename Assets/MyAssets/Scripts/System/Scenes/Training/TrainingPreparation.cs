@@ -9,11 +9,11 @@ namespace MyAssets
         private TrainingController trainingController;
 
 
-        private PlayerCharacterInput playerCharacterInput;
+        private PlayerActionInput playerCharacterInput;
 
         private void Awake()
         {
-            playerCharacterInput = FindObjectOfType<PlayerCharacterInput>();
+            playerCharacterInput = FindObjectOfType<PlayerActionInput>();
 
             StartCoroutine(PreparationCreate());
         }

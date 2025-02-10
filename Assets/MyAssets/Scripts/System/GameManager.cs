@@ -16,7 +16,7 @@ namespace MyAssets
         private static GameManager          instance;
         public static GameManager           Instance => instance;
 
-        private PlayerCharacterInput        playerInput;
+        private PlayerActionInput        playerInput;
         private MainCameraController        mainCameraController;
         
         [SerializeField]
@@ -106,7 +106,7 @@ namespace MyAssets
             instance = this;
             DontDestroyOnLoad(gameObject);
 
-            playerInput = FindObjectOfType<PlayerCharacterInput>();
+            playerInput = FindObjectOfType<PlayerActionInput>();
             mainCameraController = FindObjectOfType<MainCameraController>();
         }
     }

@@ -3,7 +3,9 @@ using UnityEngine;
 
 namespace MyAssets
 {
-
+    /*
+     * プレイヤーの制御を行うクラス
+     */
     public class PlayerController : CharacterBaseController,IPlayerSetup
     {
         [SerializeField]
@@ -20,7 +22,7 @@ namespace MyAssets
 
         private IControllerInput        input;
 
-        private PlayerCharacterInput             keyInput;
+        private PlayerActionInput       keyInput;
         public IMoveInputProvider       MoveInput => keyInput;
         public IAttackInputProvider     AttackInput => keyInput;
         public IToolInputProvider       ToolInput => keyInput;
@@ -30,19 +32,19 @@ namespace MyAssets
 
         private PlayerEffectController  effectController;
 
-        public PlayerEffectController EffectController => effectController;
+        public PlayerEffectController   EffectController => effectController;
 
         [SerializeField]
-        private ChangingState           changingState;
-        public IChangingState           ChangingState => changingState;
+        private ChangingState           battleFlagger;
+        public  IBattleFlagger          BattleFlagger => battleFlagger;
 
         [SerializeField]
-        private GuardTrigger guardTrigger;
-        public IGuardTrigger GuardTrigger => guardTrigger;
+        private GuardTrigger            guardTrigger;
+        public IGuardTrigger            GuardTrigger => guardTrigger;
 
         [SerializeField]
-        private IKController            footIK;
-        public IAllIK                   FootIK => footIK;
+        private IKController            ikController;
+        public  IAllIK                  IkController => ikController;
 
 
         [SerializeField]
@@ -59,8 +61,8 @@ namespace MyAssets
         private PlayerAnimator          animator;
         public IPlayerAnimator          PlayerAnimator => animator;
 
-        private SEHandler seHandler;
-        public SEHandler SEHandler => seHandler;
+        private SEHandler               seHandler;
+        public SEHandler                SEHandler => seHandler;
 
         [SerializeField]
         private StateMachine<string>    stateMachine;
@@ -157,14 +159,14 @@ namespace MyAssets
             effectController = GetComponent<PlayerEffectController>();
             seHandler = GetComponent<SEHandler>();
             input = GetComponent<IControllerInput>();
-            keyInput = input as PlayerCharacterInput;
+            keyInput = input as PlayerActionInput;
             weaponController = GetComponent<WeaponController>();
 
 
             property.DoSetup(this);
             animator.DoSetup(this);
-            footIK.DoSetup(this);
-            changingState.DoSetup(this);
+            ikController.DoSetup(this);
+            battleFlagger.DoSetup(this);
             velocity.DoSetup(this);
             movement.DoSetup(this);
             damageContainer.DoSetup(this);

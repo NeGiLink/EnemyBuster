@@ -22,8 +22,8 @@ namespace MyAssets
         private Quaternion qua;
         private void Awake()
         {
-            IPlayerSetup controller = GetComponent<IPlayerSetup>();
-            animator = controller.PlayerAnimator;
+            IPlayerSetup actor = GetComponent<IPlayerSetup>();
+            animator = actor.PlayerAnimator;
         }
         // Start is called before the first frame update
         void Start()

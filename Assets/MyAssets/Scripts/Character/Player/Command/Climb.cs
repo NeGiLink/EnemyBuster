@@ -29,11 +29,11 @@ namespace MyAssets
         public bool IsClimbEnd => climbEnd;
 
         private IPlayerAnimator animator;
-        public void DoSetup(IPlayerSetup player)
+        public void DoSetup(IPlayerSetup actor)
         {
-            thisTransform = player.gameObject.transform;
-            velocity = player.Velocity;
-            animator = player.PlayerAnimator;
+            thisTransform = actor.gameObject.transform;
+            velocity = actor.Velocity;
+            animator = actor.PlayerAnimator;
         }
 
         public void DoClimbStart()

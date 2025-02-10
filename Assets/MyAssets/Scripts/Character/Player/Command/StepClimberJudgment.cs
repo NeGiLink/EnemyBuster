@@ -33,9 +33,9 @@ namespace MyAssets
         // 現在の値（範囲内で増減する値）
         private float currentValue;
 
-        public void DoSetup(IPlayerSetup player)
+        public void DoSetup(IPlayerSetup actor)
         {
-            thisTransform = player.gameObject.transform;
+            thisTransform = actor.gameObject.transform;
         }
 
 

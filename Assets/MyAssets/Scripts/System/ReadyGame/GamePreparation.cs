@@ -18,11 +18,11 @@ namespace MyAssets
         [SerializeField]
         private GameStartTimer gameStartTimer;
 
-        private PlayerCharacterInput playerCharacterInput;
+        private PlayerActionInput playerCharacterInput;
 
         private void Awake()
         {
-            playerCharacterInput = FindObjectOfType<PlayerCharacterInput>();
+            playerCharacterInput = FindObjectOfType<PlayerActionInput>();
 
             StartCoroutine(PreparationCreate());
         }

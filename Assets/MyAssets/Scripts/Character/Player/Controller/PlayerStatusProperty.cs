@@ -11,44 +11,48 @@ namespace MyAssets
         Recovery
     }
 
+    /*
+     * プレイヤーのステータスをまとめたクラス
+     * PlayerControllerにSerializableを行っている
+     */
     [System.Serializable]
     public class PlayerStatusProperty : BaseStautsProperty,IPlayerStauts
     {
         [SerializeField]
-        private int maxSp;
-        public int MaxSP => maxSp;
+        private int             maxSp;
+        public int              MaxSP => maxSp;
         [SerializeField]
-        private int sp;
-        public int SP => sp;
-
-        [SerializeField]
-        private int rollingUseSP;
-        public int RollingUseSP => rollingUseSP;
+        private int             sp;
+        public int              SP => sp;
 
         [SerializeField]
-        private int spinAttackUseSP;
-        public int SpinAttackUseSP => spinAttackUseSP;
+        private int             rollingUseSP;
+        public int              RollingUseSP => rollingUseSP;
 
         [SerializeField]
-        private int guardUseSP;
-        public int GuardUseSP => guardUseSP;
+        private int             spinAttackUseSP;
+        public int              SpinAttackUseSP => spinAttackUseSP;
 
         [SerializeField]
-        private int counterAttackUseSP;
-        public int CounterAttackUseSP => counterAttackUseSP;
+        private int             guardUseSP;
+        public int              GuardUseSP => guardUseSP;
 
         [SerializeField]
-        private int chargeAttackUseSP;
-        public int ChargeAttackUseSP => chargeAttackUseSP;
+        private int             counterAttackUseSP;
+        public int              CounterAttackUseSP => counterAttackUseSP;
+
+        [SerializeField]
+        private int             chargeAttackUseSP;
+        public int              ChargeAttackUseSP => chargeAttackUseSP;
 
 
 
-        private Timer spRecoveryCoolDown = new Timer();
+        private Timer           spRecoveryCoolDown = new Timer();
 
         //canvasにプレイヤーのステータス(HP、SP)のUIを表示するための宣言
         private PlayerUIHandler playerUIHandler;
 
-        private SaveManager saveManager;
+        private SaveManager     saveManager;
 
         public void DoSetup(IPlayerSetup actor)
         {
@@ -63,7 +67,10 @@ namespace MyAssets
             sp = maxSp;
             saveManager.MyDestory();
         }
-
+        /*
+         * ゲーム開始時にセレクト画面で設定しているステータスを
+         * 追加
+         */
         private void SetStatus()
         {
             List<SaveStatusData> datas = saveManager.LoadGame();

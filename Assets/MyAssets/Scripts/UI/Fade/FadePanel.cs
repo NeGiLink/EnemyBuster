@@ -1,18 +1,22 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace MyAssets
 {
+    /*
+     * フェードパネルにアタッチして
+     * SceneChangerのフラグよって遷移を行う
+     * 画面のフェード演出を行うクラス
+     */
     public class FadePanel : MonoBehaviour
     {
-        private Image panel;
+        private Image   panel;
 
         [SerializeField]
-        private float speed = 1.0f;
+        private float   speed = 1.0f;
         [SerializeField]
-        private float targetAlpha = 0.0f;
+        private float   targetAlpha = 0.0f;
 
         public void SetTargetAlpha(float alpha) { targetAlpha = alpha; }
 
@@ -34,17 +38,18 @@ namespace MyAssets
 
             StartCoroutine(FadeStart());
         }
-
+        //非同期フェード開始
         private IEnumerator FadeStart()
         {
             // フェードイン
             yield return StartCoroutine(Fade(targetAlpha));
-
+            //遷移フラグがtrueなら遷移
             if (SceneChanger.Instance != null&&SceneChanger.Instance.IsTransitioning)
             {
                 SceneChanger.Instance.OnChangeScene();
                 SceneChanger.Instance.SetTransitioning(false);
             }
+            //そうじゃないなら破壊
             else
             {
                 Destroy(gameObject);

@@ -52,15 +52,15 @@ namespace MyAssets
             return re;
         }
 
-        public override void DoSetup(IPlayerSetup player)
+        public override void DoSetup(IPlayerSetup actor)
         {
-            base.DoSetup(player);
-            velocity = player.Velocity;
-            movement = player.Movement;
-            animator = player.PlayerAnimator;
-            transform = player.gameObject.transform;
-            fieldOfView = player.FieldOfView;
-            sword = player.Equipment.HaveWeapon.GetComponent<SwordController>();
+            base.DoSetup(actor);
+            velocity = actor.Velocity;
+            movement = actor.Movement;
+            animator = actor.PlayerAnimator;
+            transform = actor.gameObject.transform;
+            fieldOfView = actor.FieldOfView;
+            sword = actor.Equipment.HaveWeapon.GetComponent<SwordController>();
         }
         public override void DoStart()
         {

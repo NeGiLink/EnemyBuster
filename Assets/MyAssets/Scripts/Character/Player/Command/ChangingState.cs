@@ -3,7 +3,7 @@ using UnityEngine;
 namespace MyAssets
 {
     [System.Serializable]
-    public class ChangingState : IChangingState,ICharacterComponent<IPlayerSetup>
+    public class ChangingState : IBattleFlagger,ICharacterComponent<IPlayerSetup>
     {
         [SerializeField]
         private bool battleMode = false;
@@ -11,6 +11,6 @@ namespace MyAssets
 
         public void SetBattleMode(bool b) { battleMode = b; }
 
-        public void DoSetup(IPlayerSetup player){}
+        public void DoSetup(IPlayerSetup actor){}
     }
 }

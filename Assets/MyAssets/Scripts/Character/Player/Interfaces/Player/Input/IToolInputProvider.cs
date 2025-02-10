@@ -2,11 +2,14 @@
 
 namespace MyAssets
 {
+    /*
+     * 武器を装備、収納しているかフラグをまとめたインターフェース
+     */
     public interface IToolInputProvider
     {
-        bool Receipt { get; }
+        bool WeaponEquipment { get; }
 
-        float Receipting {  get; }
+        float Equipmenting {  get; }
 
     }
 
