@@ -3,25 +3,24 @@ using UnityEngine;
 
 namespace MyAssets
 {
+    /*
+     * ƒS[ƒŒƒ€‚Ì‘Ò‹@ó‘Ô
+     */
     [System.Serializable]
     public class GolemIdleState : GolemStateBase
     {
-        private IMovement movement;
+        private IMovement               movement;
 
-        private Timer idleTimer = new Timer();
+        private Timer                   idleTimer = new Timer();
 
-        private IDamageContainer damageContainer;
-
-        private IBaseStauts stauts;
-
-        public static readonly string StateKey = "Idle";
-        public override string Key => StateKey;
+        public static readonly string   StateKey = "Idle";
+        public override string          Key => StateKey;
 
         [SerializeField]
-        private float idleSpeed;
+        private float                   idleSpeed;
 
         [SerializeField]
-        private float idleCount;
+        private float                   idleCount;
 
         public override List<ICharacterStateTransition<string>> CreateTransitionList(IGolemSetup actor)
         {
@@ -35,8 +34,6 @@ namespace MyAssets
         {
             base.DoSetup(actor);
             movement = actor.Movement;
-            damageContainer = actor.DamageContainer;
-            stauts = actor.BaseStauts;
         }
 
         public override void DoStart()

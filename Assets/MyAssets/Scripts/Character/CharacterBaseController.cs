@@ -8,27 +8,29 @@ namespace MyAssets
         Player,
         Enemy
     }
-
+    /*
+     * 全キャラクターに継承するベースクラス
+     */
     public class CharacterBaseController : MonoBehaviour
     {
         [SerializeField]
-        protected VelocityComponent velocity;
+        protected VelocityComponent     velocity;
 
-        public IVelocityComponent Velocity => velocity;
-
-        [SerializeField]
-        protected DamageContainer damageContainer;
-        public IDamageContainer DamageContainer => damageContainer;
+        public IVelocityComponent       Velocity => velocity;
 
         [SerializeField]
-        protected Damagement damagement;
-        public IDamagement Damagement => damagement;
+        protected DamageContainer       damageContainer;
+        public IDamageContainer         DamageContainer => damageContainer;
 
         [SerializeField]
-        protected GroundCheck groundCheck;
-        public IGroundCheck GroundCheck => groundCheck;
+        protected Damagement            damagement;
+        public IDamagement              Damagement => damagement;
 
-        public virtual CharacterType CharaType => CharacterType.Null;
+        [SerializeField]
+        protected GroundCheck           groundCheck;
+        public IGroundCheck             GroundCheck => groundCheck;
+
+        public virtual CharacterType    CharaType => CharacterType.Null;
 
         protected virtual void Awake()
         {

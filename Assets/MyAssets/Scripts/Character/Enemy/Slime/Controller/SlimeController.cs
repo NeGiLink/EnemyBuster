@@ -2,6 +2,9 @@ using UnityEngine;
 
 namespace MyAssets
 {
+    /*
+     * スライムの制御クラス
+     */
     public class SlimeController : CharacterBaseController,ISlimeSetup
     {
         [SerializeField]
@@ -26,17 +29,17 @@ namespace MyAssets
         public ISlimeAnimator               SlimeAnimator => animator;
 
         private FieldOfView                 fieldOfView;
-        public IFieldOfView FieldOfView =>  fieldOfView;
+        public IFieldOfView                 FieldOfView =>  fieldOfView;
 
         [SerializeField]
-        private GuardTrigger guardTrigger;
-        public IGuardTrigger GuardTrigger => guardTrigger;
+        private GuardTrigger                guardTrigger;
+        public IGuardTrigger                GuardTrigger => guardTrigger;
 
         private SlimeEffectHandler          effectHandler;
         public SlimeEffectHandler           EffectHandler => effectHandler;
 
-        private SEHandler seHandler;
-        public SEHandler SEHandler => seHandler;
+        private SEHandler                   seHandler;
+        public SEHandler                    SEHandler => seHandler;
 
         [SerializeField]
         private SlimeBodyAttackController   attackObject;
@@ -74,7 +77,7 @@ namespace MyAssets
         ISlimeState<string>[]               states;
 
 
-        public override CharacterType CharaType => CharacterType.Enemy;
+        public override CharacterType       CharaType => CharacterType.Enemy;
         protected override void Awake()
         {
             fieldOfView = GetComponent<FieldOfView>();

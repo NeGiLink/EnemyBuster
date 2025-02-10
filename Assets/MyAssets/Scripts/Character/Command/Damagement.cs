@@ -1,20 +1,19 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace MyAssets
 {
+    /*
+     * ダメージを受けた時にノックバックを与える処理を行うクラスです。
+     */
     [System.Serializable]
     public class Damagement : IDamagement,ICharacterComponent<ICharacterSetup>
     {
-        private Transform thisTransform;
 
         private IVelocityComponent velocity;
 
 
         public void DoSetup(ICharacterSetup chara)
         {
-            thisTransform = chara.gameObject.transform;
             velocity = chara.Velocity;
         }
 

@@ -9,16 +9,16 @@ namespace MyAssets
     public class GamePreparation : MonoBehaviour
     {
         [SerializeField]
-        private GameController gameController;
-        private GameModeController gameModeController;
+        private GameController      gameController;
+        private GameModeController  gameModeController;
 
         [SerializeField]
-        private SpawnEnemy spawnEnemy;
+        private SpawnEnemy          spawnEnemy;
 
         [SerializeField]
-        private GameStartTimer gameStartTimer;
+        private GameStartTimer      gameStartTimer;
 
-        private PlayerActionInput playerCharacterInput;
+        private PlayerActionInput   playerCharacterInput;
 
         private void Awake()
         {

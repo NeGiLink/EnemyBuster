@@ -1,21 +1,24 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace MyAssets
 {
+    /*
+     * ゲームの結果のUIクラス
+     * ResultSystemの処理を元にUIを設定
+     */
     public class ResultUI : MonoBehaviour
     {
+        //時間のテキスト
         [SerializeField]
-        private Text timeText;
+        private Text    timeText;
         [SerializeField]
-        private string timeString = "時間 : ";
-
+        private string  timeString = "時間 : ";
+        //敵の討伐数テキスト
         [SerializeField]
-        private Text enemyText;
+        private Text    enemyText;
         [SerializeField]
-        private string enemyString = "倒した敵 : ";
+        private string  enemyString = "倒した敵 : ";
 
         public void TimeTextOutput(string time)
         {

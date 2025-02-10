@@ -2,18 +2,20 @@ using UnityEngine;
 
 namespace MyAssets
 {
+    /*
+     * アイテムをオブジェクトプールで生成するクラス
+     */
     public class ItemCreateMachine : MonoBehaviour
     {
-
+        //アイテム
         [SerializeField]
-        private RecoveryHealth health;
-
+        private RecoveryHealth  health;
 
         //itemを保持（プーリング）する空のオブジェクト
-        private Transform items;
+        private Transform       items;
 
-        // Start is called before the first frame update
-        void Start()
+
+        private void Start()
         {
             //アイテムを保持する空のオブジェクトを生成
             items = new GameObject("ItemPool").transform;

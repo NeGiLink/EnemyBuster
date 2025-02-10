@@ -6,43 +6,44 @@ namespace MyAssets
     {
         Hit
     }
-
-    public class MushroomAttackController : MonoBehaviour
+    /*
+     * ムッシュルームの武器(体)のクラス
+     * 表示・非表示やコライダーの設定、当たり判定の区別を行っている
+     */
+    [RequireComponent(typeof(SphereCollider))]
+    [RequireComponent(typeof(SmallEnemyEffectHandller))]
+    public class MushroomAttackController : BaseAttackController
     {
         [SerializeField]
-        private Transform thisTransform;
+        private Transform                   thisTransform;
 
         [SerializeField]
-        private AttackObject attackObject;
+        private IMushroomAnimator           animator;
 
-        [SerializeField]
-        private IMushroomAnimator animator;
+        private SmallEnemyEffectHandller    effectHandller;
 
-        private SmallEnemyEffectHandller effectHandller;
-
-        private new SphereCollider collider;
+        private new SphereCollider          collider;
 
         //保存用のcenter・radius
-        private Vector3 center;
+        private Vector3                     center;
 
-        private float radius;
+        private float                       radius;
 
+        private IMushroomSetup              mushroom;
 
-        private AttackType attackType = AttackType.Normal;
         public void SetAttackType(AttackType type) { attackType = type; }
 
-        private IMushroomSetup setup;
 
-        private void Awake()
+        protected override void Awake()
         {
-            attackObject = GetComponent<AttackObject>();
+            base.Awake();
 
-            setup = GetComponentInParent<IMushroomSetup>();
+            mushroom = GetComponentInParent<IMushroomSetup>();
             effectHandller = GetComponent<SmallEnemyEffectHandller>();
 
-            if (setup != null)
+            if (mushroom != null)
             {
-                animator = setup.MushroomAnimator;
+                animator = mushroom.MushroomAnimator;
             }
 
             collider = GetComponent<SphereCollider>();
@@ -99,7 +100,7 @@ namespace MyAssets
 
         private int GetPower()
         {
-            return attackObject.Power + (int)setup.BaseStauts.BasePower;
+            return attackObject.Power + (int)mushroom.BaseStauts.BasePower;
         }
 
         private void OnTriggerEnter(Collider other)
@@ -121,7 +122,7 @@ namespace MyAssets
                 }
             }
             effectHandller.EffectLedger.SetPosAndRotCreate((int)MushroomAttackEffectType.Hit, other.ClosestPoint(transform.position), transform.rotation);
-            damageContainer.GiveDamage(GetPower(), attackObject.KnockBack, attackObject.Type, transform, setup.CharaType);
+            damageContainer.GiveDamage(GetPower(), attackObject.KnockBack, attackObject.Type, transform, mushroom.CharaType);
         }
 
     }

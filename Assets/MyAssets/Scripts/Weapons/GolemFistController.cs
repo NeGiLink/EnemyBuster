@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace MyAssets
@@ -9,42 +8,39 @@ namespace MyAssets
         Stamp,
         Hit
     }
-
+    /*
+     * ゴーレムの武器(拳)のクラス
+     * 表示・非表示やコライダーの設定、当たり判定の区別を行っている
+     */
     [RequireComponent(typeof(SphereCollider))]
-    public class GolemFistController : MonoBehaviour
+    [RequireComponent(typeof(SwordEffectHandler))]
+    public class GolemFistController : BaseAttackController
     {
         [SerializeField]
-        private Transform thisTransform;
+        private Transform           thisTransform;
 
         [SerializeField]
-        private AttackObject attackObject;
+        private IGolemAnimator      animator;
+
+        private IGolemSetup         setup;
 
         [SerializeField]
-        private IGolemAnimator animator;
-
-        private IGolemSetup setup;
-
-        [SerializeField]
-        private new SphereCollider collider;
+        private new SphereCollider  collider;
 
         //保存用のcenter・radius
-        private Vector3 center;
+        private Vector3             center;
 
-        private float radius;
+        private float               radius;
 
-        private List<IDamageContainer> damagers = new List<IDamageContainer>();
+        private SwordEffectHandler  swordEffectHandler;
 
-        private AttackType attackType = AttackType.Normal;
         public void SetAttackType(AttackType type) { attackType = type; }
 
-        private SwordEffectHandler swordEffectHandler;
 
-        private SEHandler seHandler;
 
-        private void Awake()
+        protected override void Awake()
         {
-            attackObject = GetComponent<AttackObject>();
-
+            base.Awake();
             GolemController controller = GetComponentInParent<GolemController>();
 
             if (controller != null)
@@ -56,8 +52,6 @@ namespace MyAssets
             collider = GetComponent<SphereCollider>();
 
             swordEffectHandler = GetComponent<SwordEffectHandler>();
-
-            seHandler = GetComponent<SEHandler>();
 
             center = collider.center;
             radius = collider.radius;

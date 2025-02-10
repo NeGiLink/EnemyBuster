@@ -3,6 +3,9 @@ using UnityEngine;
 
 namespace MyAssets
 {
+    /*
+     * ƒuƒ‹ƒ^ƒ“ƒN‚Ì’ÇÕó‘Ô
+     */
     [System.Serializable]
     public class BullTankChaseState : BullTankStateBase
     {
@@ -41,7 +44,7 @@ namespace MyAssets
         private float                   targetDistance;
 
         public static readonly string   StateKey = "Chase";
-        public override string Key => StateKey;
+        public override string          Key => StateKey;
 
         public override List<ICharacterStateTransition<string>> CreateTransitionList(IBullTankSetup actor)
         {

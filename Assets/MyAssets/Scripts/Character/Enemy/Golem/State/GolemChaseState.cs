@@ -6,30 +6,28 @@ namespace MyAssets
     [System.Serializable]
     public class GolemChaseState : GolemStateBase
     {
-        private IMovement movement;
-        private IVelocityComponent velocity;
-        private FieldOfView fieldOfView;
+        private IMovement               movement;
+        private IVelocityComponent      velocity;
+        private FieldOfView             fieldOfView;
 
-        private IGolemAnimator animator;
+        private IGolemAnimator          animator;
 
-        private IBaseStauts stauts;
+        private IBaseStauts             stauts;
 
-
-        [SerializeField]
-        private float rotationSpeed = 8;
-        [SerializeField]
-        private float moveSpeedChangeRate = 8;
 
         [SerializeField]
-        private float minChaseDistance = 2.5f;
+        private float                   rotationSpeed = 8;
+        [SerializeField]
+        private float                   moveSpeedChangeRate = 8;
 
         [SerializeField]
-        private float gravityMultiply;
+        private float                   minChaseDistance = 2.5f;
 
-        public static readonly string StateKey = "Chase";
-        public override string Key => StateKey;
+        [SerializeField]
+        private float                   gravityMultiply;
 
-        public static readonly int MoveAnimationID = Animator.StringToHash("Move");
+        public static readonly string   StateKey = "Chase";
+        public override string          Key => StateKey;
 
         public override List<ICharacterStateTransition<string>> CreateTransitionList(IGolemSetup actor)
         {
@@ -55,7 +53,7 @@ namespace MyAssets
         {
             base.DoStart();
 
-            animator.Animator.SetInteger(MoveAnimationID, 1);
+            animator.Animator.SetInteger(animator.MoveAnimationID, 1);
         }
 
         public override void DoFixedUpdate(float time)
@@ -69,7 +67,7 @@ namespace MyAssets
         public override void DoExit()
         {
             base.DoExit();
-            animator.Animator.SetInteger(MoveAnimationID, 0);
+            animator.Animator.SetInteger(animator.MoveAnimationID, 0);
             movement.Stop();
         }
     }

@@ -1,27 +1,29 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace MyAssets
 {
+    /*
+     * マッシュルームの攻撃状態
+     */
     [System.Serializable]
     public class MushroomAttackState : MushroomStateBase
     {
-        private Transform thisTransform;
-        private IMovement movement;
-        private IVelocityComponent velocity;
-        private IMushroomAnimator animator;
+        private Transform                   thisTransform;
+        private IMovement                   movement;
+        private IVelocityComponent          velocity;
+        private IMushroomAnimator           animator;
 
-        private MushroomAttackController attackObject;
-
-        [SerializeField]
-        private float movePower;
+        private MushroomAttackController    attackObject;
 
         [SerializeField]
-        private float gravityMultiply;
+        private float                       movePower;
 
-        public static readonly string StateKey = "Attack";
-        public override string Key => StateKey;
+        [SerializeField]
+        private float                       gravityMultiply;
+
+        public static readonly string       StateKey = "Attack";
+        public override string              Key => StateKey;
 
         public override List<ICharacterStateTransition<string>> CreateTransitionList(IMushroomSetup enemy)
         {
@@ -76,7 +78,7 @@ namespace MyAssets
         public override void DoExit()
         {
             base.DoExit();
-            animator.Animator.SetInteger(animator.AttacksName, -1);
+            animator.Animator.SetInteger(animator.AttackAnimationID, -1);
             movement.Stop();
             attackObject.NotEnabledCollider();
         }

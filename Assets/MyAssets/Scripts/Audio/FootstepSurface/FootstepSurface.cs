@@ -7,6 +7,10 @@ namespace MyAssets
         Soil,
         Rock
     }
+    /*
+     * Groundオブジェクトにアタッチするクラス
+     * enumで地面の種類を判別する
+     */
     public class FootstepSurface : MonoBehaviour
     {
         [SerializeField]

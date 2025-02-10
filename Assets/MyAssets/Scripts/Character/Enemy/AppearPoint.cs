@@ -2,9 +2,9 @@ using UnityEngine;
 
 namespace MyAssets
 {
-    /// <summary>
-    /// 地面にいるキャラクターを地面にあった位置に設定するだけのクラス
-    /// </summary>
+    /*
+     * 地面にいるキャラクターを地面にあった位置に設定するだけのクラス
+     */
     public class AppearPoint : MonoBehaviour
     {
 
@@ -22,7 +22,6 @@ namespace MyAssets
                 transform.position = hit.point;
             }
             Vector3 v = transform.position;
-            //rigidbody.interpolation = RigidbodyInterpolation.Interpolate;
             Destroy(this);
         }
     }

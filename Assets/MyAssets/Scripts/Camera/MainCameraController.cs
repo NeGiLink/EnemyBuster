@@ -5,6 +5,8 @@ using UnityEngine;
 
 namespace MyAssets
 {
+    //メインカメラのインターフェース
+    //複数のシネマシーンのカメラに情報を渡すためのインターフェース
     public interface IMainCameraProvider
     {
         List<CinemachineVirtualCamera>  VirtualCameras {  get; }
@@ -12,9 +14,13 @@ namespace MyAssets
         GameObject                      MainCamera { get; }
 
         Transform                       TargetTransform { get; }
-        ChangeCameraType ChangeCameraType { get; }
+        CameraTag                       CameraTag {  get; }
+
+        Transform                       GetResultCameraLookAtTransform();
     }
-    [RequireComponent(typeof(ChangeCameraType))]
+    /*
+     * 複数のカメラを管理するカメラ制御クラス
+     */
     public class MainCameraController : MonoBehaviour, IMainCameraProvider
     {
         //カメラ本体
@@ -35,9 +41,12 @@ namespace MyAssets
         [SerializeField]
         private AllCameraController             inputControllCamera;
 
+        [SerializeField]
+        private CameraTag                       cameraTag;
 
-        private ChangeCameraType changeCameraType;
-        public ChangeCameraType ChangeCameraType => changeCameraType;
+        public CameraTag                        CameraTag => cameraTag;
+
+        private Transform                       keepTransform;
 
         public void ActivateAllCamera(bool a)
         {
@@ -68,8 +77,6 @@ namespace MyAssets
 
 
             GameObject player = GameObject.FindGameObjectWithTag("Player");
-
-            changeCameraType = GetComponent<ChangeCameraType>();
 
             if(player != null)
             {
@@ -104,6 +111,17 @@ namespace MyAssets
                 inputControllCamera.DoUpdate();
 
             }
+        }
+        //結果時のカメラの移動を行う時に注目するためのオブジェクトを生成する関数
+        public Transform GetResultCameraLookAtTransform()
+        {
+            //nullの時だけ生成
+            if(keepTransform == null)
+            {
+                return keepTransform = new GameObject("ResultCameraLookAtObject").transform;
+            }
+            //nullじゃなかったら保持してるTransformを返す
+            return keepTransform;
         }
     }
 

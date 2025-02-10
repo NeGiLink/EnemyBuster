@@ -1,6 +1,10 @@
 
 namespace MyAssets
 {
+    /*
+     * 全キャラクター共通で使う状態遷移クラス一覧
+     */
+
     public class IsTargetInViewTransition : CharacterStateTransitionBase
     {
         readonly FieldOfView fieldOfView;

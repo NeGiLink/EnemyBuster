@@ -5,91 +5,91 @@ namespace MyAssets
     public class BullTankController : CharacterBaseController, IBullTankSetup
     {
         [SerializeField]
-        private BullTankStatusProperty property;
-        public IBaseStauts BaseStauts => property;
+        private BullTankStatusProperty          property;
+        public IBaseStauts                      BaseStauts => property;
 
         [SerializeField]
-        private Movement movement;
-        public IMovement Movement => movement;
+        private Movement                        movement;
+        public IMovement                        Movement => movement;
 
-        private StepClimberJudgment stepClimberJudgment;
-        public IStepClimberJudgment StepClimberJudgment => stepClimberJudgment;
+        private StepClimberJudgment             stepClimberJudgment;
+        public IStepClimberJudgment             StepClimberJudgment => stepClimberJudgment;
 
 
-        public IRotation Rotation => null;
-
-        [SerializeField]
-        private BullTankAnimator animator;
-        public IEnemyAnimator EnemyAnimator => animator;
-        public IBullTankAnimator BullTankAnimator => animator;
-
-        private FieldOfView fieldOfView;
-        public IFieldOfView FieldOfView => fieldOfView;
-        [SerializeField]
-        private GuardTrigger guardTrigger;
-        public IGuardTrigger GuardTrigger => guardTrigger;
-
-        private BullTankEffectHandler effectHandler;
-
-        public BullTankEffectHandler EffectHandler => effectHandler;
-
-        private SEHandler seHandler;
-        public SEHandler SEHandler => seHandler;
+        public IRotation                        Rotation => null;
 
         [SerializeField]
-        private AxeController attackObject;
-        public AxeController AttackObject => attackObject;
+        private BullTankAnimator                animator;
+        public IEnemyAnimator                   EnemyAnimator => animator;
+        public IBullTankAnimator                BullTankAnimator => animator;
+
+        private FieldOfView                     fieldOfView;
+        public IFieldOfView                     FieldOfView => fieldOfView;
+        [SerializeField]
+        private GuardTrigger                    guardTrigger;
+        public IGuardTrigger                    GuardTrigger => guardTrigger;
+
+        private BullTankEffectHandler           effectHandler;
+
+        public BullTankEffectHandler            EffectHandler => effectHandler;
+
+        private SEHandler                       seHandler;
+        public SEHandler                        SEHandler => seHandler;
 
         [SerializeField]
-        private BullTankHeadAttackController headAttackObject;
-        public BullTankHeadAttackController HeadAttackObject => headAttackObject;
+        private AxeController                   attackObject;
+        public AxeController                    AttackObject => attackObject;
 
         [SerializeField]
-        private StateMachine<string> stateMachine;
-        public IStateMachine StateMachine => stateMachine;
+        private BullTankHeadAttackController    headAttackObject;
+        public BullTankHeadAttackController     HeadAttackObject => headAttackObject;
 
         [SerializeField]
-        private string defaultStateKey;
+        private StateMachine<string>            stateMachine;
+        public IStateMachine                    StateMachine => stateMachine;
 
         [SerializeField]
-        private BullTankIdleState idleState;
+        private string                          defaultStateKey;
 
         [SerializeField]
-        private BullTankActionDecisionState actionDecisionState;
+        private BullTankIdleState               idleState;
 
         [SerializeField]
-        private BullTankChaseState moveState;
+        private BullTankActionDecisionState     actionDecisionState;
 
         [SerializeField]
-        private BullTankSideMoveState sideMoveState;
+        private BullTankChaseState              moveState;
 
         [SerializeField]
-        private BullTankNormalAttackState normalAttackState;
+        private BullTankSideMoveState           sideMoveState;
 
         [SerializeField]
-        private ReadyRushAttackStartState readyRushAttackStartState;
+        private BullTankNormalAttackState       normalAttackState;
 
         [SerializeField]
-        private ReadyRushAttackLoopState readyRushAttackLoopState;
+        private ReadyRushAttackStartState       readyRushAttackStartState;
 
         [SerializeField]
-        private RushAttackStartState rushAttackStartState;
+        private ReadyRushAttackLoopState        readyRushAttackLoopState;
 
         [SerializeField]
-        private RushAttackLoopState rushAttackLoopState;
+        private RushAttackStartState            rushAttackStartState;
 
         [SerializeField]
-        private RushAttackEndState rushAttackEndState;
+        private RushAttackLoopState             rushAttackLoopState;
 
         [SerializeField]
-        private BullTankDamageState damageState;
+        private RushAttackEndState              rushAttackEndState;
 
         [SerializeField]
-        private BullTankDeathState deathState;
+        private BullTankDamageState             damageState;
 
-        IBullTankState<string>[] states;
+        [SerializeField]
+        private BullTankDeathState              deathState;
 
-        public override CharacterType CharaType => CharacterType.Enemy;
+        IBullTankState<string>[]                states;
+
+        public override CharacterType           CharaType => CharacterType.Enemy;
 
         protected override void Awake()
         {
@@ -103,7 +103,6 @@ namespace MyAssets
             animator.DoSetup(this);
             velocity.DoSetup(this);
             movement.DoSetup(this);
-            //rotation.DoSetup(this);
             damageContainer.DoSetup(this);
             damagement.DoSetup(this);
 

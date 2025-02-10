@@ -2,74 +2,77 @@ using UnityEngine;
 
 namespace MyAssets
 {
+    /*
+     * マッシュルームの制御クラス
+     */
     public class MushroomController : CharacterBaseController, IMushroomSetup
     {
         [SerializeField]
-        private MushroomStatusProperty property;
-        public IBaseStauts BaseStauts => property;
+        private MushroomStatusProperty      property;
+        public IBaseStauts                  BaseStauts => property;
 
         [SerializeField]
-        private Movement movement;
-        public IMovement Movement => movement;
+        private Movement                    movement;
+        public IMovement                    Movement => movement;
 
-        private StepClimberJudgment stepClimberJudgment;
-        public IStepClimberJudgment StepClimberJudgment => stepClimberJudgment;
-
-        [SerializeField]
-        private SlimeRotation rotation;
-        public IRotation Rotation => rotation;
+        private StepClimberJudgment         stepClimberJudgment;
+        public IStepClimberJudgment         StepClimberJudgment => stepClimberJudgment;
 
         [SerializeField]
-        private MushroomAnimator animator;
-        public IEnemyAnimator   EnemyAnimator => animator;
-        public IMushroomAnimator MushroomAnimator => animator;
-
-        private FieldOfView fieldOfView;
-        public IFieldOfView FieldOfView => fieldOfView;
+        private SlimeRotation               rotation;
+        public IRotation                    Rotation => rotation;
 
         [SerializeField]
-        private GuardTrigger guardTrigger;
-        public IGuardTrigger GuardTrigger => guardTrigger;
+        private MushroomAnimator            animator;
+        public IEnemyAnimator               EnemyAnimator => animator;
+        public IMushroomAnimator            MushroomAnimator => animator;
 
-        private MushroomEffectHandler effectHandler;
-        public MushroomEffectHandler EffectHandler => effectHandler;
-
-        private SEHandler seHandler;
-        public SEHandler SEHandler => seHandler;
+        private FieldOfView                 fieldOfView;
+        public IFieldOfView                 FieldOfView => fieldOfView;
 
         [SerializeField]
-        private MushroomAttackController attackObject;
-        public MushroomAttackController AttackObject => attackObject;
+        private GuardTrigger                guardTrigger;
+        public IGuardTrigger                GuardTrigger => guardTrigger;
+
+        private MushroomEffectHandler       effectHandler;
+        public MushroomEffectHandler        EffectHandler => effectHandler;
+
+        private SEHandler                   seHandler;
+        public SEHandler                    SEHandler => seHandler;
 
         [SerializeField]
-        private StateMachine<string> stateMachine;
-        public IStateMachine StateMachine => stateMachine;
+        private MushroomAttackController    attackObject;
+        public MushroomAttackController     AttackObject => attackObject;
 
         [SerializeField]
-        private string defaultStateKey;
+        private StateMachine<string>        stateMachine;
+        public IStateMachine                StateMachine => stateMachine;
 
         [SerializeField]
-        private MushroomIdleState idleState;
+        private string                      defaultStateKey;
+
+        [SerializeField]
+        private MushroomIdleState           idleState;
 
 
         [SerializeField]
-        private MushroomPatrolState patrolState;
+        private MushroomPatrolState         patrolState;
 
         [SerializeField]
-        private MushroomChaseState chaseState;
+        private MushroomChaseState          chaseState;
 
         [SerializeField]
-        private MushroomAttackState attackState;
+        private MushroomAttackState         attackState;
         
         [SerializeField]
-        private MushroomDamageState damageState;
+        private MushroomDamageState         damageState;
         
         [SerializeField]
-        private MushroomDeathState deathState;
+        private MushroomDeathState          deathState;
 
-        IMushroomState<string>[] states;
+        IMushroomState<string>[]            states;
 
-        public override CharacterType CharaType => CharacterType.Enemy;
+        public override CharacterType       CharaType => CharacterType.Enemy;
         protected override void Awake()
         {
             fieldOfView = GetComponent<FieldOfView>();
@@ -80,7 +83,6 @@ namespace MyAssets
             animator.DoSetup(this);
             velocity.DoSetup(this);
             movement.DoSetup(this);
-            //rotation.DoSetup(this);
             damageContainer.DoSetup(this);
             damagement.DoSetup(this);
 

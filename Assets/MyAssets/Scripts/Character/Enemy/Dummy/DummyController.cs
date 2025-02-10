@@ -2,40 +2,43 @@ using UnityEngine;
 
 namespace MyAssets
 {
+    /*
+     * トレーニングモードにある樽型のキャラクター制御クラス
+     */
     public class DummyController : CharacterBaseController,IDummySetup
     {
         [SerializeField]
-        private DummyStatusProperty property;
-        public IBaseStauts BaseStauts => property;
+        private DummyStatusProperty     property;
+        public IBaseStauts              BaseStauts => property;
 
         [SerializeField]
-        private Movement movement;
-        public IMovement Movement => movement;
+        private Movement                movement;
+        public IMovement                Movement => movement;
 
         [SerializeField]
-        private StepClimberJudgment stepClimberJudgment;
-        public IStepClimberJudgment StepClimberJudgment => stepClimberJudgment;
+        private StepClimberJudgment     stepClimberJudgment;
+        public IStepClimberJudgment     StepClimberJudgment => stepClimberJudgment;
 
-        private SEHandler seHandler;
-        public SEHandler SEHandler => seHandler;
-
-        [SerializeField]
-        private PlayerRotation rotation;
-        public IRotation Rotation => rotation;
-
-        private Timer damageCoolDownTimer;
-
-        public IFieldOfView FieldOfView => null;
+        private SEHandler               seHandler;
+        public SEHandler                SEHandler => seHandler;
 
         [SerializeField]
-        private GuardTrigger guardTrigger;
-        public IGuardTrigger GuardTrigger => guardTrigger;
+        private PlayerRotation          rotation;
+        public IRotation                Rotation => rotation;
 
-        public IStateMachine StateMachine => null;
+        private Timer                   damageCoolDownTimer;
 
-        public IEnemyAnimator EnemyAnimator => null;
+        public IFieldOfView             FieldOfView => null;
 
-        public override CharacterType CharaType => CharacterType.Enemy;
+        [SerializeField]
+        private GuardTrigger            guardTrigger;
+        public IGuardTrigger            GuardTrigger => guardTrigger;
+
+        public IStateMachine            StateMachine => null;
+
+        public IEnemyAnimator           EnemyAnimator => null;
+
+        public override CharacterType   CharaType => CharacterType.Enemy;
 
         protected override void Awake()
         {

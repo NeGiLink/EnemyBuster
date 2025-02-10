@@ -6,10 +6,13 @@ namespace MyAssets
     {
         Death
     }
+    /*
+     * マッシュルームで使うエフェクトを管理するクラス
+     */
     public class MushroomEffectHandler : MonoBehaviour
     {
         [SerializeField]
-        private EffectLedger effectLedger;
-        public EffectLedger EffectLedger => effectLedger;
+        private EffectLedger    effectLedger;
+        public EffectLedger     EffectLedger => effectLedger;
     }
 }

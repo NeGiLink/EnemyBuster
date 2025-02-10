@@ -4,30 +4,33 @@ using UnityEngine;
 
 namespace MyAssets
 {
+    /*
+     * ƒuƒ‹ƒ^ƒ“ƒN‚ÌUŒ‚ó‘Ô
+     */
     [System.Serializable]
     public class BullTankNormalAttackState : BullTankStateBase
     {
-        private IMovement movement;
-        private IVelocityComponent velocity;
-        private Transform thisTransform;
+        private IMovement               movement;
+        private IVelocityComponent      velocity;
+        private Transform               thisTransform;
 
-        private IBullTankAnimator animator;
+        private IBullTankAnimator       animator;
 
-        private AxeController weapon;
-
-        [SerializeField]
-        private float moveSpeed;
-
+        private AxeController           weapon;
 
         [SerializeField]
-        private float gravityMultiply;
+        private float                   moveSpeed;
 
-        private Timer timer = new Timer();
+
         [SerializeField]
-        private float count = 1.0f;
+        private float                   gravityMultiply;
 
-        public static readonly string StateKey = "NormalAttack";
-        public override string Key => StateKey;
+        private Timer                   timer = new Timer();
+        [SerializeField]
+        private float                   count = 1.0f;
+
+        public static readonly string   StateKey = "NormalAttack";
+        public override string          Key => StateKey;
 
         public override List<ICharacterStateTransition<string>> CreateTransitionList(IBullTankSetup actor)
         {

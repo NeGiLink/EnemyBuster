@@ -3,6 +3,9 @@ using UnityEngine;
 
 namespace MyAssets
 {
+    /*
+     * ƒuƒ‹ƒ^ƒ“ƒN‚ÌŽ€–Só‘Ô
+     */
     [System.Serializable]
     public class BullTankDeathState : BullTankStateBase
     {
@@ -22,7 +25,7 @@ namespace MyAssets
         private float                   destroyCount;
 
         public static readonly string   StateKey = "Death";
-        public override string Key => StateKey;
+        public override string          Key => StateKey;
 
         public override List<ICharacterStateTransition<string>> CreateTransitionList(IBullTankSetup actor)
         {

@@ -1,28 +1,31 @@
-
-
-using UnityEngine;
-
 namespace MyAssets
 {
+    /*
+     * ベースのステータスのインターフェース
+     */
     public interface IBaseStauts
     {
-        int MaxHP { get; }
-        int HP { get; }
-        float BaseSpeed { get; }
-        float BasePower { get; }
-        float BaseDefense { get; }
-        void RecoveryHP(int h);
-        int DecreaseAndDeathCheck(int d);
-        int MaxStoredDamage {  get; }
-        int StoredDamage {  get; }
-        bool IsMaxStoredDamage(int damage);
-        void AddMaxStoredDamage();
-        void ClearStoredDamage();
+        int             MaxHP { get; }
+        int             HP { get; }
+        float           BaseSpeed { get; }
+        float           BasePower { get; }
+        float           BaseDefense { get; }
+        int             MaxStoredDamage {  get; }
+        int             StoredDamage {  get; }
+        public Timer    InvincibilityTimer {  get; }
+        void            RecoveryHP(int h);
+        int             DecreaseAndDeathCheck(int d);
+        bool            IsMaxStoredDamage(int damage);
+        void            AddMaxStoredDamage();
+        void            ClearStoredDamage();
 
-        public Timer InvincibilityTimer {  get; }
 
-        void DoUpdate(float time);
+        void            DoUpdate(float time);
     }
+    /*
+     * 下記からはキャラクターごとのステータスのインターフェース
+     * そのキャラクター独自の要素を持っていたら追加する形
+     */
     public interface IPlayerStauts : IBaseStauts
     {
         int MaxSP { get; }

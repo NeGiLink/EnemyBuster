@@ -3,26 +3,29 @@ using UnityEngine;
 
 namespace MyAssets
 {
+    /*
+     * マッシュルームの死亡状態
+     */
     [System.Serializable]
     public class MushroomDeathState : MushroomStateBase
     {
-        private Transform thisTransform;
+        private Transform               thisTransform;
 
-        private IMushroomAnimator animator;
+        private IMushroomAnimator       animator;
 
-        private IMovement movement;
+        private IMovement               movement;
 
-        private IVelocityComponent velocity;
+        private IVelocityComponent      velocity;
 
-        private MushroomEffectHandler effectHandler;
+        private MushroomEffectHandler   effectHandler;
 
-        private Timer destroyTimer = new Timer();
+        private Timer                   destroyTimer = new Timer();
 
         [SerializeField]
-        private float destroyCount;
+        private float                   destroyCount;
 
-        public static readonly string StateKey = "Death";
-        public override string Key => StateKey;
+        public static readonly string   StateKey = "Death";
+        public override string          Key => StateKey;
 
         public override List<ICharacterStateTransition<string>> CreateTransitionList(IMushroomSetup actor)
         {
@@ -43,7 +46,7 @@ namespace MyAssets
         public override void DoStart()
         {
             base.DoStart();
-            animator.Animator.SetBool("Death", true);
+            animator.Animator.SetBool(animator.DeathAnimationID, true);
             velocity.DeathCollider();
             destroyTimer.Start(destroyCount);
             destroyTimer.OnceEnd += DestroyUpdate;

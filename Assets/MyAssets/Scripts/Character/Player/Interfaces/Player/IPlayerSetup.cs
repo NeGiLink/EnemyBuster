@@ -40,7 +40,7 @@ namespace MyAssets
         IPlayerAnimator         PlayerAnimator { get; }
         IGroundCheck            GroundCheck { get; }
         IObstacleJudgment       ObstacleJudgment { get; }
-        IAllIK                 IkController { get; }
+        IAllIK                  IkController { get; }
         IBattleFlagger          BattleFlagger { get; }
 
         IEquipment              Equipment { get; }
@@ -56,13 +56,13 @@ namespace MyAssets
     /// </summary>
     public interface ISlimeSetup : IEnemySetup
     {
-        ISlimeAnimator SlimeAnimator { get; }
-        IGroundCheck GroundCheck { get; }
-        SlimeBodyAttackController AttackObject { get; }
+        ISlimeAnimator              SlimeAnimator { get; }
+        IGroundCheck                GroundCheck { get; }
+        SlimeBodyAttackController   AttackObject { get; }
 
-        SlimeEffectHandler EffectHandler { get; }
+        SlimeEffectHandler          EffectHandler { get; }
 
-        ISlimeRotation SlimeRotation { get; }
+        ISlimeRotation              SlimeRotation { get; }
 
         void RunDestroy();
     }
@@ -78,11 +78,11 @@ namespace MyAssets
     /// </summary>
     public interface IMushroomSetup : IEnemySetup
     {
-        IMushroomAnimator MushroomAnimator { get; }
-        IGroundCheck GroundCheck {  get; }
-        MushroomAttackController AttackObject { get; }
+        IMushroomAnimator           MushroomAnimator { get; }
+        IGroundCheck                GroundCheck {  get; }
+        MushroomAttackController    AttackObject { get; }
 
-        MushroomEffectHandler EffectHandler { get; }
+        MushroomEffectHandler       EffectHandler { get; }
 
         void RunDestroy();
     }
@@ -91,20 +91,20 @@ namespace MyAssets
     /// </summary>
     public interface IBullTankSetup : IEnemySetup
     {
-        IBullTankAnimator BullTankAnimator { get; }
-        IGroundCheck GroundCheck { get; }
-        AxeController AttackObject { get; }
-        BullTankHeadAttackController HeadAttackObject {  get; }
+        IBullTankAnimator               BullTankAnimator { get; }
+        IGroundCheck                    GroundCheck { get; }
+        AxeController                   AttackObject { get; }
+        BullTankHeadAttackController    HeadAttackObject {  get; }
 
-        BullTankEffectHandler EffectHandler { get; }
+        BullTankEffectHandler           EffectHandler { get; }
 
         void RunDestroy();
     }
     public interface IGolemSetup : IEnemySetup
     {
-        IGolemAnimator GolemAnimator { get; }
-        IGroundCheck GroundCheck { get; }
-        GolemEffectHandler EffectHandler { get; }
+        IGolemAnimator      GolemAnimator { get; }
+        IGroundCheck        GroundCheck { get; }
+        GolemEffectHandler  EffectHandler { get; }
 
         GolemFistController FistController {  get; }
         void RunDestroy();
@@ -114,7 +114,7 @@ namespace MyAssets
     /// </summary>
     public interface INPCSetup : ICharacterSetup
     {
-        public INPCAnimator Animator { get; }
+        public INPCAnimator     Animator { get; }
 
         public INPCCommandPanel CommandPanel { get; }
     }

@@ -2,6 +2,11 @@ using UnityEngine;
 
 namespace MyAssets
 {
+    /// <summary>
+    /// 敵の状態変更クラスの一覧
+    /// 敵全体のものや個別のものをまとめています
+    /// </summary>
+
     public class IsPatrolTransition : CharacterStateTransitionBase
     {
         private readonly Timer timer;
@@ -28,14 +33,12 @@ namespace MyAssets
 
     public class IsEnemyDamageTransition : CharacterStateTransitionBase
     {
-        private readonly IDamageContainer damageContainer;
 
         private readonly IBaseStauts baseStauts;
 
         public IsEnemyDamageTransition(IEnemySetup chara, IStateChanger<string> stateChanger, string changeKey)
             : base(stateChanger, changeKey)
         {
-            damageContainer = chara.DamageContainer;
             baseStauts = chara.BaseStauts;
         }
         public override bool IsTransition() => baseStauts.MaxStoredDamage <= baseStauts.StoredDamage;
@@ -58,8 +61,6 @@ namespace MyAssets
     {
 
         private readonly ISlimeAnimator animator;
-
-        private readonly int random;
 
         public IsReadyAttackTransition(ISlimeSetup chara, IStateChanger<string> stateChanger, string changeKey)
             : base(stateChanger, changeKey)
@@ -158,9 +159,9 @@ namespace MyAssets
     public class IsNotBullTankAttackTransition : CharacterStateTransitionBase
     {
 
-        private readonly IBullTankAnimator animator;
+        private readonly IBullTankAnimator  animator;
 
-        private readonly string motionName;
+        private readonly string             motionName;
 
         public IsNotBullTankAttackTransition(IBullTankSetup chara,string name, IStateChanger<string> stateChanger, string changeKey)
             : base(stateChanger, changeKey)
@@ -186,7 +187,7 @@ namespace MyAssets
 
         private readonly IGolemAnimator animator;
 
-        private readonly string motionName;
+        private readonly string         motionName;
 
         public IsNotGolemAttackTransition(IGolemSetup actor, string name, IStateChanger<string> stateChanger, string changeKey)
             : base(stateChanger, changeKey)

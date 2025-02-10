@@ -3,40 +3,45 @@ using UnityEngine;
 
 namespace MyAssets
 {
+    /*
+     * ƒS[ƒŒƒ€‚ÌUŒ‚1ó‘Ô
+     */
     [System.Serializable]
     public class GolemAttackState : GolemStateBase
     {
-        private IMovement movement;
-        private IVelocityComponent velocity;
-        private Transform thisTransform;
+        private IMovement               movement;
+        private IVelocityComponent      velocity;
+        private Transform               thisTransform;
 
-        private IGolemAnimator animator;
+        private IGolemAnimator          animator;
 
-        private GolemFistController fist;
-
-        [SerializeField]
-        private float attackMoveSpeed;
+        private GolemFistController     fist;
 
         [SerializeField]
-        private float attackStartCount;
-        [SerializeField]
-        private float attackEndCount;
+        private float                   attackMoveSpeed;
 
         [SerializeField]
-        private float gravityMultiply;
+        private float                   attackStartCount;
+        [SerializeField]
+        private float                   attackEndCount;
 
         [SerializeField]
-        private float count = 1.8f;
+        private float                   gravityMultiply;
 
-        private Timer timer = new Timer();
+        [SerializeField]
+        private float                   count = 1.8f;
 
-        public static readonly string StateKey = "Attack";
-        public override string Key => StateKey;
+        private Timer                   timer = new Timer();
+
+        public static readonly string   StateKey = "Attack";
+        public override string          Key => StateKey;
+
+        private readonly string         motionName = "SA_Golem_Hit";
 
         public override List<ICharacterStateTransition<string>> CreateTransitionList(IGolemSetup actor)
         {
             List<ICharacterStateTransition<string>> re = new List<ICharacterStateTransition<string>>();
-            if (StateChanger.IsContain(GolemIdleState.StateKey)) { re.Add(new IsNotGolemAttackTransition(actor, "SA_Golem_Hit", StateChanger, GolemIdleState.StateKey)); }
+            if (StateChanger.IsContain(GolemIdleState.StateKey)) { re.Add(new IsNotGolemAttackTransition(actor, motionName, StateChanger, GolemIdleState.StateKey)); }
             if (StateChanger.IsContain(GolemDamageState.StateKey)) { re.Add(new IsEnemyDamageTransition(actor, StateChanger, GolemDamageState.StateKey)); }
             if (StateChanger.IsContain(GolemDeathState.StateKey)) { re.Add(new IsDeathTransition(actor, StateChanger, GolemDeathState.StateKey)); }
             return re;
@@ -55,7 +60,7 @@ namespace MyAssets
         public override void DoStart()
         {
             base.DoStart();
-            animator.Animator.SetInteger("Attack", 0);
+            animator.Animator.SetInteger(animator.AttackAnimationID, 0);
 
             fist.SetAttackType(AttackType.Normal);
             timer.Start(count);
@@ -93,7 +98,7 @@ namespace MyAssets
         public override void DoExit()
         {
             base.DoExit();
-            animator.Animator.SetInteger("Attack", -1);
+            animator.Animator.SetInteger(animator.AttackAnimationID, -1);
             movement.Stop();
             fist.NotEnabledCollider();
             timer.OnEnd -= ActivationSE;

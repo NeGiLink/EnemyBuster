@@ -3,40 +3,40 @@ using UnityEngine;
 
 namespace MyAssets
 {
+    /*
+     マッシュルームの追跡状態*/
     [System.Serializable]
     public class MushroomChaseState : MushroomStateBase
     {
-        private IMovement movement;
-        private IVelocityComponent velocity;
-        private Transform thisTransform;
-        private FieldOfView fieldOfView;
+        private IMovement               movement;
+        private IVelocityComponent      velocity;
+        private Transform               thisTransform;
+        private FieldOfView             fieldOfView;
 
-        private IDamageContainer damageContainer;
+        private IMushroomAnimator       animator;
 
-        private IMushroomAnimator animator;
-
-        Timer currentSearchinTimer = new Timer();
-        GameObject targetObject;
-        Vector3 targetLastPoint;
+        private Timer                   currentSearchinTimer = new Timer();
+        private GameObject              targetObject;
+        private Vector3                 targetLastPoint;
 
         [SerializeField]
-        float moveSpeed = 4;
+        private float                   moveSpeed = 4;
         [SerializeField]
-        float rotationSpeed = 8;
+        private float                   rotationSpeed = 8;
         [SerializeField]
-        float moveSpeedChangeRate = 8;
+        private float                   moveSpeedChangeRate = 8;
 
         [SerializeField]
-        float searchingTime = 1.0f;
+        private float                   searchingTime = 1.0f;
 
         [SerializeField]
-        float minChaseDistance = 2.5f;
+        private float                   minChaseDistance = 2.5f;
 
         [SerializeField]
-        private float gravityMultiply;
+        private float                   gravityMultiply;
 
-        public static readonly string StateKey = "Chase";
-        public override string Key => StateKey;
+        public static readonly string   StateKey = "Chase";
+        public override string          Key => StateKey;
 
         public override List<ICharacterStateTransition<string>> CreateTransitionList(IMushroomSetup enemy)
         {
@@ -56,7 +56,6 @@ namespace MyAssets
             thisTransform = actor.gameObject.transform;
             fieldOfView = actor.gameObject.GetComponent<FieldOfView>();
             animator = actor.MushroomAnimator;
-            damageContainer = actor.DamageContainer;
         }
 
         public override void DoStart()
@@ -107,13 +106,13 @@ namespace MyAssets
             float targetDistance = targetVec.magnitude;
             if (targetDistance < minChaseDistance)
             {
-                animator.Animator.SetInteger("Move", Define.Zero);
-                animator.Animator.SetInteger(animator.AttacksName, 0);
+                animator.Animator.SetInteger(animator.MoveAnimationID, Define.Zero);
+                animator.Animator.SetInteger(animator.AttackAnimationID, 0);
                 movement.Stop();
             }
             else
             {
-                animator.Animator.SetInteger("Move", 1);
+                animator.Animator.SetInteger(animator.MoveAnimationID, 1);
                 movement.MoveTo(targetLastPoint, moveSpeed, moveSpeedChangeRate, rotationSpeed, time);
             }
             velocity.Rigidbody.velocity += Physics.gravity * gravityMultiply * time;
@@ -122,7 +121,7 @@ namespace MyAssets
         public override void DoExit()
         {
             base.DoExit();
-            animator.Animator.SetInteger("Move", Define.Zero);
+            animator.Animator.SetInteger(animator.MoveAnimationID, Define.Zero);
             movement.Stop();
         }
     }

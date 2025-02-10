@@ -11,7 +11,11 @@ namespace MyAssets
 
         public Animator Animator => thisAnimator;
 
-        public string AttacksName => "Attack";
+
+        public int MoveAnimationID => Animator.StringToHash("Move");
+        public int AttackAnimationID => Animator.StringToHash("Attack");
+        public int ImpactAnimationID => Animator.StringToHash("Impact");
+        public int DeathAnimationID => Animator.StringToHash("Death");
 
         public void DoSetup(IGolemSetup actor)
         {
