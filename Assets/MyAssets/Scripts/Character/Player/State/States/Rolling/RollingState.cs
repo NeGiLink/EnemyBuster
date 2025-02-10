@@ -44,17 +44,17 @@ namespace MyAssets
             return re;
         }
 
-        public override void DoSetup(IPlayerSetup player)
+        public override void DoSetup(IPlayerSetup actor)
         {
-            base.DoSetup(player);
-            stauts = player.Stauts;
-            input = player.gameObject.GetComponent<IMoveInputProvider>();
-            velocity = player.Velocity;
-            movement = player.Movement;
-            rotation = player.Rotation;
-            animator = player.PlayerAnimator;
-            damageContainer = player.DamageContainer;
-            seHandler = player.SEHandler;
+            base.DoSetup(actor);
+            stauts = actor.Stauts;
+            input = actor.gameObject.GetComponent<IMoveInputProvider>();
+            velocity = actor.Velocity;
+            movement = actor.Movement;
+            rotation = actor.Rotation;
+            animator = actor.PlayerAnimator;
+            damageContainer = actor.DamageContainer;
+            seHandler = actor.SEHandler;
         }
 
 

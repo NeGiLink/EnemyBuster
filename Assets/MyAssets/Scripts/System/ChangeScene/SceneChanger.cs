@@ -3,6 +3,10 @@ using UnityEngine.SceneManagement;
 
 namespace MyAssets
 {
+    /*
+     * シーンの遷移を設定を行うクラス
+     * シーンに1つだけなのでシングルトンパターン
+     */
     public class SceneChanger : MonoBehaviour
     {
         private static SceneChanger     instance;
@@ -19,9 +23,8 @@ namespace MyAssets
 
         private SceneList               nextScene;
 
-        public void SetTransitioning(bool t) {  isTransitioning = t; }
 
-        private Canvas  canvas;
+        private Canvas                  canvas;
         public Canvas Canvas
         {
             get 
@@ -33,6 +36,7 @@ namespace MyAssets
                 return canvas; 
             }
         }
+        public void SetTransitioning(bool t) {  isTransitioning = t; }
 
         public void SetNextScene(SceneList scene)
         {
@@ -51,7 +55,8 @@ namespace MyAssets
 
         private System.Collections.IEnumerator SlowFade()
         {
-            yield return new WaitForSecondsRealtime(changeCount); // 1フレーム待つ
+            // 設定した時間止める
+            yield return new WaitForSecondsRealtime(changeCount); 
             CreateFadePanel(false);
             isTransitioning = true;
         }
@@ -116,7 +121,7 @@ namespace MyAssets
             ChangeScene();
         }
 
-
+        //シーン遷移時にフェードパネルを生成する
         private void CreateFadePanel(bool fadeIn)
         {
             FadePanel panel = Instantiate(fadePanel, Canvas.transform);

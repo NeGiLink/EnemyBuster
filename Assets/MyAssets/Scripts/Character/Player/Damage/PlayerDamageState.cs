@@ -44,17 +44,17 @@ namespace MyAssets
             if (StateChanger.IsContain(PlayerDeathState.StateKey)) { re.Add(new IsDeathTransition(actor, StateChanger, PlayerDeathState.StateKey)); }
             return re;
         }
-        public override void DoSetup(IPlayerSetup player)
+        public override void DoSetup(IPlayerSetup actor)
         {
-            base.DoSetup(player);
-            thisTransform = player.gameObject.transform;
-            velocity = player.Velocity;
-            animator = player.PlayerAnimator;
-            groundCheck = player.GroundCheck;
-            damageContainer = player.DamageContainer;
-            damageMove = player.Damagement;
-            seHandler = player.SEHandler;
-            stauts = player.Stauts;
+            base.DoSetup(actor);
+            thisTransform = actor.gameObject.transform;
+            velocity = actor.Velocity;
+            animator = actor.PlayerAnimator;
+            groundCheck = actor.GroundCheck;
+            damageContainer = actor.DamageContainer;
+            damageMove = actor.Damagement;
+            seHandler = actor.SEHandler;
+            stauts = actor.Stauts;
         }
 
         public override void DoStart()

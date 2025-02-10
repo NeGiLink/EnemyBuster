@@ -14,7 +14,7 @@ namespace MyAssets
 
         private IRotation rotation;
 
-        private IChangingState changingState;
+        private IBattleFlagger battleFlagger;
 
         private IPlayerAnimator animator;
 
@@ -48,27 +48,27 @@ namespace MyAssets
             return re;
         }
 
-        public override void DoSetup(IPlayerSetup player)
+        public override void DoSetup(IPlayerSetup actor)
         {
-            stauts = player.Stauts;
-            base.DoSetup(player);
-            transform = player.gameObject.transform;
-            velocity = player.Velocity;
-            rotation = player.Rotation;
-            changingState = player.ChangingState;
-            animator = player.PlayerAnimator;
-            fieldOfView = player.FieldOfView;
-            sword = player.Equipment.HaveWeapon.GetComponent<SwordController>();
-            equipment = player.Equipment;
+            stauts = actor.Stauts;
+            base.DoSetup(actor);
+            transform = actor.gameObject.transform;
+            velocity = actor.Velocity;
+            rotation = actor.Rotation;
+            battleFlagger = actor.BattleFlagger;
+            animator = actor.PlayerAnimator;
+            fieldOfView = actor.FieldOfView;
+            sword = actor.Equipment.HaveWeapon.GetComponent<SwordController>();
+            equipment = actor.Equipment;
         }
 
         public override void DoStart()
         {
             base.DoStart();
-            if (!changingState.IsBattleMode)
+            if (!battleFlagger.IsBattleMode)
             {
                 equipment.SetOutWeapon();
-                changingState.SetBattleMode(true);
+                battleFlagger.SetBattleMode(true);
                 animator.Animator.SetFloat(animator.ToolLevel, 1.0f);
             }
             sword.SetAttackType(AttackType.Normal, SwordSEType.Slash1);

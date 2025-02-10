@@ -22,10 +22,10 @@ namespace MyAssets
             return re;
         }
 
-        public override void DoSetup(IPlayerSetup player)
+        public override void DoSetup(IPlayerSetup actor)
         {
-            base.DoSetup(player);
-            animator = player.PlayerAnimator;
+            base.DoSetup(actor);
+            animator = actor.PlayerAnimator;
         }
 
         public override void DoStart()

@@ -33,16 +33,16 @@ namespace MyAssets
         }
 
 
-        public override void DoSetup(IPlayerSetup player)
+        public override void DoSetup(IPlayerSetup actor)
         {
-            stauts = player.Stauts;
-            base.DoSetup(player);
-            movement = player.Movement;
-            velocity = player.Velocity;
-            rotation = player.Rotation;
-            cliffJudgment = player.ObstacleJudgment;
-            animator = player.PlayerAnimator;
-            groundCheck = player.GroundCheck;
+            stauts = actor.Stauts;
+            base.DoSetup(actor);
+            movement = actor.Movement;
+            velocity = actor.Velocity;
+            rotation = actor.Rotation;
+            cliffJudgment = actor.ObstacleJudgment;
+            animator = actor.PlayerAnimator;
+            groundCheck = actor.GroundCheck;
         }
         public override void DoStart()
         {

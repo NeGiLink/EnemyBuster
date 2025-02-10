@@ -20,7 +20,7 @@ namespace MyAssets
         [SerializeField]
         private IPlayerAnimator animator;
 
-        private IPlayerSetup    playerSetup;
+        private IPlayerSetup    actor;
 
         [SerializeField]
         private new CapsuleCollider collider;
@@ -71,7 +71,7 @@ namespace MyAssets
 
             if(controller != null)
             {
-                playerSetup = controller.GetComponent<IPlayerSetup>();
+                actor = controller.GetComponent<IPlayerSetup>();
                 animator = controller.PlayerAnimator;
             }
 
@@ -156,7 +156,7 @@ namespace MyAssets
         //基礎ダメージと武器のダメージ分
         private float GetPower()
         {
-            return (attackObject.Power + playerSetup.Stauts.BasePower) * GetRatioPower();
+            return (attackObject.Power + actor.Stauts.BasePower) * GetRatioPower();
         }
 
         private void OnTriggerEnter(Collider other)
@@ -170,7 +170,7 @@ namespace MyAssets
             if (damageContainer.IsDeath) { return; }
             swordEffectHandler.EffectLedger.SetPosAndRotCreate((int)SwordEffectType.Hit, other.ClosestPoint(transform.position), other.transform.rotation);
             seHandler.Play(hitCount);
-            damageContainer.GiveDamage((int)GetPower(), attackObject.KnockBack, attackObject.Type, transform,playerSetup.CharaType);
+            damageContainer.GiveDamage((int)GetPower(), attackObject.KnockBack, attackObject.Type, transform,actor.CharaType);
         }
 
         private void OnTriggerStay(Collider other)
@@ -184,7 +184,7 @@ namespace MyAssets
             if (damageContainer.IsDeath) { return; }
             swordEffectHandler.EffectLedger.SetPosAndRotCreate((int)SwordEffectType.Hit, other.ClosestPoint(transform.position),other.transform.rotation);
             seHandler.Play(hitCount);
-            damageContainer.GiveDamage((int)GetPower(), attackObject.KnockBack, attackObject.Type, transform, playerSetup.CharaType);
+            damageContainer.GiveDamage((int)GetPower(), attackObject.KnockBack, attackObject.Type, transform, actor.CharaType);
         }
 
     }

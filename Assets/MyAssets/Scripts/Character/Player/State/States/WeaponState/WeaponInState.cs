@@ -6,7 +6,7 @@ namespace MyAssets
     [System.Serializable]
     public class WeaponInState : PlayerStateBase
     {
-        private IChangingState changingState;
+        private IBattleFlagger battleFlagger;
         private IEquipment equipment;
         private IPlayerAnimator animator;
 
@@ -23,18 +23,18 @@ namespace MyAssets
             return re;
         }
 
-        public override void DoSetup(IPlayerSetup player)
+        public override void DoSetup(IPlayerSetup actor)
         {
-            base.DoSetup(player);
-            changingState = player.ChangingState;
-            equipment = player.Equipment;
-            animator = player.PlayerAnimator;
+            base.DoSetup(actor);
+            battleFlagger = actor.BattleFlagger;
+            equipment = actor.Equipment;
+            animator = actor.PlayerAnimator;
         }
 
         public override void DoStart()
         {
             base.DoStart();
-            changingState.SetBattleMode(false);
+            battleFlagger.SetBattleMode(false);
             equipment.SetInWeapon();
             animator.Animator.SetInteger(animator.Weapon_In_OutName, 1);
             animator.Animator.SetFloat(animator.ToolLevel, 0.0f);

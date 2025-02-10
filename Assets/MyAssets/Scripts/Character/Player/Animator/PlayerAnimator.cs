@@ -36,9 +36,9 @@ namespace MyAssets
         private bool enabled = false;
         private int layer = 0;
 
-        public void DoSetup(IPlayerSetup player)
+        public void DoSetup(IPlayerSetup actor)
         {
-            thisAnimator = player.gameObject.GetComponent<Animator>();
+            thisAnimator = actor.gameObject.GetComponent<Animator>();
             Assert.IsNotNull(thisAnimator);
         }
 

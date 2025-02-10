@@ -12,10 +12,10 @@ namespace MyAssets
         [SerializeField]
         private HeadIK headIK;
 
-        public void DoSetup(IPlayerSetup player)
+        public void DoSetup(IPlayerSetup actor)
         {
-            footIK.DoSetup(player);
-            headIK.DoSetup(player);
+            footIK.DoSetup(actor);
+            headIK.DoSetup(actor);
         }
 
         public void DoFootIKUpdate()
@@ -51,9 +51,9 @@ namespace MyAssets
         private Transform leftToe { get { return animator.Animator.GetBoneTransform(HumanBodyBones.LeftToes); } }
         private Transform rightToe { get { return animator.Animator.GetBoneTransform(HumanBodyBones.RightToes); } }
 
-        public void DoSetup(IPlayerSetup player)
+        public void DoSetup(IPlayerSetup actor)
         {
-            animator = player.PlayerAnimator;
+            animator = actor.PlayerAnimator;
         }
 
         public void DoUpdate()
@@ -182,10 +182,10 @@ namespace MyAssets
         private FieldOfView fieldOfView;
 
         private Transform transform;
-        public void DoSetup(IPlayerSetup player)
+        public void DoSetup(IPlayerSetup actor)
         {
-            fieldOfView = player.gameObject.GetComponent<FieldOfView>();
-            transform = player.gameObject.transform;
+            fieldOfView = actor.gameObject.GetComponent<FieldOfView>();
+            transform = actor.gameObject.transform;
         }
 
         private Vector3 focusDirection = Vector3.forward;

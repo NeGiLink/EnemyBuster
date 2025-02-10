@@ -53,21 +53,21 @@ namespace MyAssets
             if (StateChanger.IsContain(PlayerDeathState.StateKey)) { re.Add(new IsDeathTransition(actor, StateChanger, PlayerDeathState.StateKey)); }
             return re;
         }
-        public override void DoSetup(IPlayerSetup player)
+        public override void DoSetup(IPlayerSetup actor)
         {
-            base.DoSetup(player);
-            stauts = player.Stauts;
-            focusInputProvider = player.gameObject.GetComponent<IFocusInputProvider>();
-            input = player.gameObject.GetComponent<IMoveInputProvider>();
-            velocity = player.Velocity;
-            movement = player.Movement;
-            rotation = player.Rotation;
-            cliffJudgment = player.ObstacleJudgment;
-            ik = player.FootIK;
-            animator = player.PlayerAnimator;
-            fieldOfView = player.gameObject.GetComponent<FieldOfView>();
-            equipment = player.gameObject.GetComponent<IEquipment>();
-            damageContainer = player.DamageContainer;
+            base.DoSetup(actor);
+            stauts = actor.Stauts;
+            focusInputProvider = actor.gameObject.GetComponent<IFocusInputProvider>();
+            input = actor.gameObject.GetComponent<IMoveInputProvider>();
+            velocity = actor.Velocity;
+            movement = actor.Movement;
+            rotation = actor.Rotation;
+            cliffJudgment = actor.ObstacleJudgment;
+            ik = actor.IkController;
+            animator = actor.PlayerAnimator;
+            fieldOfView = actor.gameObject.GetComponent<FieldOfView>();
+            equipment = actor.gameObject.GetComponent<IEquipment>();
+            damageContainer = actor.DamageContainer;
         }
 
         public override void DoStart()

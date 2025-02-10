@@ -74,15 +74,15 @@ namespace MyAssets
             return re;
         }
 
-        public override void DoSetup(IPlayerSetup player)
+        public override void DoSetup(IPlayerSetup actor)
         {
-            base.DoSetup(player);
-            velocity = player.Velocity;
-            movement = player.Movement;
-            animator = player.PlayerAnimator;
-            transform = player.gameObject.transform;
-            fieldOfView = player.FieldOfView;
-            sword = player.Equipment.HaveWeapon.GetComponent<SwordController>();
+            base.DoSetup(actor);
+            velocity = actor.Velocity;
+            movement = actor.Movement;
+            animator = actor.PlayerAnimator;
+            transform = actor.gameObject.transform;
+            fieldOfView = actor.FieldOfView;
+            sword = actor.Equipment.HaveWeapon.GetComponent<SwordController>();
         }
         public override void DoStart()
         {
@@ -170,15 +170,15 @@ namespace MyAssets
             return re;
         }
 
-        public override void DoSetup(IPlayerSetup player)
+        public override void DoSetup(IPlayerSetup actor)
         {
-            base.DoSetup(player);
-            velocity = player.Velocity;
-            animator = player.PlayerAnimator;
-            transform = player.gameObject.transform;
-            movement = player.Movement;
-            fieldOfView = player.FieldOfView;
-            sword = player.Equipment.HaveWeapon.GetComponent<SwordController>();
+            base.DoSetup(actor);
+            velocity = actor.Velocity;
+            animator = actor.PlayerAnimator;
+            transform = actor.gameObject.transform;
+            movement = actor.Movement;
+            fieldOfView = actor.FieldOfView;
+            sword = actor.Equipment.HaveWeapon.GetComponent<SwordController>();
         }
         public override void DoStart()
         {
@@ -279,16 +279,16 @@ namespace MyAssets
             return re;
         }
 
-        public override void DoSetup(IPlayerSetup player)
+        public override void DoSetup(IPlayerSetup actor)
         {
-            base.DoSetup(player);
-            velocity = player.Velocity;
-            animator = player.PlayerAnimator;
-            transform = player.gameObject.transform;
-            movement = player.Movement;
-            fieldOfView = player.FieldOfView;
-            sword = player.Equipment.HaveWeapon.GetComponent<SwordController>();
-            seHandler = player.SEHandler;
+            base.DoSetup(actor);
+            velocity = actor.Velocity;
+            animator = actor.PlayerAnimator;
+            transform = actor.gameObject.transform;
+            movement = actor.Movement;
+            fieldOfView = actor.FieldOfView;
+            sword = actor.Equipment.HaveWeapon.GetComponent<SwordController>();
+            seHandler = actor.SEHandler;
         }
         public override void DoStart()
         {
@@ -385,15 +385,15 @@ namespace MyAssets
             return re;
         }
 
-        public override void DoSetup(IPlayerSetup player)
+        public override void DoSetup(IPlayerSetup actor)
         {
-            base.DoSetup(player);
-            velocity = player.Velocity;
-            animator = player.PlayerAnimator;
-            movement = player.Movement;
-            transform = player.gameObject.transform;
-            fieldOfView = player.FieldOfView;
-            sword = player.Equipment.HaveWeapon.GetComponent<SwordController>();
+            base.DoSetup(actor);
+            velocity = actor.Velocity;
+            animator = actor.PlayerAnimator;
+            movement = actor.Movement;
+            transform = actor.gameObject.transform;
+            fieldOfView = actor.FieldOfView;
+            sword = actor.Equipment.HaveWeapon.GetComponent<SwordController>();
         }
         public override void DoStart()
         {

@@ -12,11 +12,11 @@ namespace MyAssets
 
         private void OnTriggerEnter(Collider other)
         {
-            IPlayerSetup player = other.GetComponent<IPlayerSetup>();
-            if(player == null) { return; }
+            IPlayerSetup actor = other.GetComponent<IPlayerSetup>();
+            if(actor == null) { return; }
             int recovery = Random.Range(minRecoveryNum, maxRecoveryNum + 1);
-            player.BaseStauts.RecoveryHP(recovery);
-            player.SEHandler.Play((int)PlayerSETag.Recovery);
+            actor.BaseStauts.RecoveryHP(recovery);
+            actor.SEHandler.Play((int)PlayerSETag.Recovery);
             gameObject.SetActive(false);
         }
     }

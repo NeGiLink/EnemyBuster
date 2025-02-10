@@ -1,25 +1,28 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace MyAssets
 {
+    /*
+     * 選択ボタンにアタッチするクラス
+     * シーン："01_SelectScene"のステータス変更ボタン決定時に
+     * 生成されるメニューに使用
+     */
     public class SelectStauts : MonoBehaviour
     {
         [SerializeField]
-        private SaveStatusData saveStatusData;
+        private SaveStatusData          saveStatusData;
 
         [SerializeField]
-        private Image image;
+        private Image                   image;
 
         [SerializeField]
-        private Sprite sprite;
+        private Sprite                  sprite;
 
         [SerializeField]
-        private StatusType statusType;
+        private StatusType              statusType;
 
-        private StatusInfo statusInfo;
+        private StatusInfo              statusInfo;
 
         private ChoiceButtonsController choiceButtonsController;
 
@@ -31,8 +34,8 @@ namespace MyAssets
             }
             choiceButtonsController = GetComponentInParent<ChoiceButtonsController>();
         }
-        // Start is called before the first frame update
-        void Start()
+
+        private void Start()
         {
         
         }

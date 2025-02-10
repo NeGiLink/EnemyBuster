@@ -12,7 +12,7 @@ namespace MyAssets
 
         private IEquipment equipment;
 
-        private IChangingState changingState;
+        private IBattleFlagger battleFlagger;
 
         private IPlayerAnimator animator;
 
@@ -30,21 +30,21 @@ namespace MyAssets
             if (StateChanger.IsContain(PlayerDeathState.StateKey)) { re.Add(new IsDeathTransition(actor, StateChanger, PlayerDeathState.StateKey)); }
             return re;
         }
-        public override void DoSetup(IPlayerSetup player)
+        public override void DoSetup(IPlayerSetup actor)
         {
-            stauts = player.Stauts;
-            base.DoSetup(player);
-            velocity = player.Velocity;
-            equipment = player.Equipment;
-            animator = player.PlayerAnimator;
-            changingState = player.ChangingState;
+            stauts = actor.Stauts;
+            base.DoSetup(actor);
+            velocity = actor.Velocity;
+            equipment = actor.Equipment;
+            animator = actor.PlayerAnimator;
+            battleFlagger = actor.BattleFlagger;
         }
 
         public override void DoStart()
         {
             base.DoStart();
             equipment.SetOutWeapon();
-            changingState.SetBattleMode(true);
+            battleFlagger.SetBattleMode(true);
 
             animator.Animator.SetInteger(animator.AttacksName, (int)NormalAttackState.JumpAttack);
             animator.Animator.SetFloat(animator.ToolLevel, 1.0f);

@@ -1,10 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace MyAssets
 {
+    /*
+     *ステータスのタグ
+     *このタグでステータス追加時の判別を行っています。
+     *シーン："01_SelectScene"のステータス変更ボタン決定時に
+     *生成されるメニューに使用
+     */
+
     public enum StatusType
     {
         Null = -1,
@@ -14,20 +20,24 @@ namespace MyAssets
         Power,
         Defense
     }
+    /*
+     * ステータス追加メニューにアタッチしているステータス追加クラス
+     */
     public class ChoiceButtonsController : MonoBehaviour
     {
+        //決定項目のボタン配列
         [SerializeField]
-        private ChoiceStauts[] choiceStautsButton;
+        private ChoiceStauts[]  choiceStautsButton;
+        //選択項目のボタン配列
+        [SerializeField]
+        private SelectStauts[]  selectStautsButton;
 
         [SerializeField]
-        private SelectStauts[] selectStautsButton;
+        private StatusData      statusData;
+        //セーブクラス
+        private SaveManager     saveManager;
 
-        [SerializeField]
-        private StatusData statusData;
-
-        private SaveManager saveManager;
-
-        private bool active = false;
+        private bool            active = false;
 
         private void Awake()
         {
@@ -70,7 +80,6 @@ namespace MyAssets
                     continue;
                 }
                 choiceStautsButton[i].SetStatus(info,data);
-                //choiceStautsButton[i].SaveStatusData.ChangeData(data);
                 break;
             }
             active = true;

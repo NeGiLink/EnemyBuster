@@ -21,14 +21,14 @@ namespace MyAssets
 
         private FieldOfView fieldOfView;
 
-        public void DoSetup(IPlayerSetup player)
+        public void DoSetup(IPlayerSetup actor)
         {
-            thisTransform = player.gameObject.transform;
+            thisTransform = actor.gameObject.transform;
             targetRotation = thisTransform.rotation;
-            velocity = player.Velocity;
-            moveInput = player.MoveInput;
-            focusInput = player.gameObject.GetComponent<IFocusInputProvider>();
-            fieldOfView = player.gameObject.GetComponent<FieldOfView>();
+            velocity = actor.Velocity;
+            moveInput = actor.MoveInput;
+            focusInput = actor.gameObject.GetComponent<IFocusInputProvider>();
+            fieldOfView = actor.gameObject.GetComponent<FieldOfView>();
         }
 
         public void DoUpdate()

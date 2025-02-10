@@ -20,13 +20,13 @@ namespace MyAssets
         public static readonly string StateKey = "JumpAttackLanding";
         public override string Key => StateKey;
 
-        public override List<ICharacterStateTransition<string>> CreateTransitionList(IPlayerSetup player)
+        public override List<ICharacterStateTransition<string>> CreateTransitionList(IPlayerSetup actor)
         {
             List<ICharacterStateTransition<string>> re = new List<ICharacterStateTransition<string>>();
-            if (StateChanger.IsContain(PlayerIdleState.StateKey)) { re.Add(new IsTimerTransition(player, playerTimer, StateChanger, PlayerIdleState.StateKey)); }
-            if (StateChanger.IsContain(MoveState.StateKey)) { re.Add(new IsTimerTransition(player, playerTimer, StateChanger, MoveState.StateKey)); }
-            if (StateChanger.IsContain(PlayerDamageState.StateKey)) { re.Add(new IsDamageTransition(player, StateChanger, PlayerDamageState.StateKey)); }
-            if (StateChanger.IsContain(PlayerDeathState.StateKey)) { re.Add(new IsDeathTransition(player, StateChanger, PlayerDeathState.StateKey)); }
+            if (StateChanger.IsContain(PlayerIdleState.StateKey)) { re.Add(new IsTimerTransition(actor, playerTimer, StateChanger, PlayerIdleState.StateKey)); }
+            if (StateChanger.IsContain(MoveState.StateKey)) { re.Add(new IsTimerTransition(actor, playerTimer, StateChanger, MoveState.StateKey)); }
+            if (StateChanger.IsContain(PlayerDamageState.StateKey)) { re.Add(new IsDamageTransition(actor, StateChanger, PlayerDamageState.StateKey)); }
+            if (StateChanger.IsContain(PlayerDeathState.StateKey)) { re.Add(new IsDeathTransition(actor, StateChanger, PlayerDeathState.StateKey)); }
             return re;
         }
         public override void DoSetup(IPlayerSetup actor)

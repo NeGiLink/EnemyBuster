@@ -40,8 +40,8 @@ namespace MyAssets
         IPlayerAnimator         PlayerAnimator { get; }
         IGroundCheck            GroundCheck { get; }
         IObstacleJudgment       ObstacleJudgment { get; }
-        IAllIK                 FootIK { get; }
-        IChangingState          ChangingState { get; }
+        IAllIK                 IkController { get; }
+        IBattleFlagger          BattleFlagger { get; }
 
         IEquipment              Equipment { get; }
     }

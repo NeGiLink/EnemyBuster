@@ -26,12 +26,12 @@ namespace MyAssets
             if (StateChanger.IsContain(PlayerDeathState.StateKey)) { re.Add(new IsDeathTransition(actor, StateChanger, PlayerDeathState.StateKey)); }
             return re;
         }
-        public override void DoSetup(IPlayerSetup player)
+        public override void DoSetup(IPlayerSetup actor)
         {
-            base.DoSetup(player);
-            velocity = player.Velocity;
-            movement = player.Movement;
-            sword = player.Equipment.HaveWeapon?.GetComponent<SwordController>();
+            base.DoSetup(actor);
+            velocity = actor.Velocity;
+            movement = actor.Movement;
+            sword = actor.Equipment.HaveWeapon?.GetComponent<SwordController>();
         }
 
         public override void DoStart()
