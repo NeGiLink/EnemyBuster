@@ -3,6 +3,9 @@ using UnityEngine;
 
 namespace MyAssets
 {
+    /*
+     * 敵の巡回クラスが持つ巡回ポイントをUnityのGUIで簡単にいじれるようにするためのクラス
+     */
     [CustomEditor(typeof(PatrplPointContainer))]
     public class PatrolStateEditor : Editor
     {

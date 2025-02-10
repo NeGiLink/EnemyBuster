@@ -19,24 +19,24 @@ namespace MyAssets
     public class AllCameraController
     {
         [SerializeField]
-        private IMainCameraProvider mainCameraController;
-        public IMainCameraProvider MainCameraController => mainCameraController;
+        private IMainCameraProvider     mainCameraController;
+        public IMainCameraProvider      MainCameraController => mainCameraController;
 
-        private IFocusInputProvider focusInput;
-
-        [SerializeField]
-        private FieldOfView foucusTarget;
-        public FieldOfView FoucusTarget => foucusTarget;
+        private IFocusInputProvider     focusInput;
 
         [SerializeField]
-        private CameraTag cameraTag;
+        private FieldOfView             foucusTarget;
+        public FieldOfView              FoucusTarget => foucusTarget;
 
-        private IAllPlayerCamera[] allPlayerCamera = new IAllPlayerCamera[(int)CameraTag.Count];
+        [SerializeField]
+        private CameraTag               cameraTag;
 
-        private IAllPlayerCamera usePlayerCamera;
+        private IAllPlayerCamera[]      allPlayerCamera = new IAllPlayerCamera[(int)CameraTag.Count];
 
-        private Quaternion fixedCamRotation;
-        public Quaternion FixedCamRotation => fixedCamRotation;
+        private IAllPlayerCamera        usePlayerCamera;
+
+        private Quaternion              fixedCamRotation;
+        public Quaternion               FixedCamRotation => fixedCamRotation;
         public void SetFixedCamRotation(Quaternion rotation) { fixedCamRotation = rotation; }
 
         public void Setup(GameObject _controller, IMainCameraProvider _this)
@@ -61,7 +61,7 @@ namespace MyAssets
 
         public void DoStart()
         {
-            cameraTag = mainCameraController.ChangeCameraType.CameraTag;
+            cameraTag = mainCameraController.CameraTag;
             usePlayerCamera = allPlayerCamera[(int)cameraTag];
             usePlayerCamera.Start();
         }
@@ -278,10 +278,7 @@ namespace MyAssets
             allCameraController.SetFixedCamRotation(mainCameraProvider.TargetTransform.rotation);
         }
 
-        public void CameraTransition()
-        {
-
-        }
+        public void CameraTransition(){}
 
         public void Start()
         {
@@ -292,7 +289,7 @@ namespace MyAssets
 
             trackedDolly.m_PathPosition = 0;
 
-            mainCameraProvider.VirtualCameras[(int)CameraTag.Result].LookAt = GameObject.FindObjectOfType<ResultCameraTarget>().transform;
+            mainCameraProvider.VirtualCameras[(int)CameraTag.Result].LookAt = mainCameraProvider.GetResultCameraLookAtTransform();
         }
 
         public void Exit()

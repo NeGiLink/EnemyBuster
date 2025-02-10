@@ -3,34 +3,35 @@ using UnityEngine;
 
 namespace MyAssets
 {
-
+    /*
+     * マッシュルームの巡回状態
+     */
     [System.Serializable]
     public class MushroomPatrolState : MushroomStateBase
     {
-        private IMovement movement;
+        private IMovement               movement;
 
-        private IVelocityComponent velocity;
+        private IVelocityComponent      velocity;
 
-        private Transform thisTransform;
+        private Transform               thisTransform;
 
-        private IMushroomAnimator animator;
+        private IMushroomAnimator       animator;
 
-        private IDamageContainer damageContainer;
-
-        [SerializeField]
-        private PatrplPointContainer patrplPointContainer;
 
         [SerializeField]
-        float moveSpeed = 3;
-        [SerializeField]
-        float rotationSpeed = 8;
-        [SerializeField]
-        float moveSpeedChangeRate = 8;
-        [SerializeField]
-        private float gravityMultiply;
+        private PatrplPointContainer    patrplPointContainer;
 
-        public static readonly string StateKey = "Patrol";
-        public override string Key => StateKey;
+        [SerializeField]
+        private　float                   moveSpeed = 3;
+        [SerializeField]
+        private　float                   rotationSpeed = 8;
+        [SerializeField]
+        private float                   moveSpeedChangeRate = 8;
+        [SerializeField]
+        private float                   gravityMultiply;
+
+        public static readonly string   StateKey = "Patrol";
+        public override string          Key => StateKey;
 
         public override List<ICharacterStateTransition<string>> CreateTransitionList(IMushroomSetup enemy)
         {
@@ -49,7 +50,6 @@ namespace MyAssets
             movement = actor.Movement;
             velocity = actor.Velocity;
             animator = actor.MushroomAnimator;
-            damageContainer = actor.DamageContainer;
             patrplPointContainer = actor.gameObject.GetComponent<PatrplPointContainer>();
             patrplPointContainer.SetCurrentPoint(GetMinDistancePointIndex());
         }
@@ -58,7 +58,7 @@ namespace MyAssets
             patrplPointContainer.SetStop(false);
 
 
-            animator.Animator.SetInteger("Move", 1);
+            animator.Animator.SetInteger(animator.MoveAnimationID, 1);
         }
 
         public override void DoFixedUpdate(float time)
@@ -107,7 +107,7 @@ namespace MyAssets
         public override void DoExit()
         {
             base.DoExit();
-            animator.Animator.SetInteger("Move", 0);
+            animator.Animator.SetInteger(animator.MoveAnimationID, 0);
         }
     }
 

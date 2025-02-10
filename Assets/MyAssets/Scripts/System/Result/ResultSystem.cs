@@ -1,20 +1,22 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace MyAssets
 {
+    /*
+     * ゲームの結果のシステムのクラス
+     */
     public class ResultSystem : MonoBehaviour
     {
-        private AbstractGameMode gameMode;
+        //モード
+        private AbstractGameMode    gameMode;
+        //結果UIオブジェクト
         [SerializeField]
-        private ResultUI resultUI;
-
+        private ResultUI            resultUI;
+        //BGMClip
         [SerializeField]
-        private AudioClip gameClearBGM;
-
+        private AudioClip           gameClearBGM;
         [SerializeField]
-        private AudioClip gameOverBGM;
+        private AudioClip           gameOverBGM;
 
         private void Awake()
         {

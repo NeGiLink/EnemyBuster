@@ -1,9 +1,11 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace MyAssets
 {
+    /*
+     * ƒS[ƒŒƒ€‚ÌƒXƒ^ƒ“ƒvUŒ‚ó‘Ô
+     */
     [System.Serializable]
     public class GolemStampAttackState : GolemStateBase
     {
@@ -35,12 +37,14 @@ namespace MyAssets
         private float                   effectCount = 1.8f;
 
         public static readonly string   StateKey = "StampAttack";
-        public override string Key => StateKey;
+        public override string          Key => StateKey;
+
+        private readonly string         motionName = "SA_Golem_Hammer";
 
         public override List<ICharacterStateTransition<string>> CreateTransitionList(IGolemSetup actor)
         {
             List<ICharacterStateTransition<string>> re = new List<ICharacterStateTransition<string>>();
-            if (StateChanger.IsContain(GolemIdleState.StateKey)) { re.Add(new IsNotGolemAttackTransition(actor, "SA_Golem_Hammer", StateChanger, GolemIdleState.StateKey)); }
+            if (StateChanger.IsContain(GolemIdleState.StateKey)) { re.Add(new IsNotGolemAttackTransition(actor, motionName, StateChanger, GolemIdleState.StateKey)); }
             if (StateChanger.IsContain(GolemDamageState.StateKey)) { re.Add(new IsEnemyDamageTransition(actor, StateChanger, GolemDamageState.StateKey)); }
             if (StateChanger.IsContain(GolemDeathState.StateKey)) { re.Add(new IsDeathTransition(actor, StateChanger, GolemDeathState.StateKey)); }
             return re;
@@ -60,7 +64,7 @@ namespace MyAssets
         public override void DoStart()
         {
             base.DoStart();
-            animator.Animator.SetInteger("Attack", 1);
+            animator.Animator.SetInteger(animator.AttackAnimationID, 1);
 
             fist.SetAttackType(AttackType.Normal);
             timer.Start(effectCount);
@@ -100,7 +104,7 @@ namespace MyAssets
         public override void DoExit()
         {
             base.DoExit();
-            animator.Animator.SetInteger("Attack", -1);
+            animator.Animator.SetInteger(animator.AttackAnimationID, -1);
             movement.Stop();
             fist.NotEnabledCollider();
             timer.OnEnd -= ActivationEffect;

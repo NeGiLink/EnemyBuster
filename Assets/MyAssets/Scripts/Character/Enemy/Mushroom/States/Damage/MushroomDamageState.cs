@@ -1,40 +1,42 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace MyAssets
 {
+    /*
+     * マッシュルームのダメージ状態
+     */
     [System.Serializable]
     public class MushroomDamageState : MushroomStateBase
     {
-        private IBaseStauts stauts;
+        private IBaseStauts             stauts;
 
-        private Transform thisTransform;
+        private Transform               thisTransform;
 
-        private IVelocityComponent velocity;
+        private IVelocityComponent      velocity;
 
-        private IMushroomAnimator animator;
+        private IMushroomAnimator       animator;
 
-        private IDamageContainer damageContainer;
+        private IDamageContainer        damageContainer;
 
-        private IDamagement damageMove;
+        private IDamagement             damageMove;
 
-        private FieldOfView fieldOfView;
+        private FieldOfView             fieldOfView;
 
-        private Timer damageTimer = new Timer();
+        private Timer                   damageTimer = new Timer();
 
-
-        [SerializeField]
-        private float decreaseForce = 0.9f;
 
         [SerializeField]
-        private float damageGravityMultiply = 2.0f;
+        private float                   decreaseForce = 0.9f;
 
         [SerializeField]
-        private float damageIdleCount = 0.5f;
+        private float                   damageGravityMultiply = 2.0f;
 
-        public static readonly string StateKey = "Damage";
-        public override string Key => StateKey;
+        [SerializeField]
+        private float                   damageIdleCount = 0.5f;
+
+        public static readonly string   StateKey = "Damage";
+        public override string          Key => StateKey;
 
         public override List<ICharacterStateTransition<string>> CreateTransitionList(IMushroomSetup actor)
         {
@@ -67,7 +69,7 @@ namespace MyAssets
             int damageType = 0;
             damageMove.AddForceMove(thisTransform.position, damageContainer.Attacker.position, damageContainer.KnockBack * 1.0f);
             damageTimer.Start(damageIdleCount);
-            animator.Animator.SetInteger("Impact", damageType);
+            animator.Animator.SetInteger(animator.ImpactAnimationID, damageType);
         }
 
         private void FoundTarget()
@@ -98,7 +100,7 @@ namespace MyAssets
             base.DoExit();
             fieldOfView.SetAllSearch(false);
             damageContainer.ClearDamage();
-            animator.Animator.SetInteger("Impact", -1);
+            animator.Animator.SetInteger(animator.ImpactAnimationID, -1);
             stauts.ClearStoredDamage();
         }
     }

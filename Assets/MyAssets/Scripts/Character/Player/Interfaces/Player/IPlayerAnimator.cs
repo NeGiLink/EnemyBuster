@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 
 namespace MyAssets
@@ -38,7 +37,10 @@ namespace MyAssets
 
     public interface IMushroomAnimator : IEnemyAnimator
     {
-        string AttacksName { get; }
+        int MoveAnimationID { get; }
+        int AttackAnimationID { get; }
+        int ImpactAnimationID { get; }
+        int DeathAnimationID { get; }
     }
 
     public interface IBullTankAnimator : IEnemyAnimator
@@ -53,7 +55,10 @@ namespace MyAssets
 
     public interface IGolemAnimator : IEnemyAnimator
     {
-        string AttacksName { get; }
+        int MoveAnimationID { get; }
+        int AttackAnimationID { get; }
+        int ImpactAnimationID { get; }
+        int DeathAnimationID { get; }
     }
 
     public interface INPCAnimator

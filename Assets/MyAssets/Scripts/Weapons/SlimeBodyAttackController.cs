@@ -11,46 +11,40 @@ namespace MyAssets
         Attack,
         Hit
     }
-
-    public class SlimeBodyAttackController : MonoBehaviour
+    /*
+     * スライムの武器(体)のクラス
+     * 表示・非表示やコライダーの設定、当たり判定の区別を行っている
+     */
+    [RequireComponent(typeof(SphereCollider))]
+    [RequireComponent(typeof(SmallEnemyEffectHandller))]
+    public class SlimeBodyAttackController : BaseAttackController
     {
         [SerializeField]
-        private Transform thisTransform;
+        private Transform                   thisTransform;
 
         [SerializeField]
-        private AttackObject attackObject;
+        private ISlimeAnimator              animator;
 
-        [SerializeField]
-        private ISlimeAnimator animator;
+        private ISlimeSetup                 slime;
 
-        private ISlimeSetup setup;
-
-        private SmallEnemyEffectHandller effectHandller;
-
-        private SEHandler seHandler;
-
-        [SerializeField]
-        private LayerMask hitLayer;
+        private SmallEnemyEffectHandller    effectHandller;
 
         //保存用のcenter・radius
-        private Vector3 center;
+        private Vector3                     center;
 
-        private float radius;
+        private float                       radius;
 
-        private new SphereCollider collider;
+        private new SphereCollider          collider;
 
-        private AttackType attackType = AttackType.Normal;
         public void SetAttackType(AttackType type) { attackType = type; }
 
-        private void Awake()
+        protected override void Awake()
         {
-            attackObject = GetComponent<AttackObject>();
+            base.Awake();
 
             SlimeController controller = GetComponentInParent<SlimeController>();
-            setup = controller.GetComponent<ISlimeSetup>();
+            slime = controller.GetComponent<ISlimeSetup>();
             effectHandller = GetComponent<SmallEnemyEffectHandller>();
-
-            seHandler = GetComponent<SEHandler>();
 
             if (controller != null)
             {
@@ -107,7 +101,7 @@ namespace MyAssets
 
         private int GetPower()
         {
-            return attackObject.Power + (int)setup.BaseStauts.BasePower;
+            return attackObject.Power + (int)slime.BaseStauts.BasePower;
         }
 
         private void OnTriggerEnter(Collider other)
@@ -130,7 +124,7 @@ namespace MyAssets
             }
             seHandler.Play((int)SlimeBodyAttackSEType.Hit);
             effectHandller.EffectLedger.SetPosAndRotCreate((int)SlimeBodyAttackEffectType.Hit, other.ClosestPoint(transform.position), transform.rotation);
-            damageContainer.GiveDamage(GetPower(), attackObject.KnockBack, attackObject.Type, transform,setup.CharaType);
+            damageContainer.GiveDamage(GetPower(), attackObject.KnockBack, attackObject.Type, transform,slime.CharaType);
         }
     }
 }

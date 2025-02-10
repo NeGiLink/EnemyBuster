@@ -2,16 +2,20 @@ using UnityEngine;
 
 namespace MyAssets
 {
+    /*
+     * キャラクターの足部分のリグにアタッチするクラス
+     * 足音のSEを地面の種類別に再生する
+     */
     public class FootstepSEHandler : MonoBehaviour
     {
 
-        private SEHandler seHandler;
+        private SEHandler   seHandler;
         [SerializeField]
-        private LayerMask groundLayer;
+        private LayerMask   groundLayer;
         [SerializeField]
-        private float raycastDistance = 0.2f;
+        private float       raycastDistance = 0.2f;
         [SerializeField]
-        private bool wasGrounded = false;
+        private bool        wasGrounded = false;
 
         private void Awake()
         {

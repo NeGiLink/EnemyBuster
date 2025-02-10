@@ -4,6 +4,10 @@ using UnityEngine.InputSystem.LowLevel;
 
 namespace MyAssets
 {
+    /*
+     * UIのボタン入力を行うクラス
+     * ゲーム中1つで十分なのでシングルトンパターン
+     */
     public class InputUIAction : MonoBehaviour
     {
         private static InputUIAction    instance;

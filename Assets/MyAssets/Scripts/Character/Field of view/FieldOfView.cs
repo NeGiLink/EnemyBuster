@@ -4,51 +4,51 @@ using UnityEngine;
 
 namespace MyAssets
 {
+    /*
+     * 指定したオブジェクトを見つける視界クラス
+     */
     public class FieldOfView : MonoBehaviour , IFieldOfView
     {
-        private Timer       currentSearchinTimer = new Timer();
-        public Timer        CurrentSearchinTimer => currentSearchinTimer;
+        //検索するタイマー
+        private Timer               currentSearchinTimer = new Timer();
+        //発見したオブジェクトを取得
         [SerializeField]
-        private GameObject  targetObject;
-        public GameObject   TargetObject => targetObject;
+        private GameObject          targetObject;
+        public GameObject           TargetObject => targetObject;
         //nullじゃないのならtrue、nullならfalse
-        public bool         FindTarget => targetObject != null;
-
-        public void SetTargetObject(GameObject t) {  targetObject = t; }
+        public bool                 FindTarget => targetObject != null;
+        //ターゲットが最後にいた座標
         [SerializeField]
-        private Vector3     targetLastPoint;
-        public Vector3      TargetLastPoint => targetLastPoint;
+        private Vector3             targetLastPoint;
+        public Vector3              TargetLastPoint => targetLastPoint;
 
-
+        //新しく調べるまでのカウント
         [SerializeField]
-        float               refreshTime = 0.1f;
-
+        float                       refreshTime = 0.1f;
+        //視界の距離
         [SerializeField]
-        float               range = 10.0f;
-
+        float                       range = 10.0f;
+        //視界の広さ
         [SerializeField]
-        float               viewAngle = 45.0f;
-
+        float                       viewAngle = 45.0f;
+        //探すオブジェクトをレイヤーで取得
         [SerializeField]
-        LayerMask           targetObjectLayer = Physics.AllLayers;
-
+        LayerMask                   targetObjectLayer = Physics.AllLayers;
+        //広さか360度かを決めるフラグ
         [SerializeField]
-        private bool        allSearch = false;
+        private bool                allSearch = false;
 
-
-        public void SetAllSearch(bool a) {  allSearch = a; }
+        //探しているオブジェクトを発見したか
         [SerializeField]
-        private bool        find = false;
-
-        public bool         Find => find;
+        private bool                find = false;
+        public bool                 Find => find;
 
         // 視界範囲内のオブジェクトリスト
-        List<GameObject>    insideObjects = new List<GameObject>();
+        List<GameObject>            insideObjects = new List<GameObject>();
+        //発見したオブジェクトとの距離
+        public Vector3              GetSubDistance => targetLastPoint - transform.position;
 
-        public List<GameObject> InsideObjects => insideObjects;
-
-        public Vector3 GetSubDistance => targetLastPoint - transform.position;
-
+        public void SetAllSearch(bool a) {  allSearch = a; }
         public bool IsInside(GameObject obj) => insideObjects.Contains(obj);
 
         public bool TryGetFirstObject(out GameObject obj)
@@ -97,15 +97,6 @@ namespace MyAssets
             {
                 currentSearchinTimer.Start(1.0f);
             }
-        }
-
-        private float SubDistance(GameObject obj)
-        {
-            if(obj == null)
-            {
-                return 0.0f;
-            }
-            return (transform.position - obj.transform.position).magnitude;
         }
 
         public void AllSearchStart()

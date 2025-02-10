@@ -474,16 +474,17 @@ MonoBehaviour:
     storedDamage: 0
     maxSp: 1000
     sp: 1000
+    rollingUseSP: 0
     spinAttackUseSP: 150
     guardUseSP: 100
     counterAttackUseSP: 50
     chargeAttackUseSP: 60
   weaponController: {fileID: 0}
-  changingState:
+  battleFlagger:
     battleMode: 0
   guardTrigger:
     guard: 0
-  footIK:
+  ikController:
     footIK:
       ikEnabled: 0
       isDrawDebug: 0
@@ -491,7 +492,7 @@ MonoBehaviour:
       toeOffsetZ: 0.05
       rayLength: 0.1
     headIK:
-      headTransform: {fileID: 4838911823307938409}
+      headTransform: {fileID: 0}
       fieldOfView: {fileID: 0}
   rotation:
     thisTransform: {fileID: 0}
@@ -618,42 +619,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e94a94ea3f58f59488cc55b77c3c6849, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  aimVertical:
-    Value: 0
-    m_SpeedMode: 1
-    m_MaxSpeed: 1
-    m_AccelTime: 0.1
-    m_DecelTime: 0.1
-    m_InputAxisName: Mouse Y
-    m_InputAxisValue: 0
-    m_InvertInput: 1
-    m_MinValue: -30
-    m_MaxValue: 30
-    m_Wrap: 0
-    m_Recentering:
-      m_enabled: 0
-      m_WaitTime: 0
-      m_RecenteringTime: 0
-      m_LegacyHeadingDefinition: 0
-      m_LegacyVelocityFilterStrength: 0
-  aimHorizontal:
-    Value: 0
-    m_SpeedMode: 1
-    m_MaxSpeed: 1
-    m_AccelTime: 0.1
-    m_DecelTime: 0.1
-    m_InputAxisName: Mouse X
-    m_InputAxisValue: 0
-    m_InvertInput: 0
-    m_MinValue: -180
-    m_MaxValue: 180
-    m_Wrap: 1
-    m_Recentering:
-      m_enabled: 0
-      m_WaitTime: 0
-      m_RecenteringTime: 0
-      m_LegacyHeadingDefinition: 0
-      m_LegacyVelocityFilterStrength: 0
   move: {x: 0, y: 0}
   dash: 0
   jump: 0
@@ -741,6 +706,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   effectLedger: {fileID: 11400000, guid: ef7ea41747426664ba20bbea4a37b2bf, type: 2}
+  chargeParticles: []
 --- !u!114 &6235885306054115172
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1313,11 +1279,6 @@ MonoBehaviour:
     m_Bits: 8
   raycastDistance: 0.2
   wasGrounded: 0
---- !u!4 &4838911823307938409 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7208261743932278219, guid: e8c789881220eea46956c40555ae8e0f, type: 3}
-  m_PrefabInstance: {fileID: 2823659621207121826}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5442485834479250790 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7829577706673091268, guid: e8c789881220eea46956c40555ae8e0f, type: 3}

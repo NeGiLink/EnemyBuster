@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace MyAssets
@@ -11,31 +10,42 @@ namespace MyAssets
         Hit1,
         Hit2
     }
+    /*
+     * プレイヤーが所持してる剣のクラス
+     * 表示・非表示やコライダーの設定、当たり判定の区別を行っている
+     */
+    //RequireComponentでそのほかのコンポーネントも自動でアタッチ
     [RequireComponent(typeof(CapsuleCollider))]
-    public class SwordController : MonoBehaviour
+    [RequireComponent(typeof(SwordEffectHandler))]
+    public class SwordController : BaseAttackController
     {
-        [SerializeField]
-        private AttackObject attackObject;
 
         [SerializeField]
-        private IPlayerAnimator animator;
+        private IPlayerAnimator         animator;
 
-        private IPlayerSetup    actor;
+        private IPlayerSetup            actor;
 
         [SerializeField]
-        private new CapsuleCollider collider;
+        private new CapsuleCollider     collider;
 
 
         //保存用のcenter・radius・height
-        private Vector3 center;
+        private Vector3                 center;
 
-        private float radius;
+        private float                   radius;
 
-        private float height;
+        private float                   height;
 
-        private List<IDamageContainer> damagers = new List<IDamageContainer>();
 
-        private AttackType attackType = AttackType.Normal;
+        private int                     attackCount;
+
+        private int                     hitCount;
+
+        private SwordEffectHandler      swordEffectHandler;
+
+        
+        private float                   ratioPower = 1.0f;
+
         public void SetAttackType(AttackType type,SwordSEType seType)
         {
             attackType = type;
@@ -50,22 +60,9 @@ namespace MyAssets
             }
         }
 
-        private int attackCount;
-
-        private int hitCount;
-
-        private SwordEffectHandler swordEffectHandler;
-
-        private SEHandler seHandler;
-
-        
-        private float ratioPower = 1.0f;
-
-        private void Awake()
+        protected override void Awake()
         {
-            attackObject = GetComponent<AttackObject>();
-
-            seHandler = GetComponent<SEHandler>();
+            base.Awake();
 
             PlayerController controller = GetComponentInParent<PlayerController>();
 

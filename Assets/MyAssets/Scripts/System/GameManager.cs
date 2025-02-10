@@ -16,12 +16,8 @@ namespace MyAssets
         private static GameManager          instance;
         public static GameManager           Instance => instance;
 
-        private PlayerActionInput        playerInput;
+        private PlayerActionInput           playerInput;
         private MainCameraController        mainCameraController;
-        
-        [SerializeField]
-        private StageLedger                 stageLedger;
-        public StageLedger                  StageLedger => stageLedger;
 
         [SerializeField]
         private GameModeLedger              gameModeLedger;

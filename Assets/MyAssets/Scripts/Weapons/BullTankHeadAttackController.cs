@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace MyAssets
@@ -8,44 +6,45 @@ namespace MyAssets
     {
         Hit
     }
-
-    public class BullTankHeadAttackController : MonoBehaviour
+    /*
+     * ブルタンクの武器2(頭)のクラス
+     * 表示・非表示やコライダーの設定、当たり判定の区別を行っている
+     */
+    [RequireComponent(typeof(SphereCollider))]
+    [RequireComponent(typeof(SmallEnemyEffectHandller))]
+    public class BullTankHeadAttackController : BaseAttackController
     {
         [SerializeField]
-        private Transform thisTransform;
+        private Transform                   thisTransform;
 
         [SerializeField]
-        private AttackObject attackObject;
+        private IBullTankAnimator           animator;
 
-        [SerializeField]
-        private IBullTankAnimator animator;
+        private SmallEnemyEffectHandller    effectHandller;
 
-        private SmallEnemyEffectHandller effectHandller;
-
-        private new SphereCollider collider;
+        private new SphereCollider          collider;
 
         //保存用のcenter・radius
-        private Vector3 center;
+        private Vector3                     center;
 
-        private float radius;
+        private float                       radius;
 
+        private IBullTankSetup              bullTank;
 
-        private AttackType attackType = AttackType.Normal;
         public void SetAttackType(AttackType type) { attackType = type; }
 
-        private IBullTankSetup setup;
 
-        private void Awake()
+        protected override void Awake()
         {
-            attackObject = GetComponent<AttackObject>();
+            base.Awake();
 
-            setup = GetComponentInParent<IBullTankSetup>();
+            bullTank = GetComponentInParent<IBullTankSetup>();
 
             effectHandller = GetComponent<SmallEnemyEffectHandller>();
 
-            if (setup != null)
+            if (bullTank != null)
             {
-                animator = setup.BullTankAnimator;
+                animator = bullTank.BullTankAnimator;
             }
 
             collider = GetComponent<SphereCollider>();
@@ -103,7 +102,7 @@ namespace MyAssets
 
         private int GetPower()
         {
-            return attackObject.Power + (int)setup.BaseStauts.BasePower;
+            return attackObject.Power + (int)bullTank.BaseStauts.BasePower;
         }
 
         private void OnTriggerEnter(Collider other)
@@ -127,7 +126,7 @@ namespace MyAssets
             }
             effectHandller.EffectLedger.SetPosAndRotCreate((int)BullTankHeadAttackEffectType.Hit, other.ClosestPoint(transform.position), transform.rotation);
             damageContainer.SetActivateKnockback(true);
-            damageContainer.GiveDamage(power, attackObject.KnockBack, attackObject.Type, transform, setup.CharaType);
+            damageContainer.GiveDamage(power, attackObject.KnockBack, attackObject.Type, transform, bullTank.CharaType);
         }
     }
 }

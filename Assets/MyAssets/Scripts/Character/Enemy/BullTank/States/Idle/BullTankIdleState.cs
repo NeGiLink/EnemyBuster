@@ -3,21 +3,24 @@ using UnityEngine;
 
 namespace MyAssets
 {
+    /*
+     * ブルタンクの待機状態
+     */
     [System.Serializable]
     public class BullTankIdleState : BullTankStateBase
     {
-        private IMovement movement;
+        private IMovement               movement;
 
-        private Timer idleTimer = new Timer();
+        private Timer                   idleTimer = new Timer();
 
-        public static readonly string StateKey = "Idle";
-        public override string Key => StateKey;
-
-        [SerializeField]
-        private float moveSpeed;
+        public static readonly string   StateKey = "Idle";
+        public override string          Key => StateKey;
 
         [SerializeField]
-        private float idleCount;
+        private float                   moveSpeed;
+
+        [SerializeField]
+        private float                   idleCount;
 
         public override List<ICharacterStateTransition<string>> CreateTransitionList(IBullTankSetup actor)
         {

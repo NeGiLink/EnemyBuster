@@ -3,32 +3,32 @@ using UnityEngine;
 
 namespace MyAssets
 {
+    /*
+     * ブルタンクの複数の状態遷移を行う状態
+     */
     [System.Serializable]
     public class BullTankActionDecisionState : BullTankStateBase
     {
-        private IVelocityComponent velocity;
-        private FieldOfView fieldOfView;
+        private IVelocityComponent      velocity;
+        private FieldOfView             fieldOfView;
 
         [SerializeField]
-        private float maxDistance = 5f;
-
-        [SerializeField]
-        private float gravityMultiply;
+        private float                   gravityMultiply;
 
 
         [SerializeField]
-        private float targetDistance;
+        private float                   targetDistance;
 
-        public static readonly string StateKey = "ActionDecision";
-        public override string Key => StateKey;
+        public static readonly string   StateKey = "ActionDecision";
+        public override string          Key => StateKey;
 
-        private Trigger chaseTrigger = new Trigger();
+        private Trigger                 chaseTrigger = new Trigger();
 
-        private Trigger attackTrigger = new Trigger();
+        private Trigger                 attackTrigger = new Trigger();
 
-        private Trigger rushTrigger = new Trigger();
+        private Trigger                 rushTrigger = new Trigger();
 
-        private Trigger sideMoveTrigger = new Trigger();
+        private Trigger                 sideMoveTrigger = new Trigger();
 
         public override List<ICharacterStateTransition<string>> CreateTransitionList(IBullTankSetup actor)
         {

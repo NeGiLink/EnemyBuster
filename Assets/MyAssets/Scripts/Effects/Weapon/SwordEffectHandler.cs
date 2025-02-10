@@ -18,13 +18,13 @@ namespace MyAssets
         private Vector3         slachEffectRotation;
 
         [SerializeField]
-        private EffectLedger effectLedger;
-        public  EffectLedger EffectLedger => effectLedger;
+        private EffectLedger    effectLedger;
+        public  EffectLedger    EffectLedger => effectLedger;
 
         private TrailRenderer   keepSlachEffect;
 
-        // Start is called before the first frame update
-        void Start()
+
+        private void Start()
         {
             keepSlachEffect = Instantiate(slachEffect,transform);
             Transform slach = keepSlachEffect.transform;

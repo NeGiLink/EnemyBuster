@@ -2,6 +2,7 @@ using UnityEngine;
 
 namespace MyAssets
 {
+    //マウス・キーボード・コントローラーに関係する処理を行うクラス
     public class InputManager
     {
         private static bool         inputStop = false;

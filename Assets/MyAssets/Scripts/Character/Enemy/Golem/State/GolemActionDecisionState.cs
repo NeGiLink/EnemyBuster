@@ -3,27 +3,30 @@ using UnityEngine;
 
 namespace MyAssets
 {
+    /*
+     * ƒS[ƒŒƒ€‚Ì•¡”ó‘Ô‚ð‘I‘ð‚·‚éó‘Ô
+     */
     [System.Serializable]
     public class GolemActionDecisionState : GolemStateBase
     {
-        private IVelocityComponent velocity;
-        private FieldOfView fieldOfView;
+        private IVelocityComponent      velocity;
+        private FieldOfView             fieldOfView;
 
         [SerializeField]
-        private float gravityMultiply;
+        private float                   gravityMultiply;
 
 
         [SerializeField]
-        private float targetDistance;
+        private float                   targetDistance;
 
-        public static readonly string StateKey = "ActionDecision";
-        public override string Key => StateKey;
+        public static readonly string   StateKey = "ActionDecision";
+        public override string          Key => StateKey;
 
-        private Trigger chaseTrigger = new Trigger();
+        private Trigger                 chaseTrigger = new Trigger();
 
-        private Trigger attackTrigger = new Trigger();
+        private Trigger                 attackTrigger = new Trigger();
 
-        private Trigger stampTrigger = new Trigger();
+        private Trigger                 stampTrigger = new Trigger();
 
         public override List<ICharacterStateTransition<string>> CreateTransitionList(IGolemSetup actor)
         {

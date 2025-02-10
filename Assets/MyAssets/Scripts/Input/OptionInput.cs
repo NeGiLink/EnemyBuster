@@ -2,11 +2,14 @@ using UnityEngine;
 
 namespace MyAssets
 {
+    /*
+     * オプションの処理にアタッチして使うオプション入力クラス
+     */
     public class OptionInput : MonoBehaviour
     {
-        private MenuCaller caller;
+        private MenuCaller  caller;
 
-        private bool open = false;
+        private bool        open = false;
 
         private void Awake()
         {

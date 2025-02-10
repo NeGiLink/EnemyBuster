@@ -4,15 +4,18 @@ using UnityEngine;
 
 namespace MyAssets
 {
+    /*
+     * キャラクターの状態を管理するStateMachine
+     */
     [System.Serializable]
     public class StateMachine<TKey> : IStateMachine,IStateChanger<TKey>
     {
-        Dictionary<TKey, IState> stateDictionary;
-        IState currentState;
+        private Dictionary<TKey, IState>    stateDictionary;
+        private IState                      currentState;
 
-        public IState CurrentState => currentState;
+        public IState                       CurrentState => currentState;
 
-        public event Action<IState> OnStateChanged;
+        public event Action<IState>         OnStateChanged;
 
         public void DoSetup(IState<TKey>[] states, IEqualityComparer<TKey> comparer = null)
         {

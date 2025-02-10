@@ -8,53 +8,51 @@ namespace MyAssets
         Single,
         Damage
     }
+    /*
+     * ブルタンクの武器(アックス)のクラス
+     * 表示・非表示やコライダーの設定、当たり判定の区別を行っている
+     */
+    [RequireComponent(typeof(SwordEffectHandler))]
     [RequireComponent(typeof(SphereCollider))]
-    public class AxeController : MonoBehaviour
+    public class AxeController : BaseAttackController
     {
         [SerializeField]
-        private Transform thisTransform;
+        private Transform           thisTransform;
 
         [SerializeField]
-        private AttackObject attackObject;
+        private IBullTankAnimator   animator;
+
+        private IBullTankSetup      bullTank;
 
         [SerializeField]
-        private IBullTankAnimator animator;
-
-        private IBullTankSetup setup;
-
-        [SerializeField]
-        private new SphereCollider collider;
+        private new SphereCollider  collider;
 
         //保存用のcenter・radius
-        private Vector3 center;
+        private Vector3             center;
 
-        private float radius;
+        private float               radius;
 
-        private List<IDamageContainer> damagers = new List<IDamageContainer>();
 
-        private AttackType attackType = AttackType.Normal;
         public void SetAttackType(AttackType type) { attackType = type; }
 
-        private SwordEffectHandler swordEffectHandler;
+        private SwordEffectHandler  swordEffectHandler;
 
-        private SEHandler           seHandler;
-        private void Awake()
+
+        protected override void Awake()
         {
-            attackObject = GetComponent<AttackObject>();
+            base.Awake();
 
             BullTankController controller = GetComponentInParent<BullTankController>();
 
             if (controller != null)
             {
-                setup = controller.GetComponent<IBullTankSetup>();
+                bullTank = controller.GetComponent<IBullTankSetup>();
                 animator = controller.BullTankAnimator;
             }
 
             collider = GetComponent<SphereCollider>();
 
             swordEffectHandler = GetComponent<SwordEffectHandler>();
-            
-            seHandler = GetComponent<SEHandler>();
 
             center = collider.center;
             radius = collider.radius;
@@ -116,7 +114,7 @@ namespace MyAssets
         //武器ダメとキャラダメを+した値を出力
         private int GetPower()
         {
-            return attackObject.Power + (int)setup.BaseStauts.BasePower;
+            return attackObject.Power + (int)bullTank.BaseStauts.BasePower;
         }
 
         private void OnTriggerEnter(Collider other)
@@ -139,7 +137,7 @@ namespace MyAssets
             }
             swordEffectHandler.EffectLedger.SetPosAndRotCreate((int)SwordEffectType.Hit, other.ClosestPoint(transform.position), other.transform.rotation);
             seHandler.Play((int)AxeSEType.Damage);
-            damageContainer.GiveDamage(GetPower(), attackObject.KnockBack, attackObject.Type, transform, setup.CharaType);
+            damageContainer.GiveDamage(GetPower(), attackObject.KnockBack, attackObject.Type, transform, bullTank.CharaType);
         }
 
         private void OnTriggerStay(Collider other)
@@ -152,7 +150,7 @@ namespace MyAssets
             if (damageContainer == null) { return; }
             swordEffectHandler.EffectLedger.SetPosAndRotCreate((int)SwordEffectType.Hit, other.ClosestPoint(transform.position), other.transform.rotation);
             seHandler.Play((int)AxeSEType.Damage);
-            damageContainer.GiveDamage(GetPower(), attackObject.KnockBack, attackObject.Type, transform, setup.CharaType);
+            damageContainer.GiveDamage(GetPower(), attackObject.KnockBack, attackObject.Type, transform, bullTank.CharaType);
         }
     }
 }

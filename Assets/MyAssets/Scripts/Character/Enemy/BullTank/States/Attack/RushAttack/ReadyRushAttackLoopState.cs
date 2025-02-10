@@ -1,32 +1,30 @@
-using MyAssets;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace MyAssets
 {
+    /*
+     * ブルタンクのラッシュアタック待機中の状態
+     */
     [System.Serializable]
     public class ReadyRushAttackLoopState : BullTankStateBase
     {
-        private IMovement movement;
-        private IVelocityComponent velocity;
-        private Transform thisTransform;
-        private FieldOfView fieldOfView;
+        private IMovement               movement;
+        private IVelocityComponent      velocity;
+        private FieldOfView             fieldOfView;
 
-        private IDamageContainer damageContainer;
-
-        private IBullTankAnimator animator;
+        private IBullTankAnimator       animator;
 
         [SerializeField]
-        private float gravityMultiply;
+        private float                   gravityMultiply;
 
-        private Timer timer = new Timer();
+        private Timer                   timer = new Timer();
 
         [SerializeField]
-        private float count;
+        private float                   count;
 
-        public static readonly string StateKey = "ReadyRushLoop";
-        public override string Key => StateKey;
+        public static readonly string   StateKey = "ReadyRushLoop";
+        public override string          Key => StateKey;
 
         public override List<ICharacterStateTransition<string>> CreateTransitionList(IBullTankSetup actor)
         {
@@ -40,10 +38,8 @@ namespace MyAssets
             base.DoSetup(actor);
             movement = actor.Movement;
             velocity = actor.Velocity;
-            thisTransform = actor.gameObject.transform;
             fieldOfView = actor.gameObject.GetComponent<FieldOfView>();
             animator = actor.BullTankAnimator;
-            damageContainer = actor.DamageContainer;
         }
 
         public override void DoStart()

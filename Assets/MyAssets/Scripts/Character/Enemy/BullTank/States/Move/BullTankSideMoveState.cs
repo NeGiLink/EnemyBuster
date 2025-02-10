@@ -1,39 +1,41 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace MyAssets
 {
+    /*
+     * ƒuƒ‹ƒ^ƒ“ƒN‚Ì‰¡ˆÚ“®ó‘Ô
+     */
     [System.Serializable]
     public class BullTankSideMoveState : BullTankStateBase
     {
-        private IMovement movement;
-        private IVelocityComponent velocity;
-        private Transform thisTransform;
-        private FieldOfView fieldOfView;
+        private IMovement               movement;
+        private IVelocityComponent      velocity;
 
-        private IDamageContainer damageContainer;
+        private FieldOfView             fieldOfView;
 
-        private IBullTankAnimator animator;
 
-        [SerializeField]
-        private float moveSpeed;
 
+        private IBullTankAnimator       animator;
 
         [SerializeField]
-        private float rotationSpeed = 8;
+        private float                   moveSpeed;
+
 
         [SerializeField]
-        private float gravityMultiply;
+        private float                   rotationSpeed = 8;
 
-        private int right;
-
-        private Timer sideMoveTimer = new Timer();
         [SerializeField]
-        private float count = 3f;
+        private float                   gravityMultiply;
 
-        public static readonly string StateKey = "SideMove";
-        public override string Key => StateKey;
+        private int                     right;
+
+        private Timer                   sideMoveTimer = new Timer();
+        [SerializeField]
+        private float                   count = 3f;
+
+        public static readonly string   StateKey = "SideMove";
+        public override string          Key => StateKey;
 
         public override List<ICharacterStateTransition<string>> CreateTransitionList(IBullTankSetup actor)
         {
@@ -49,10 +51,8 @@ namespace MyAssets
             base.DoSetup(actor);
             movement = actor.Movement;
             velocity = actor.Velocity;
-            thisTransform = actor.gameObject.transform;
             fieldOfView = actor.gameObject.GetComponent<FieldOfView>();
             animator = actor.BullTankAnimator;
-            damageContainer = actor.DamageContainer;
         }
 
         public override void DoStart()

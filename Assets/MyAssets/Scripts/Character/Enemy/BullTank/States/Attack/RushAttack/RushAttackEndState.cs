@@ -1,31 +1,29 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace MyAssets
 {
+    /*
+     * ブルタンクのラッシュアタック終了状態
+     */
     [System.Serializable]
     public class RushAttackEndState : BullTankStateBase
     {
-        private IMovement movement;
-        private IVelocityComponent velocity;
-        private Transform thisTransform;
-        private FieldOfView fieldOfView;
+        private IMovement                       movement;
+        private IVelocityComponent              velocity;
 
-        private IDamageContainer damageContainer;
+        private IBullTankAnimator               animator;
 
-        private IBullTankAnimator animator;
-
-        private BullTankHeadAttackController headWeapon;
+        private BullTankHeadAttackController    headWeapon;
 
         [SerializeField]
-        private float decreaseSpeed;
+        private float                           decreaseSpeed;
 
         [SerializeField]
-        private float gravityMultiply;
+        private float                           gravityMultiply;
 
-        public static readonly string StateKey = "RushEnd";
-        public override string Key => StateKey;
+        public static readonly string           StateKey = "RushEnd";
+        public override string                  Key => StateKey;
 
         public override List<ICharacterStateTransition<string>> CreateTransitionList(IBullTankSetup actor)
         {
@@ -39,17 +37,14 @@ namespace MyAssets
             base.DoSetup(actor);
             movement = actor.Movement;
             velocity = actor.Velocity;
-            thisTransform = actor.gameObject.transform;
-            fieldOfView = actor.gameObject.GetComponent<FieldOfView>();
             animator = actor.BullTankAnimator;
-            damageContainer = actor.DamageContainer;
             headWeapon = actor.HeadAttackObject;
         }
 
         public override void DoStart()
         {
             base.DoStart();
-            animator.Animator.SetInteger("Attack", 2);
+            animator.Animator.SetInteger(animator.AttackAnimationID, 2);
         }
 
         public override void DoUpdate(float time)
@@ -69,7 +64,7 @@ namespace MyAssets
         {
             base.DoExit();
             movement.Stop();
-            animator.Animator.SetInteger("Attack", -1);
+            animator.Animator.SetInteger(animator.AttackAnimationID, -1);
             headWeapon.NotEnabledCollider();
         }
     }

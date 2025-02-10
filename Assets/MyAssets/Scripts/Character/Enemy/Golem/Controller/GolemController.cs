@@ -2,74 +2,77 @@ using UnityEngine;
 
 namespace MyAssets
 {
+    /*
+     * ƒS[ƒŒƒ€‚Ì§ŒäƒNƒ‰ƒX
+     */
     public class GolemController : CharacterBaseController, IGolemSetup
     {
         [SerializeField]
-        private GolemStatusProperty property;
-        public IBaseStauts BaseStauts => property;
+        private GolemStatusProperty         property;
+        public IBaseStauts                  BaseStauts => property;
 
         [SerializeField]
-        private Movement movement;
-        public IMovement Movement => movement;
+        private Movement                    movement;
+        public IMovement                    Movement => movement;
 
-        private StepClimberJudgment stepClimberJudgment;
-        public IStepClimberJudgment StepClimberJudgment => stepClimberJudgment;
+        private StepClimberJudgment         stepClimberJudgment;
+        public IStepClimberJudgment         StepClimberJudgment => stepClimberJudgment;
 
 
-        public IRotation Rotation => null;
-
-        [SerializeField]
-        private GolemAnimator animator;
-        public IEnemyAnimator EnemyAnimator => animator;
-        public IGolemAnimator GolemAnimator => animator;
-
-        private FieldOfView fieldOfView;
-        public IFieldOfView FieldOfView => fieldOfView;
-        [SerializeField]
-        private GuardTrigger guardTrigger;
-        public IGuardTrigger GuardTrigger => guardTrigger;
-
-        private GolemEffectHandler effectHandler;
-
-        public GolemEffectHandler EffectHandler => effectHandler;
-
-        private SEHandler seHandler;
-        public SEHandler SEHandler => seHandler;
-
-        private GolemFistController fistController;
-        public GolemFistController FistController => fistController;
+        public IRotation                    Rotation => null;
 
         [SerializeField]
-        private StateMachine<string> stateMachine;
-        public IStateMachine StateMachine => stateMachine;
+        private GolemAnimator               animator;
+        public IEnemyAnimator               EnemyAnimator => animator;
+        public IGolemAnimator               GolemAnimator => animator;
+
+        private FieldOfView                 fieldOfView;
+        public IFieldOfView                 FieldOfView => fieldOfView;
+        [SerializeField]
+        private GuardTrigger                guardTrigger;
+        public IGuardTrigger                GuardTrigger => guardTrigger;
+
+        private GolemEffectHandler          effectHandler;
+
+        public GolemEffectHandler           EffectHandler => effectHandler;
+
+        private SEHandler                   seHandler;
+        public SEHandler                    SEHandler => seHandler;
+
+        private GolemFistController         fistController;
+        public GolemFistController          FistController => fistController;
 
         [SerializeField]
-        private string defaultStateKey;
+        private StateMachine<string>        stateMachine;
+        public IStateMachine                StateMachine => stateMachine;
 
         [SerializeField]
-        private GolemIdleState idleState;
+        private string                      defaultStateKey;
 
         [SerializeField]
-        private GolemActionDecisionState actionDecisionState;
+        private GolemIdleState              idleState;
 
         [SerializeField]
-        private GolemChaseState chaseState;
+        private GolemActionDecisionState    actionDecisionState;
 
         [SerializeField]
-        private GolemAttackState attackState;
+        private GolemChaseState             chaseState;
 
         [SerializeField]
-        private GolemStampAttackState stampAttackState;
+        private GolemAttackState            attackState;
 
         [SerializeField]
-        private GolemDamageState damageState;
+        private GolemStampAttackState       stampAttackState;
 
         [SerializeField]
-        private GolemDeathState deathState;
+        private GolemDamageState            damageState;
 
-        IGolemState<string>[] states;
+        [SerializeField]
+        private GolemDeathState             deathState;
 
-        public override CharacterType CharaType => CharacterType.Enemy;
+        IGolemState<string>[]               states;
+
+        public override CharacterType       CharaType => CharacterType.Enemy;
 
         protected override void Awake()
         {
