@@ -3,18 +3,19 @@ using UnityEngine;
 
 namespace MyAssets
 {
+    /*
+     * NPC‚Ì‘Ò‹@ó‘Ô
+     */
     [System.Serializable]
     public class NPCIdleState : NPCStateBase
     {
-        private IMovement movement;
-
-        private IVelocityComponent velocity;
+        private IMovement               movement;
 
         [SerializeField]
-        private float moveSpeed;
+        private float                   moveSpeed;
 
-        public static readonly string StateKey = "Idle";
-        public override string Key => StateKey;
+        public static readonly string   StateKey = "Idle";
+        public override string          Key => StateKey;
 
         public override List<ICharacterStateTransition<string>> CreateTransitionList(INPCSetup actor)
         {
@@ -27,7 +28,6 @@ namespace MyAssets
         {
             base.DoSetup(actor);
             movement = actor.Movement;
-            velocity = actor.Velocity;
         }
 
         public override void DoStart()

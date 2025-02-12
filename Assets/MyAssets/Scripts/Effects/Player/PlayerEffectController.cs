@@ -9,7 +9,9 @@ namespace MyAssets
         ChargeSlash,
         Charge
     }
-
+    /*
+     * プレイヤーで使うエフェクトをまとめたクラス
+     */
     public class PlayerEffectController : MonoBehaviour
     {
         [SerializeField]

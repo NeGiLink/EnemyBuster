@@ -3,33 +3,36 @@ using UnityEngine;
 
 namespace MyAssets
 {
+    /*
+     * ƒvƒŒƒCƒ„[‚Ìí“¬ˆÚ“®‚Ìó‘Ô
+     */
     [System.Serializable]
     public class BattleMoveState : PlayerStateBase
     {
-        private IPlayerStauts stauts;
+        private IPlayerStauts           stauts;
 
-        private IMoveInputProvider input;
+        private IMoveInputProvider      input;
 
 
-        private IVelocityComponent velocity;
+        private IVelocityComponent      velocity;
 
-        private IMovement movement;
+        private IMovement               movement;
 
-        private IRotation rotation;
+        private IRotation               rotation;
 
-        private IPlayerAnimator animator;
+        private IPlayerAnimator         animator;
 
-        private IEquipment equipment;
+        private IEquipment              equipment;
 
-        private IAllIK ik;
+        private IAllIK                  ik;
 
 
         [SerializeField]
-        private float moveGravityMultiply;
+        private float                   moveGravityMultiply;
 
-        public static readonly string StateKey = "BattleMove";
+        public static readonly string   StateKey = "BattleMove";
 
-        public override string Key => StateKey;
+        public override string          Key => StateKey;
         public override List<ICharacterStateTransition<string>> CreateTransitionList(IPlayerSetup actor)
         {
             List<ICharacterStateTransition<string>> re = new List<ICharacterStateTransition<string>>();
@@ -44,7 +47,6 @@ namespace MyAssets
             if (StateChanger.IsContain(WeaponInState.StateKey)) { re.Add(new IsWeaponInTransition(actor, StateChanger, WeaponInState.StateKey)); }
             if (StateChanger.IsContain(PlayerDamageState.StateKey)) { re.Add(new IsDamageTransition(actor, StateChanger, PlayerDamageState.StateKey)); }
             if (StateChanger.IsContain(PlayerDeathState.StateKey)) { re.Add(new IsDeathTransition(actor, StateChanger, PlayerDeathState.StateKey)); }
-
             if (StateChanger.IsContain(GuardState.StateKey)) { re.Add(new IsGuardTransition(actor, StateChanger, GuardState.StateKey)); }
             return re;
         }
@@ -66,9 +68,9 @@ namespace MyAssets
         {
             base.DoStart();
 
-            animator.Animator.SetFloat(animator.DashName, 0);
+            animator.Animator.SetFloat(animator.DashAnimationID, 0);
 
-            animator.Animator.SetFloat(animator.BattleModeName, Define.PressNum);
+            animator.Animator.SetFloat(animator.BattleModeAnimationID, Define.PressNum);
 
             animator.SetWeight(true, (int)Define.PressNum);
             equipment.ShieldTool.ShieldOpen();
@@ -76,8 +78,8 @@ namespace MyAssets
 
         public override void DoUpdate(float time)
         {
-            animator.Animator.SetFloat(animator.VelocityX, input.Horizontal, 0.1f, Time.deltaTime);
-            animator.Animator.SetFloat(animator.VelocityZ, input.Vertical, 0.1f, Time.deltaTime);
+            animator.Animator.SetFloat(animator.VelocityXAnimationID, input.Horizontal, 0.1f, Time.deltaTime);
+            animator.Animator.SetFloat(animator.VelocityZAnimationID, input.Vertical, 0.1f, Time.deltaTime);
 
             animator.UpdateWeight();
 
@@ -108,9 +110,9 @@ namespace MyAssets
         public override void DoExit()
         {
             base.DoExit();
-            animator.Animator.SetFloat(animator.VelocityX, 0f);
-            animator.Animator.SetFloat(animator.VelocityZ, 0f);
-            animator.Animator.SetFloat(animator.BattleModeName, 0.0f);
+            animator.Animator.SetFloat(animator.VelocityXAnimationID, 0f);
+            animator.Animator.SetFloat(animator.VelocityZAnimationID, 0f);
+            animator.Animator.SetFloat(animator.BattleModeAnimationID, 0.0f);
             animator.SetWeight(false, 1);
             equipment.ShieldTool.ShieldClose();
         }

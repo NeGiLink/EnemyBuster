@@ -3,6 +3,9 @@ using UnityEngine;
 
 namespace MyAssets
 {
+    /*
+     * プレイヤーの戦闘待機状態
+     */
     [System.Serializable]
     public class BattleIdleState : PlayerStateBase
     {
@@ -63,7 +66,7 @@ namespace MyAssets
         public override void DoStart()
         {
             base.DoStart();
-            animator.Animator.SetFloat(animator.BattleModeName, 1.0f);
+            animator.Animator.SetFloat(animator.BattleModeAnimationID, 1.0f);
 
             animator.SetWeight(true, 1);
             equipment.ShieldTool.ShieldOpen();
@@ -88,20 +91,20 @@ namespace MyAssets
 
         private void AnimationUpdate()
         {
-            animator.Animator.SetFloat(animator.MoveName, velocity.CurrentVelocity.magnitude, 0.1f, Time.deltaTime);
-            animator.Animator.SetFloat(animator.VelocityX, input.Horizontal, 0.1f, Time.deltaTime);
-            animator.Animator.SetFloat(animator.VelocityZ, input.Vertical, 0.1f, Time.deltaTime);
+            animator.Animator.SetFloat(animator.MoveAnimationID, velocity.CurrentVelocity.magnitude, 0.1f, Time.deltaTime);
+            animator.Animator.SetFloat(animator.VelocityXAnimationID, input.Horizontal, 0.1f, Time.deltaTime);
+            animator.Animator.SetFloat(animator.VelocityZAnimationID, input.Vertical, 0.1f, Time.deltaTime);
 
 
             animator.UpdateWeight();
 
             if (fieldOfView.FindTarget)
             {
-                animator.Animator.SetFloat(animator.AlertLevelName, 1.0f, 0.1f, Time.deltaTime);
+                animator.Animator.SetFloat(animator.AlertLevelAnimationID, 1.0f, 0.1f, Time.deltaTime);
             }
             else
             {
-                animator.Animator.SetFloat(animator.AlertLevelName, 0.0f, 0.1f, Time.deltaTime);
+                animator.Animator.SetFloat(animator.AlertLevelAnimationID, 0.0f, 0.1f, Time.deltaTime);
             }
         }
 
@@ -131,7 +134,7 @@ namespace MyAssets
         public override void DoExit()
         {
             base.DoExit();
-            animator.Animator.SetFloat(animator.BattleModeName, 0.0f);
+            animator.Animator.SetFloat(animator.BattleModeAnimationID, 0.0f);
             animator.SetWeight(false, 1);
             equipment.ShieldTool.ShieldClose();
         }

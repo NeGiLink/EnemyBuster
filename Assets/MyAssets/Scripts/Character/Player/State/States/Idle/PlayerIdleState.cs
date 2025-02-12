@@ -3,38 +3,41 @@ using UnityEngine;
 
 namespace MyAssets
 {
+    /*
+     * プレイヤーの待機状態
+     */
     [System.Serializable]
     public class PlayerIdleState : PlayerStateBase
     {
-        private IPlayerStauts stauts;
+        private IPlayerStauts           stauts;
 
-        private IMoveInputProvider input;
+        private IMoveInputProvider      input;
         
-        private IFocusInputProvider focusInputProvider;
+        private IFocusInputProvider     focusInputProvider;
         
-        private IVelocityComponent velocity;
+        private IVelocityComponent      velocity;
 
-        private IMovement movement;
+        private IMovement               movement;
         
-        private IRotation rotation;
+        private IRotation               rotation;
 
-        private IObstacleJudgment cliffJudgment;
+        private IObstacleJudgment       cliffJudgment;
 
-        private IPlayerAnimator animator;
+        private IPlayerAnimator         animator;
 
-        private IAllIK ik;
+        private IAllIK                  ik;
         
-        private FieldOfView fieldOfView;
+        private FieldOfView             fieldOfView;
 
-        private IEquipment equipment;
+        private IEquipment              equipment;
 
-        private IDamageContainer damageContainer;
+        private IDamageContainer        damageContainer;
 
         [SerializeField]
-        private float idleGravityMultiply;
+        private float                   idleGravityMultiply;
 
-        public static readonly string StateKey = "Idle";
-        public override string Key => StateKey;
+        public static readonly string   StateKey = "Idle";
+        public override string          Key => StateKey;
 
         public override List<ICharacterStateTransition<string>> CreateTransitionList(IPlayerSetup actor)
         {
@@ -73,9 +76,9 @@ namespace MyAssets
         public override void DoStart()
         {
             base.DoStart();
-            animator.Animator.SetFloat(animator.VelocityX, 0f);
-            animator.Animator.SetFloat(animator.VelocityZ, 0f);
-            animator.Animator.SetFloat(animator.BattleModeName, 0.0f);
+            animator.Animator.SetFloat(animator.VelocityXAnimationID, 0f);
+            animator.Animator.SetFloat(animator.VelocityZAnimationID, 0f);
+            animator.Animator.SetFloat(animator.BattleModeAnimationID, 0.0f);
         }
 
         public override void DoUpdate(float time)
@@ -97,17 +100,17 @@ namespace MyAssets
 
         private void AnimationUpdate()
         {
-            animator.Animator.SetFloat(animator.MoveName, velocity.CurrentVelocity.magnitude, 0.1f, Time.deltaTime);
+            animator.Animator.SetFloat(animator.MoveAnimationID, velocity.CurrentVelocity.magnitude, 0.1f, Time.deltaTime);
 
             animator.UpdateWeight();
 
             if (fieldOfView.FindTarget)
             {
-                animator.Animator.SetFloat(animator.AlertLevelName, 1.0f,0.1f,Time.deltaTime);
+                animator.Animator.SetFloat(animator.AlertLevelAnimationID, 1.0f,0.1f,Time.deltaTime);
             }
             else
             {
-                animator.Animator.SetFloat(animator.AlertLevelName, 0.0f, 0.1f, Time.deltaTime);
+                animator.Animator.SetFloat(animator.AlertLevelAnimationID, 0.0f, 0.1f, Time.deltaTime);
             }
         }
 

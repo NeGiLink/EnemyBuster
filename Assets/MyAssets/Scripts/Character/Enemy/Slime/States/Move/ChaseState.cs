@@ -1,5 +1,3 @@
-using MyAssets;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,43 +6,37 @@ namespace MyAssets
     [System.Serializable]
     public class ChaseState : SlimeStateBase
     {
-        private IMovement movement;
+        private IMovement               movement;
 
-        private IVelocityComponent velocity;
-        private Transform thisTransform;
-        private FieldOfView fieldOfView;
+        private IVelocityComponent      velocity;
 
-        private IDamageContainer damageContainer;
+        private Transform               thisTransform;
+        
+        private FieldOfView             fieldOfView;
 
-        private ISlimeAnimator animator;
+        private ISlimeAnimator          animator;
 
-        private ISlimeRotation rotation;
-
-        private SEHandler seHandler;
+        private SEHandler               seHandler;
 
         [SerializeField]
-        float moveSpeed = 4;
+        private float                   moveSpeed = 4;
         [SerializeField]
-        float rotationSpeed = 8;
+        private float                   rotationSpeed = 8;
         [SerializeField]
-        float moveSpeedChangeRate = 8;
+        private float                   moveSpeedChangeRate = 8;
         [SerializeField]
-        private float gravityMultiply;
-        /*
-        [SerializeField]
-        float searchingTime = 1.0f;
-         */
+        private float                   gravityMultiply;
 
         [SerializeField]
-        float minChaseDistance = 2.5f;
+        private float                   minChaseDistance = 2.5f;
 
-        public static readonly string StateKey = "Chase";
-        public override string Key => StateKey;
+        public static readonly string   StateKey = "Chase";
+        public override string          Key => StateKey;
 
         public override List<ICharacterStateTransition<string>> CreateTransitionList(ISlimeSetup enemy)
         {
             List<ICharacterStateTransition<string>> re = new List<ICharacterStateTransition<string>>();
-            if (StateChanger.IsContain(MushroomIdleState.StateKey)) { re.Add(new IsNoTargetInViewTransition(enemy, StateChanger, MushroomIdleState.StateKey)); }
+            if (StateChanger.IsContain(SlimeIdleState.StateKey)) { re.Add(new IsNoTargetInViewTransition(enemy, StateChanger, SlimeIdleState.StateKey)); }
             if (StateChanger.IsContain(SlimeDamageState.StateKey)) { re.Add(new IsEnemyDamageTransition(enemy, StateChanger, SlimeDamageState.StateKey)); }
             if (StateChanger.IsContain(ReadySlimeAttackState.StateKey)) { re.Add(new IsReadyAttackTransition(enemy, StateChanger, ReadySlimeAttackState.StateKey)); }
             if (StateChanger.IsContain(SlimeDeathState.StateKey)) { re.Add(new IsDeathTransition(enemy, StateChanger, SlimeDeathState.StateKey)); }
@@ -59,8 +51,6 @@ namespace MyAssets
             thisTransform = actor.gameObject.transform;
             fieldOfView = actor.gameObject.GetComponent<FieldOfView>();
             animator = actor.SlimeAnimator;
-            damageContainer = actor.DamageContainer;
-            rotation = actor.SlimeRotation;
             seHandler = actor.SEHandler;
         }
 
@@ -78,23 +68,13 @@ namespace MyAssets
             float targetDistance = targetVec.magnitude;
             if (targetDistance < minChaseDistance)
             {
-                animator.Animator.SetInteger(animator.MoveName, Define.Zero);
-                animator.Animator.SetInteger(animator.AttacksName, Define.Zero);
-                /*
-                if(TargetOnTheFrontCheck(fieldOfView.TargetObject.transform))
-                {
-
-                }
-                else
-                {
-                    rotation.DoLookOnTarget(fieldOfView.TargetObject.transform);
-                }
-                 */
+                animator.Animator.SetInteger(animator.MoveAnimationID, Define.Zero);
+                animator.Animator.SetInteger(animator.AttackAnimationID, Define.Zero);
                 movement.Stop();
             }
             else
             {
-                animator.Animator.SetInteger(animator.MoveName, 1);
+                animator.Animator.SetInteger(animator.MoveAnimationID, 1);
                 movement.MoveTo(fieldOfView.TargetLastPoint, moveSpeed, moveSpeedChangeRate, rotationSpeed, time);
             }
 
@@ -116,7 +96,7 @@ namespace MyAssets
         public override void DoExit()
         {
             base.DoExit();
-            animator.Animator.SetInteger(animator.MoveName, Define.Zero);
+            animator.Animator.SetInteger(animator.MoveAnimationID, Define.Zero);
             movement.Stop();
         }
 

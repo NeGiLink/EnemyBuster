@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace MyAssets
@@ -8,15 +5,15 @@ namespace MyAssets
     [RequireComponent(typeof(Pause))]
     public class PauseMenu : MonoBehaviour
     {
-        public static PauseMenu Instance { get; private set; }
+        public static PauseMenu     Instance { get; private set; }
 
 
         //時を止めるためのコンポーネント
-        private Pause pause;
+        private Pause               pause;
 
         //効果音再生用のコンポーネント
         [SerializeField]
-        private SEHandler seHandler;
+        private SEHandler           seHandler;
 
         private void Awake()
         {

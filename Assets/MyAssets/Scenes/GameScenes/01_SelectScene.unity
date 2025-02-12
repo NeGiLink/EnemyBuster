@@ -3051,6 +3051,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ForestGenie
       objectReference: {fileID: 0}
+    - target: {fileID: 7080323021523476618, guid: 3cc8cf05f444218488ba16d41cf28923, type: 3}
+      propertyPath: commandPanel.moveflag
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

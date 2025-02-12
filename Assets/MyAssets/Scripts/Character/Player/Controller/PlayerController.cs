@@ -35,7 +35,7 @@ namespace MyAssets
         public PlayerEffectController   EffectController => effectController;
 
         [SerializeField]
-        private ChangingState           battleFlagger;
+        private BattleFlagger           battleFlagger;
         public  IBattleFlagger          BattleFlagger => battleFlagger;
 
         [SerializeField]

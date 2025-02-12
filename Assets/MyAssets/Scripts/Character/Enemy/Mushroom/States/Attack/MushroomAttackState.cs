@@ -10,8 +10,11 @@ namespace MyAssets
     public class MushroomAttackState : MushroomStateBase
     {
         private Transform                   thisTransform;
+
         private IMovement                   movement;
+        
         private IVelocityComponent          velocity;
+        
         private IMushroomAnimator           animator;
 
         private MushroomAttackController    attackObject;
@@ -21,6 +24,12 @@ namespace MyAssets
 
         [SerializeField]
         private float                       gravityMultiply;
+
+        [SerializeField]
+        private float                       startColliderCount = 0.5f;
+
+        [SerializeField]
+        private float                       endColliderCount = 0.8f;
 
         public static readonly string       StateKey = "Attack";
         public override string              Key => StateKey;
@@ -55,7 +64,7 @@ namespace MyAssets
 
         public override void DoUpdate(float time)
         {
-            attackObject.EnabledCollider(0.5f, 0.8f, false);
+            attackObject.EnabledCollider(startColliderCount, endColliderCount, false);
             base.DoUpdate(time);
         }
 

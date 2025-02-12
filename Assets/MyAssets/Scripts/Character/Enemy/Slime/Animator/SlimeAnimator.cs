@@ -7,13 +7,15 @@ namespace MyAssets
     public class SlimeAnimator : ISlimeAnimator, ICharacterComponent<ISlimeSetup>
     {
         [SerializeField]
-        private Animator thisAnimator;
+        private Animator    thisAnimator;
 
-        public Animator Animator => thisAnimator;
+        public Animator     Animator => thisAnimator;
 
-        public string MoveName => "Move";
+        public int          MoveAnimationID => Animator.StringToHash("Move");
+        public int          AttackAnimationID => Animator.StringToHash("AttackLevel");
+        public int          AttackTriggerAnimationID => Animator.StringToHash("AttackStart");
 
-        public string AttacksName => "AttackLevel";
+        public int          DeathAnimationID => Animator.StringToHash("Death");
 
         public void DoSetup(ISlimeSetup slime)
         {

@@ -1,28 +1,38 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.CullingGroup;
 
 namespace MyAssets
 {
+    /*
+     * ƒXƒ‰ƒCƒ€‚ÌUŒ‚ó‘Ô
+     */
     [System.Serializable]
     public class SlimeAttackState : SlimeStateBase
     {
-        private Transform thisTransform;
-        private IMovement movement;
-        private IVelocityComponent velocity;
-        private ISlimeAnimator animator;
+        private Transform                   thisTransform;
 
-        private SlimeBodyAttackController attackObject;
+        private IMovement                   movement;
+        
+        private IVelocityComponent          velocity;
+        
+        private ISlimeAnimator              animator;
+
+        private SlimeBodyAttackController   attackObject;
 
         [SerializeField]
-        private float movePower;
+        private float                       movePower;
 
         [SerializeField]
-        private float gravityMultiply;
+        private float                       gravityMultiply;
 
-        public static readonly string StateKey = "Attack";
-        public override string Key => StateKey;
+        [SerializeField]
+        private float                       startColliderCount = 0.2f;
+
+        [SerializeField]
+        private float                       endColliderCount = 0.6f;
+
+        public static readonly string       StateKey = "Attack";
+        public override string              Key => StateKey;
 
         public override List<ICharacterStateTransition<string>> CreateTransitionList(ISlimeSetup enemy)
         {
@@ -49,7 +59,7 @@ namespace MyAssets
 
             movement.Stop();
 
-            animator.Animator.SetInteger(animator.AttacksName, 1);
+            animator.Animator.SetInteger(animator.AttackAnimationID, 1);
 
             attackObject.SetAttackType(AttackType.Normal);
 
@@ -59,7 +69,7 @@ namespace MyAssets
 
         public override void DoUpdate(float time)
         {
-            attackObject.EnabledCollider(0.2f, 0.6f, false);
+            attackObject.EnabledCollider(startColliderCount, endColliderCount, false);
             base.DoUpdate(time);
         }
 
@@ -82,7 +92,7 @@ namespace MyAssets
         public override void DoExit()
         {
             base.DoExit();
-            animator.Animator.SetInteger(animator.AttacksName, -1);
+            animator.Animator.SetInteger(animator.AttackAnimationID, -1);
             movement.Stop();
             attackObject.NotEnabledCollider();
         }

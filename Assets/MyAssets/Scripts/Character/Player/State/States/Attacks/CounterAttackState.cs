@@ -3,40 +3,47 @@ using UnityEngine;
 
 namespace MyAssets
 {
+    /*
+     * プレイヤーのカウンター攻撃状態
+     */
     [System.Serializable]
     public class CounterAttackState : PlayerStateBase
     {
-        private Transform transform;
+        private Transform               transform;
 
-        private IPlayerStauts stauts;
+        private IPlayerStauts           stauts;
 
-        private IVelocityComponent velocity;
+        private IVelocityComponent      velocity;
 
-        private IRotation rotation;
+        private IRotation               rotation;
 
-        private IBattleFlagger battleFlagger;
+        private IBattleFlagger          battleFlagger;
 
-        private IPlayerAnimator animator;
+        private IPlayerAnimator         animator;
 
-        private IFieldOfView fieldOfView;
+        private IFieldOfView            fieldOfView;
 
-        private SwordController sword;
+        private SwordController         sword;
 
-        private IEquipment equipment;
-
-        [SerializeField]
-        private float gravityMultiply;
+        private IEquipment              equipment;
 
         [SerializeField]
-        private int counterAttackSP;
+        private float                   gravityMultiply;
+
         [SerializeField]
-        private float maxNormalizeCount = 0.5f;
+        private float                   maxNormalizeCount = 0.5f;
 
-        private string currentMotionName = "CounterAttack";
+        [SerializeField]
+        private float                   startColliderCount = 0.15f;
 
-        public static readonly string StateKey = "CounterAttack";
+        [SerializeField]
+        private float                   endColliderCount = 0.6f;
 
-        public override string Key => StateKey;
+        private string                  currentMotionName = "CounterAttack";
+
+        public static readonly string   StateKey = "CounterAttack";
+
+        public override string          Key => StateKey;
         public override List<ICharacterStateTransition<string>> CreateTransitionList(IPlayerSetup actor)
         {
             List<ICharacterStateTransition<string>> re = new List<ICharacterStateTransition<string>>();
@@ -69,12 +76,12 @@ namespace MyAssets
             {
                 equipment.SetOutWeapon();
                 battleFlagger.SetBattleMode(true);
-                animator.Animator.SetFloat(animator.ToolLevel, 1.0f);
+                animator.Animator.SetFloat(animator.ToolLevelAnimationID, 1.0f);
             }
             sword.SetAttackType(AttackType.Normal, SwordSEType.Slash1);
             sword.Slash();
             sword.SetRatioPower(2.0f);
-            animator.Animator.SetInteger(animator.AttacksName, (int)NormalAttackState.Counter);
+            animator.Animator.SetInteger(animator.AttackAnimationID, (int)NormalAttackState.Counter);
 
             stauts.DecreaseSP(stauts.CounterAttackUseSP);
 
@@ -88,7 +95,7 @@ namespace MyAssets
 
         public override void DoUpdate(float time)
         {
-            sword.EnabledCollider(0.15f, 0.6f, false);
+            sword.EnabledCollider(startColliderCount, endColliderCount, false);
             base.DoUpdate(time);
 
             rotation.DoUpdate();
@@ -105,7 +112,7 @@ namespace MyAssets
             base.DoExit();
             sword.NotEnabledCollider();
             sword.SetRatioPower(1.0f);
-            animator.Animator.SetInteger(animator.AttacksName, -1);
+            animator.Animator.SetInteger(animator.AttackAnimationID, -1);
         }
     }
 }

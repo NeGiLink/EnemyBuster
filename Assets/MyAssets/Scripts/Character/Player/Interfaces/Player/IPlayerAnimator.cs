@@ -2,24 +2,32 @@ using UnityEngine;
 
 namespace MyAssets
 {
+    /*
+     * 各キャラクターのアニメーション関係の処理をまとめたクラスの
+     * インターフェース
+     */
+
     public interface IPlayerAnimator
     {
         Animator Animator { get;}
         AnimatorStateInfo AnimatorStateInfo {  get;}
         bool IsEndMotion();
-        string VelocityX {  get;}
-        string VelocityZ {  get;}
-        string MoveName { get; }
-        string DashName {  get; }
-        string AlertLevelName {  get; }
-        string BattleModeName {  get; }
-        string ToolLevel {  get; }
-        string JumpTypeName {  get; }
-        string FallName {  get; }
-        string LandName {  get; }
-        string AttacksName {  get; }
-        string Weapon_In_OutName {  get; }
-        string ClimbName {  get; }
+
+
+        int VelocityXAnimationID { get; }
+        int VelocityZAnimationID { get; }
+        int MoveAnimationID { get; }
+        int DashAnimationID { get; }
+        int AlertLevelAnimationID { get; }
+        int BattleModeAnimationID { get; }
+        int ToolLevelAnimationID { get; }
+        int JumpAnimationID { get; }
+        int FallAnimationID { get; }
+        int LandAnimationID { get; }
+        int AttackAnimationID { get; }
+        int ChargeAttackAnimationID {  get; }
+        int Weapon_In_OutAnimationID {  get; }
+        int ClimbAnimationID { get; }
 
         void SetWeight(bool enabled, int layer);
         void UpdateWeight();
@@ -31,8 +39,10 @@ namespace MyAssets
 
     public interface ISlimeAnimator : IEnemyAnimator
     {
-        string MoveName { get; }
-        string AttacksName { get; }
+        int MoveAnimationID { get; }
+        int AttackAnimationID { get; }
+        int AttackTriggerAnimationID { get; }
+        int DeathAnimationID { get; }
     }
 
     public interface IMushroomAnimator : IEnemyAnimator
@@ -64,5 +74,6 @@ namespace MyAssets
     public interface INPCAnimator
     {
         Animator Animator { get; }
+        int MoveAnimationID { get; }
     }
 }

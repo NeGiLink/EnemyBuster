@@ -3,35 +3,38 @@ using UnityEngine;
 
 namespace MyAssets
 {
+    /*
+     * ƒvƒŒƒCƒ„[‚ÌˆÚ“®ó‘Ô
+     */
     [System.Serializable]
     public class MoveState : PlayerStateBase
     {
-        private IPlayerStauts stauts;
+        private IPlayerStauts           stauts;
 
-        private IMoveInputProvider input;
+        private IMoveInputProvider      input;
 
-        private IFocusInputProvider focusInputProvider;
+        private IFocusInputProvider     focusInputProvider;
         
-        private IVelocityComponent velocity;
+        private IVelocityComponent      velocity;
         
-        private IMovement movement;
+        private IMovement               movement;
         
-        private IRotation rotation;
+        private IRotation               rotation;
         
-        private IStepClimberJudgment stepClimberJudgment;
+        private IStepClimberJudgment    stepClimberJudgment;
         
-        private IPlayerAnimator animator;
+        private IPlayerAnimator         animator;
 
-        private IAllIK ik;
+        private IAllIK                  ik;
 
         [SerializeField]
-        private float moveGravityMultiply;
+        private float                   moveGravityMultiply;
         [SerializeField]
-        private float dashMagnification = 1.5f;
+        private float                   dashMagnification = 1.5f;
 
-        public static readonly string StateKey = "Move";
+        public static readonly string   StateKey = "Move";
 
-        public override string Key => StateKey;
+        public override string          Key => StateKey;
         public override List<ICharacterStateTransition<string>> CreateTransitionList(IPlayerSetup actor)
         {
             List<ICharacterStateTransition<string>> re = new List<ICharacterStateTransition<string>>();
@@ -56,7 +59,6 @@ namespace MyAssets
             stauts = actor.Stauts;
             movement = actor.Movement;
             velocity = actor.Velocity;
-            //cliffJudgment = player.ObstacleJudgment;
             stepClimberJudgment = actor.StepClimberJudgment;
             rotation = actor.Rotation;
             input = actor.gameObject.GetComponent<IMoveInputProvider>();
@@ -68,30 +70,30 @@ namespace MyAssets
         public override void DoStart()
         {
             base.DoStart();
-            animator.Animator.SetFloat(animator.VelocityX, 0f);
-            animator.Animator.SetFloat(animator.VelocityZ, 0f);
-            animator.Animator.SetFloat(animator.BattleModeName, 0.0f);
+            animator.Animator.SetFloat(animator.VelocityXAnimationID, 0f);
+            animator.Animator.SetFloat(animator.VelocityZAnimationID, 0f);
+            animator.Animator.SetFloat(animator.BattleModeAnimationID, 0.0f);
 
             if (focusInputProvider.Foucus > 0)
             {
-                animator.Animator.SetFloat(animator.BattleModeName, 1.0f);
+                animator.Animator.SetFloat(animator.BattleModeAnimationID, 1.0f);
             }
             else
             {
-                animator.Animator.SetFloat(animator.BattleModeName, 0.0f);
+                animator.Animator.SetFloat(animator.BattleModeAnimationID, 0.0f);
             }
         }
 
         public override void DoUpdate(float time)
         {
-            if (focusInputProvider.Foucus <= 0 && animator.Animator.GetFloat(animator.BattleModeName) > 0.0f)
+            if (focusInputProvider.Foucus <= 0 && animator.Animator.GetFloat(animator.BattleModeAnimationID) > 0.0f)
             {
-                animator.Animator.SetFloat(animator.BattleModeName, 0.0f);
+                animator.Animator.SetFloat(animator.BattleModeAnimationID, 0.0f);
             }
             base.DoUpdate(time);
 
             DashUpdate();
-            animator.Animator.SetFloat(animator.MoveName, velocity.CurrentVelocity.magnitude, 0.1f, Time.deltaTime);
+            animator.Animator.SetFloat(animator.MoveAnimationID, velocity.CurrentVelocity.magnitude, 0.1f, Time.deltaTime);
 
             animator.UpdateWeight();
 
@@ -104,12 +106,12 @@ namespace MyAssets
             if(focusInputProvider.Foucus > 0) { return; }
             if(stauts.SP > 0 && input.Dash > 0)
             {
-                animator.Animator.SetFloat(animator.DashName, input.Dash, 0.1f, Time.deltaTime);
+                animator.Animator.SetFloat(animator.DashAnimationID, input.Dash, 0.1f, Time.deltaTime);
                 stauts.DecreaseSP(1);
             }
             else
             {
-                animator.Animator.SetFloat(animator.DashName, 0, 0.1f, Time.deltaTime);
+                animator.Animator.SetFloat(animator.DashAnimationID, 0, 0.1f, Time.deltaTime);
                 stauts.RecoverySP(1);
             }
         }

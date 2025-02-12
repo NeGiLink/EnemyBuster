@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace MyAssets
 {
+    //段差乗り越えクラスのインターフェース
     public interface IStepClimberJudgment
     {
         void HandleStepClimbing();

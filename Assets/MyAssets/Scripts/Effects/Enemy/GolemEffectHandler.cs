@@ -7,6 +7,9 @@ namespace MyAssets
         GroundImpact,
         Death
     }
+    /*
+     * ゴーレムのエフェクトをまとめたクラス
+     */
     public class GolemEffectHandler : MonoBehaviour
     {
         [SerializeField]

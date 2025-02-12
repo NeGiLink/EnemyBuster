@@ -6,6 +6,9 @@ namespace MyAssets
     {
         Death
     }
+    /*
+     * ブルタンクのエフェクトをまとめたクラス
+     */
     public class BullTankEffectHandler : MonoBehaviour
     {
         [SerializeField]

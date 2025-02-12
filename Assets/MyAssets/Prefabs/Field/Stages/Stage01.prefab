@@ -328,7 +328,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8460566934681765758}
-  - component: {fileID: 6914993629479601858}
   m_Layer: 0
   m_Name: Stage01
   m_TagString: Untagged
@@ -353,18 +352,6 @@ Transform:
   - {fileID: 6501261024891636486}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6914993629479601858
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7862631369779060483}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8093d974e8167f64b995e8b57a1e74d7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &7956965013664603460
 GameObject:
   m_ObjectHideFlags: 0

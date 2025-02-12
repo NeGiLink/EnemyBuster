@@ -8,13 +8,16 @@ namespace MyAssets
         BGM,
         SE
     }
-
+    /*
+     * オプションの音量を設定するUIにアタッチしているクラス
+     * ボリュームを変更した時にその変更内容を反映するためのクラス
+     */
     public class AudioVolumeController : MonoBehaviour
     {
         [SerializeField]
-        private Slider[] volumeSliders;
+        private Slider[]        volumeSliders;
         [SerializeField]
-        private InputField[] inputFields;
+        private InputField[]    inputFields;
 
         private void Awake()
         {
@@ -49,23 +52,27 @@ namespace MyAssets
             volumeSliders[(int)VolumeType.SE].onValueChanged.RemoveListener(SetSEVolume);
             inputFields[(int)VolumeType.SE].onEndEdit.RemoveListener(SetStringFormatSEVolume);
         }
+        //以下はSliderやInputFieldのコールバックで呼び出している
 
+        //Sliderで変更した値を反映させる(BGM)
         public void SetBGMVolume(float value)
         {
             SystemManager.SetBGMVolume(value);
             inputFields[(int)VolumeType.BGM].text = value.ToString();
         }
+        //入力で変更した値を反映させる(BGM)
         public void SetStringFormatBGMVolume(string value)
         {
             SystemManager.SetBGMVolume(float.Parse(value));
             volumeSliders[(int)VolumeType.BGM].value = float.Parse(value);
         }
-
+        //Sliderで変更した値を反映させる(SE)
         private void SetSEVolume(float value)
         {
             SystemManager.SetSEVolume(value);
             inputFields[(int)VolumeType.SE].text = value.ToString();
         }
+        //入力で変更した値を反映させる(SE)
         public void SetStringFormatSEVolume(string value)
         {
             SystemManager.SetSEVolume(float.Parse(value));

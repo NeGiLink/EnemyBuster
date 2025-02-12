@@ -6,6 +6,9 @@ namespace MyAssets
     {
         Hit
     }
+    /*
+     * トレイルエフェクトの処理を行うクラス
+     */
     public class SwordEffectHandler : MonoBehaviour
     {
         [SerializeField]

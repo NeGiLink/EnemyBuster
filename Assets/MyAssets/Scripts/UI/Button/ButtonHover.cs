@@ -4,13 +4,17 @@ using UnityEngine.EventSystems;
 
 namespace MyAssets
 {
+    /*
+     * ボタンにアタッチするクラス
+     * マウスがボタンに触れているかいないかを調べる
+     */
     public class ButtonHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
-        private RectTransform rectTransform;
-        public RectTransform RectTransform => rectTransform;
+        private RectTransform   rectTransform;
+        public RectTransform    RectTransform => rectTransform;
         [SerializeField]
-        private bool isHovering;
-        public bool IsHovering => isHovering;
+        private bool            isHovering;
+        public bool             IsHovering => isHovering;
 
         private void Awake()
         {
@@ -42,14 +46,5 @@ namespace MyAssets
         {
             isHovering = false;
         }
-        /*
-        void Update()
-        {
-            if (isHovering)
-            {
-                isHovering = false;
-            }
-        }
-         */
     }
 }

@@ -3,24 +3,24 @@ using UnityEngine;
 
 namespace MyAssets
 {
+    /*
+     * プレイヤーのジャンプ攻撃準備状態
+     */
     [System.Serializable]
     public class ReadyJumpAttack : PlayerStateBase
     {
-        private IPlayerStauts stauts;
+        private IPlayerStauts           stauts;
 
-        private IVelocityComponent velocity;
+        private IVelocityComponent      velocity;
 
-        private IEquipment equipment;
+        private IEquipment              equipment;
 
-        private IBattleFlagger battleFlagger;
+        private IBattleFlagger          battleFlagger;
 
-        private IPlayerAnimator animator;
+        private IPlayerAnimator         animator;
 
-        [SerializeField]
-        private int jumpAttackSP;
-
-        public static readonly string StateKey = "ReadyJumpAttack";
-        public override string Key => StateKey;
+        public static readonly string   StateKey = "ReadyJumpAttack";
+        public override string          Key => StateKey;
 
         public override List<ICharacterStateTransition<string>> CreateTransitionList(IPlayerSetup actor)
         {
@@ -46,8 +46,8 @@ namespace MyAssets
             equipment.SetOutWeapon();
             battleFlagger.SetBattleMode(true);
 
-            animator.Animator.SetInteger(animator.AttacksName, (int)NormalAttackState.JumpAttack);
-            animator.Animator.SetFloat(animator.ToolLevel, 1.0f);
+            animator.Animator.SetInteger(animator.AttackAnimationID, (int)NormalAttackState.JumpAttack);
+            animator.Animator.SetFloat(animator.ToolLevelAnimationID, 1.0f);
 
             velocity.Rigidbody.velocity = Vector3.zero;
             velocity.Rigidbody.useGravity = false;

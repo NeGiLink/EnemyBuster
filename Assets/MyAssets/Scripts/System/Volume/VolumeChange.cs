@@ -1,9 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace MyAssets
 {
+    /*
+     * ボリュームを変更するUIが非表示になった時にボリュームを変更するクラス
+     */
     public class VolumeChange : MonoBehaviour
     {
         private void OnDisable()

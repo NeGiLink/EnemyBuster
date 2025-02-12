@@ -10,12 +10,12 @@ namespace MyAssets
 
     public class GameCanvas : MonoBehaviour
     {
-        private static GameCanvas instance;
-        public static GameCanvas Instance => instance;
+        private static GameCanvas   instance;
+        public static GameCanvas    Instance => instance;
 
         [SerializeField]
-        private GameObject[] uiLayer;
-        public GameObject[] UILayer => uiLayer;
+        private GameObject[]        uiLayer;
+        public GameObject[]         UILayer => uiLayer;
 
 
         private void Awake()

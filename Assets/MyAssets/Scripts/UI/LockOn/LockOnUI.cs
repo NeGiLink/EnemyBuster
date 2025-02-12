@@ -2,17 +2,25 @@ using UnityEngine;
 
 namespace MyAssets
 {
+    /*
+     * プレイヤーが敵に注目した時にUIを表示するためのクラス
+     */
     public class LockOnUI : MonoBehaviour
     {
-        private FieldOfView playerFieldOfView;
+        //プレイヤーの視界
+        private FieldOfView     playerFieldOfView;
+        //カメラ
         [SerializeField]
-        private new Camera camera;
+        private new Camera      camera;
+        //キャンバス
         [SerializeField]
-        private Canvas canvas;
+        private Canvas          canvas;
+        //キャンバスの矩形トランスフォーム
         [SerializeField]
-        private RectTransform canvasRectTransform;
+        private RectTransform   canvasRectTransform;
+        //注目UIのトランスフォーム
         [SerializeField]
-        private RectTransform thisRectTransform;
+        private RectTransform   thisRectTransform;
 
         private void Awake()
         {

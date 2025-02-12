@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -10,23 +8,21 @@ namespace MyAssets
         MouseLeft,
         MouseRight
     }
+    /*
+     * 入力のUIをまとめて処理するクラス
+     */
     public class InputUIController : MonoBehaviour
     {
         [SerializeField]
-        private InputButtonUI[] inputButtonUIs;
+        private InputButtonUI[]         inputButtonUIs;
         [SerializeField]
-        private InputActionReference[] inputActions;
+        private InputActionReference[]  inputActions;
 
         private void Awake()
         {
             inputButtonUIs = GetComponentsInChildren<InputButtonUI>();
         }
-
-        // Start is called before the first frame update
-        void Start()
-        {
-        }
-
+        //UIのコールバックは表示にセット
         private void OnEnable()
         {
 
@@ -34,15 +30,14 @@ namespace MyAssets
             inputActions[(int)InputType.MouseLeft].action.Enable();
 
         }
-
+        //非表示時に解放
         private void OnDisable()
         {
             inputActions[(int)InputType.MouseLeft].action.performed -= inputButtonUIs[(int)InputType.MouseLeft].PressDown;
             inputActions[(int)InputType.MouseLeft].action.Disable();
         }
 
-        // Update is called once per frame
-        void Update()
+        private void Update()
         {
             if(inputActions[(int)InputType.MouseRight] == null) { return; }
             if(inputActions[(int)InputType.MouseRight].action.ReadValue<float>() > 0)

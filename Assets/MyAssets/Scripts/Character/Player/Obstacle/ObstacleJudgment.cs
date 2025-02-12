@@ -8,42 +8,45 @@ namespace MyAssets
         MinRay,
         Count
     }
+    /*
+     * キャラクターの前方に障害物があるかを調べるクラス
+     */
     [System.Serializable]
     public class ObstacleJudgment : IObstacleJudgment, ICharacterComponent<IPlayerSetup>
     {
 
         [SerializeField]
-        private Transform transform;
+        private Transform       transform;
 
         [Header("ヒットフラグ"), SerializeField]
-        private bool[] cliffHits = new bool[(int)JudgmentTag.Count];
+        private bool[]          cliffHits = new bool[(int)JudgmentTag.Count];
 
         [Header("前方に飛ばすレイの位置"), SerializeField]
-        private float[] cliffCheckOffsets = new float[]{};
+        private float[]         cliffCheckOffsets = new float[]{};
 
         [Header("レイの長さ"),SerializeField]
-        private float[] cliffDistances = new float[]{};
+        private float[]         cliffDistances = new float[]{};
 
         [SerializeField]
-        private bool climbStart;
-        public bool IsClimbStart => climbStart;
+        private bool            climbStart;
+        public bool             IsClimbStart => climbStart;
 
         [SerializeField]
-        private LayerMask targetLayer;
+        private LayerMask       targetLayer;
 
         [SerializeField]
-        private Transform rayTransform;
+        private Transform       rayTransform;
 
         // 値の範囲
-        private const float MinValue = -0.6f;
-        private const float MaxValue = -0.1f;
+        private const float     MinValue = -0.6f;
+        private const float     MaxValue = -0.1f;
 
         // 周期（値が増減する速さを調整）
         [SerializeField]
-        private float speed = 1.0f;
+        private float           speed = 1.0f;
 
         // 現在の値（範囲内で増減する値）
-        private float currentValue;
+        private float           currentValue;
 
         public void DoSetup(IPlayerSetup actor)
         {

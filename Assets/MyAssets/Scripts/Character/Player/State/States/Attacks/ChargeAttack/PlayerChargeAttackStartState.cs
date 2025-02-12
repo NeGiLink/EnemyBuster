@@ -1,29 +1,29 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace MyAssets
 {
+    /*
+     * プレイヤーの溜め攻撃開始状態
+     */
     [System.Serializable]
     public class PlayerChargeAttackStartState : PlayerStateBase
     {
-        private IVelocityComponent velocity;
+        private IVelocityComponent          velocity;
 
-        private IPlayerAnimator animator;
+        private IPlayerAnimator             animator;
 
-        private IBattleFlagger battleFlagger;
+        private IBattleFlagger              battleFlagger;
 
-        private IEquipment equipment;
+        private IEquipment                  equipment;
 
-        [SerializeField]
-        private float attacksGravityMultiply;
+        private IRotation                   rotation;
 
-        private IRotation rotation;
+        private readonly string             currentMotionName = "ChargeAttackStart";
 
-        public static readonly string StateKey = "ChargeAttackStart";
-        public override string Key => StateKey;
+        public static readonly string       StateKey = "ChargeAttackStart";
+        public override string              Key => StateKey;
 
-        private readonly string currentMotionName = "ChargeAttackStart";
         public override List<ICharacterStateTransition<string>> CreateTransitionList(IPlayerSetup actor)
         {
             List<ICharacterStateTransition<string>> re = new List<ICharacterStateTransition<string>>();
@@ -49,9 +49,9 @@ namespace MyAssets
             {
                 equipment.SetOutWeapon();
                 battleFlagger.SetBattleMode(true);
-                animator.Animator.SetFloat(animator.ToolLevel, 1.0f);
+                animator.Animator.SetFloat(animator.ToolLevelAnimationID, 1.0f);
             }
-            animator.Animator.SetInteger("ChargeAttack",0);
+            animator.Animator.SetInteger(animator.ChargeAttackAnimationID,0);
             velocity.Rigidbody.velocity = Vector3.zero;
 
         }

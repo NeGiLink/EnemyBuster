@@ -1,6 +1,9 @@
 
 namespace MyAssets
 {
+    /*
+     * 登り動作処理クラスのインターフェース
+     */
     public interface IClimb
     {
         void DoClimbStart();

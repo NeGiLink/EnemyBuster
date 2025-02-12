@@ -1,9 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 namespace MyAssets
 {
+    /*
+     * キャラクターの回転処理クラスのインターフェース
+     */
     public interface IRotation
     {
         void DoUpdate();

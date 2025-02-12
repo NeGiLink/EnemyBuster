@@ -3,20 +3,27 @@ using UnityEngine;
 
 namespace MyAssets
 {
+    /*
+     * プレイヤーのジャンプ攻撃動作
+     */
     [System.Serializable]
     public class JumpAttackState : PlayerStateBase
     {
-        private IVelocityComponent velocity;
+        private IVelocityComponent      velocity;
 
-        private IMovement movement;
-
-        private SwordController sword;
+        private SwordController         sword;
 
         [SerializeField]
-        private float jumpAttackGravityMultiply = 1.5f;
+        private float                   jumpAttackGravityMultiply = 1.5f;
 
-        public static readonly string StateKey = "JumpAttack";
-        public override string Key => StateKey;
+        [SerializeField]
+        private float                   startColliderCount = 0.0f;
+
+        [SerializeField]
+        private float                   endColliderCount = 1.0f;
+
+        public static readonly string   StateKey = "JumpAttack";
+        public override string          Key => StateKey;
 
         public override List<ICharacterStateTransition<string>> CreateTransitionList(IPlayerSetup actor)
         {
@@ -30,7 +37,6 @@ namespace MyAssets
         {
             base.DoSetup(actor);
             velocity = actor.Velocity;
-            movement = actor.Movement;
             sword = actor.Equipment.HaveWeapon?.GetComponent<SwordController>();
         }
 
@@ -43,7 +49,7 @@ namespace MyAssets
 
         public override void DoUpdate(float time)
         {
-            sword.EnabledCollider(0, 0, true);
+            sword.EnabledCollider(startColliderCount, endColliderCount, true);
             sword.SpinSlash();
             base.DoUpdate(time);
         }

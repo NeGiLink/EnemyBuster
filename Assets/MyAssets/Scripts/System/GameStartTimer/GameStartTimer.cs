@@ -1,27 +1,28 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace MyAssets
 {
+    /*
+     * ゲームスタートのカウントを行うクラス
+     */
     public class GameStartTimer : MonoBehaviour
     {
-        private Canvas canvas;
+        private Canvas              canvas;
 
-        private GamePreparation gamePreparation;
+        private GamePreparation     gamePreparation;
+
+        [SerializeField]
+        private GameStartTimerUI    gameStartTimerUI;
+
+        private Timer               timer;
+        [SerializeField]
+        private float               interval = 1f;
+        [SerializeField]
+        private int                 count = 3;
         public void SetGamePreparation(GamePreparation g)
         {
             gamePreparation = g;
         }
-
-        [SerializeField]
-        private GameStartTimerUI gameStartTimerUI;
-
-        private Timer timer;
-        [SerializeField]
-        private float interval = 1f;
-        [SerializeField]
-        private int count = 3;
 
         public void SetTimerCount(float i,int c)
         {

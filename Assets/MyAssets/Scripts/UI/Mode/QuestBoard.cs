@@ -9,18 +9,23 @@ namespace MyAssets
         TimeAttack,
         Endless
     }
+    /*
+     * モードのUIにアタッチしているクラス
+     * ボタンのコールバックで呼び出して使う
+     */
     public class QuestBoard : MonoBehaviour
     {
+        //モードタグ
         [SerializeField]
-        private new ModeTag tag;
-
+        private new ModeTag     tag;
+        //設定したモードの内容を設定するクラス
         private ModeInformation modeInformation;
 
         private void Awake()
         {
             modeInformation = GetComponentInChildren<ModeInformation>();
         }
-
+        //コールバックで呼び出して使うクラス
         public void SetInformation(string name)
         {
             tag = ModeTag.None;

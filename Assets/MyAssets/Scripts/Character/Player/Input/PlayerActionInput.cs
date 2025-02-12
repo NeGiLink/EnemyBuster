@@ -146,7 +146,6 @@ namespace MyAssets
         }
         private void OnJump(InputAction.CallbackContext context)
         {
-            Debug.Log("ジャンプ");
             jump = true;
             // 一瞬だけtrueにして、次のフレームでfalseに戻す
             StartCoroutine(ResetJumpButtonPress());

@@ -36,7 +36,6 @@ namespace MyAssets
 
         private void Start()
         {
-            //TODO : ˆø”‚Í‰¼
             switch (GameManager.Instance.ModeTag)
             {
                 case ModeTag.AllKillEnemy:

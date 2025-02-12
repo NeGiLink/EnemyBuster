@@ -2,24 +2,24 @@ using UnityEngine;
 
 namespace MyAssets
 {
+    /*
+     * プレイヤーの回転処理クラス
+     */
     [System.Serializable]
     public class PlayerRotation : IRotation, ICharacterComponent<IPlayerSetup>
     {
         [SerializeField]
-        private Transform thisTransform;
+        private Transform           thisTransform;
 
-        [SerializeField]
-        private Transform y_Focus;
+        private Quaternion          targetRotation;
 
-        private Quaternion targetRotation;
+        private IMoveInputProvider  moveInput;
 
-        private IMoveInputProvider moveInput;
-
-        private IVelocityComponent velocity;
+        private IVelocityComponent  velocity;
 
         private IFocusInputProvider focusInput;
 
-        private FieldOfView fieldOfView;
+        private FieldOfView         fieldOfView;
 
         public void DoSetup(IPlayerSetup actor)
         {

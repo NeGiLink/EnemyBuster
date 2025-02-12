@@ -2,6 +2,10 @@ using UnityEngine;
 
 namespace MyAssets
 {
+    /*
+     * キャラクターのコントローラーに宣言して使う
+     * キャラクターの頭や足のIKを処理で更新するクラス
+     */
     [System.Serializable]
     public class IKController : IAllIK, ICharacterComponent<IPlayerSetup>
     {
@@ -28,28 +32,30 @@ namespace MyAssets
             headIK.DoUpdate();
         }
     }
-
+    /*
+     * IKで足の位置を変更するクラス
+     */
     [System.Serializable]
     public class FootIK
     {
-        private IPlayerAnimator animator;
+        private IPlayerAnimator         animator;
 
         [SerializeField]
-        private bool ikEnabled;
+        private bool                    ikEnabled;
 
-        public bool isDrawDebug = false;
+        public bool                     isDrawDebug = false;
         [SerializeField]
-        private float heelOffsetZ = -0.08f;
+        private float                   heelOffsetZ = -0.08f;
         [SerializeField]
-        private float toeOffsetZ = 0.05f;
+        private float                   toeOffsetZ = 0.05f;
         [SerializeField]
-        private float rayLength = 0.1f;
+        private float                   rayLength = 0.1f;
 
         // 身体の各ボーンの位置は Animator から取れるのでエイリアスを作っておくと便利
-        private Transform leftFoot { get { return animator.Animator.GetBoneTransform(HumanBodyBones.LeftFoot); } }
-        private Transform rightFoot { get { return animator.Animator.GetBoneTransform(HumanBodyBones.RightFoot); } }
-        private Transform leftToe { get { return animator.Animator.GetBoneTransform(HumanBodyBones.LeftToes); } }
-        private Transform rightToe { get { return animator.Animator.GetBoneTransform(HumanBodyBones.RightToes); } }
+        private Transform               leftFoot { get { return animator.Animator.GetBoneTransform(HumanBodyBones.LeftFoot); } }
+        private Transform               rightFoot { get { return animator.Animator.GetBoneTransform(HumanBodyBones.RightFoot); } }
+        private Transform               leftToe { get { return animator.Animator.GetBoneTransform(HumanBodyBones.LeftToes); } }
+        private Transform               rightToe { get { return animator.Animator.GetBoneTransform(HumanBodyBones.RightToes); } }
 
         public void DoSetup(IPlayerSetup actor)
         {
@@ -172,16 +178,19 @@ namespace MyAssets
         }
     }
 
+    /*
+     * IKでHeadの回転を行うクラス
+     */
     [System.Serializable]
     public class HeadIK : ICharacterComponent<IPlayerSetup>
     {
         [SerializeField]
-        private Transform headTransform;
+        private Transform       headTransform;
 
         [SerializeField]
-        private FieldOfView fieldOfView;
+        private FieldOfView     fieldOfView;
 
-        private Transform transform;
+        private Transform       transform;
         public void DoSetup(IPlayerSetup actor)
         {
             fieldOfView = actor.gameObject.GetComponent<FieldOfView>();
