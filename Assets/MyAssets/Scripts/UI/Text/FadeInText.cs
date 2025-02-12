@@ -1,32 +1,37 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace MyAssets
 {
+    /*
+     * フェードイン・フェードアウトする文字のUIの処理を行うクラス
+     */
     public class FadeInText : MonoBehaviour
     {
+        //文字の背景のImage
         [SerializeField]
-        private Image panelImage;
+        private Image   panelImage;
+        //文字
+        [SerializeField]
+        private Text    text;
+        //文字の内容
+        [SerializeField]
+        private string  outputText;
+        //背景のアルファ値
+        [SerializeField]
+        private float   panelAlphe = 0;
+        //テキストのアルファ値
+        [SerializeField]
+        private float   textAlphe = 0;
+        //フェード速度
+        [SerializeField]
+        private float   fadeSpeed = 1f;
+        //フェード終了時間
+        [SerializeField]
+        private float   stopCount = 1f;
 
-        [SerializeField]
-        private Text text;
-        [SerializeField]
-        private string outputText;
         public void SetOutputText(string t) { outputText = t; }
-        [SerializeField]
-        private float panelAlphe = 0;
-
-        [SerializeField]
-        private float textAlphe = 0;
-
-        [SerializeField]
-        private float fadeSpeed = 1f;
-
-        [SerializeField]
-        private float stopCount = 1f;
-
         private void Awake()
         {
             panelImage = GetComponentInChildren<Image>();

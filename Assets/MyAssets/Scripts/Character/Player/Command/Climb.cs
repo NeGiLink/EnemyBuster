@@ -2,33 +2,36 @@ using UnityEngine;
 
 namespace MyAssets
 {
+    /*
+     * プレイヤーの登り動作を行うためのクラス
+     */
     [System.Serializable]
 
     public class Climb : IClimb,ICharacterComponent<IPlayerSetup>
     {
-        private Transform thisTransform;
+        private Transform               thisTransform;
 
-        private IVelocityComponent velocity;
+        private IVelocityComponent      velocity;
 
         //崖を登る時にプレイヤーを前に進ませるためのスピード変数
         [SerializeField]
-        private float climbForward = 1.0f;
+        private float                   climbForward = 1.0f;
         //上記の上方向へのスピード変数
         [SerializeField]
-        private float climbUp = 1.0f;
+        private float                   climbUp = 1.0f;
 
         //登る時の開始地点を保持する変数
         [SerializeField]
-        private Vector3 climbOldPos = Vector3.zero;
+        private Vector3                 climbOldPos = Vector3.zero;
         //登る時のゴール地点を保持する変数
         [SerializeField]
-        private Vector3 climbPos = Vector3.zero;
+        private Vector3                 climbPos = Vector3.zero;
 
         [SerializeField]
-        private bool climbEnd = false;
-        public bool IsClimbEnd => climbEnd;
+        private bool                    climbEnd = false;
+        public bool                     IsClimbEnd => climbEnd;
 
-        private IPlayerAnimator animator;
+        private IPlayerAnimator         animator;
         public void DoSetup(IPlayerSetup actor)
         {
             thisTransform = actor.gameObject.transform;

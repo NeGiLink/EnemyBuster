@@ -10,6 +10,9 @@ namespace MyAssets
         ModeInfo,
         Level
     }
+    /*
+     * モードの設定した内容を表示するクラス
+     */
     public class ModeInformation : MonoBehaviour
     {
         [SerializeField]
@@ -23,19 +26,19 @@ namespace MyAssets
         private string endlessModeInfo = "時間制限なし。\n戦い続けろ";
 
 
-        // Start is called before the first frame update
+
         private void Start()
         {
             SetModeText();
             SetModeInfoText(ModeTag.AllKillEnemy);
             SetLevelText();
         }
-
+        //モードの名前を設定
         public void SetModeText()
         {
             texts[(int)ModeInfoTextTag.Mode].text = GameManager.Instance.GetModeText();
         }
-
+        //モードの詳細を設定
         public void SetModeInfoText(ModeTag tag)
         {
             string text = "";
@@ -53,7 +56,7 @@ namespace MyAssets
             }
             texts[(int)ModeInfoTextTag.ModeInfo].text = text;
         }
-
+        //ゲームの難易度のテキストを設定
         public void SetLevelText()
         {
             texts[(int)ModeInfoTextTag.Level].text = GameManager.Instance.GetGameLevelText();

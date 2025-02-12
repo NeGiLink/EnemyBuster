@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace MyAssets
 {
+    //TODO : 全キャラクターのStateクラスのベースクラス
     public abstract class CharacterStateBase<TKey, TCharacterSetup> : ICharacterState<TKey, TCharacterSetup>
     where TCharacterSetup : ICharacterSetup
     {
@@ -21,7 +22,7 @@ namespace MyAssets
         }
 
         public virtual void DoStart() { }
-
+        //Stateの変更をチェック
         public virtual void TransitionCheck()
         {
             foreach (var check in transitionList)
@@ -53,6 +54,9 @@ namespace MyAssets
 
         public virtual void DoTriggerExit(GameObject thisObject, Collider collider) { }
     }
+
+    //下記は各キャラクターごとのStateBase↓
+
     public abstract class PlayerStateBase : CharacterStateBase<string, IPlayerSetup>, IPlayerState<string>
     {
         public override abstract string Key { get; }

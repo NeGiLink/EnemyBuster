@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace MyAssets
 {
+    /*
+     * Stateクラスのインターフェース
+     */
     public interface IState
     {
         void DoStart();

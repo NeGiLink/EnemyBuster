@@ -1,6 +1,11 @@
 
 namespace MyAssets
 {
+    /*
+     * NPC‚Ìó‘Ô‘JˆÚ‚Ìƒtƒ‰ƒOƒNƒ‰ƒXˆê——
+     */
+
+    //NPC‚ªŽ~‚Ü‚éŽž
     public class IsNPCMoveTransition : CharacterStateTransitionBase
     {
         private readonly INPCCommandPanel commandPanel;
@@ -10,9 +15,9 @@ namespace MyAssets
         {
             commandPanel = npc.CommandPanel;
         }
-        public override bool IsTransition() => !commandPanel.IsFixedflag;
+        public override bool IsTransition() => !commandPanel.IsStopflag;
     }
-
+    //NPC‚ª“®‚¢‚½Žž
     public class IsNPCNotMoveTransition : CharacterStateTransitionBase
     {
         private readonly INPCCommandPanel commandPanel;
@@ -22,6 +27,6 @@ namespace MyAssets
         {
             commandPanel = npc.CommandPanel;
         }
-        public override bool IsTransition() => commandPanel.IsFixedflag;
+        public override bool IsTransition() => commandPanel.IsStopflag;
     }
 }

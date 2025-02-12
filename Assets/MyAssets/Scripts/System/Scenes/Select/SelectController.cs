@@ -4,8 +4,12 @@ namespace MyAssets
 {
     public class SelectController : MonoBehaviour
     {
-        private static SelectController instance;
-        public static SelectController Instance => instance;
+        /*
+         * セレクトシーンの処理を行うクラス
+         * セレクトシーンで1つなのでシングルトンパターン
+         */
+        private static SelectController     instance;
+        public static SelectController      Instance => instance;
 
         private void Awake()
         {

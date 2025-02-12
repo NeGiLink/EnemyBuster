@@ -1,23 +1,26 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace MyAssets
 {
+    /*
+     * 敵を倒した数をUIとして表示する処理をするクラス
+     */
     public class EnemyKillCountUI : MonoBehaviour
     {
-        private Text text;
+        private Text    text;
 
-        private int max;
+        private int     max;
 
-        private bool infinite = false;
+        private bool    infinite = false;
 
-        private bool noMax = false;
+        private bool    noMax = false;
+        //敵を倒す最大数を無限にするかしないかのクラス
         public void SetInfinite(bool i)
         {
             infinite = i;
         }
-
+        //敵を倒す最大数をなしにするかしないかのクラス
         public void SetNoMax(bool m)
         {
             noMax = m;
@@ -32,7 +35,7 @@ namespace MyAssets
         {
             max = m;
         }
-
+        //カウントの更新を行う
         public void CountRefresh(int count)
         {
             if(text == null) { return; }
@@ -49,16 +52,6 @@ namespace MyAssets
             {
                 text.text = string.Format("{0:00}/{1:00}", current,max);
             }
-        }
-
-        public void InfiniteCount(int count)
-        {
-            text.text = "∞";
-        }
-
-        private void Update()
-        {
-        
         }
     }
 }

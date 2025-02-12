@@ -3,18 +3,6 @@ using UnityEngine;
 
 namespace MyAssets
 {
-    [System.Serializable]
-    public class NormalAttacksState
-    {
-        [SerializeField]
-        private FirstAttackState firstAttackState;
-        public FirstAttackState FirstAttackState => firstAttackState;
-
-        [SerializeField]
-        private SecondAttackState secondAttackState;
-        public SecondAttackState SecondAttackState => secondAttackState;
-    }
-
     public enum NormalAttackState
     {
         None = -1,
@@ -33,35 +21,45 @@ namespace MyAssets
     [System.Serializable]
     public class FirstAttackState : PlayerStateBase
     {
-        private IVelocityComponent velocity;
-        private IMovement movement;
-        private IPlayerAnimator animator;
-        private Transform transform;
+        private IVelocityComponent      velocity;
 
-        private IFieldOfView fieldOfView;
+        private IMovement               movement;
+        
+        private IPlayerAnimator         animator;
+        
+        private Transform               transform;
 
-        private SwordController sword;
+        private IFieldOfView            fieldOfView;
 
-        [SerializeField]
-        private float attacksGravityMultiply;
-
-        [SerializeField]
-        private float secondVer1ToTransitionTime;
-        [SerializeField]
-        private float secondVer2ToTransitionTime;
+        private SwordController         sword;
 
         [SerializeField]
-        private float maxNormalizedTime;
+        private float                   attacksGravityMultiply;
 
         [SerializeField]
-        private float forwardPower;
+        private float                   secondVer1ToTransitionTime;
+        [SerializeField]
+        private float                   secondVer2ToTransitionTime;
 
-        private Vector3 baseTransform;
+        [SerializeField]
+        private float                   maxNormalizedTime;
 
-        public static readonly string StateKey = "FirstAttack";
-        public override string Key => StateKey;
+        [SerializeField]
+        private float                   forwardPower;
 
-        private readonly string currentMotionName = "FirstAttack";
+        [SerializeField]
+        private float                   startColliderCount = 0.15f;
+
+        [SerializeField]
+        private float                   endColliderCount = 0.6f;
+
+        private Vector3                 baseTransform;
+
+        private readonly string         currentMotionName = "FirstAttack";
+
+        public static readonly string   StateKey = "FirstAttack";
+        public override string          Key => StateKey;
+
         public override List<ICharacterStateTransition<string>> CreateTransitionList(IPlayerSetup actor)
         {
             List<ICharacterStateTransition<string>> re = new List<ICharacterStateTransition<string>>();
@@ -89,7 +87,7 @@ namespace MyAssets
             base.DoStart();
             sword.SetAttackType(AttackType.Normal, SwordSEType.Slash1);
             sword.Slash();
-            animator.Animator.SetInteger(animator.AttacksName, (int)NormalAttackState.First);
+            animator.Animator.SetInteger(animator.AttackAnimationID, (int)NormalAttackState.First);
             velocity.Rigidbody.velocity = Vector3.zero;
             baseTransform = transform.position;
 
@@ -103,7 +101,7 @@ namespace MyAssets
 
         public override void DoUpdate(float time)
         {
-            sword.EnabledCollider(0.15f, 0.6f, false);
+            sword.EnabledCollider(startColliderCount, endColliderCount, false);
             base.DoUpdate(time);
         }
 
@@ -124,41 +122,53 @@ namespace MyAssets
         public override void DoExit()
         {
             base.DoExit();
-            animator.Animator.SetInteger(animator.AttacksName, (int)NormalAttackState.None);
+            animator.Animator.SetInteger(animator.AttackAnimationID, (int)NormalAttackState.None);
             sword.NotEnabledCollider();
         }
     }
+    /*
+     * プレイヤーの三段攻撃の二段目攻撃状態
+     */
     [System.Serializable]
     public class SecondAttackState : PlayerStateBase
     {
-        private IVelocityComponent velocity;
-        private IMovement movement;
-        private IPlayerAnimator animator;
+        private IVelocityComponent          velocity;
 
-        private Transform transform;
+        private IMovement                   movement;
 
-        private IFieldOfView fieldOfView;
+        private IPlayerAnimator             animator;
 
-        private SwordController sword;
+        private Transform                   transform;
 
-        [SerializeField]
-        private float attacksGravityMultiply;
+        private IFieldOfView                fieldOfView;
 
-        [SerializeField]
-        private float maxAttackingTime;
+        private SwordController             sword;
 
         [SerializeField]
-        private float maxNormalizedTime;
+        private float                       attacksGravityMultiply;
 
         [SerializeField]
-        private float forwardPower;
+        private float                       maxAttackingTime;
 
-        private Vector3 baseTransform;
+        [SerializeField]
+        private float                       maxNormalizedTime;
 
-        public static readonly string StateKey = "SecondAttack";
-        public override string Key => StateKey;
+        [SerializeField]
+        private float                       forwardPower;
 
-        private readonly string currentMotionName = "SecondAttack";
+        [SerializeField]
+        private float                       startColliderCount = 0.15f;
+
+        [SerializeField]
+        private float                       endColliderCount = 0.6f;
+
+        private Vector3                     baseTransform;
+
+        private readonly string             currentMotionName = "SecondAttack";
+        
+        public static readonly string       StateKey = "SecondAttack";
+        public override string              Key => StateKey;
+
         public override List<ICharacterStateTransition<string>> CreateTransitionList(IPlayerSetup actor)
         {
             List<ICharacterStateTransition<string>> re = new List<ICharacterStateTransition<string>>();
@@ -186,7 +196,7 @@ namespace MyAssets
             sword.SetAttackType(AttackType.Normal,SwordSEType.Slash1);
             sword.Slash();
             sword.SetRatioPower(1.2f);
-            animator.Animator.SetInteger(animator.AttacksName, (int)NormalAttackState.Second);
+            animator.Animator.SetInteger(animator.AttackAnimationID, (int)NormalAttackState.Second);
             velocity.Rigidbody.velocity = Vector3.zero;
             baseTransform = transform.position;
 
@@ -200,7 +210,7 @@ namespace MyAssets
 
         public override void DoUpdate(float time)
         {
-            sword.EnabledCollider(0.15f,0.6f, false);
+            sword.EnabledCollider(startColliderCount, endColliderCount, false);
             base.DoUpdate(time);
         }
 
@@ -220,54 +230,63 @@ namespace MyAssets
         public override void DoExit()
         {
             base.DoExit();
-            animator.Animator.SetInteger(animator.AttacksName, (int)NormalAttackState.None);
+            animator.Animator.SetInteger(animator.AttackAnimationID, (int)NormalAttackState.None);
             sword.NotEnabledCollider();
             sword.SetRatioPower(1.0f);
         }
 
 
     }
-
+    /*
+     * プレイヤーの三段攻撃の派生二段攻撃状態
+     */
     [System.Serializable]
     public class SecondDerivationAttack2State : PlayerStateBase
     {
-        private IVelocityComponent velocity;
-        private IMovement movement;
-        private IPlayerAnimator animator;
+        private IVelocityComponent          velocity;
 
-        private Transform transform;
+        private IMovement                   movement;
+        
+        private IPlayerAnimator             animator;
 
-        private IFieldOfView fieldOfView;
+        private Transform                   transform;
 
-        private SwordController sword;
+        private IFieldOfView                fieldOfView;
 
-        private SEHandler seHandler;
+        private SwordController             sword;
 
-        [SerializeField]
-        private float attacksGravityMultiply;
+        private SEHandler                   seHandler;
 
-        [SerializeField]
-        private float maxAttackingTime;
+        private Timer                       jumpStartTimer = new Timer();
 
         [SerializeField]
-        private float maxNormalizedTime;
+        private float                       attacksGravityMultiply;
 
         [SerializeField]
-        private float forwardPower;
-
-        private Vector3 baseTransform;
+        private float                       maxAttackingTime;
 
         [SerializeField]
-        private float power;
+        private float                       forwardPower;
+
+        private Vector3                     baseTransform;
 
         [SerializeField]
-        private float jumpStartCount = 0.25f;
-        private Timer jumpStartTimer = new Timer();
+        private float                       power;
 
-        public static readonly string StateKey = "SecondDerivationAttack2";
-        public override string Key => StateKey;
+        [SerializeField]
+        private float                       jumpStartCount = 0.25f;
 
-        private readonly string currentMotionName2 = "SecondDerivationAttack2End";
+        [SerializeField]
+        private float                       startColliderCount = 0.1f;
+
+        [SerializeField]
+        private float                       endColliderCount = 0.5f;
+
+        private readonly string             currentMotionName2 = "SecondDerivationAttack2End";
+
+        public static readonly string       StateKey = "SecondDerivationAttack2";
+        public override string              Key => StateKey;
+
         public override List<ICharacterStateTransition<string>> CreateTransitionList(IPlayerSetup actor)
         {
             List<ICharacterStateTransition<string>> re = new List<ICharacterStateTransition<string>>();
@@ -298,7 +317,7 @@ namespace MyAssets
             sword.SetAttackType(AttackType.Normal, SwordSEType.Slash1);
             sword.Slash();
             sword.SetRatioPower(1.2f);
-            animator.Animator.SetInteger(animator.AttacksName, (int)NormalAttackState.SecondDer);
+            animator.Animator.SetInteger(animator.AttackAnimationID, (int)NormalAttackState.SecondDer);
             velocity.Rigidbody.velocity = Vector3.zero;
             baseTransform = transform.position;
 
@@ -315,7 +334,7 @@ namespace MyAssets
 
         public override void DoUpdate(float time)
         {
-            sword.EnabledCollider(0.1f, 0.5f, false);
+            sword.EnabledCollider(startColliderCount, endColliderCount, false);
             base.DoUpdate(time);
             jumpStartTimer.Update(time);
         }
@@ -337,43 +356,54 @@ namespace MyAssets
         public override void DoExit()
         {
             base.DoExit();
-            animator.Animator.SetInteger(animator.AttacksName, (int)NormalAttackState.None);
+            animator.Animator.SetInteger(animator.AttackAnimationID, (int)NormalAttackState.None);
             sword.NotEnabledCollider();
             sword.SetRatioPower(1.0f);
         }
 
 
     }
-
+    /*
+     * プレイヤーの三段攻撃の三段攻撃状態
+     */
     [System.Serializable]
     public class ThirdAttackState : PlayerStateBase
     {
-        private IVelocityComponent velocity;
-        private IMovement movement;
-        private IPlayerAnimator animator;
-        private Transform transform;
+        private IVelocityComponent          velocity;
 
-        private IFieldOfView fieldOfView;
+        private IMovement                   movement;
+        
+        private IPlayerAnimator             animator;
+        
+        private Transform                   transform;
 
-        private SwordController sword;
+        private IFieldOfView                fieldOfView;
 
-        [SerializeField]
-        private float attacksGravityMultiply;
-
-        [SerializeField]
-        private float maxAttackingTime;
+        private SwordController             sword;
 
         [SerializeField]
-        private float maxNormalizedTime;
+        private float                       attacksGravityMultiply;
 
         [SerializeField]
-        private float forwardPower;
+        private float                       maxAttackingTime;
 
-        private Vector3 baseTransform;
+        [SerializeField]
+        private float                       maxNormalizedTime;
+
+        [SerializeField]
+        private float                       forwardPower;
+
+        [SerializeField]
+        private float                       startColliderCount = 0.1f;
+
+        [SerializeField]
+        private float                       endColliderCount = 0.6f;
+
+        private Vector3                     baseTransform;
 
 
-        public static readonly string StateKey = "ThirsAttack";
-        public override string Key => StateKey;
+        public static readonly string       StateKey = "ThirsAttack";
+        public override string              Key => StateKey;
         public override List<ICharacterStateTransition<string>> CreateTransitionList(IPlayerSetup actor)
         {
             List<ICharacterStateTransition<string>> re = new List<ICharacterStateTransition<string>>();
@@ -401,7 +431,7 @@ namespace MyAssets
             sword.SetAttackType(AttackType.Normal, SwordSEType.Slash1);
             sword.Slash();
             sword.SetRatioPower(1.4f);
-            animator.Animator.SetInteger(animator.AttacksName, (int)NormalAttackState.Third);
+            animator.Animator.SetInteger(animator.AttackAnimationID, (int)NormalAttackState.Third);
             velocity.Rigidbody.velocity = Vector3.zero;
             baseTransform = transform.position;
 
@@ -415,7 +445,7 @@ namespace MyAssets
 
         public override void DoUpdate(float time)
         {
-            sword.EnabledCollider(0.1f,0.6f,false);
+            sword.EnabledCollider(startColliderCount, endColliderCount,false);
             base.DoUpdate(time);
         }
 
@@ -436,7 +466,7 @@ namespace MyAssets
         public override void DoExit()
         {
             base.DoExit();
-            animator.Animator.SetInteger(animator.AttacksName, (int)NormalAttackState.None);
+            animator.Animator.SetInteger(animator.AttackAnimationID, (int)NormalAttackState.None);
             sword.NotEnabledCollider();
             sword.SetRatioPower(1.0f);
         }

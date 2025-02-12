@@ -11,13 +11,15 @@ namespace MyAssets
         Training,
         Result
     }
+    /*
+     * ゲームの全体に関わる処理を行うクラス
+     * 全体で1つなのでシングルトンパターン
+     * MonoBehaviourを継承している理由はUnityのGUIで確認しやすいようにするため
+     */
     public class GameManager : MonoBehaviour
     {
         private static GameManager          instance;
         public static GameManager           Instance => instance;
-
-        private PlayerActionInput           playerInput;
-        private MainCameraController        mainCameraController;
 
         [SerializeField]
         private GameModeLedger              gameModeLedger;
@@ -81,17 +83,6 @@ namespace MyAssets
             return text;
         }
 
-        public void SetDebug(bool d)
-        {
-            debug = d;
-        }
-        //メインのゲームの操作を無効にするか有効にするかの関数
-        public void ActivatePlayerInput(bool a) 
-        {
-            if(playerInput == null||mainCameraController == null) { return; }
-            playerInput.enabled = a;
-            mainCameraController.ActivateAllCamera(a);
-        }
         private void Awake()
         {
             if(instance != null)
@@ -101,9 +92,6 @@ namespace MyAssets
             }
             instance = this;
             DontDestroyOnLoad(gameObject);
-
-            playerInput = FindObjectOfType<PlayerActionInput>();
-            mainCameraController = FindObjectOfType<MainCameraController>();
         }
     }
 }

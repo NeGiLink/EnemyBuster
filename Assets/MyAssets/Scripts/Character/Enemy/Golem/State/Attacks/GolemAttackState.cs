@@ -10,7 +10,9 @@ namespace MyAssets
     public class GolemAttackState : GolemStateBase
     {
         private IMovement               movement;
+
         private IVelocityComponent      velocity;
+        
         private Transform               thisTransform;
 
         private IGolemAnimator          animator;

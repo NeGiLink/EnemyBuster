@@ -2,6 +2,9 @@ using System;
 
 namespace MyAssets
 {
+    /*
+     * StateMachineのインターフェース
+     */
     public interface IStateMachine : IDisposable
     {
         IState CurrentState { get; }
@@ -9,6 +12,9 @@ namespace MyAssets
         event Action<IState> OnStateChanged;
     }
 
+    /*
+     * StateChangerのインターフェース
+     */
     public interface IStateChanger<TKey>
     {
         bool IsContain(TKey key);

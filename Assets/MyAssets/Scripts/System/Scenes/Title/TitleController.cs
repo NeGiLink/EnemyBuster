@@ -2,6 +2,10 @@ using UnityEngine;
 
 namespace MyAssets
 {
+    /*
+     * タイトルシーンの処理を行うクラス
+     * タイトルシーンで1つだけなのでシングルトンパターン
+     */
     public class TitleController : MonoBehaviour
     {
         private static TitleController  instance;

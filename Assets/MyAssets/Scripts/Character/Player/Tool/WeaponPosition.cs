@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace MyAssets
@@ -11,13 +9,14 @@ namespace MyAssets
         Receipt,
         Count
     }
-
+    //武器の移動したいオブジェクトにアタッチして使う武器のポジションクラス
     public class WeaponPosition : MonoBehaviour
     {
+        //タグで判別
         [SerializeField]
-        private new WeaponPositionTag tag = WeaponPositionTag.None;
-        public WeaponPositionTag Tag => tag;
+        private new WeaponPositionTag   tag = WeaponPositionTag.None;
+        public WeaponPositionTag        Tag => tag;
 
-        public GameObject ThisObject => gameObject;
+        public GameObject               ThisObject => gameObject;
     }
 }

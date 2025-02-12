@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace MyAssets
@@ -10,11 +8,14 @@ namespace MyAssets
         Normal,
         Hard
     }
-
+    /*
+     * ゲームの難易度を設定するクラス
+     * ボタンのコールバックに設定して使う
+     */
     public class GameLevelController : MonoBehaviour
     {
         [SerializeField]
-        private GameLevel levelTag = GameLevel.Easy;
+        private GameLevel       levelTag = GameLevel.Easy;
 
         private ModeInformation modeInformation;
 
@@ -27,7 +28,7 @@ namespace MyAssets
         {
             modeInformation.SetLevelText();
         }
-
+        //コールバックで呼び出す関数
         public void SetLevel(int level)
         {
             levelTag = (GameLevel)level;

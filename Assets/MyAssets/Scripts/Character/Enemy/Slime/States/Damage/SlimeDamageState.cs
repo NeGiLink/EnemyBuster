@@ -3,38 +3,41 @@ using UnityEngine;
 
 namespace MyAssets
 {
+    /*
+     * スライムのダメージ状態
+     */
     [System.Serializable]
     public class SlimeDamageState : SlimeStateBase
     {
-        private IBaseStauts stauts;
+        private IBaseStauts             stauts;
 
-        private Transform thisTransform;
+        private Transform               thisTransform;
 
-        private IVelocityComponent velocity;
+        private IVelocityComponent      velocity;
 
-        private ISlimeAnimator animator;
+        private ISlimeAnimator          animator;
 
-        private IDamageContainer damageContainer;
+        private IDamageContainer        damageContainer;
 
-        private IDamagement damageMove;
+        private IDamagement             damageMove;
 
-        private FieldOfView fieldOfView;
+        private FieldOfView             fieldOfView;
 
-        private SEHandler seHandler;
+        private SEHandler               seHandler;
 
-        private Timer damageTimer = new Timer();
-
-        [SerializeField]
-        private float decreaseForce = 0.9f;
+        private Timer                   damageTimer = new Timer();
 
         [SerializeField]
-        private float damageGravityMultiply = 2.0f;
+        private float                   decreaseForce = 0.9f;
 
         [SerializeField]
-        private float damageIdleCount = 0.5f;
+        private float                   damageGravityMultiply = 2.0f;
 
-        public static readonly string StateKey = "Damage";
-        public override string Key => StateKey;
+        [SerializeField]
+        private float                   damageIdleCount = 0.5f;
+
+        public static readonly string   StateKey = "Damage";
+        public override string          Key => StateKey;
 
         public override List<ICharacterStateTransition<string>> CreateTransitionList(ISlimeSetup actor)
         {

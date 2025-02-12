@@ -67,7 +67,7 @@ namespace MyAssets
         {
             animator = chara.SlimeAnimator;
         }
-        public override bool IsTransition() => animator.Animator.GetInteger(animator.AttacksName) == 0;
+        public override bool IsTransition() => animator.Animator.GetInteger(animator.AttackAnimationID) == 0;
     }
     public class IsAttackTransition : CharacterStateTransitionBase
     {

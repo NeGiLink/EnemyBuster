@@ -1,11 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 namespace MyAssets
 {
     /*
-     * 
+     * 敵の行動選択部分で使用してるクラス
+     * 敵の行動をフラグ形式で決めるために使用
      */
     public class Trigger
     {

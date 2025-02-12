@@ -6,31 +6,33 @@ namespace MyAssets
     {
         Guard
     }
-
+    /*
+     *盾の制御コントローラー 
+     */
     public class ShieldController : MonoBehaviour
     {
         [SerializeField]
-        private Animator animator;
-        public Animator Animator => animator;
+        private Animator            animator;
+        public Animator             Animator => animator;
 
         private ShieldEffectHandler effectHandler;
 
-        private SEHandler seHandler;
+        private SEHandler           seHandler;
 
-        private readonly string stateName = "State";
+        private readonly string     stateName = "State";
 
         [Header("ガードのしきい値 (1 に近いほど厳しい)")]
         [Range(0.0f, 1.0f)]
-        public float guardThreshold = 0.6f;
+        public float                guardThreshold = 0.6f;
 
         [Header("ガード方向 (ローカル座標)")]
-        public Vector3 guardDirection = Vector3.forward;
+        public Vector3              guardDirection = Vector3.forward;
 
-        private bool guard = false;
+        private bool                guard = false;
 
-        private IGuardTrigger guardTrigger;
+        private IGuardTrigger       guardTrigger;
 
-        private ICharacterSetup characterSetup;
+        private ICharacterSetup     characterSetup;
         public void SetICharacterSetup(ICharacterSetup c) { characterSetup = c; }
 
         private void Awake()

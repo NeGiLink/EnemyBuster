@@ -7,9 +7,10 @@ namespace MyAssets
     public class NPCAnimator : INPCAnimator,ICharacterComponent<INPCSetup>
     {
         [SerializeField]
-        private Animator thisAnimator;
+        private Animator    thisAnimator;
 
-        public Animator Animator => thisAnimator;
+        public Animator     Animator => thisAnimator;
+        public int MoveAnimationID => Animator.StringToHash("Move");
 
         public void DoSetup(INPCSetup slime)
         {

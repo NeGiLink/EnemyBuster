@@ -3,28 +3,29 @@ using UnityEngine;
 
 namespace MyAssets
 {
+    /*
+     * ƒXƒ‰ƒCƒ€‚Ì‘Ò‹@ó‘Ô
+     */
     [System.Serializable]
     public class SlimeIdleState : SlimeStateBase
     {
-        private IMovement movement;
+        private IMovement               movement;
 
-        private IVelocityComponent velocity;
+        private IVelocityComponent      velocity;
 
-        private Timer idleTimer = new Timer();
+        private Timer                   idleTimer = new Timer();
 
-        private IDamageContainer damageContainer;
-
-        public static readonly string StateKey = "Idle";
-        public override string Key => StateKey;
+        public static readonly string   StateKey = "Idle";
+        public override string          Key => StateKey;
 
         [SerializeField]
-        private float moveSpeed;
+        private float                   moveSpeed;
 
         [SerializeField]
-        private float idleCount;
+        private float                   idleCount;
 
         [SerializeField]
-        private float gravityMultiply;
+        private float                   gravityMultiply;
 
         public override List<ICharacterStateTransition<string>> CreateTransitionList(ISlimeSetup actor)
         {
@@ -40,7 +41,6 @@ namespace MyAssets
             base.DoSetup(actor);
             movement = actor.Movement;
             velocity = actor.Velocity;
-            damageContainer = actor.DamageContainer;
         }
 
         public override void DoStart()

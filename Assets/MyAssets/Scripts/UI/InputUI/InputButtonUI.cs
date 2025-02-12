@@ -1,20 +1,23 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 namespace MyAssets
 {
+    /*
+     * アクションボタン
+     * コールバックで設定して非同期で処理を行う
+     */
     public class InputButtonUI : MonoBehaviour
     {
-        private Image parentImage;
+        private Image       parentImage;
 
-        private Image[] childImage;
+        private Image[]     childImage;
 
-        private Vector2 basePosition = Vector2.zero;
+        private Vector2     basePosition = Vector2.zero;
 
-        private bool press = false;
+        private bool        press = false;
 
         private void Awake()
         {
@@ -26,13 +29,13 @@ namespace MyAssets
         {
             basePosition = parentImage.rectTransform.anchoredPosition;
         }
-
+        //コールバックに設定する関数
         public void PressDown(InputAction.CallbackContext context)
         {
             if (press) { return; }
             StartCoroutine(PressDownStart());
         }
-
+        //UIを0.1f秒だけ更新して元に戻す関数
         private IEnumerator PressDownStart()
         {
             Vector2 pos = parentImage.rectTransform.anchoredPosition;
@@ -50,7 +53,7 @@ namespace MyAssets
 
             press = false;
         }
-
+        //入力を押し続けている間更新するための関数
         public void Press()
         {
             if (press) { return ; }
@@ -62,7 +65,7 @@ namespace MyAssets
 
             press = true;
         }
-
+        //入力が終了した時に元に戻す関数
         public void PressEnd()
         {
             if (!press) { return; }

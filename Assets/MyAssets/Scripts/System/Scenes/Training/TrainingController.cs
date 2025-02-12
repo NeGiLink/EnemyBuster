@@ -2,17 +2,21 @@ using UnityEngine;
 
 namespace MyAssets
 {
+    /*
+     * トレーニングシーンの処理を行うクラス
+     * トレーニングシーンで1つだけなのでシングルトンパターン
+     */
     public class TrainingController : MonoBehaviour
     {
-        private static TrainingController instance;
-        public static TrainingController Instance => instance;
+        private static TrainingController   instance;
+        public static TrainingController    Instance => instance;
 
 
-        private GameResultType gameResultType;
-        public GameResultType GameResultType => gameResultType;
+        private GameResultType              gameResultType;
+        public GameResultType               GameResultType => gameResultType;
 
         [SerializeField]
-        private TrainingUIController nextCreateManager;
+        private TrainingUIController        nextCreateManager;
 
         public void SetGameResultType(GameResultType type)
         {

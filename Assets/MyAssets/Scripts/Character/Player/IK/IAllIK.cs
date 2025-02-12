@@ -1,7 +1,3 @@
-
-
-using UnityEngine;
-
 namespace MyAssets
 {
     public interface IAllIK

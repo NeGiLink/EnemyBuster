@@ -3,26 +3,29 @@ using UnityEngine;
 
 namespace MyAssets
 {
+    /*
+     * ƒXƒ‰ƒCƒ€‚ÌUŒ‚“®ì€”õó‘Ô
+     */
     [System.Serializable]
     public class ReadySlimeAttackState : SlimeStateBase
     {
-        private IMovement movement;
-        private IVelocityComponent velocity;
-        private ISlimeAnimator animator;
+        private IMovement               movement;
+        private IVelocityComponent      velocity;
+        private ISlimeAnimator          animator;
 
-        private Timer readyTimer = new Timer();
-
-        [SerializeField]
-        private float readyCount;
+        private Timer                   readyTimer = new Timer();
 
         [SerializeField]
-        private float idleSpeed;
+        private float                   readyCount;
 
         [SerializeField]
-        private float gravityMultiply;
+        private float                   idleSpeed;
 
-        public static readonly string StateKey = "ReadyAttack";
-        public override string Key => StateKey;
+        [SerializeField]
+        private float                   gravityMultiply;
+
+        public static readonly string   StateKey = "ReadyAttack";
+        public override string          Key => StateKey;
 
         public override List<ICharacterStateTransition<string>> CreateTransitionList(ISlimeSetup enemy)
         {
@@ -48,7 +51,7 @@ namespace MyAssets
             readyTimer.Start(readyCount);
 
             movement.Stop();
-            animator.Animator.SetTrigger("AttackStart");
+            animator.Animator.SetTrigger(animator.AttackTriggerAnimationID);
         }
 
         public override void DoUpdate(float time)

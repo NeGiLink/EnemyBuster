@@ -5,6 +5,7 @@ namespace MyAssets
      * 全キャラクター共通で使う状態遷移クラス一覧
      */
 
+    //視界にターゲットを捉えた時
     public class IsTargetInViewTransition : CharacterStateTransitionBase
     {
         readonly FieldOfView fieldOfView;
@@ -16,6 +17,7 @@ namespace MyAssets
         public override bool IsTransition() => fieldOfView.Find;
     }
 
+    //視界からターゲットが消えた時
     public class IsNoTargetInViewTransition : CharacterStateTransitionBase
     {
         readonly FieldOfView fieldOfView;
@@ -26,7 +28,7 @@ namespace MyAssets
         }
         public override bool IsTransition() => !fieldOfView.Find;
     }
-
+    //ターゲットが指定した距離よりも近くに来た時
     public class IsMinDistanceTransition : CharacterStateTransitionBase
     {
         readonly FieldOfView fieldOfView;
@@ -40,12 +42,13 @@ namespace MyAssets
         }
         public override bool IsTransition() => fieldOfView.GetSubDistance.magnitude < distance;
     }
-
+    //主に敵に使用
+    //ダメージを受けてから視界にターゲットがいる時
     public class IsTimerTargetInViewTransition : CharacterStateTransitionBase
     {
-        readonly FieldOfView fieldOfView;
+        private readonly FieldOfView fieldOfView;
 
-        private Timer damageTimer;
+        private readonly Timer       damageTimer;
         public IsTimerTargetInViewTransition(ICharacterSetup actor, Timer _t, IStateChanger<string> stateChanger, string changeKey)
             : base(stateChanger, changeKey)
         {
@@ -54,9 +57,8 @@ namespace MyAssets
         }
         public override bool IsTransition() => fieldOfView.TryGetFirstObject(out var obj) && damageTimer.IsEnd();
     }
-    /*
-     * 引数で取得したTriggerクラスのtriggerがtruenなら遷移させるクラス
-     */
+
+    //引数で取得したTriggerクラスのtriggerがtruenなら遷移させるクラス
     public class IsTriggerTransition : CharacterStateTransitionBase
     {
         private readonly Trigger trigger;
@@ -67,5 +69,19 @@ namespace MyAssets
             trigger = _t;
         }
         public override bool IsTransition() => trigger.IsTrigger;
+    }
+
+    //死亡した時
+    public class IsDeathTransition : CharacterStateTransitionBase
+    {
+
+        private readonly IBaseStauts stauts;
+
+        public IsDeathTransition(ICharacterSetup chara, IStateChanger<string> stateChanger, string changeKey)
+            : base(stateChanger, changeKey)
+        {
+            stauts = chara.BaseStauts;
+        }
+        public override bool IsTransition() => stauts.HP <= 0;
     }
 }

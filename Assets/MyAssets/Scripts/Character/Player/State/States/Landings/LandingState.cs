@@ -3,31 +3,34 @@ using UnityEngine;
 
 namespace MyAssets
 {
+    /*
+     * プレイヤーの着地状態
+     */
     [System.Serializable]
     public class LandingState : PlayerStateBase
     {
-        private IPlayerStauts stauts;
+        private IPlayerStauts           stauts;
 
-        private Timer playerTimer = new Timer();
+        private Timer                   playerTimer = new Timer();
 
-        private IMovement movement;
+        private IMovement               movement;
 
-        private IVelocityComponent velocity;
+        private IVelocityComponent      velocity;
 
-        private IPlayerAnimator animator;
+        private IPlayerAnimator         animator;
 
-        private IGroundCheck groundCheck;
+        private IGroundCheck            groundCheck;
 
-        private IDamageContainer damageContainer;
-
-        [SerializeField]
-        private float moveSpeedRatio;
+        private IDamageContainer        damageContainer;
 
         [SerializeField]
-        private float LandingActionTime = 0.1f;
+        private float                   moveSpeedRatio;
 
-        public static readonly string StateKey = "Landing";
-        public override string Key => StateKey;
+        [SerializeField]
+        private float                   LandingActionTime = 0.1f;
+
+        public static readonly string   StateKey = "Landing";
+        public override string          Key => StateKey;
 
         public override List<ICharacterStateTransition<string>> CreateTransitionList(IPlayerSetup actor)
         {
@@ -57,7 +60,7 @@ namespace MyAssets
 
             velocity.Rigidbody.velocity = Vector3.zero;
 
-            animator.Animator.SetInteger(animator.LandName, 0);
+            animator.Animator.SetInteger(animator.LandAnimationID, 0);
 
             LandingDamageChack();
         }
@@ -85,7 +88,7 @@ namespace MyAssets
         {
             base.DoExit();
             playerTimer.End();
-            animator.Animator.SetInteger(animator.LandName, -1);
+            animator.Animator.SetInteger(animator.LandAnimationID, -1);
         }
     }
 }

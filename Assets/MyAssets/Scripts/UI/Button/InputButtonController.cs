@@ -10,6 +10,10 @@ namespace MyAssets
         Decide,
         Decide2
     }
+    /*
+     * ボタンをコントローラー、マウスで操作するためのクラス
+     * ボタンの親オブジェクトにアタッチして使う
+     */
     public class InputButtonController : MonoBehaviour
     {
         //選択してる場所が分かる画像を有効にするかしないかのフラグ
@@ -22,7 +26,7 @@ namespace MyAssets
         private bool            buttonIsArray = false;
         //画像の大きさに設定するかボタンのサイズに合わせるかのフラグ
         [SerializeField]
-        private bool nativeSize = true;
+        private bool            nativeSize = true;
         [SerializeField]
         private bool            selectsImage;
         [SerializeField]
@@ -138,10 +142,10 @@ namespace MyAssets
                     if(selectIndex != i)
                     {
                         seHandler.Play((int)ButtonSETag.Select);
+                        selectIndex = i;
+                        SetSelectImagePosition(selectIndex);
+                        SetActivateSelectImage(true);
                     }
-                    selectIndex = i;
-                    SetSelectImagePosition(selectIndex);
-                    SetActivateSelectImage(true);
                 }
             }
         }

@@ -1,10 +1,14 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
 namespace MyAssets
 {
+    /*
+     * ステータスのデータを保存するクラス
+     * jsonで保存して指定したファイルパス(Application.persistentDataPath)
+     * に保存する
+     */
     public class SaveManager : MonoBehaviour
     {
 
@@ -14,11 +18,13 @@ namespace MyAssets
         {
             filePath = Path.Combine(Application.persistentDataPath, "saveStatusData.json");
         }
+        //ステータスの変更を保存する
         public void Save(List<SaveStatusData> datas)
         {
             string json = JsonUtility.ToJson(new Wrapper<SaveStatusData>(datas)); // リストをラップして保存
             File.WriteAllText(filePath, json);
         }
+        //保存したステータスを読み込む
         public List<SaveStatusData> LoadGame()
         {
             if (File.Exists(filePath))
@@ -39,7 +45,9 @@ namespace MyAssets
             Destroy(this);
         }
     }
-
+    /*
+     * ステータスのデータを配列でまとめるクラス
+     */
     [System.Serializable]
     public class Wrapper<T>
     {

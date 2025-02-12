@@ -1,19 +1,21 @@
-using System;
 using UnityEngine;
 
 namespace MyAssets
 {
+    /*
+     * クレジットシーン全体に関係する処理を行うクラス
+     */
     public class CreditController : MonoBehaviour
     {
-        private static CreditController instance;
-        public static CreditController Instance => instance;
+        private static CreditController     instance;
+        public static CreditController      Instance => instance;
 
         [SerializeField]
-        private CreditObject[] creditObjects;
+        private CreditObject[]              creditObjects;
         [SerializeField]
-        private float creditObjectMoveOffset = 10f;
+        private float                       creditObjectMoveOffset = 10f;
         [SerializeField]
-        private int currentIndex = 0;
+        private int                         currentIndex = 0;
 
         private void Awake()
         {
@@ -24,8 +26,6 @@ namespace MyAssets
                 return;
             }
             instance = this;
-
-            //creditObjects = FindObjectsOfType<CreditObject>();
         }
 
         private void Start()

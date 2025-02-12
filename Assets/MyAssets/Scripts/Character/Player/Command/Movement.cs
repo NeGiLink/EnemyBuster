@@ -1,16 +1,18 @@
-using System.Net;
 using UnityEngine;
 
 namespace MyAssets
 {
+    /*
+     * キャラクターの移動処理を行うクラス
+     */
     [System.Serializable]
     public class Movement : IMovement,ICharacterComponent<ICharacterSetup>
     {
-        private Transform thisTransform;
+        private Transform               thisTransform;
 
-        private IVelocityComponent velocity;
+        private IVelocityComponent      velocity;
 
-        private IStepClimberJudgment stepClimber;
+        private IStepClimberJudgment    stepClimber;
 
         public void DoSetup(ICharacterSetup chara)
         {

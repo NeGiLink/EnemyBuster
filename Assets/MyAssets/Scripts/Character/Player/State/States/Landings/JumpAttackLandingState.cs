@@ -3,22 +3,26 @@ using UnityEngine;
 
 namespace MyAssets
 {
+    /*
+     * プレイヤーのジャンプ攻撃着地状態
+     */
     [System.Serializable]
     public class JumpAttackLandingState : PlayerStateBase
     {
-        private Timer playerTimer = new Timer();
 
-        private IVelocityComponent velocity;
+        private IVelocityComponent          velocity;
 
-        private IPlayerAnimator animator;
+        private IPlayerAnimator             animator;
 
-        private PlayerEffectController effectController;
+        private PlayerEffectController      effectController;
+
+        private Timer                       playerTimer = new Timer();
 
         [SerializeField]
-        private float LandingActionTime;
+        private float                       LandingActionTime;
 
-        public static readonly string StateKey = "JumpAttackLanding";
-        public override string Key => StateKey;
+        public static readonly string       StateKey = "JumpAttackLanding";
+        public override string              Key => StateKey;
 
         public override List<ICharacterStateTransition<string>> CreateTransitionList(IPlayerSetup actor)
         {
@@ -45,7 +49,7 @@ namespace MyAssets
 
             velocity.Rigidbody.velocity = Vector3.zero;
 
-            animator.Animator.SetInteger(animator.LandName, 0);
+            animator.Animator.SetInteger(animator.LandAnimationID, 0);
 
             effectController.Create(PlayerEffectType.GroundHit);
         }
@@ -66,8 +70,8 @@ namespace MyAssets
         {
             base.DoExit();
             playerTimer.End();
-            animator.Animator.SetInteger(animator.LandName, -1);
-            animator.Animator.SetInteger(animator.AttacksName, -1);
+            animator.Animator.SetInteger(animator.LandAnimationID, -1);
+            animator.Animator.SetInteger(animator.AttackAnimationID, -1);
         }
     }
 }

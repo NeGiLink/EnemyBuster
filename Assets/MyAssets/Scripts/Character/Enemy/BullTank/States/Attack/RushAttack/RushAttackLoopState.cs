@@ -27,6 +27,12 @@ namespace MyAssets
         [SerializeField]
         private float                           count;
 
+        [SerializeField]
+        private float                           startColliderCount = 0.0f;
+
+        [SerializeField]
+        private float                           endColliderCount = 1.0f;
+
         public static readonly string           StateKey = "RushLoop";
         public override string                  Key => StateKey;
 
@@ -55,7 +61,7 @@ namespace MyAssets
 
         public override void DoUpdate(float time)
         {
-            headWeapon.EnabledCollider(0, 0, true);
+            headWeapon.EnabledCollider(startColliderCount, endColliderCount, true);
             base.DoUpdate(time);
             timer.Update(time);
         }

@@ -3,35 +3,38 @@ using UnityEngine.Assertions;
 
 namespace MyAssets
 {
+    /*
+     * プレイヤーのアニメーション関連をまとめたクラス
+     */
     [System.Serializable]
     public class PlayerAnimator : IPlayerAnimator, ICharacterComponent<IPlayerSetup>
     {
         [SerializeField]
-        private Animator thisAnimator;
+        private Animator            thisAnimator;
 
-        public Animator Animator => thisAnimator;
+        public Animator             Animator => thisAnimator;
 
-        public AnimatorStateInfo AnimatorStateInfo => thisAnimator.GetCurrentAnimatorStateInfo(0);
+        public AnimatorStateInfo    AnimatorStateInfo => thisAnimator.GetCurrentAnimatorStateInfo(0);
 
         public bool IsEndMotion()
         {
             return AnimatorStateInfo.normalizedTime >= 1.0f;
         }
 
-        public string VelocityX         => "VelocityX";
-        public string VelocityZ         => "VelocityZ";
-
-        public string MoveName          => "Speed";
-        public string DashName          => "Dash";
-        public string AlertLevelName    => "AlertLevel";
-        public string BattleModeName    => "BattleMode";
-        public string ToolLevel         => "ToolLevel";
-        public string JumpTypeName      => "JumpType";
-        public string FallName          => "Fall";
-        public string LandName          => "Land";
-        public string AttacksName       => "Attacks";
-        public string Weapon_In_OutName => "Weapon_In/Out";
-        public string ClimbName         => "Climb";
+        public int VelocityXAnimationID => Animator.StringToHash("VelocityX");
+        public int VelocityZAnimationID => Animator.StringToHash("VelocityZ");
+        public int MoveAnimationID => Animator.StringToHash("Speed");
+        public int DashAnimationID => Animator.StringToHash("Dash");
+        public int AlertLevelAnimationID => Animator.StringToHash("AlertLevel");
+        public int BattleModeAnimationID => Animator.StringToHash("BattleMode");
+        public int ToolLevelAnimationID => Animator.StringToHash("ToolLevel");
+        public int JumpAnimationID => Animator.StringToHash("JumpType");
+        public int FallAnimationID => Animator.StringToHash("Fall");
+        public int LandAnimationID => Animator.StringToHash("Land");
+        public int AttackAnimationID => Animator.StringToHash("Attacks");
+        public int ChargeAttackAnimationID => Animator.StringToHash("ChargeAttack");
+        public int Weapon_In_OutAnimationID => Animator.StringToHash("Weapon_In/Out");
+        public int ClimbAnimationID => Animator.StringToHash("Climb");
 
         private bool enabled = false;
         private int layer = 0;

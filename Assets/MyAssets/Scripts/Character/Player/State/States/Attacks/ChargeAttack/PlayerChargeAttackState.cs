@@ -3,6 +3,9 @@ using UnityEngine;
 
 namespace MyAssets
 {
+    /*
+     * ó≠ÇﬂçUåÇèÛë‘
+     */
     [System.Serializable]
     public class PlayerChargeAttackState : PlayerStateBase
     {
@@ -32,6 +35,12 @@ namespace MyAssets
 
         [SerializeField]
         private float                   forwardPower;
+
+        [SerializeField]
+        private float                   startColliderCount = 0.5f;
+
+        [SerializeField]
+        private float                   endColliderCount = 0.7f;
 
 
         public static readonly string   StateKey = "ChargeAttack";
@@ -63,8 +72,8 @@ namespace MyAssets
         public override void DoStart()
         {
             base.DoStart();
-            animator.Animator.SetInteger("ChargeAttack", 2);
-            animator.Animator.SetInteger(animator.AttacksName, (int)NormalAttackState.ChargeAttack);
+            animator.Animator.SetInteger(animator.ChargeAttackAnimationID, 2);
+            animator.Animator.SetInteger(animator.AttackAnimationID, (int)NormalAttackState.ChargeAttack);
             velocity.Rigidbody.velocity = Vector3.zero;
             baseTransform = transform.position;
 
@@ -85,7 +94,7 @@ namespace MyAssets
 
         public override void DoUpdate(float time)
         {
-            sword.EnabledCollider(0.5f, 0.7f, false);
+            sword.EnabledCollider(startColliderCount, endColliderCount, false);
             base.DoUpdate(time);
         }
 

@@ -1,10 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace MyAssets
 {
+    /*
+     * ゲームスタート時に行うカウントをUIとして表示・更新するクラス
+     * GameStartTimerの中で使用している
+     */
     public class GameStartTimerUI : MonoBehaviour
     {
         private Image countImage;

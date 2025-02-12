@@ -6,6 +6,9 @@ namespace MyAssets
     {
         Death
     }
+    /*
+     * スライムのエフェクトをまとめたクラス
+     */
     public class SlimeEffectHandler : MonoBehaviour
     {
         [SerializeField]

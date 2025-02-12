@@ -1,30 +1,35 @@
 using System;
-using UnityEngine;
 
 namespace MyAssets
 {
+    /*
+     * タイマーの処理を行うクラス
+     * 様々な部分で使用している
+     */
     [System.Serializable ]
     public class Timer
     {
+        //一度きりのアクション
         public event Action OnceEnd;
+        //何度でも使えるアクション
         public event Action OnEnd;
-
+        //現在のカウント
         private float current = 0;
 
         public float Current => current;
-
+        //カウント方式のフラグ
         private bool up = false;
-
+        //カウント方式の設定
         public void SetCountUp( bool u)
         {
             up = u;
         }
-
+        //カウントのスタート
         public void Start(float time)
         {
             current = time;
         }
-
+        //カウントの更新
         public void Update(float time)
         {
             if (up)
@@ -42,7 +47,7 @@ namespace MyAssets
                 }
             }
         }
-
+        //カウントの終了
         public void End()
         {
             current = 0;
@@ -50,14 +55,14 @@ namespace MyAssets
             OnceEnd?.Invoke();
             OnceEnd = null;
         }
-
+        //カウントが終わっているか
         public bool IsEnd() { return current <= 0; }
-
+        //カウントを分に変換
         public int GetMinutes()
         {
             return (int)current / 60;
         }
-
+        //カウントを秒に変換
         public int GetSecond()
         {
             return (int)current % 60;

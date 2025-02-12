@@ -2,7 +2,9 @@ using UnityEngine;
 
 namespace MyAssets
 {
-
+    /*
+     * 移動処理クラスのインターフェース
+     */
     public interface IMovement
     {
         void Stop();

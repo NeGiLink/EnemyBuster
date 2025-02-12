@@ -3,18 +3,21 @@ using UnityEngine.UI;
 
 namespace MyAssets
 {
+    /*
+     * ステータス変更UIの選択中のステータスにアタッチしているクラス
+     * 選択中のステータスの情報を保持している
+     */
     public class ChoiceStauts : MonoBehaviour
     {
         [SerializeField]
-        private SaveStatusData saveStatusData;
-        public SaveStatusData SaveStatusData => saveStatusData;
+        private SaveStatusData  saveStatusData;
+        public SaveStatusData   SaveStatusData => saveStatusData;
 
         [SerializeField]
-        private Image choiceImage;
-        public Image ChoiceImage => choiceImage;
+        private Image           choiceImage;
+        public Image            ChoiceImage => choiceImage;
         [SerializeField]
-        private bool choice = false;
-        public bool Choice => choice;
+        private bool            choice = false;
 
 
         [SerializeField]

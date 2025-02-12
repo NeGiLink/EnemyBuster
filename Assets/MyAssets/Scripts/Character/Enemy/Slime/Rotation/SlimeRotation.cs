@@ -1,6 +1,3 @@
-using MyAssets;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace MyAssets
@@ -16,16 +13,6 @@ namespace MyAssets
         [SerializeField]
         private Transform thisTransform;
 
-        private Quaternion targetRotation;
-
-        private FieldOfView fieldOfView;
-
-        private ISlimeAnimator animator;
-
-        // í«â¡: êÿÇËë÷Ç¶ëOÇÃâÒì]Çï€éùÇ∑ÇÈïœêî
-        [SerializeField]
-        private Quaternion previousCameraRotation;
-
         [SerializeField]
         private float rotationSpeed;
 
@@ -34,15 +21,9 @@ namespace MyAssets
             thisTransform = slime.gameObject.transform;
         }
 
-        public void DoUpdate()
-        {
-            
-        }
+        public void DoUpdate(){}
 
-        public void DoFixedUpdate()
-        {
-            
-        }
+        public void DoFixedUpdate(){}
 
 
         public void DoLookOnTarget(Transform target)
@@ -61,9 +42,6 @@ namespace MyAssets
             );
         }
 
-        public void DoFreeMode()
-        {
-
-        }
+        public void DoFreeMode(){}
     }
 }

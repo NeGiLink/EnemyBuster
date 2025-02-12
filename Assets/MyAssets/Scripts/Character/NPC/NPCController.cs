@@ -2,50 +2,53 @@ using UnityEngine;
 
 namespace MyAssets
 {
+    /*
+     * NPC‚Ì§ŒäƒNƒ‰ƒX
+     */
     public class NPCController : CharacterBaseController,INPCSetup
     {
         [SerializeField]
-        private NPCStatusProperty property;
-        public IBaseStauts BaseStauts => property;
+        private NPCStatusProperty       property;
+        public IBaseStauts              BaseStauts => property;
 
         [SerializeField]
-        private NPCCommandPanel commandPanel;
-        public INPCCommandPanel CommandPanel => commandPanel;
+        private NPCCommandPanel         commandPanel;
+        public INPCCommandPanel         CommandPanel => commandPanel;
 
-        public IStepClimberJudgment StepClimberJudgment => null;
-        public IRotation Rotation => null;
-
-        [SerializeField]
-        private Movement movement;
-        public IMovement Movement => movement;
+        public IStepClimberJudgment     StepClimberJudgment => null;
+        public IRotation                Rotation => null;
 
         [SerializeField]
-        private NPCAnimator animator;
-        public INPCAnimator Animator => animator;
+        private Movement                movement;
+        public IMovement                Movement => movement;
+
+        [SerializeField]
+        private NPCAnimator             animator;
+        public INPCAnimator             Animator => animator;
         
-        public IFieldOfView FieldOfView => null;
+        public IFieldOfView             FieldOfView => null;
 
-        private SEHandler seHandler;
-        public SEHandler SEHandler => seHandler;
-
-        [SerializeField]
-        private GuardTrigger guardTrigger;
-        public IGuardTrigger GuardTrigger => guardTrigger;
+        private SEHandler               seHandler;
+        public SEHandler                SEHandler => seHandler;
 
         [SerializeField]
-        private StateMachine<string> stateMachine;
-        public IStateMachine StateMachine => stateMachine;
+        private GuardTrigger            guardTrigger;
+        public IGuardTrigger            GuardTrigger => guardTrigger;
 
         [SerializeField]
-        private string defaultStateKey;
+        private StateMachine<string>    stateMachine;
+        public IStateMachine            StateMachine => stateMachine;
 
         [SerializeField]
-        private NPCIdleState idleState;
+        private string                  defaultStateKey;
 
         [SerializeField]
-        private NPCMoveState moveState;
+        private NPCIdleState            idleState;
 
-        private INPCState<string>[] states;
+        [SerializeField]
+        private NPCMoveState            moveState;
+
+        private INPCState<string>[]     states;
         protected override void Awake()
         {
 

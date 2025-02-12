@@ -11,33 +11,34 @@ namespace MyAssets
         EnemyCount
     }
 
-    /// <summary>
-    /// Canvasへの追加・変更・削除を行うクラス
-    /// </summary>
+
+    /*
+     * Canvasへの追加・変更・削除を行うゲームUIクラス
+     */
     public class GameUIController : MonoBehaviour
     {
-        private static GameUIController instance;
-        public static GameUIController Instance => instance;
+        private static GameUIController     instance;
+        public static GameUIController      Instance => instance;
 
         [SerializeField]
-        private UIData uiData;
+        private UIData                      uiData;
 
         [SerializeField]
-        private OptionInput optionSystem;
+        private OptionInput                 optionSystem;
 
         [SerializeField]
-        private FadeInText fadeInText;
+        private FadeInText                  fadeInText;
 
         [SerializeField]
-        private ResultSystem resultSystem;
+        private ResultSystem                resultSystem;
 
-        private TimerCountUI timerCountUI;
-        public TimerCountUI TimerCountUI => timerCountUI;
+        private TimerCountUI                timerCountUI;
+        public TimerCountUI                 TimerCountUI => timerCountUI;
 
-        private EnemyKillCountUI enemyKillCountUI;
-        public EnemyKillCountUI EnemyKillCountUI => enemyKillCountUI;
+        private EnemyKillCountUI            enemyKillCountUI;
+        public EnemyKillCountUI             EnemyKillCountUI => enemyKillCountUI;
 
-        private PlayerUIHandler playerUIHandler;
+        private PlayerUIHandler             playerUIHandler;
 
         private void Awake()
         {

@@ -3,26 +3,29 @@ using UnityEngine;
 
 namespace MyAssets
 {
+    /*
+     * NPC‚ÌˆÚ“®ó‘Ô
+     */
     [System.Serializable]
     public class NPCMoveState : NPCStateBase
     {
-        private IMovement movement;
-        private Transform thisTransform;
+        private IMovement               movement;
+        private Transform               thisTransform;
 
-        private INPCAnimator animator;
-
-        [SerializeField]
-        private PatrplPointContainer patrplPointContainer;
+        private INPCAnimator            animator;
 
         [SerializeField]
-        float moveSpeed = 1;
-        [SerializeField]
-        float rotationSpeed = 8;
-        [SerializeField]
-        float moveSpeedChangeRate = 8;
+        private PatrplPointContainer    patrplPointContainer;
 
-        public static readonly string StateKey = "Patrol";
-        public override string Key => StateKey;
+        [SerializeField]
+        float                           moveSpeed = 1;
+        [SerializeField]
+        float                           rotationSpeed = 8;
+        [SerializeField]
+        float                           moveSpeedChangeRate = 8;
+
+        public static readonly string   StateKey = "Patrol";
+        public override string          Key => StateKey;
 
         public override List<ICharacterStateTransition<string>> CreateTransitionList(INPCSetup enemy)
         {
@@ -45,7 +48,7 @@ namespace MyAssets
             patrplPointContainer.SetStop(false);
 
 
-            animator.Animator.SetInteger("Move", 1);
+            animator.Animator.SetInteger(animator.MoveAnimationID, 1);
         }
 
         public override void DoFixedUpdate(float time)
@@ -93,7 +96,7 @@ namespace MyAssets
         public override void DoExit()
         {
             base.DoExit();
-            animator.Animator.SetInteger("Move", 0);
+            animator.Animator.SetInteger(animator.MoveAnimationID, 0);
         }
     }
 }

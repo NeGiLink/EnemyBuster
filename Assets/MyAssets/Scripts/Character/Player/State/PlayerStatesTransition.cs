@@ -2,6 +2,11 @@ using UnityEngine;
 
 namespace MyAssets
 {
+    /*
+     * プレイヤーのStateを遷移する条件をまとめたクラス一覧
+     */
+
+    //移動していた時
     public class IsMoveTransition : CharacterStateTransitionBase
     {
         private readonly IMoveInputProvider input;
@@ -12,6 +17,7 @@ namespace MyAssets
         }
         public override bool IsTransition() => input.IsMove;
     }
+    //止まった時
     public class IsNotMoveTransition : CharacterStateTransitionBase
     {
         private readonly IMoveInputProvider input;
@@ -22,7 +28,7 @@ namespace MyAssets
         }
         public override bool IsTransition() => !input.IsMove;
     }
-
+    //戦闘待機になった時
     public class IsBattleModeIdleTransition : CharacterStateTransitionBase
     {
         private readonly IFocusInputProvider         focusInput;
@@ -35,6 +41,7 @@ namespace MyAssets
         }
         public override bool IsTransition() => focusInput.Foucus == 1 && !input.IsMove;
     }
+    //戦闘移動状態になった時
     public class IsBattleModeMoveTransition : CharacterStateTransitionBase
     {
         private readonly IFocusInputProvider         focusInput;
@@ -47,6 +54,7 @@ namespace MyAssets
         }
         public override bool IsTransition() => focusInput.Foucus == 1 && input.IsMove;
     }
+    //戦闘状態が解除されて移動していた時
     public class IsNotBattleModeMoveTransition : CharacterStateTransitionBase
     {
         private readonly IFocusInputProvider            focusInput;
@@ -59,6 +67,7 @@ namespace MyAssets
         }
         public override bool IsTransition() => focusInput.Foucus == 0 && input.IsMove;
     }
+    //戦闘状態が解除されて止まった時
     public class IsNotBattleModeIdleTransition : CharacterStateTransitionBase
     {
         private readonly IFocusInputProvider    focusInput;
@@ -72,9 +81,8 @@ namespace MyAssets
         public override bool IsTransition() => focusInput.Foucus < 1&&!input.IsMove;
     }
 
-    /// <summary>
-    /// 一定時間以降の移動入力による遷移
-    /// </summary>
+
+    //一定時間以降の移動入力による遷移
     public class IsTimerAndMoveTransition : CharacterStateTransitionBase
     {
         private readonly Timer              timer;
@@ -87,6 +95,7 @@ namespace MyAssets
         }
         public override bool IsTransition() => timer.IsEnd() && input.IsMove;
     }
+    //タイマーが終了して止まっていた時
     public class IsTimerAndNotMoveTransition : CharacterStateTransitionBase
     {
         private readonly Timer              timer;
@@ -99,7 +108,7 @@ namespace MyAssets
         }
         public override bool IsTransition() => timer.IsEnd() && !input.IsMove;
     }
-
+    //タイマーが終わった時
     public class IsTimerTransition : CharacterStateTransitionBase
     {
         private readonly Timer timer;
@@ -111,9 +120,8 @@ namespace MyAssets
         public override bool IsTransition() => timer.IsEnd();
     }
 
-    /// <summary>
-    /// ジャンプ入力による遷移
-    /// </summary>
+
+    //ジャンプ入力による遷移
     public class IsJumpPushTransition : CharacterStateTransitionBase
     {
         private readonly IJumpInputProvider input;
@@ -124,17 +132,18 @@ namespace MyAssets
             input = actor.gameObject.GetComponent<IJumpInputProvider>();
             animator = actor.PlayerAnimator;
         }
-        public override bool IsTransition() => input.Jump&&animator.Animator.GetInteger(animator.LandName) == -1;
+        public override bool IsTransition() => input.Jump&&animator.Animator.GetInteger(animator.LandAnimationID) == -1;
 
         
     }
+    //着地した時
     public class IsNotJumpTransition : CharacterStateTransitionBase
     {
         private readonly IGroundCheck       groundCheck;
 
         private readonly IVelocityComponent velocity;
 
-        private Timer jumpStartTimer;
+        private readonly Timer              jumpStartTimer;
         public IsNotJumpTransition(IPlayerSetup actor,Timer _t, IStateChanger<string> stateChanger, string changeKey)
             : base(stateChanger, changeKey)
         {
@@ -144,7 +153,7 @@ namespace MyAssets
         }
         public override bool IsTransition() => velocity.Rigidbody.velocity.y < -0.5f && groundCheck.Landing&&jumpStartTimer.IsEnd();
     }
-
+    //ジャンプから落下に遷移する時
     public class IsJumpToFallTransition : CharacterStateTransitionBase
     {
         private readonly IPlayerAnimator    animator;
@@ -158,14 +167,12 @@ namespace MyAssets
             velocity = actor.Velocity;
         }
         public override bool IsTransition() => !groundCheck.Landing && velocity.Rigidbody.velocity.y < -0.5f &&
-            animator.Animator.GetInteger(animator.JumpTypeName) == 1 && animator.IsEndMotion();
+            animator.Animator.GetInteger(animator.JumpAnimationID) == 1 && animator.IsEndMotion();
 
 
     }
 
-    /// <summary>
-    /// ローリングによる遷移
-    /// </summary>
+    //ローリングによる遷移
     public class IsRollingTransition : CharacterStateTransitionBase
     {
 
@@ -180,6 +187,7 @@ namespace MyAssets
         }
         public override bool IsTransition() => input.Jump&&stauts.SP > 0&&stauts.SP > stauts.RollingUseSP;
     }
+    //回避動作を取る時
     public class IsNotRollingTransition : CharacterStateTransitionBase
     {
         private readonly IPlayerAnimator animator;
@@ -196,9 +204,7 @@ namespace MyAssets
                                                 timer.IsEnd();
     }
 
-    /// <summary>
-    /// 地面との接触による遷移
-    /// </summary>
+    //地面との接触による遷移
     public class IsGroundTransition : CharacterStateTransitionBase
     {
         private readonly IGroundCheck       groundCheck;
@@ -212,6 +218,7 @@ namespace MyAssets
         }
         public override bool IsTransition() => velocity.Rigidbody.velocity.y < -0.1f &&groundCheck.Landing;
     }
+    //落下する時
     public class IsNotGroundTransition : CharacterStateTransitionBase
     {
         private readonly IGroundCheck       groundCheck;
@@ -224,21 +231,7 @@ namespace MyAssets
         }
         public override bool IsTransition() => !groundCheck.Landing&&velocity.Rigidbody.velocity.y < -5.0f;
     }
-
-    /// <summary>
-    /// 速度による遷移
-    /// </summary>
-    public class IsFallVelocityTransition : CharacterStateTransitionBase
-    {
-        private readonly IVelocityComponent velocity;
-        public IsFallVelocityTransition(IPlayerSetup actor, IStateChanger<string> stateChanger, string changeKey)
-            : base(stateChanger, changeKey)
-        {
-            velocity = actor.Velocity;
-        }
-        public override bool IsTransition() => velocity.Rigidbody.velocity.y < -1.0f;
-    }
-
+    //登り動作に遷移する時
     public class IsClimbTransition : CharacterStateTransitionBase
     {
         private readonly IObstacleJudgment cliffJudgment;
@@ -249,7 +242,7 @@ namespace MyAssets
         }
         public override bool IsTransition() => cliffJudgment.IsClimbStart;
     }
-
+    //登り動作を終了する時
     public class IsEndClimbTransition : CharacterStateTransitionBase
     {
         private readonly IClimb climb;
@@ -260,7 +253,7 @@ namespace MyAssets
         }
         public override bool IsTransition() => climb.IsClimbEnd;
     }
-
+    //一段目攻撃を行うとき
     public class IsFirstAttackTransition : CharacterStateTransitionBase
     {
         private readonly IAttackInputProvider   input;
@@ -275,21 +268,20 @@ namespace MyAssets
         }
         public override bool IsTransition() => input.Attack && battleFlagger.IsBattleMode && groundCheck.Landing;
     }
-
+    //武器出しから一段目攻撃をする時
     public class IsWeaponOutFirstAttackTransition : CharacterStateTransitionBase
     {
-        private readonly IAttackInputProvider input;
-        private readonly IBattleFlagger battleFlagger;
-        private readonly IGroundCheck groundCheck;
+        private readonly IBattleFlagger     battleFlagger;
+        private readonly IGroundCheck       groundCheck;
         public IsWeaponOutFirstAttackTransition(IPlayerSetup actor, IStateChanger<string> stateChanger, string changeKey)
             : base(stateChanger, changeKey)
         {
-            input = actor.gameObject.GetComponent<IAttackInputProvider>();
             battleFlagger = actor.BattleFlagger;
             groundCheck = actor.GroundCheck;
         }
         public override bool IsTransition() => battleFlagger.IsBattleMode && groundCheck.Landing;
     }
+    //三段目攻撃から一段目攻撃をする時
     public class IsLoopFirstAttackTransition : CharacterStateTransitionBase
     {
         private readonly IAttackInputProvider   input;
@@ -308,7 +300,7 @@ namespace MyAssets
         public override bool IsTransition() => input.Attack && groundCheck.Landing&&
             animator.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= maxNormalizedTime;
     }
-
+    //二段目以降の攻撃を行うとき
     public class IsBurstAttackTransition : CharacterStateTransitionBase
     {
         private readonly IAttackInputProvider   input;
@@ -332,17 +324,18 @@ namespace MyAssets
             animator.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= maxNormalizedTime&&
             animator.Animator.GetCurrentAnimatorStateInfo(0).IsName(motionName);
     }
+    //派生二段目攻撃を行うとき
     public class IsSecondAttackTransition : CharacterStateTransitionBase
     {
-        private readonly IAttackInputProvider input;
-        private readonly IGroundCheck groundCheck;
-        private readonly IPlayerAnimator animator;
+        private readonly IAttackInputProvider   input;
+        private readonly IGroundCheck           groundCheck;
+        private readonly IPlayerAnimator        animator;
 
-        private readonly float maxNormalizedTime;
+        private readonly float                  maxNormalizedTime;
 
-        private readonly float noNormalizedTime;
+        private readonly float                  noNormalizedTime;
 
-        private readonly string motionName;
+        private readonly string                 motionName;
         public IsSecondAttackTransition(string _motionName, float _t,float _noTime, IPlayerSetup actor, IStateChanger<string> stateChanger, string changeKey)
             : base(stateChanger, changeKey)
         {
@@ -359,7 +352,7 @@ namespace MyAssets
             animator.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime < noNormalizedTime &&
             animator.Animator.GetCurrentAnimatorStateInfo(0).IsName(motionName);
     }
-
+    //攻撃動作を終了する時
     public class IsNotAttackTransition : CharacterStateTransitionBase
     {
         private readonly IAttackInputProvider   input;
@@ -396,7 +389,7 @@ namespace MyAssets
             !input.Attack &&
             AttackMotionChecker();
     }
-
+    //攻撃が終了して移動し始めた時
     public class IsNotAttackToMoveTransition : CharacterStateTransitionBase
     {
         private readonly IMoveInputProvider     moveinput;
@@ -438,7 +431,7 @@ namespace MyAssets
             AttackMotionChecker()&&
             moveinput.IsMove;
     }
-
+    //武器取り出しを行う時
     public class IsWeaponOutTransition : CharacterStateTransitionBase
     {
         private readonly IAttackInputProvider   input;
@@ -452,6 +445,7 @@ namespace MyAssets
         }
         public override bool IsTransition() => input.Attack && !battleFlagger.IsBattleMode;
     }
+    //武器収納を行う時
     public class IsWeaponInTransition : CharacterStateTransitionBase
     {
         private readonly IToolInputProvider     input;
@@ -468,7 +462,7 @@ namespace MyAssets
         public override bool IsTransition() => (input.WeaponEquipment||input.Equipmenting > 0) && battleFlagger.IsBattleMode &&
                                                 focusInput.Foucus < 1.0f;
     }
-
+    //ジャンプ攻撃の準備動作を行う時
     public class IsReadyJumpAttackTransition : CharacterStateTransitionBase
     {
         private readonly IAttackInputProvider   input;
@@ -476,7 +470,7 @@ namespace MyAssets
         private readonly IGroundCheck           groundCheck;
         private readonly IPlayerStauts          stauts;
 
-        private readonly int useSP;
+        private readonly int                    useSP;
 
         public IsReadyJumpAttackTransition(IPlayerSetup actor,int usesp, IStateChanger<string> stateChanger, string changeKey)
             : base(stateChanger, changeKey)
@@ -490,6 +484,7 @@ namespace MyAssets
         public override bool IsTransition() => input.Attack &&moveInput.IsMove&&
             stauts.SP > 0&&stauts.SP > useSP &&!groundCheck.Landing;
     }
+    //派生二段目攻撃からジャンプ攻撃準備動作に遷移するとき
     public class IsSecondAttackVer2ToReadyJumpAttackTransition : CharacterStateTransitionBase
     {
         private readonly IAttackInputProvider   input;
@@ -509,7 +504,7 @@ namespace MyAssets
         public override bool IsTransition() => input.Attack && animator.Animator.GetCurrentAnimatorStateInfo(0).IsName(motionName) &&
             !groundCheck.Landing;
     }
-
+    //カウンター攻撃に遷移する時
     public class IsCounterAttackTransition : CharacterStateTransitionBase
     {
         private readonly IAttackInputProvider   input;
@@ -534,7 +529,7 @@ namespace MyAssets
             animator.Animator.GetCurrentAnimatorStateInfo(0).IsName(motionName)&&
             stauts.SP > 0 && stauts.SP > useSP;
     }
-
+    //ジャンプ攻撃に遷移する時
     public class IsJumpAttackTransition : CharacterStateTransitionBase
     {
         private readonly IPlayerAnimator    animator;
@@ -549,6 +544,7 @@ namespace MyAssets
         public override bool IsTransition() => animator.Animator.GetCurrentAnimatorStateInfo(0).IsName(readyJumpAttackName)&&
             animator.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime  >= 1.0f;
     }
+    //溜め攻撃開始動作に遷移する時
     public class IsPlayerChargeStartTransition : CharacterStateTransitionBase
     {
         private readonly IAttackInputProvider   attackInputProvider;
@@ -565,6 +561,7 @@ namespace MyAssets
 
         public override bool IsTransition() => attackInputProvider.ChargeAttack&&stauts.SP > 0&&stauts.SP > stauts.ChargeAttackUseSP;
     }
+    //溜め攻撃に遷移する時
     public class IsPlayerChargeAttackTransition : CharacterStateTransitionBase
     {
         private readonly IAttackInputProvider attackInputProvider;
@@ -579,7 +576,7 @@ namespace MyAssets
         public override bool IsTransition() => !attackInputProvider.ChargeAttack;
     }
 
-
+    //指定したアニメーションが終了した時
     public class IsPlayerEndMotionTransition : CharacterStateTransitionBase
     {
 
@@ -605,7 +602,7 @@ namespace MyAssets
         }
         public override bool IsTransition() => AttackMotionEndChecker();
     }
-
+    //ダメージ動作に遷移するとき
     public class IsDamageTransition : CharacterStateTransitionBase
     {
 
@@ -618,6 +615,7 @@ namespace MyAssets
         }
         public override bool IsTransition() => baseStauts.MaxStoredDamage <= baseStauts.StoredDamage;
     }
+    //ダメージ動作から起き上がる動作に遷移するとき
     public class IsPlayerDamageToGetUpTransition : CharacterStateTransitionBase
     {
 
@@ -633,7 +631,7 @@ namespace MyAssets
         }
         public override bool IsTransition() => damageTimer.IsEnd() && animator.Animator.GetCurrentAnimatorStateInfo(0).IsName("BigImpact");
     }
-
+    //ダメージ動作から戦闘状態に遷移する時
     public class IsNotPlayerDamageToBattleTransition : CharacterStateTransitionBase
     {
 
@@ -649,6 +647,7 @@ namespace MyAssets
         }
         public override bool IsTransition() => damageTimer.IsEnd()&&battleFlagger.IsBattleMode;
     }
+    //ダメージ動作から非戦闘状態に遷移「するとき
     public class IsNotPlayerDamageToTransition : CharacterStateTransitionBase
     {
 
@@ -665,19 +664,7 @@ namespace MyAssets
         public override bool IsTransition() => damageTimer.IsEnd() && !battleFlagger.IsBattleMode;
     }
 
-    public class IsDeathTransition : CharacterStateTransitionBase
-    {
-
-        private readonly IBaseStauts stauts;
-
-        public IsDeathTransition(ICharacterSetup chara, IStateChanger<string> stateChanger, string changeKey)
-            : base(stateChanger, changeKey)
-        {
-            stauts = chara.BaseStauts;
-        }
-        public override bool IsTransition() => stauts.HP <= 0;
-    }
-
+    //防御に成功した時
     public class IsGuardTransition : CharacterStateTransitionBase
     {
 
@@ -690,21 +677,7 @@ namespace MyAssets
         }
         public override bool IsTransition() => guardTrigger.IsGuard;
     }
-    public class IsFailGuardTransition : CharacterStateTransitionBase
-    {
-
-        private readonly IGuardTrigger guardTrigger;
-
-        private readonly IPlayerStauts stauts;
-
-        public IsFailGuardTransition(IPlayerSetup actor, IStateChanger<string> stateChanger, string changeKey)
-            : base(stateChanger, changeKey)
-        {
-            guardTrigger = actor.GuardTrigger;
-            stauts = actor.Stauts;
-        }
-        public override bool IsTransition() => guardTrigger.IsGuard&&(stauts.SP <= 0||stauts.SP < stauts.GuardUseSP);
-    }
+    //ガード状態が終了した時
     public class IsEndGuardTransition : CharacterStateTransitionBase
     {
 

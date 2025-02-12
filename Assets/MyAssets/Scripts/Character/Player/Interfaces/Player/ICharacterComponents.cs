@@ -1,6 +1,10 @@
 
 namespace MyAssets
 {
+    /*
+     * キャラクターのコマンド処理につけるインターフェースのコンポーネント
+     * と各キャラクターに対応したStateBaseのインターフェース
+     */
     public interface ICharacterComponent<T> where T : ICharacterSetup
     {
         void DoSetup(T chara);

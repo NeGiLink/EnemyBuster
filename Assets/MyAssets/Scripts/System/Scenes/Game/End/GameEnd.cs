@@ -1,9 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace MyAssets
 {
+    /*
+     * ゲームを終了させる処理を行うクラス
+     */
     public class GameEnd : MonoBehaviour
     {
         public void Execute()

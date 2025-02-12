@@ -9,18 +9,22 @@ namespace MyAssets
         GameClear
     }
 
+    /*
+     * ゲームシーンの処理を行うクラス
+     * これはゲームシーンで1つだけなのでシングルトンパターン
+     */
 
     public class GameController : MonoBehaviour
     {
-        private static GameController instance;
-        public static GameController Instance => instance;
+        private static GameController   instance;
+        public static GameController    Instance => instance;
 
 
-        private GameResultType gameResultType;
-        public GameResultType GameResultType => gameResultType;
+        private GameResultType      gameResultType;
+        public GameResultType       GameResultType => gameResultType;
 
-        private Timer timer = new Timer();
-        public Timer Timer => timer;
+        private Timer               timer = new Timer();
+        public Timer                Timer => timer;
 
         public void SetGameResultType(GameResultType type)
         {

@@ -26,8 +26,15 @@ namespace MyAssets
         private float                   gravityMultiply;
 
         private Timer                   timer = new Timer();
+
         [SerializeField]
         private float                   count = 1.0f;
+
+        [SerializeField]
+        private float                   startColliderCount = 0.5f;
+
+        [SerializeField]
+        private float                   endColliderCount = 0.8f;
 
         public static readonly string   StateKey = "NormalAttack";
         public override string          Key => StateKey;
@@ -69,7 +76,7 @@ namespace MyAssets
         public override void DoUpdate(float time)
         {
             timer.Update(time);
-            weapon.EnabledCollider(0.5f, 0.8f, false);
+            weapon.EnabledCollider(startColliderCount, endColliderCount, false);
             base.DoUpdate(time);
         }
 

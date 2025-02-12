@@ -2,19 +2,22 @@ using UnityEngine;
 
 namespace MyAssets
 {
+    /*
+     * 剣と盾などの装備の位置を変えるなどの処理をまとめて行うクラス
+     */
     public class WeaponController : MonoBehaviour,IEquipment
     {
         [SerializeField]
-        private Transform[] weaponTransforms = new Transform[(int)WeaponPositionTag.Count];
+        private Transform[]         weaponTransforms = new Transform[(int)WeaponPositionTag.Count];
 
         [SerializeField]
-        private Transform haveWeapon;
+        private Transform           haveWeapon;
 
-        public GameObject HaveWeapon => haveWeapon.gameObject;
+        public GameObject           HaveWeapon => haveWeapon.gameObject;
 
         [SerializeField]
-        private ShieldController shieldTool;
-        public ShieldController ShieldTool => shieldTool;
+        private ShieldController    shieldTool;
+        public ShieldController     ShieldTool => shieldTool;
 
         private void Awake()
         {

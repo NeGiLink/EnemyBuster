@@ -2,31 +2,32 @@ using UnityEngine;
 
 namespace MyAssets
 {
+    /*
+     * ゲームモードのベースクラス
+     * 3つのモードの抽象クラスとして使用
+     */
     public abstract class AbstractGameMode : MonoBehaviour
     {
         [SerializeField]
-        protected float count;
+        protected float             count;
 
         [SerializeField]
-        protected int maxEnemyKillCount;
-        public int MaxEnemyKillCount => maxEnemyKillCount;
+        protected int               maxEnemyKillCount;
         [SerializeField]
-        protected int currentEnemyKillCount;
-        public int CurrentEnemyKillCount { get { return currentEnemyKillCount; } set { currentEnemyKillCount = value; } }
+        protected int               currentEnemyKillCount;
+        public int                  CurrentEnemyKillCount { get { return currentEnemyKillCount; } set { currentEnemyKillCount = value; } }
 
-        public virtual bool IsEnd => currentEnemyKillCount >= maxEnemyKillCount;
+        public virtual bool         IsEnd => currentEnemyKillCount >= maxEnemyKillCount;
         [SerializeField]
-        protected int maxWaveChangeCount = 2;
-        public int MaxWaveChangeCount => maxWaveChangeCount;
+        protected int               maxWaveChangeCount = 2;
 
-        protected bool waveChange = false;
-        public bool WaveChange => waveChange;
+        protected bool              waveChange = false;
+        public bool                 WaveChange => waveChange;
 
-        private EnemyKillCountUI enemyKillCountUI;
-        public EnemyKillCountUI EnemyKillCountUI => enemyKillCountUI;
 
-        protected SpawnEnemy spawnEnemy;
-        public SpawnEnemy SpawnEnemy { get
+        protected SpawnEnemy        spawnEnemy;
+        public SpawnEnemy           SpawnEnemy 
+        {   get
             {
                 if(spawnEnemy == null)
                 {
@@ -36,10 +37,10 @@ namespace MyAssets
             } 
         }
 
-        public virtual ModeTag ModeTag => ModeTag.None;
+        public virtual ModeTag      ModeTag => ModeTag.None;
 
-        protected bool spawnLimit = false;
-        public bool SpawnLimit => spawnLimit;
+        protected bool              spawnLimit = false;
+        public bool                 SpawnLimit => spawnLimit;
 
         public abstract void Setup(int maxEnemy,int maxWaveEnemy);
 

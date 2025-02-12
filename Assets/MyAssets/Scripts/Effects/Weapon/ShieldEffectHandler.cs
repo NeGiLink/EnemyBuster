@@ -6,6 +6,9 @@ namespace MyAssets
     {
         Hit
     }
+    /*
+     * シールドのエフェクトをまとめたクラス
+     */
     public class ShieldEffectHandler : MonoBehaviour
     {
         [SerializeField]

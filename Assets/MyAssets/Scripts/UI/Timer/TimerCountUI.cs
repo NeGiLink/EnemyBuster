@@ -1,18 +1,14 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace MyAssets
 {
+    /*
+     * ゲームの経過時間をUIで表示するクラス
+     */
     public class TimerCountUI : MonoBehaviour
     {
         private Text text;
-
-        
-
-        //private string
 
         private void Awake()
         {
