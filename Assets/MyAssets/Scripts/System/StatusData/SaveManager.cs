@@ -16,7 +16,11 @@ namespace MyAssets
 
         private void Awake()
         {
+#if UNITY_EDITOR
             filePath = Path.Combine(Application.persistentDataPath, "saveStatusData.json");
+#else
+            filePath = Path.Combine(Application.dataPath, "saveStatusData.json");
+#endif
         }
         //ステータスの変更を保存する
         public void Save(List<SaveStatusData> datas)

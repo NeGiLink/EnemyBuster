@@ -35,6 +35,7 @@ namespace MyAssets
         public int ChargeAttackAnimationID => Animator.StringToHash("ChargeAttack");
         public int Weapon_In_OutAnimationID => Animator.StringToHash("Weapon_In/Out");
         public int ClimbAnimationID => Animator.StringToHash("Climb");
+        public int ImpactAnimationID => Animator.StringToHash("Impact");
 
         private bool enabled = false;
         private int layer = 0;

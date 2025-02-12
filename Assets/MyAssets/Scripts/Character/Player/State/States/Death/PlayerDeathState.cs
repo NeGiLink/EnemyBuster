@@ -36,7 +36,7 @@ namespace MyAssets
         {
             base.DoStart();
             seHandler.Play((int)PlayerSETag.Damage);
-            animator.Animator.SetInteger("Impact", 2);
+            animator.Animator.SetInteger(animator.ImpactAnimationID, 2);
 
             playerController.gameObject.layer = 0;
             GameController.Instance.SetGameResultType(GameResultType.GameOver);

@@ -28,6 +28,7 @@ namespace MyAssets
         int ChargeAttackAnimationID {  get; }
         int Weapon_In_OutAnimationID {  get; }
         int ClimbAnimationID { get; }
+        int ImpactAnimationID {  get; }
 
         void SetWeight(bool enabled, int layer);
         void UpdateWeight();

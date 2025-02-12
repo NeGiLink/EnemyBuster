@@ -49,6 +49,8 @@ namespace MyAssets
         private void Start()
         {
             List<SaveStatusData> datas = saveManager.LoadGame();
+            if(datas.Count <= 0){ return; }
+
             int num = 0;
             for(int i = 0; i < choiceStautsButton.Length; i++)
             {

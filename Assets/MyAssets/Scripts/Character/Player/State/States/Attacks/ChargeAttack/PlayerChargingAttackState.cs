@@ -52,7 +52,7 @@ namespace MyAssets
         public override void DoStart()
         {
             base.DoStart();
-            animator.Animator.SetInteger("ChargeAttack", 1);
+            animator.Animator.SetInteger(animator.ChargeAttackAnimationID, 1);
             velocity.Rigidbody.velocity = Vector3.zero;
             chargeTimer.Start(count);
         }

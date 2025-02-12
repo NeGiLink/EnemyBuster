@@ -21,9 +21,9 @@ namespace MyAssets
 
 
         [SerializeField]
-        private StatusType statusType;
+        private StatusType      statusType;
 
-        private StatusInfo statusInfo;
+        private StatusInfo      statusInfo;
         public void SetStatus(StatusInfo info,SaveStatusData data)
         {
             choiceImage.sprite = info.sprite;

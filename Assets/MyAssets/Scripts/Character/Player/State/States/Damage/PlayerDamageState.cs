@@ -96,7 +96,7 @@ namespace MyAssets
                 damageMove.AddForceMove(thisTransform.position, damageContainer.Attacker.position, damageContainer.KnockBack * 2.0f);
                 damageTimer.Start(1.5f);
             }
-            animator.Animator.SetInteger("Impact", damageType);
+            animator.Animator.SetInteger(animator.ImpactAnimationID, damageType);
         }
 
         public override void DoUpdate(float time)
@@ -118,7 +118,7 @@ namespace MyAssets
         {
             base.DoExit();
             damageContainer.ClearDamage();
-            animator.Animator.SetInteger("Impact", -1);
+            animator.Animator.SetInteger(animator.ImpactAnimationID, -1);
             stauts.ClearStoredDamage();
         }
     }
