@@ -25,7 +25,7 @@ namespace MyAssets
 
         private Timer                   damageTimer = new Timer();
 
-        private IPlayerStauts           stauts;
+        private IPlayerStatus           stauts;
 
         [SerializeField]
         private float                   decreaseForce = 0.9f;

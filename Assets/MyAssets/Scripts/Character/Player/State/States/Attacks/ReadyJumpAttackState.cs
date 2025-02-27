@@ -9,7 +9,7 @@ namespace MyAssets
     [System.Serializable]
     public class ReadyJumpAttack : PlayerStateBase
     {
-        private IPlayerStauts           stauts;
+        private IPlayerStatus           stauts;
 
         private IVelocityComponent      velocity;
 

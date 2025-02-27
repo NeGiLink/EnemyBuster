@@ -15,7 +15,7 @@ namespace MyAssets
             IPlayerSetup actor = other.GetComponent<IPlayerSetup>();
             if(actor == null) { return; }
             int recovery = Random.Range(minRecoveryNum, maxRecoveryNum + 1);
-            actor.BaseStauts.RecoveryHP(recovery);
+            actor.BaseStatus.RecoveryHP(recovery);
             actor.SEHandler.Play((int)PlayerSETag.Recovery);
             gameObject.SetActive(false);
         }

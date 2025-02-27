@@ -11,7 +11,7 @@ namespace MyAssets
      * スライム単体で使うステータスがないため空
      */
     [System.Serializable ]
-    public class SlimeStatusProperty : BaseStautsProperty,ISlimeStauts
+    public class SlimeStatusProperty : BaseStautsProperty,ISlimeStatus
     {
 
     }

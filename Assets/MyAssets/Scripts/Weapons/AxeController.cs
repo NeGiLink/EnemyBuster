@@ -113,7 +113,7 @@ namespace MyAssets
         //武器ダメとキャラダメを+した値を出力
         private int GetPower()
         {
-            return attackObject.Power + (int)bullTank.BaseStauts.BasePower;
+            return attackObject.Power + (int)bullTank.BaseStatus.BasePower;
         }
 
         private void OnTriggerEnter(Collider other)

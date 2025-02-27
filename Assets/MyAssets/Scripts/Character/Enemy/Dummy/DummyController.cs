@@ -9,7 +9,7 @@ namespace MyAssets
     {
         [SerializeField]
         private DummyStatusProperty     property;
-        public IBaseStauts              BaseStauts => property;
+        public IBaseStatus              BaseStatus => property;
 
         [SerializeField]
         private Movement                movement;
@@ -71,7 +71,7 @@ namespace MyAssets
         {
             if(damageContainer.AttackType == DamageType.None) { return; }
             damageCoolDownTimer.Start(0.25f);
-            DamageTextCreator.Instance.Crate(transform, damageContainer.Data,Color.red);
+            DamageTextCreator.Instance.Create(transform, damageContainer.Data,Color.red);
             damageContainer.ClearDamage();
         }
     }

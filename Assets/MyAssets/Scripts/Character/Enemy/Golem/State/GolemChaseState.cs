@@ -12,7 +12,7 @@ namespace MyAssets
 
         private IGolemAnimator          animator;
 
-        private IBaseStauts             stauts;
+        private IBaseStatus             stauts;
 
 
         [SerializeField]
@@ -46,7 +46,7 @@ namespace MyAssets
             velocity = actor.Velocity;
             fieldOfView = actor.gameObject.GetComponent<FieldOfView>();
             animator = actor.GolemAnimator;
-            stauts = actor.BaseStauts;
+            stauts = actor.BaseStatus;
         }
 
         public override void DoStart()

@@ -10,7 +10,7 @@ namespace MyAssets
         public static DamageTextCreator     Instance => instance;
 
         [SerializeField]
-        private GameObject                  textMesh;
+        private DamageText3DUI              textMesh;
         private void Awake()
         {
             if (instance != null)
@@ -21,7 +21,7 @@ namespace MyAssets
             instance = this;
             DontDestroyOnLoad(gameObject);
         }
-        public void Crate(Transform damager,int damage,Color color)
+        public void Create(Transform damager,int damage,Color color)
         {
             DamageText3DUI damageText3DUI = Instantiate(textMesh,damager.position,Quaternion.identity).GetComponent<DamageText3DUI>();
             if(damageText3DUI != null)

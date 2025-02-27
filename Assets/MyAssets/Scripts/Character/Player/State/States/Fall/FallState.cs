@@ -9,7 +9,7 @@ namespace MyAssets
     [System.Serializable]
     public class FallState : PlayerStateBase
     {
-        private IPlayerStauts           stauts;
+        private IPlayerStatus           stauts;
 
         private IMovement               movement;
         private IVelocityComponent      velocity;

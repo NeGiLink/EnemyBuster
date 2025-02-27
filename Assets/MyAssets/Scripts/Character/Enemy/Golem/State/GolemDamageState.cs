@@ -9,7 +9,7 @@ namespace MyAssets
     [System.Serializable]
     public class GolemDamageState : GolemStateBase
     {
-        private IBaseStauts             stauts;
+        private IBaseStatus             stauts;
 
         private Transform               thisTransform;
 
@@ -49,7 +49,7 @@ namespace MyAssets
         public override void DoSetup(IGolemSetup actor)
         {
             base.DoSetup(actor);
-            stauts = actor.BaseStauts;
+            stauts = actor.BaseStatus;
             thisTransform = actor.gameObject.transform;
             velocity = actor.Velocity;
             animator = actor.GolemAnimator;

@@ -9,7 +9,7 @@ namespace MyAssets
     [System.Serializable]
     public class LandingState : PlayerStateBase
     {
-        private IPlayerStauts           stauts;
+        private IPlayerStatus           stauts;
 
         private Timer                   playerTimer = new Timer();
 

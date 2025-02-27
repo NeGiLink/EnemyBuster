@@ -5,7 +5,7 @@ namespace MyAssets
      * ‚Å‚à‰½‚à‚È‚¢‚½‚ß‹ó
      */
     [System.Serializable]
-    public class DummyStatusProperty : BaseStautsProperty,IBaseStauts
+    public class DummyStatusProperty : BaseStautsProperty,IBaseStatus
     {
     }
 }

@@ -9,7 +9,7 @@ namespace MyAssets
     [System.Serializable]
     public class MushroomDamageState : MushroomStateBase
     {
-        private IBaseStauts             stauts;
+        private IBaseStatus             stauts;
 
         private Transform               thisTransform;
 
@@ -49,7 +49,7 @@ namespace MyAssets
         public override void DoSetup(IMushroomSetup enemy)
         {
             base.DoSetup(enemy);
-            stauts = enemy.BaseStauts;
+            stauts = enemy.BaseStatus;
             thisTransform = enemy.gameObject.transform;
             velocity = enemy.Velocity;
             animator = enemy.MushroomAnimator;

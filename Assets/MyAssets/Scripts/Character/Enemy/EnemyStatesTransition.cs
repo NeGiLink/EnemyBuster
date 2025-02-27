@@ -34,14 +34,14 @@ namespace MyAssets
     public class IsEnemyDamageTransition : CharacterStateTransitionBase
     {
 
-        private readonly IBaseStauts baseStauts;
+        private readonly IBaseStatus baseStatus;
 
         public IsEnemyDamageTransition(IEnemySetup chara, IStateChanger<string> stateChanger, string changeKey)
             : base(stateChanger, changeKey)
         {
-            baseStauts = chara.BaseStauts;
+            baseStatus = chara.BaseStatus;
         }
-        public override bool IsTransition() => baseStauts.MaxStoredDamage <= baseStauts.StoredDamage;
+        public override bool IsTransition() => baseStatus.MaxStoredDamage <= baseStatus.StoredDamage;
     }
 
     public class IsNotDamageToTransition : CharacterStateTransitionBase
