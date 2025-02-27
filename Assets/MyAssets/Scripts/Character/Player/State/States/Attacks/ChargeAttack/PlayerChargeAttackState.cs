@@ -9,7 +9,7 @@ namespace MyAssets
     [System.Serializable]
     public class PlayerChargeAttackState : PlayerStateBase
     {
-        private IPlayerStauts           stauts;
+        private IPlayerStatus           stauts;
 
         private IVelocityComponent      velocity;
 

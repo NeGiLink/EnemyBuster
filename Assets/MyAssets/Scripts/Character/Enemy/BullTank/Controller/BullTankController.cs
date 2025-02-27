@@ -6,7 +6,7 @@ namespace MyAssets
     {
         [SerializeField]
         private BullTankStatusProperty          property;
-        public IBaseStauts                      BaseStauts => property;
+        public IBaseStatus                      BaseStatus => property;
 
         [SerializeField]
         private Movement                        movement;

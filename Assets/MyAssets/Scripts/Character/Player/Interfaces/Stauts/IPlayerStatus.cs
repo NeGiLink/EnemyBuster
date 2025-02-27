@@ -3,7 +3,7 @@ namespace MyAssets
     /*
      * ベースのステータスのインターフェース
      */
-    public interface IBaseStauts
+    public interface IBaseStatus
     {
         int             MaxHP { get; }
         int             HP { get; }
@@ -26,7 +26,7 @@ namespace MyAssets
      * 下記からはキャラクターごとのステータスのインターフェース
      * そのキャラクター独自の要素を持っていたら追加する形
      */
-    public interface IPlayerStauts : IBaseStauts
+    public interface IPlayerStatus : IBaseStatus
     {
         int MaxSP { get; }
         int SP {  get; }
@@ -42,23 +42,23 @@ namespace MyAssets
         void DecreaseSP(int s);
         void RecoverySP(int s);
     }
-    public interface ISlimeStauts : IBaseStauts
+    public interface ISlimeStatus : IBaseStatus
     {
 
     }
-    public interface IMushroomStauts : IBaseStauts
+    public interface IMushroomStatus : IBaseStatus
     {
 
     }
-    public interface IBullTankStauts : IBaseStauts
+    public interface IBullTankStatus : IBaseStatus
     {
 
     }
-    public interface IGolemStauts : IBaseStauts
+    public interface IGolemStatus : IBaseStatus
     {
 
     }
-    public interface INPCStauts : IBaseStauts
+    public interface INPCStatus : IBaseStatus
     {
 
     }

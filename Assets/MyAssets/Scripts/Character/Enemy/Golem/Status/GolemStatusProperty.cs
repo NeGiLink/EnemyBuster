@@ -5,7 +5,7 @@ namespace MyAssets
      * 何も独自のステータスがないためは空
      */
     [System.Serializable]
-    public class GolemStatusProperty : BaseStautsProperty, IGolemStauts
+    public class GolemStatusProperty : BaseStautsProperty, IGolemStatus
     {
 
     }

@@ -8,7 +8,7 @@ namespace MyAssets
     public interface ICharacterSetup
     {
         IStateMachine           StateMachine { get; }
-        IBaseStauts             BaseStauts { get; }
+        IBaseStatus             BaseStatus { get; }
         GameObject              gameObject { get; }
         IVelocityComponent      Velocity { get; }
         IMovement               Movement { get; }
@@ -31,7 +31,7 @@ namespace MyAssets
     /// </summary>
     public interface IPlayerSetup : ICharacterSetup
     {
-        IPlayerStauts           Stauts { get; }
+        IPlayerStatus           Stauts { get; }
 
         IMoveInputProvider      MoveInput { get; }
         IAttackInputProvider    AttackInput { get; }

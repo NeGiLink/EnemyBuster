@@ -11,7 +11,7 @@ namespace MyAssets
     {
         private Transform               transform;
 
-        private IPlayerStauts           stauts;
+        private IPlayerStatus           stauts;
 
         private IVelocityComponent      velocity;
 

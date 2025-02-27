@@ -23,13 +23,11 @@ namespace MyAssets
         public void Create()
         {
 
-            GameCanvas gameCanvas = FindObjectOfType<GameCanvas>();
-
-            GageUI gage = Instantiate(hpGage, gameCanvas.UILayer[(int)UILayer.Player].transform);
+            GageUI gage = Instantiate(hpGage, GameCanvas.Instance.UILayer[(int)UILayer.Player].transform);
             hpGage = gage;
-            gage = Instantiate(spGage, gameCanvas.UILayer[(int)UILayer.Player].transform);
+            gage = Instantiate(spGage, GameCanvas.Instance.UILayer[(int)UILayer.Player].transform);
             spGage = gage;
-            LockOnUI lockOn = Instantiate(lockOnUI, gameCanvas.UILayer[(int)UILayer.Player].transform);
+            LockOnUI lockOn = Instantiate(lockOnUI, GameCanvas.Instance.UILayer[(int)UILayer.Player].transform);
             lockOnUI = lockOn;
             Destroy(this);
         }

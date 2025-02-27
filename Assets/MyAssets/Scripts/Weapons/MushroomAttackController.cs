@@ -100,7 +100,7 @@ namespace MyAssets
 
         private int GetPower()
         {
-            return attackObject.Power + (int)mushroom.BaseStauts.BasePower;
+            return attackObject.Power + (int)mushroom.BaseStatus.BasePower;
         }
 
         private void OnTriggerEnter(Collider other)

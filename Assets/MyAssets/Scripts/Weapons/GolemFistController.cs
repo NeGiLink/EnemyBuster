@@ -117,7 +117,7 @@ namespace MyAssets
 
         private int GetPower()
         {
-            return attackObject.Power + (int)setup.BaseStauts.BasePower;
+            return attackObject.Power + (int)setup.BaseStatus.BasePower;
         }
 
         private void OnTriggerEnter(Collider other)

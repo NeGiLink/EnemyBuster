@@ -16,7 +16,7 @@ namespace MyAssets
      * PlayerController‚ÉSerializable‚ğs‚Á‚Ä‚¢‚é
      */
     [System.Serializable]
-    public class PlayerStatusProperty : BaseStautsProperty,IPlayerStauts
+    public class PlayerStatusProperty : BaseStautsProperty,IPlayerStatus
     {
         [SerializeField]
         private int             maxSp;

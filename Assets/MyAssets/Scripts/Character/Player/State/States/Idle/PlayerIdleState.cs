@@ -9,7 +9,7 @@ namespace MyAssets
     [System.Serializable]
     public class PlayerIdleState : PlayerStateBase
     {
-        private IPlayerStauts           stauts;
+        private IPlayerStatus           stauts;
 
         private IMoveInputProvider      input;
         

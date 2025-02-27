@@ -75,12 +75,12 @@ namespace MyAssets
     public class IsDeathTransition : CharacterStateTransitionBase
     {
 
-        private readonly IBaseStauts stauts;
+        private readonly IBaseStatus stauts;
 
         public IsDeathTransition(ICharacterSetup chara, IStateChanger<string> stateChanger, string changeKey)
             : base(stateChanger, changeKey)
         {
-            stauts = chara.BaseStauts;
+            stauts = chara.BaseStatus;
         }
         public override bool IsTransition() => stauts.HP <= 0;
     }

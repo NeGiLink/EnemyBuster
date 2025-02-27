@@ -11,8 +11,8 @@ namespace MyAssets
         [SerializeField]
         private PlayerStatusProperty    property;
 
-        public IPlayerStauts            Stauts => property;
-        public IBaseStauts              BaseStauts => property;
+        public IPlayerStatus            Stauts => property;
+        public IBaseStatus              BaseStatus => property;
 
         private FieldOfView             fieldOfView;
         public IFieldOfView             FieldOfView => fieldOfView;
@@ -159,7 +159,7 @@ namespace MyAssets
             effectController = GetComponent<PlayerEffectController>();
             seHandler = GetComponent<SEHandler>();
             input = GetComponent<IControllerInput>();
-            keyInput = input as PlayerActionInput;
+            keyInput = GetComponent<PlayerActionInput>();
             weaponController = GetComponent<WeaponController>();
 
 

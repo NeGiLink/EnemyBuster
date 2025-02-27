@@ -8,8 +8,7 @@ namespace MyAssets
         Free,
         Target,
         Option,
-        Result,
-        Count
+        Result
     }
 
     /// <summary>
@@ -31,7 +30,7 @@ namespace MyAssets
         [SerializeField]
         private CameraTag               cameraTag;
 
-        private IAllPlayerCamera[]      allPlayerCamera = new IAllPlayerCamera[(int)CameraTag.Count];
+        private IAllPlayerCamera[]      allPlayerCamera;
 
         private IAllPlayerCamera        usePlayerCamera;
 

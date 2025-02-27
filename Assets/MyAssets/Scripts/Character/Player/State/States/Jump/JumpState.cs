@@ -9,7 +9,7 @@ namespace MyAssets
     [System.Serializable]
     public class JumpState : PlayerStateBase
     {
-        private IPlayerStauts           status;
+        private IPlayerStatus           status;
 
         private IMovement               movement;
 

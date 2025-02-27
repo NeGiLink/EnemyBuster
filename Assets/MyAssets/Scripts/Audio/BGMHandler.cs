@@ -9,7 +9,7 @@ namespace MyAssets
 
         [SerializeField]
         [Range(0f, 1f)]
-        private float               volum = 1f;
+        private float               volume = 1f;
 
         [SerializeField]
         private AudioClip[]         audioClips;
@@ -32,7 +32,7 @@ namespace MyAssets
         [SerializeField]
         private float               waitCount;
 
-        public void SetVolum(float v) {  volum = v; }
+        public void SetVolum(float v) {  volume = v; }
 
         public void SetAudioVolume(float v) { keepBGMPlayer.SetAudioVolume(v); }
         public void SetLoop(bool b) { loop = b; }

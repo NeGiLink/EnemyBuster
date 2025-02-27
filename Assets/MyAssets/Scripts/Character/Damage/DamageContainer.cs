@@ -44,7 +44,7 @@ namespace MyAssets
             invalid = v;
         }
 
-        private IBaseStauts baseStauts;
+        private IBaseStatus baseStauts;
 
         private Transform   thisTransform;
 
@@ -52,7 +52,7 @@ namespace MyAssets
 
         public void DoSetup(ICharacterSetup chara)
         {
-            baseStauts = chara.BaseStauts;
+            baseStauts = chara.BaseStatus;
             thisTransform = chara.gameObject.transform;
             fieldOfView = chara.gameObject.GetComponent<FieldOfView>();
 
@@ -122,7 +122,7 @@ namespace MyAssets
                     color = Color.red;
                     break;
             }
-            DamageTextCreator.Instance.Crate(thisTransform, power,color);
+            DamageTextCreator.Instance.Create(thisTransform, power,color);
         }
 
         public void Recoil(DamageType type, Transform t)

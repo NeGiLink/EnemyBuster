@@ -178,7 +178,7 @@ namespace MyAssets
 
         private readonly IJumpInputProvider input;
 
-        private readonly IPlayerStauts      stauts;
+        private readonly IPlayerStatus      stauts;
         public IsRollingTransition(IPlayerSetup actor, IStateChanger<string> stateChanger, string changeKey)
             : base(stateChanger, changeKey)
         {
@@ -468,7 +468,7 @@ namespace MyAssets
         private readonly IAttackInputProvider   input;
         private readonly IMoveInputProvider     moveInput;
         private readonly IGroundCheck           groundCheck;
-        private readonly IPlayerStauts          stauts;
+        private readonly IPlayerStatus          stauts;
 
         private readonly int                    useSP;
 
@@ -512,7 +512,7 @@ namespace MyAssets
 
         private readonly string                 motionName;
 
-        private readonly IPlayerStauts          stauts;
+        private readonly IPlayerStatus          stauts;
 
         private readonly int                    useSP;
 
@@ -549,7 +549,7 @@ namespace MyAssets
     {
         private readonly IAttackInputProvider   attackInputProvider;
 
-        private readonly IPlayerStauts          stauts;
+        private readonly IPlayerStatus          stauts;
 
 
         public IsPlayerChargeStartTransition(IPlayerSetup actor, IStateChanger<string> stateChanger, string changeKey)
@@ -606,12 +606,12 @@ namespace MyAssets
     public class IsDamageTransition : CharacterStateTransitionBase
     {
 
-        private readonly IBaseStauts baseStauts;
+        private readonly IBaseStatus baseStauts;
 
         public IsDamageTransition(IPlayerSetup actor, IStateChanger<string> stateChanger, string changeKey)
             : base(stateChanger, changeKey)
         {
-            baseStauts = actor.BaseStauts;
+            baseStauts = actor.BaseStatus;
         }
         public override bool IsTransition() => baseStauts.MaxStoredDamage <= baseStauts.StoredDamage;
     }

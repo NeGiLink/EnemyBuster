@@ -19,7 +19,7 @@ namespace MyAssets
 
         private IGuardTrigger guardTrigger;
 
-        private IPlayerStauts stauts;
+        private IPlayerStatus stauts;
 
         private PlayerEffectController effectController;
 

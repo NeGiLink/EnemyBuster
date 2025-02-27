@@ -11,6 +11,12 @@ namespace MyAssets
         [SerializeField]
         private Transform           thisTransform;
 
+        [SerializeField]
+        private float               keyRotationSpeed = 600f;
+
+        [SerializeField]
+        private float               controllerRotationSpeed = 1200f;
+
         private Quaternion          targetRotation;
 
         private IMoveInputProvider  moveInput;
@@ -52,14 +58,14 @@ namespace MyAssets
                 switch (InputManager.GetDeviceInput())
                 {
                     case DeviceInput.Key:
-                        rotationSpeed = 600 * Time.deltaTime;
+                        rotationSpeed = keyRotationSpeed * Time.deltaTime;
                         if (velocity.CurrentVelocity.magnitude > 0.5f)
                         {
                             targetRotation = Quaternion.LookRotation(velocity.CurrentVelocity, Vector3.up);
                         }
                         break;
                     case DeviceInput.Controller:
-                        rotationSpeed = 1200 * Time.deltaTime;
+                        rotationSpeed = controllerRotationSpeed * Time.deltaTime;
                         if (velocity.CurrentVelocity.magnitude > 0.1f)
                         {
                             targetRotation = Quaternion.LookRotation(velocity.CurrentVelocity, Vector3.up);

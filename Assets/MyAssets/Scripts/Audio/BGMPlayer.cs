@@ -1,28 +1,27 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace MyAssets
 {
     public class BGMPlayer : MonoBehaviour
     {
-        private AudioSource audioSource;
+        private AudioSource         audioSource;
 
         [SerializeField]
-        private AudioClip clip;
+        private AudioClip           clip;
 
         [SerializeField]
         [Range(0f, 1f)]
-        private float volum;
+        private float               volume;
         [SerializeField]
-        private bool loop;
+        private bool                loop;
         [SerializeField]
-        private bool waitPlay;
+        private bool                waitPlay;
         [SerializeField]
-        private float waitCount;
+        private float               waitCount;
 
         public void SetAudioClip(AudioClip c) { clip = c; }
-        public void SetVolum(float v) {  volum = v; }
+        public void SetVolum(float v) {  volume = v; }
         public void SetAudioVolume(float v) { audioSource.volume = v; }
         public void SetLoop(bool b) { loop = b; }
         public void SetWaitPlay(bool w) {  waitPlay = w; }
@@ -36,7 +35,7 @@ namespace MyAssets
         private void Start()
         {
             audioSource.clip = clip;
-            audioSource.volume = volum;
+            audioSource.volume = volume;
             if (loop)
             {
                 audioSource.loop = loop;

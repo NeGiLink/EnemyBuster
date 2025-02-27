@@ -101,7 +101,7 @@ namespace MyAssets
 
         private int GetPower()
         {
-            return attackObject.Power + (int)slime.BaseStauts.BasePower;
+            return attackObject.Power + (int)slime.BaseStatus.BasePower;
         }
 
         private void OnTriggerEnter(Collider other)

@@ -17,7 +17,7 @@ namespace MyAssets
 
         private IBullTankAnimator       animator;
 
-        private IBaseStauts             stauts;
+        private IBaseStatus             stauts;
 
         [SerializeField]
         private float                   highMoveSpeed;
@@ -63,7 +63,7 @@ namespace MyAssets
             velocity = actor.Velocity;
             fieldOfView = actor.gameObject.GetComponent<FieldOfView>();
             animator = actor.BullTankAnimator;
-            stauts = actor.BaseStauts;
+            stauts = actor.BaseStatus;
         }
 
         public override void DoStart()

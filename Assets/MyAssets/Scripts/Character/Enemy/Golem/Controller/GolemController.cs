@@ -9,7 +9,7 @@ namespace MyAssets
     {
         [SerializeField]
         private GolemStatusProperty         property;
-        public IBaseStauts                  BaseStauts => property;
+        public IBaseStatus                  BaseStatus => property;
 
         [SerializeField]
         private Movement                    movement;
