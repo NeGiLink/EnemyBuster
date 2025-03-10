@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -19,11 +20,6 @@ namespace MyAssets
         //選択してる場所が分かる画像を有効にするかしないかのフラグ
         [SerializeField]
         private bool            activateSelect = true;
-        //ボタン操作が横方向か縦方向か設定するフラグ
-        [SerializeField]
-        private bool            horizontal;
-        //ボタンが複数あるか1つしかないか判定する
-        private bool            buttonIsArray = false;
         //画像の大きさに設定するかボタンのサイズに合わせるかのフラグ
         [SerializeField]
         private bool            nativeSize = true;
@@ -69,14 +65,6 @@ namespace MyAssets
 
         private void Start()
         {
-            if (buttons.Length > 1)
-            {
-                buttonIsArray = true;
-            }
-            else
-            {
-                buttonIsArray = false;
-            }
             decideFlag = false;
             selectIndex = 0;
             SetSelectImagePosition(selectIndex);
@@ -84,6 +72,7 @@ namespace MyAssets
         private void SetSelectImagePosition(int index)
         {
             if (!activateSelect || selectImage == null) { return; }
+            if(index < 0) {  return; }
             if (!selectsImage)
             {
                 Vector2 pos = hovers[index].RectTransform.anchoredPosition;
@@ -153,46 +142,71 @@ namespace MyAssets
         private void GamePadInput()
         {
             float select;
-            if (horizontal)
+            if(InputUIAction.Instance.Select.x != 0 || InputUIAction.Instance.Select.y != 0)
             {
-                select = InputUIAction.Instance.Select.x;
-            }
-            else
-            {
-                select = -InputUIAction.Instance.Select.y;
-            }
-            SelectInput(select);
-        }
-
-        private void SelectInput(float action)
-        {
-            if (buttonIsArray)
-            {
-                if (action < 0)
-                {
-                    selectIndex--;
-                    if (selectIndex < 0)
-                    {
-                        selectIndex = buttons.Length - 1;
-                    }
-                    seHandler.Play((int)ButtonSETag.Select);
-                    SetSelectImagePosition(selectIndex);
-                }
-                else if (action > 0)
-                {
-                    selectIndex++;
-                    if (selectIndex >= buttons.Length)
-                    {
-                        selectIndex = 0;
-                    }
-                    SetSelectImagePosition(selectIndex);
-                    seHandler.Play((int)ButtonSETag.Select);
-                }
+                Vector2 selectVec2 = InputUIAction.Instance.Select;
+                SelectVec2Input(selectVec2);
             }
             if (InputUIAction.Instance.Decide)
             {
                 EnumeratorDecide();
             }
+        }
+
+        private void SelectVec2Input(Vector2 select)
+        {
+            int currentIndex = selectIndex;
+            List<int> selectIndexs = new List<int>();
+
+            int decideIndex = -1;
+            for (int i = 0;i < hovers.Length; i++)
+            {
+                if(select.x > 0)
+                {
+                    if(hovers[currentIndex].RectTransform.anchoredPosition.x < hovers[i].RectTransform.anchoredPosition.x)
+                    {
+                        decideIndex = CheckDecideIndex(currentIndex, decideIndex, i);
+                    }
+                }
+                else if (select.x < 0)
+                {
+                    if (hovers[currentIndex].RectTransform.anchoredPosition.x > hovers[i].RectTransform.anchoredPosition.x)
+                    {
+                        decideIndex = CheckDecideIndex(currentIndex, decideIndex, i);
+                    }
+                }
+
+                if (select.y > 0)
+                {
+                    if (hovers[currentIndex].RectTransform.anchoredPosition.y < hovers[i].RectTransform.anchoredPosition.y)
+                    {
+                        decideIndex = CheckDecideIndex(currentIndex, decideIndex, i);
+                    }
+                }
+                else if (select.y < 0)
+                {
+                    if (hovers[currentIndex].RectTransform.anchoredPosition.y > hovers[i].RectTransform.anchoredPosition.y)
+                    {
+                        decideIndex = CheckDecideIndex(currentIndex, decideIndex, i);
+                    }
+                }
+            }
+            if(decideIndex < 0) { return; }
+            selectIndex = decideIndex;
+            SetSelectImagePosition(selectIndex);
+        }
+
+        private int CheckDecideIndex(int currentNum,int decideNum,int newNum)
+        {
+            if(decideNum < 0) { return newNum; }
+            Vector2 currentSub = hovers[currentNum].RectTransform.anchoredPosition - hovers[decideNum].RectTransform.anchoredPosition;
+            Vector2 newSub = hovers[currentNum].RectTransform.anchoredPosition - hovers[newNum].RectTransform.anchoredPosition;
+            
+            if(Mathf.Abs(currentSub.magnitude) > Mathf.Abs(newSub.magnitude))
+            {
+                return newNum;
+            }
+            return decideNum;
         }
 
         private void EnumeratorDecide()

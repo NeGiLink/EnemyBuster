@@ -21,6 +21,10 @@ namespace MyAssets
     [System.Serializable]
     public class FirstAttackState : PlayerStateBase
     {
+        private IPlayerStatus           status;
+
+        private IMoveInputProvider      input;
+
         private IVelocityComponent      velocity;
 
         private IMovement               movement;
@@ -75,6 +79,8 @@ namespace MyAssets
         public override void DoSetup(IPlayerSetup actor)
         {
             base.DoSetup(actor);
+            status = actor.Stauts;
+            input = actor.MoveInput;
             velocity = actor.Velocity;
             movement = actor.Movement;
             animator = actor.PlayerAnimator;
@@ -102,6 +108,16 @@ namespace MyAssets
         public override void DoUpdate(float time)
         {
             sword.EnabledCollider(startColliderCount, endColliderCount, false);
+
+            if (status.SP > 0 && input.Dash > 0 && input.IsMove)
+            {
+                status.DecreaseSP(1);
+            }
+            else
+            {
+                status.RecoverySP(1);
+            }
+
             base.DoUpdate(time);
         }
 
@@ -132,6 +148,10 @@ namespace MyAssets
     [System.Serializable]
     public class SecondAttackState : PlayerStateBase
     {
+        private IPlayerStatus               status;
+
+        private IMoveInputProvider          input;
+
         private IVelocityComponent          velocity;
 
         private IMovement                   movement;
@@ -183,6 +203,8 @@ namespace MyAssets
         public override void DoSetup(IPlayerSetup actor)
         {
             base.DoSetup(actor);
+            status = actor.Stauts;
+            input = actor.MoveInput;
             velocity = actor.Velocity;
             animator = actor.PlayerAnimator;
             transform = actor.gameObject.transform;
@@ -211,6 +233,14 @@ namespace MyAssets
         public override void DoUpdate(float time)
         {
             sword.EnabledCollider(startColliderCount, endColliderCount, false);
+            if (status.SP > 0 && input.Dash > 0 && input.IsMove)
+            {
+                status.DecreaseSP(1);
+            }
+            else
+            {
+                status.RecoverySP(1);
+            }
             base.DoUpdate(time);
         }
 
@@ -369,6 +399,10 @@ namespace MyAssets
     [System.Serializable]
     public class ThirdAttackState : PlayerStateBase
     {
+        private IPlayerStatus               status;
+
+        private IMoveInputProvider          input;
+
         private IVelocityComponent          velocity;
 
         private IMovement                   movement;
@@ -418,6 +452,8 @@ namespace MyAssets
         public override void DoSetup(IPlayerSetup actor)
         {
             base.DoSetup(actor);
+            status = actor.Stauts;
+            input = actor.MoveInput;
             velocity = actor.Velocity;
             animator = actor.PlayerAnimator;
             movement = actor.Movement;
@@ -446,6 +482,14 @@ namespace MyAssets
         public override void DoUpdate(float time)
         {
             sword.EnabledCollider(startColliderCount, endColliderCount,false);
+            if (status.SP > 0 && input.Dash > 0 && input.IsMove)
+            {
+                status.DecreaseSP(1);
+            }
+            else
+            {
+                status.RecoverySP(1);
+            }
             base.DoUpdate(time);
         }
 
