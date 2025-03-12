@@ -192,6 +192,7 @@ namespace MyAssets
                 }
             }
             if(decideIndex < 0) { return; }
+            seHandler.Play((int)ButtonSETag.Select);
             selectIndex = decideIndex;
             SetSelectImagePosition(selectIndex);
         }
