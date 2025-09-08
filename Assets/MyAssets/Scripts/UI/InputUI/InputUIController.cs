@@ -13,8 +13,10 @@ namespace MyAssets
      */
     public class InputUIController : MonoBehaviour
     {
+        //アクションボタンのUI
         [SerializeField]
         private InputButtonUI[]         inputButtonUIs;
+        //入力アクション
         [SerializeField]
         private InputActionReference[]  inputActions;
 
@@ -22,31 +24,34 @@ namespace MyAssets
         {
             inputButtonUIs = GetComponentsInChildren<InputButtonUI>();
         }
-        //UIのコールバックは表示にセット
-        private void OnEnable()
-        {
-
-            inputActions[(int)InputType.MouseLeft].action.performed += inputButtonUIs[(int)InputType.MouseLeft].PressDown;
-            inputActions[(int)InputType.MouseLeft].action.Enable();
-
-        }
-        //非表示時に解放
-        private void OnDisable()
-        {
-            inputActions[(int)InputType.MouseLeft].action.performed -= inputButtonUIs[(int)InputType.MouseLeft].PressDown;
-            inputActions[(int)InputType.MouseLeft].action.Disable();
-        }
 
         private void Update()
         {
-            if(inputActions[(int)InputType.MouseRight] == null) { return; }
-            if(inputActions[(int)InputType.MouseRight].action.ReadValue<float>() > 0)
+            //ゲームが停止しているときは処理しない
+            if (Time.timeScale < 1.0f) { return; }
+            //右クリックと左クリックの処理
+            if (inputActions[(int)InputType.MouseRight])
             {
-                inputButtonUIs[(int)InputType.MouseRight].Press();
+                if(inputActions[(int)InputType.MouseRight].action.ReadValue<float>() > 0)
+                {
+                    inputButtonUIs[(int)InputType.MouseRight].Press();
+                }
+                else
+                {
+                    inputButtonUIs[(int)InputType.MouseRight].PressEnd();
+                }
             }
-            else
+
+            if (inputActions[(int)InputType.MouseLeft])
             {
-                inputButtonUIs[(int)InputType.MouseRight].PressEnd();
+                if (inputActions[(int)InputType.MouseLeft].action.ReadValue<float>() > 0)
+                {
+                    inputButtonUIs[(int)InputType.MouseLeft].Press();
+                }
+                else
+                {
+                    inputButtonUIs[(int)InputType.MouseLeft].PressEnd();
+                }
             }
         }
     }
